@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>CDN example</title>
+    <link rel="stylesheet" href="../dist/cdn/css/kendo-react-button.css" type="text/css" media="all" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.6/react-dom.js"></script>
+    <script src="../dist/cdn/js/kendo-react-component.js"></script>
+  </head>
+  <body>
+    <div id="content">
+    </div>
+
+    <script type="text/javascript">
+      var App = React.createClass({displayName: 'App',
+        render: function() {
+          return (
+            React.createElement(KendoReactComponent, {  })
+          );
+        }
+      });
+
+      ReactDOM.render(
+        React.createElement(App, null),
+        document.getElementById('content')
+      );
+    </script>
+  </body>
+</html>
