@@ -5,7 +5,8 @@
   "main": "dist/npm/js/index.js",
   "scripts": {
     "test": "gulp test",
-    "start": "gulp start"
+    "start": "gulp start",
+    "lint": "echo lint stub;"
   },
   "keywords": [
     "Kendo UI",
@@ -17,14 +18,36 @@
   },
   "devDependencies": {
     "cz-conventional-changelog": "^1.1.5",
+    "ghooks": "^1.0.3",
     "gulp": "3.9.0",
-    "kendo-react-tasks": "telerik/kendo-react-tasks#master"
+    "kendo-react-tasks": "telerik/kendo-react-tasks#master",
+    "validate-commit-msg": "^1.1.1"
   },
   "author": "Telerik",
   "license": "Apache-2.0",
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
+    },
+    "ghooks": {
+      "pre-commit": "npm run lint",
+      "commit-msg": "validate-commit-msg",
+      "pre-push": "npm run test"
+    },
+    "validate-commit-msg": {
+      "types": [
+        "feat",
+        "fix",
+        "docs",
+        "style",
+        "refactor",
+        "perf",
+        "test",
+        "chore",
+        "revert"
+      ],
+      "warnOnFail": false,
+      "maxSubjectLength": 100
     }
   }
 }
