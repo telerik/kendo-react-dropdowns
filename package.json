@@ -16,9 +16,15 @@
     "react-dom": "~0.14.3"
   },
   "devDependencies": {
-    "kendo-react-tasks": "telerik/kendo-react-tasks#master",
-    "gulp": "3.9.0"
+    "cz-conventional-changelog": "^1.1.5",
+    "gulp": "3.9.0",
+    "kendo-react-tasks": "telerik/kendo-react-tasks#master"
   },
   "author": "Telerik",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }

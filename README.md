@@ -1,3 +1,5 @@
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+
 A starter repository for Kendo UI React components, which provides the basic directory structure and dependencies.
 
 ## Structure
