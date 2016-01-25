@@ -17,8 +17,9 @@ A starter repository for Kendo UI React components, which provides the basic dir
 
 ## Usage
 
-- Fork the repository;
-- Change the package name/description in `package.json`;
+- Fork the repository to an appropriately named new one;
+- Fork the [theme repository](https://github.com/telerik/kendo-theme-default-base), too.
+- Change the package name/description in `package.json`; change the reference to the theme package;
 - Change the library name in `gulpfile.js`;
 - Change the `src/kendo-component.jsx` file name to something more meaningful;
 - Delete the current contents and put something nice in `README.md`.
