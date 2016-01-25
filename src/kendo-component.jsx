@@ -1,11 +1,11 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import util from './util'
+import util from './util';
 
-import styles from 'kendo-theme-default-base/styles/main';
+import styles from '@telerik/kendo-theme-default-base/styles/main';
 
 export default function KendoComponent(props) {
-    return (
-        <div {...props} className={styles.componentClass}>A Kendo UI react component{util()} </div>
-    )
+  return (
+    <div {...props} className={styles.componentClass}>A Kendo UI react component{util()} </div>
+  );
 }

@@ -1,0 +1,3 @@
+{
+  "extends": "./node_modules/@telerik/eslint-config/react.js"
+}

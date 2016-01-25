@@ -7,7 +7,7 @@
   "scripts": {
     "test": "gulp test",
     "start": "gulp start",
-    "lint": "echo lint stub;"
+    "lint": "gulp lint"
   },
   "keywords": [
     "Kendo UI",
@@ -18,11 +18,12 @@
     "react-dom": "~0.14.3"
   },
   "devDependencies": {
+    "@telerik/eslint-config": "telerik/eslint-config-kendo#master",
     "cz-conventional-changelog": "^1.1.5",
     "ghooks": "^1.0.3",
     "gulp": "3.9.0",
-    "kendo-react-tasks": "telerik/kendo-react-tasks#master",
-    "kendo-theme-default-base": "telerik/kendo-theme-default-base#master",
+    "@telerik/kendo-react-tasks": "telerik/kendo-react-tasks#master",
+    "@telerik/kendo-theme-default-base": "telerik/kendo-theme-default-base#master",
     "validate-commit-msg": "^1.1.1"
   },
   "author": "Telerik",
