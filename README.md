@@ -17,12 +17,19 @@ A starter repository for Kendo UI React components, which provides the basic dir
 
 ## Usage
 
-- Fork the repository to an appropriately named new one;
-- Fork the [theme repository](https://github.com/telerik/kendo-theme-default-base), too.
-- Change the package name/description in `package.json`; change the reference to the theme package;
-- Change the library name in `gulpfile.js`;
-- Change the `src/kendo-component.jsx` file name to something more meaningful;
-- Delete the current contents and put something nice in `README.md`.
+Follow these steps to build a component called *MyComponent*:
+
+1. Clone this repository via `git clone git@github.com:telerik/kendo-react-component-base.git kendo-react-mycomponent`
+1. Get into the directory via `cd kendo-react-mycomponent`
+1. Rename the package in `package.json`: `"name": "kendo-react-mycomponent"`
+1. Use the package name in `gulpfile.js`: 'kendo-react-mycomponent'
+1. Rename the file `src/kendo-component.jsx` to `src/kendo-mycomponent.jsx`
+1. In `src/`, `test/` and `examples/`:
+   1. Replace all occurrences of `KendoComponent` with `KendoMyComponent`
+   1. Replace all occurrences of `kendo-component` with `kendo-mycomponent`
+1. Run `npm install`
+1. Check that the new component runs with `gulp start`
+1. Replace the contents of `README.md` with a nice description of the component
 
 ## Gulp tasks
 
