@@ -31,6 +31,13 @@ Follow these steps to build a component called *MyComponent*:
 1. Check that the new component runs with `gulp start`
 1. Replace the contents of `README.md` with a nice description of the component
 
+To publish the work internally (and alleviate the risk of your machine burning down along with your work):
+
+1. Create a new repo in the telerik organization (named kendo-react-mycomponent).
+1. Rename the `origin` remote in the cloned repo to `base`, via `git remote rename origin base`
+1. Add the newly-created repo named as `origin` via `git remote add origin git@github.com:telerik/kendo-react-mycomponent.git`
+1. Push the master branch to the repo, using `git push -u origin master`
+
 ## Gulp tasks
 
 - `build-npm-package` - builds the scripts and styles in `dist/npm` in CommonJS format;
