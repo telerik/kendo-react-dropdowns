@@ -27,6 +27,15 @@ Follow these steps to build a component called *MyComponent*:
 1. In `src/`, `test/` and `examples/`:
    1. Replace all occurrences of `KendoComponent` with `KendoMyComponent`
    1. Replace all occurrences of `kendo-component` with `kendo-mycomponent`
+   
+   ##### For Linux lovers use 'find + sed' to replace the names
+   ```
+   find ./ -name '*.jsx' -exec sed -i 's/KendoComponent/KendoMyComponent/g' {} \;
+   find ./ -not \( -path ./node_modules -prune \) -name '*.jsx' -exec sed -i 's/kendo-component/kendo-mycomponent/g' {} \;
+   find ./ -not \( -path ./node_modules -prune \) -name '*.html' -exec sed -i 's/KendoReactComponent/KendoMyComponent/g' {} \;
+   find ./ -not \( -path ./node_modules -prune \) -name '*.html' -exec sed -i 's/kendo-react-component/kendo-react-mycomponent/g' {} \;
+   ```
+   
 1. Run `npm install`
 1. Check that the new component runs with `gulp start`
 1. Replace the contents of `README.md` with a nice description of the component
