@@ -30,10 +30,8 @@ Follow these steps to build a component called *MyComponent*:
    
    ##### For Linux lovers use 'find + sed' to replace the names
    ```
-   find ./ -name '*.jsx' -exec sed -i 's/KendoComponent/KendoMyComponent/g' {} \;
-   find ./ -not \( -path ./node_modules -prune \) -name '*.jsx' -exec sed -i 's/kendo-component/kendo-mycomponent/g' {} \;
-   find ./ -not \( -path ./node_modules -prune \) -name '*.html' -exec sed -i 's/KendoReactComponent/KendoMyComponent/g' {} \;
-   find ./ -not \( -path ./node_modules -prune \) -name '*.html' -exec sed -i 's/kendo-react-component/kendo-react-mycomponent/g' {} \;
+   find ./ -not \( -path ./node_modules -prune \) -name '*.jsx' -exec sed -i 's/KendoComponent/KendoMyComponent/g' {} \; -exec sed -i 's/kendo-component/kendo-mycomponent/g' {} \;
+   find ./ -not \( -path ./node_modules -prune \) -name '*.html' -exec sed -i 's/KendoReactComponent/KendoMyComponent/g' {} \; -exec sed -i 's/kendo-react-component/kendo-react-mycomponent/g' {} \;
    ```
    
 1. Run `npm install`
