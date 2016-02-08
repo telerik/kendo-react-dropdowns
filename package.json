@@ -1,5 +1,5 @@
 {
-  "name": "kendo-react-component-base",
+  "name": "@telerik/kendo-react-component-base",
   "version": "0.1.0",
   "description": "Kendo UI React component starter template",
   "repository": "telerik/kendo-react-component-base",
