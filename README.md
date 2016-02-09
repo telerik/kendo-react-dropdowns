@@ -23,15 +23,15 @@ Follow these steps to build a component called *MyComponent*:
 1. Get into the directory via `cd kendo-react-mycomponent`
 1. Rename the package in `package.json`: `"name": "kendo-react-mycomponent"`
 1. Use the package name in `gulpfile.js`: 'kendo-react-mycomponent'
-1. Rename the file `src/kendo-component.jsx` to `src/kendo-mycomponent.jsx`
+1. Rename the file `src/kendo-component.jsx` to `src/mycomponent.jsx`
 1. In `src/`, `test/` and `examples/`:
-   1. Replace all occurrences of `KendoComponent` with `KendoMyComponent`
-   1. Replace all occurrences of `kendo-component` with `kendo-mycomponent`
+   1. Replace all occurrences of `KendoComponent` with `MyComponent`
+   1. Replace all occurrences of `kendo-component` with `mycomponent`
    
    ##### For Linux lovers use 'find + sed' to replace the names
    ```
-   find ./ -not \( -path ./node_modules -prune \) -name '*.jsx' -exec sed -i 's/KendoComponent/KendoMyComponent/g' {} \; -exec sed -i 's/kendo-component/kendo-mycomponent/g' {} \;
-   find ./ -not \( -path ./node_modules -prune \) -name '*.html' -exec sed -i 's/KendoReactComponent/KendoMyComponent/g' {} \; -exec sed -i 's/kendo-react-component/kendo-react-mycomponent/g' {} \;
+   find ./ -not \( -path ./node_modules -prune \) -name '*.jsx' -exec sed -i 's/KendoComponent/MyComponent/g' {} \; -exec sed -i 's/kendo-component/mycomponent/g' {} \;
+   find ./ -not \( -path ./node_modules -prune \) -name '*.html' -exec sed -i 's/KendoReactComponent/MyComponent/g' {} \; -exec sed -i 's/kendo-react-component/kendo-react-mycomponent/g' {} \;
    ```
    
 1. Run `npm install`
