@@ -7,7 +7,7 @@ A starter repository for Kendo UI React components, which provides the basic dir
 - The `src` directory contains the component source code. All files should be have the `.jsx` extensions so that the build scripts may pick them.
 - The `src/bundle.jsx` file should import and re-export all public components of the package. It is used for the `build-cdn` task.
 - The `src/index.jsx` is the main entry point for the NPM package (as specified by the `package.json`). The `build-npm-package` transpiles it to `dist/npm/js/index.js`;
-- The `src/kendo-component.jsx` file is the actual sample component implementation.
+- The `src/kendo-autocomplete.jsx` file is the actual sample component implementation.
 - The `src/util.jsx` is an optional example of an additional file - you may remove it if unnecessary.
 
 - The `examples` directory hosts the demos for the component. As a bare minimum, the component should have a `basic usage` and a `CDN` example.  The `CDN` example should work as expected after the `build-cdn` task has been run.
@@ -23,14 +23,14 @@ Follow these steps to build a component called *MyComponent*:
 1. Get into the directory via `cd kendo-react-mycomponent`
 1. Rename the package in `package.json`: `"name": "kendo-react-mycomponent"`
 1. Use the package name in `gulpfile.js`: 'kendo-react-mycomponent'
-1. Rename the file `src/kendo-component.jsx` to `src/mycomponent.jsx`
+1. Rename the file `src/kendo-autocomplete.jsx` to `src/mycomponent.jsx`
 1. In `src/`, `test/` and `examples/`:
-   1. Replace all occurrences of `KendoComponent` with `MyComponent`
-   1. Replace all occurrences of `kendo-component` with `mycomponent`
+   1. Replace all occurrences of `KendoAutoComplete` with `MyComponent`
+   1. Replace all occurrences of `kendo-autocomplete` with `mycomponent`
    
    ##### For Linux lovers use 'find + sed' to replace the names
    ```
-   find ./ -not \( -path ./node_modules -prune \) -name '*.jsx' -exec sed -i 's/KendoComponent/MyComponent/g' {} \; -exec sed -i 's/kendo-component/mycomponent/g' {} \;
+   find ./ -not \( -path ./node_modules -prune \) -name '*.jsx' -exec sed -i 's/KendoAutoComplete/MyComponent/g' {} \; -exec sed -i 's/kendo-autocomplete/mycomponent/g' {} \;
    find ./ -not \( -path ./node_modules -prune \) -name '*.html' -exec sed -i 's/KendoReactComponent/MyComponent/g' {} \; -exec sed -i 's/kendo-react-component/kendo-react-mycomponent/g' {} \;
    ```
    

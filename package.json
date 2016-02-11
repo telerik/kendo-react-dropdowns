@@ -1,7 +1,7 @@
 {
-  "name": "@telerik/kendo-react-component-base",
+  "name": "@telerik/kendo-react-dropdowns",
   "version": "0.1.0",
-  "description": "Kendo UI React component starter template",
+  "description": "Kendo UI React dropdowns",
   "repository": "telerik/kendo-react-component-base",
   "main": "dist/npm/js/index.js",
   "scripts": {
@@ -15,7 +15,8 @@
   ],
   "dependencies": {
     "react": "~0.14.3",
-    "react-dom": "~0.14.3"
+    "react-dom": "~0.14.3",
+    "classnames": "^2.1.5"
   },
   "devDependencies": {
     "@telerik/eslint-config": "telerik/eslint-config-kendo#master",

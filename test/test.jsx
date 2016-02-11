@@ -1,14 +1,16 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import KendoComponent from '../src/kendo-component';
+import KendoListItem from '../src/kendo-listitem';
+//import KendoList from '../src/kendo-list';
 
-describe('KendoComponent', () => {
-  let result;
+describe('KendoAutoComplete', () => {
+    let result;
+    let dataItem = { text: "foo", index: 1 };
 
-  beforeEach(() => { /* test setup */ });
+    beforeEach(() => { /* test setup */ });
 
-  it('should render a div', () => {
-    result = shallow(<KendoComponent />);
-    expect(result.type()).toEqual('div');
-  });
+    it('should render a li', () => {
+        result = shallow(<KendoListItem dataItem={dataItem} />);
+        expect(result.type()).toEqual('li');
+    });
 });

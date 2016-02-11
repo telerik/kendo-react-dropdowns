@@ -1,3 +1,3 @@
-import KendoComponent from './kendo-component';
+import KendoAutoComplete from './kendo-autocomplete';
 
-module.exports = KendoComponent;
+module.exports = KendoAutoComplete;
