@@ -3,17 +3,28 @@ import KendoListItem from './kendo-listitem';
 //import styles from '@telerik/kendo-theme-default-base/styles/main';
 
 export default class KendoList extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: this.props.value || null
+        };
+    }
+    clickHandler(dataItem) {
+        this.setState({ value: dataItem.value });
     }
     renderItems() {
         const renderer = this.props.renderer;
-        const selectedIndex = this.props.selectedIndex;
-        return this.props.data.map((item, index) => {
+        const value = this.state.value;
+        return this.props.data.map(item => (
             //TODO: assign unique key
-            const selected = selectedIndex === index;
-            return <KendoListItem dataItem={item} key={item.text} renderer={renderer} selected={selected} />;
-        });
+            <KendoListItem
+                dataItem={item}
+                key={item.text}
+                onClick={this.clickHandler.bind(this)}
+                renderer={renderer}
+                selected={item.value === value}
+            />
+        ));
     }
     render() {
         return (
@@ -26,5 +37,8 @@ KendoList.propTypes = {
     //dataItem: React.PropTypes.object,
     data: React.PropTypes.arrayOf(React.PropTypes.object),
     renderer: React.PropTypes.func,
-    selectedIndex: React.PropTypes.number
+    value: React.PropTypes.oneOfType([
+        React.PropTypes.string,
+        React.PropTypes.number
+    ])
 };

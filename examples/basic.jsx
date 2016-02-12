@@ -4,12 +4,12 @@ import ReactDOM from 'react-dom';
 import KendoList from '../src/kendo-list';
 
 const foo = (dataItem) => {
-    return dataItem.value;
+    return dataItem.value + " custom template";
 };
 
 const data = [ { text: "foo1", value: 1 }, { text: "foo2", value: 2 } ];
 
 ReactDOM.render(
-  <KendoList data={data} selectedIndex={1}/>,
+  <KendoList data={data} value={1} />,
   document.getElementById('app')
 );
