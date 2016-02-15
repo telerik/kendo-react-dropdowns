@@ -11,6 +11,7 @@ export default class KendoList extends React.Component {
     }
     clickHandler(dataItem) {
         this.setState({ value: dataItem.value });
+        this.props.onChange(dataItem);
     }
     renderItems() {
         const renderer = this.props.renderer;
@@ -36,6 +37,7 @@ export default class KendoList extends React.Component {
 KendoList.propTypes = {
     //dataItem: React.PropTypes.object,
     data: React.PropTypes.arrayOf(React.PropTypes.object),
+    onChange: React.PropTypes.func,
     renderer: React.PropTypes.func,
     value: React.PropTypes.oneOfType([
         React.PropTypes.string,
