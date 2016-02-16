@@ -3,8 +3,9 @@ import classNames from 'classnames';
 //import styles from '@telerik/kendo-theme-default-base/styles/main';
 
 export default class KendoListItem extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        this.clickAction = this.clickHandler.bind(this);
     }
     renderer() {
         const dataItem = this.props.dataItem;
@@ -14,9 +15,9 @@ export default class KendoListItem extends React.Component {
             return renderer(dataItem);
         }
 
-        return dataItem.text;
+        return dataItem[this.props.textField];
     }
-    handleClick() {
+    clickHandler() {
         this.props.onClick(this.props.dataItem);
     }
     render() {
@@ -26,7 +27,7 @@ export default class KendoListItem extends React.Component {
         });
         const content = this.renderer();
         return (
-            <li className={itemClasses} onClick={this.handleClick.bind(this)}>{content}</li>
+            <li className={itemClasses} onClick={this.clickAction}>{content}</li>
         );
     }
 }
@@ -35,5 +36,6 @@ KendoListItem.propTypes = {
     dataItem: React.PropTypes.object, //eslint-disable-line react/forbid-prop-types
     onClick: React.PropTypes.func,
     renderer: React.PropTypes.func,
-    selected: React.PropTypes.bool
+    selected: React.PropTypes.bool,
+    textField: React.PropTypes.string
 };

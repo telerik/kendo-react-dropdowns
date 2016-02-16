@@ -55,8 +55,4 @@ describe('KendoList', () => {
         expect(result.find(KendoListItem).length).toEqual(2);
     });
 
-    it('should have a value state', () => {
-        result = shallow(<KendoList data={data} value={1} />);
-        expect(result.state("value")).toEqual(1);
-    });
 });

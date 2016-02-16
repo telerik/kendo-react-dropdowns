@@ -5,25 +5,25 @@ import KendoListItem from './kendo-listitem';
 export default class KendoList extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            value: this.props.value || null
-        };
+        this.clickAction = this.clickHandler.bind(this);
     }
     clickHandler(dataItem) {
-        this.setState({ value: dataItem.value });
-        this.props.onChange(dataItem);
+        this.props.onClick(dataItem);
     }
     renderItems() {
         const renderer = this.props.renderer;
-        const value = this.state.value;
+        const value = this.props.value || {};
+        const textField = this.props.textField;
+        const valueField = this.props.valueField;
         return this.props.data.map(item => (
             //TODO: assign unique key
             <KendoListItem
                 dataItem={item}
                 key={item.text}
-                onClick={this.clickHandler.bind(this)}
+                onClick={this.clickAction}
                 renderer={renderer}
-                selected={item.value === value}
+                selected={item[valueField] === value}
+                textField={textField}
             />
         ));
     }
@@ -35,12 +35,13 @@ export default class KendoList extends React.Component {
 }
 
 KendoList.propTypes = {
-    //dataItem: React.PropTypes.object,
     data: React.PropTypes.arrayOf(React.PropTypes.object),
-    onChange: React.PropTypes.func,
+    onClick: React.PropTypes.func,
     renderer: React.PropTypes.func,
+    textField: React.PropTypes.string,
     value: React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.number
-    ])
+        React.PropTypes.number,
+        React.PropTypes.string
+    ]),
+    valueField: React.PropTypes.string
 };
