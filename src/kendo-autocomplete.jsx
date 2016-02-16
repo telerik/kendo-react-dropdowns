@@ -22,11 +22,29 @@ export default class KendoAutoComplete extends React.Component {
         return value;
     }
     searchHandler(text) {
-        this.props.onSearch(text);
+        let searchText;
+        const separator = this.props.separator;
+        if (separator) {
+            searchText = text.split(separator);
+            searchText = searchText[searchText.length - 1];
+        } else {
+            searchText = text;
+        }
+
+        this.props.onSearch(searchText);
         this.setState( { value: text } );
     }
     changeHandler(dataItem) {
-        this.setState( { value: dataItem[this.props.textField] } );
+        const separator = this.props.separator;
+        const oldValue = this.state.value;
+        if (!separator || !oldValue) {
+            this.setState( { value: dataItem[this.props.textField] + separator } );
+        } else {
+            let newValue;
+            newValue = this.state.value.split(separator);
+            newValue[newValue.length - 1] = dataItem[this.props.textField];
+            this.setState( { value: newValue.join(separator) + separator } );
+        }
     }
     render() {
         const listProps = {
@@ -50,6 +68,7 @@ KendoAutoComplete.propTypes = {
     data: React.PropTypes.arrayOf(React.PropTypes.object),
     itemRenderer: React.PropTypes.func,
     onSearch: React.PropTypes.func,
+    separator: React.PropTypes.string,
     textField: React.PropTypes.string,
     value: React.PropTypes.string,
     valueRenderer: React.PropTypes.func

@@ -32,7 +32,7 @@ const foo = (text) => {
 
 const render = (data) => {
     ReactDOM.render(
-        <KendoAutoComplete textField="text" onSearch={foo} data={data} />,
+        <KendoAutoComplete separator=", " textField="text" onSearch={foo} data={data} />,
         document.getElementById('app')
     );
 }

@@ -2,6 +2,8 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import KendoListItem from '../src/kendo-listitem';
 import KendoList from '../src/kendo-list';
+import KendoAutoComplete from '../src/kendo-autocomplete';
+import KendoSearchBar from '../src/kendo-searchbar';
 //import KendoList from '../src/kendo-list';
 
 describe('KendoListItem', () => {
@@ -55,4 +57,54 @@ describe('KendoList', () => {
         expect(result.find(KendoListItem).length).toEqual(2);
     });
 
+});
+
+describe('KendoAutoComplete', () => {
+    const data = [
+        { text: "foo1", value: 1 },
+        { text: "foo2", value: 2 },
+        { text: "asd", value: 3 },
+        { text: "dsa", value: 4 },
+        { text: "foo5", value: 5 },
+        { text: "foo6", value: 6 }
+    ];
+    const filterData = (text) => {
+        let dataList;
+
+        if(text) {
+            dataList = data.filter(function(item, index, array) {
+                if(item.text.indexOf(text) > -1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        } else {
+            dataList = data;
+        }
+        return shallow(<KendoAutoComplete data={dataList} />);
+    };
+    let result;
+
+    it('should render KendoList', () => {
+        result = shallow(<KendoAutoComplete data={data} />);
+        expect(result.find(KendoList).length).toEqual(1);
+    });
+
+    it('should render KendoSearchBar', () => {
+        result = shallow(<KendoAutoComplete data={data} />);
+        expect(result.find(KendoSearchBar).length).toEqual(1);
+    });
+
+    /* it('should trigger onSearch', () => {
+       let spy = jasmine.createSpy('search');
+       result = shallow(<KendoAutoComplete data={data} onSearch={spy}/>);
+       console.log(result.find(KendoSearchBar), 1);
+       result.find(KendoSearchBar).simulate('keypress', {
+       which: 97,
+       keyCode: 97
+       });
+       expect(spy).toHaveBeenCalled();
+       });
+     */
 });
