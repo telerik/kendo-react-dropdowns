@@ -57,7 +57,7 @@ export default class KendoAutoComplete extends React.Component {
 
         return (
             <span>
-                <KendoSearchBar change={listProps.onSearch} searchText={this.state.value} />
+                <KendoSearchBar change={listProps.onSearch} placeholder={this.props.placeholder} searchText={this.state.value} />
                 <KendoList {...listProps} />
             </span>
         );
@@ -68,6 +68,7 @@ KendoAutoComplete.propTypes = {
     data: React.PropTypes.arrayOf(React.PropTypes.object),
     itemRenderer: React.PropTypes.func,
     onSearch: React.PropTypes.func,
+    placeholder: React.PropTypes.string,
     separator: React.PropTypes.string,
     textField: React.PropTypes.string,
     value: React.PropTypes.string,
