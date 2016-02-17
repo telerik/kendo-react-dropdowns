@@ -1,20 +1,34 @@
-import * as React from 'react';
+import React, { PropTypes } from 'react';
 import KendoListItem from './kendo-listitem';
 //import styles from '@telerik/kendo-theme-default-base/styles/main';
 
 export default class KendoList extends React.Component {
+
+    static propTypes = {
+        data: PropTypes.arrayOf(PropTypes.object),
+        onClick: PropTypes.func,
+        renderer: PropTypes.func,
+        textField: PropTypes.string,
+        value: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.string
+        ]),
+        valueField: PropTypes.string
+    };
+
     constructor(props) {
         super(props);
         this.clickAction = this.clickHandler.bind(this);
     }
+
     clickHandler(dataItem) {
         this.props.onClick(dataItem);
     }
+
     renderItems() {
-        const renderer = this.props.renderer;
+        const { renderer, textField, valueField } = this.props;
         const value = this.props.value || {};
-        const textField = this.props.textField;
-        const valueField = this.props.valueField;
+
         return this.props.data.map(item => (
             //TODO: assign unique key
             <KendoListItem
@@ -27,21 +41,10 @@ export default class KendoList extends React.Component {
             />
         ));
     }
+
     render() {
         return (
             <ul className="k-list">{this.renderItems()}</ul>
         );
     }
 }
-
-KendoList.propTypes = {
-    data: React.PropTypes.arrayOf(React.PropTypes.object),
-    onClick: React.PropTypes.func,
-    renderer: React.PropTypes.func,
-    textField: React.PropTypes.string,
-    value: React.PropTypes.oneOfType([
-        React.PropTypes.number,
-        React.PropTypes.string
-    ]),
-    valueField: React.PropTypes.string
-};

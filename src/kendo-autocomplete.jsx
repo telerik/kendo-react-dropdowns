@@ -2,24 +2,25 @@ import React, { PropTypes } from 'react';
 import KendoList from './kendo-list';
 import KendoSearchBar from './kendo-searchbar';
 
-const propTypes = {
-    data: PropTypes.arrayOf(PropTypes.object),
-    disabled: PropTypes.bool,
-    itemRenderer: PropTypes.func,
-    minLength: PropTypes.number,
-    onSearch: PropTypes.func,
-    placeholder: PropTypes.string,
-    separator: PropTypes.string,
-    textField: PropTypes.string,
-    value: PropTypes.string,
-    valueRenderer: PropTypes.func
-};
-
-const defaultProps = {
-    minLength: 1
-};
-
 class KendoAutoComplete extends React.Component {
+
+    static propTypes = {
+        data: PropTypes.arrayOf(PropTypes.object),
+        disabled: PropTypes.bool,
+        itemRenderer: PropTypes.func,
+        minLength: PropTypes.number,
+        onSearch: PropTypes.func,
+        placeholder: PropTypes.string,
+        separator: PropTypes.string,
+        textField: PropTypes.string,
+        value: PropTypes.string,
+        valueRenderer: PropTypes.func
+    };
+
+    static defaultProps = {
+        minLength: 1
+    };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -28,6 +29,7 @@ class KendoAutoComplete extends React.Component {
         this.searchAction = this.searchHandler.bind(this);
         this.changeAction = this.changeHandler.bind(this);
     }
+
     renderValue() {
         const value = this.state.value;
         const renderer = this.props.valueRenderer;
@@ -38,10 +40,10 @@ class KendoAutoComplete extends React.Component {
 
         return value;
     }
+
     searchHandler(text) {
         let searchText;
-        const minLength = this.props.minLength;
-        const separator = this.props.separator;
+        const { minLength, separator } = this.props;
         if (separator) {
             searchText = text.split(separator);
             searchText = searchText[searchText.length - 1];
@@ -54,6 +56,7 @@ class KendoAutoComplete extends React.Component {
         }
         this.setState( { value: text } );
     }
+
     changeHandler(dataItem) {
         const separator = this.props.separator;
         const oldValue = this.state.value;
@@ -66,6 +69,7 @@ class KendoAutoComplete extends React.Component {
             this.setState( { value: newValue.join(separator) + separator } );
         }
     }
+
     render() {
         const listProps = {
             data: this.props.data,
@@ -90,8 +94,5 @@ class KendoAutoComplete extends React.Component {
         );
     }
 }
-
-KendoAutoComplete.propTypes = propTypes;
-KendoAutoComplete.defaultProps = defaultProps;
 
 export default KendoAutoComplete;

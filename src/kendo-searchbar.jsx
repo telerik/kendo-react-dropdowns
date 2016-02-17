@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 export default class KendoSearchBar extends React.Component {
+
+    static propTypes = {
+        change: PropTypes.func,
+        disabled: PropTypes.bool,
+        placeholder: PropTypes.string,
+        searchText: PropTypes.string
+    };
+
     constructor(props) {
         super(props);
 
@@ -19,23 +27,14 @@ export default class KendoSearchBar extends React.Component {
     }
 
     render() {
-        const { searchText } = this.props;
-
         return (
             <input
                 disabled={this.props.disabled}
                 onChange={this.changeAction}
                 placeholder={this.props.placeholder}
                 ref={this.getInput}
-                value={searchText}
+                value={this.props.searchText}
             />
         );
     }
 }
-
-KendoSearchBar.propTypes = {
-    change: React.PropTypes.func,
-    disabled: React.PropTypes.bool,
-    placeholder: React.PropTypes.string,
-    searchText: React.PropTypes.string
-};
