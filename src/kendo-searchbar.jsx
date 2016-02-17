@@ -5,6 +5,13 @@ export default class KendoSearchBar extends React.Component {
         super(props);
 
         this.changeAction = this.change.bind(this);
+        this.getInput = function(input) { this._input = input; }.bind(this);
+    }
+
+    componentDidUpdate() {
+        if (this._input !== null) {
+            this._input.focus();
+        }
     }
 
     change(event) {
@@ -19,6 +26,7 @@ export default class KendoSearchBar extends React.Component {
                 disabled={this.props.disabled}
                 onChange={this.changeAction}
                 placeholder={this.props.placeholder}
+                ref={this.getInput}
                 value={searchText}
             />
         );
