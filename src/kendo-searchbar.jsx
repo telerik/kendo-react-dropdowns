@@ -16,6 +16,7 @@ export default class KendoSearchBar extends React.Component {
 
         return (
             <input
+                disabled={this.props.disabled}
                 onChange={this.changeAction}
                 placeholder={this.props.placeholder}
                 value={searchText}
@@ -26,6 +27,7 @@ export default class KendoSearchBar extends React.Component {
 
 KendoSearchBar.propTypes = {
     change: React.PropTypes.func,
+    disabled: React.PropTypes.bool,
     placeholder: React.PropTypes.string,
     searchText: React.PropTypes.string
 };

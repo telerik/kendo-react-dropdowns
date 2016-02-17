@@ -4,6 +4,7 @@ import KendoSearchBar from './kendo-searchbar';
 
 const propTypes = {
     data: PropTypes.arrayOf(PropTypes.object),
+    disabled: PropTypes.bool,
     itemRenderer: PropTypes.func,
     minLength: PropTypes.number,
     onSearch: PropTypes.func,
@@ -74,9 +75,16 @@ class KendoAutoComplete extends React.Component {
             textField: this.props.textField
         };
 
+        const searchBarProps = {
+            change: this.searchAction,
+            disabled: this.props.disabled,
+            placeholder: this.props.placeholder,
+            searchText: this.state.value
+        };
+
         return (
             <span>
-                <KendoSearchBar change={listProps.onSearch} placeholder={this.props.placeholder} searchText={this.state.value} />
+                <KendoSearchBar {...searchBarProps} />
                 <KendoList {...listProps} />
             </span>
         );

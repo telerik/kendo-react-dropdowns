@@ -96,6 +96,11 @@ describe('KendoAutoComplete', () => {
         expect(result.find(KendoSearchBar).length).toEqual(1);
     });
 
+    it('should disable the search bar if disabled prop is passed', () => {
+        result = shallow(<KendoAutoComplete data={data} disabled />);
+        expect(result.find(KendoSearchBar).prop('disabled')).toBe(true);
+    });
+
     /* it('should trigger onSearch', () => {
        let spy = jasmine.createSpy('search');
        result = shallow(<KendoAutoComplete data={data} onSearch={spy}/>);
