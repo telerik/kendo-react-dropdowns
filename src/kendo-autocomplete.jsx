@@ -2,6 +2,10 @@ import * as React from 'react';
 import KendoList from './kendo-list';
 import KendoSearchBar from './kendo-searchbar';
 
+const defaultProps = {
+    minLength: 1
+};
+
 export default class KendoAutoComplete extends React.Component {
     constructor(props) {
         super(props);
@@ -23,6 +27,7 @@ export default class KendoAutoComplete extends React.Component {
     }
     searchHandler(text) {
         let searchText;
+        const minLength = this.props.minLength;
         const separator = this.props.separator;
         if (separator) {
             searchText = text.split(separator);
@@ -31,7 +36,9 @@ export default class KendoAutoComplete extends React.Component {
             searchText = text;
         }
 
-        this.props.onSearch(searchText);
+        if (searchText.length >= minLength) {
+            this.props.onSearch(searchText);
+        }
         this.setState( { value: text } );
     }
     changeHandler(dataItem) {
@@ -67,6 +74,7 @@ export default class KendoAutoComplete extends React.Component {
 KendoAutoComplete.propTypes = {
     data: React.PropTypes.arrayOf(React.PropTypes.object),
     itemRenderer: React.PropTypes.func,
+    minLength: React.PropTypes.number,
     onSearch: React.PropTypes.func,
     placeholder: React.PropTypes.string,
     separator: React.PropTypes.string,
@@ -74,3 +82,5 @@ KendoAutoComplete.propTypes = {
     value: React.PropTypes.string,
     valueRenderer: React.PropTypes.func
 };
+
+KendoAutoComplete.defaultProps = defaultProps;

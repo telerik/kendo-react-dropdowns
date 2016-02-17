@@ -34,6 +34,7 @@ const render = (data) => {
     ReactDOM.render(
         <KendoAutoComplete
             data={data}
+            minLength={3}
             onSearch={foo}
             placeholder="awesome autocomplete!"
             separator=", "
