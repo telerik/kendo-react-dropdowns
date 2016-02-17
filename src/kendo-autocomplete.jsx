@@ -1,12 +1,24 @@
-import * as React from 'react';
+import React, { PropTypes } from 'react';
 import KendoList from './kendo-list';
 import KendoSearchBar from './kendo-searchbar';
+
+const propTypes = {
+    data: PropTypes.arrayOf(PropTypes.object),
+    itemRenderer: PropTypes.func,
+    minLength: PropTypes.number,
+    onSearch: PropTypes.func,
+    placeholder: PropTypes.string,
+    separator: PropTypes.string,
+    textField: PropTypes.string,
+    value: PropTypes.string,
+    valueRenderer: PropTypes.func
+};
 
 const defaultProps = {
     minLength: 1
 };
 
-export default class KendoAutoComplete extends React.Component {
+class KendoAutoComplete extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -71,16 +83,7 @@ export default class KendoAutoComplete extends React.Component {
     }
 }
 
-KendoAutoComplete.propTypes = {
-    data: React.PropTypes.arrayOf(React.PropTypes.object),
-    itemRenderer: React.PropTypes.func,
-    minLength: React.PropTypes.number,
-    onSearch: React.PropTypes.func,
-    placeholder: React.PropTypes.string,
-    separator: React.PropTypes.string,
-    textField: React.PropTypes.string,
-    value: React.PropTypes.string,
-    valueRenderer: React.PropTypes.func
-};
-
+KendoAutoComplete.propTypes = propTypes;
 KendoAutoComplete.defaultProps = defaultProps;
+
+export default KendoAutoComplete;
