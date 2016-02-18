@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+//import caret from './util';
 
 export default class KendoSearchBar extends React.Component {
 
@@ -21,6 +22,7 @@ export default class KendoSearchBar extends React.Component {
             this._input.focus();
         }
     }
+
 
     change(event) {
         this.props.change(event.target.value);
