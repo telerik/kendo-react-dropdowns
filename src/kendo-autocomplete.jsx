@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import KendoList from './kendo-list';
 import KendoSearchBar from './kendo-searchbar';
+import { caretPosition, wordAtCaret, replaceWordAtCaret } from './util';
 
 class KendoAutoComplete extends React.Component {
 
@@ -26,8 +27,13 @@ class KendoAutoComplete extends React.Component {
         this.state = {
             value: this.props.value || null
         };
-        this.searchAction = this.searchHandler.bind(this);
-        this.changeAction = this.changeHandler.bind(this);
+        this.search = this.search.bind(this);
+        this.selectValue = this.selectValue.bind(this);
+        this.getInput = this.getInput.bind(this);
+    }
+
+    getInput(searchBar) {
+        this._input = searchBar._input; //used to determine the caret position
     }
 
     renderValue() {
@@ -41,46 +47,41 @@ class KendoAutoComplete extends React.Component {
         return value;
     }
 
-    searchHandler(text) {
-        let searchText;
+    search(text) {
         const { minLength, separator } = this.props;
-        if (separator) {
-            searchText = text.split(separator);
-            searchText = searchText[searchText.length - 1];
-        } else {
-            searchText = text;
-        }
+        const searchText = separator ? wordAtCaret(caretPosition(this._input), text, separator) : text;
 
         if (searchText.length >= minLength) {
             this.props.onSearch(searchText);
         }
-        this.setState( { value: text } );
+
+        this.setState({ value: text });
     }
 
-    changeHandler(dataItem) {
-        const separator = this.props.separator;
-        const oldValue = this.state.value;
-        if (!separator || !oldValue) {
-            this.setState( { value: dataItem[this.props.textField] + separator } );
+    selectValue(dataItem) {
+        const { separator, textField } = this.props;
+        let value = this.state.value;
+
+        if (separator && value) {
+            value = replaceWordAtCaret(caretPosition(this._input), value, dataItem[textField], separator);
         } else {
-            let newValue;
-            newValue = this.state.value.split(separator);
-            newValue[newValue.length - 1] = dataItem[this.props.textField];
-            this.setState( { value: newValue.join(separator) + separator } );
+            value = dataItem[textField];
         }
+
+        this.setState({ value: value });
     }
 
     render() {
         const listProps = {
             data: this.props.data,
             renderer: this.props.itemRenderer,
-            onSearch: this.searchAction,
-            onClick: this.changeAction, //TODO: onChange or onClick? List is stateless!
+            onSearch: this.search,
+            onClick: this.selectValue, //TODO: onChange or onClick? List is stateless!
             textField: this.props.textField
         };
 
         const searchBarProps = {
-            change: this.searchAction,
+            change: this.search,
             disabled: this.props.disabled,
             placeholder: this.props.placeholder,
             searchText: this.state.value
@@ -88,7 +89,7 @@ class KendoAutoComplete extends React.Component {
 
         return (
             <span>
-                <KendoSearchBar {...searchBarProps} />
+                <KendoSearchBar ref={this.getInput} {...searchBarProps} />
                 <KendoList {...listProps} />
             </span>
         );

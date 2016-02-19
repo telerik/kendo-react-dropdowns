@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-//import caret from './util';
 
 export default class KendoSearchBar extends React.Component {
 
@@ -13,7 +12,7 @@ export default class KendoSearchBar extends React.Component {
     constructor(props) {
         super(props);
 
-        this.changeAction = this.change.bind(this);
+        this.change = this.change.bind(this);
         this.getInput = function(input) { this._input = input; }.bind(this);
     }
 
@@ -23,7 +22,6 @@ export default class KendoSearchBar extends React.Component {
         }
     }
 
-
     change(event) {
         this.props.change(event.target.value);
     }
@@ -32,7 +30,7 @@ export default class KendoSearchBar extends React.Component {
         return (
             <input
                 disabled={this.props.disabled}
-                onChange={this.changeAction}
+                onChange={this.change}
                 placeholder={this.props.placeholder}
                 ref={this.getInput}
                 value={this.props.searchText}
