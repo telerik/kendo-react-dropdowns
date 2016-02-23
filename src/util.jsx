@@ -27,7 +27,7 @@ function caretSelection(element, startIndex, endIndex = startIndex) {
     }
 }
 
-function caretPosition(element) {
+function caretIndex(element) {
     return element.disabled ? undefined : element.selectionStart;
 }
 
@@ -35,8 +35,14 @@ function indexOfWordAtCaret(caretIdx, text, separator) {
     return separator ? text.substring(0, caretIdx).split(separator).length - 1 : 0;
 }
 
+function trim(word, separator) {
+    const str = separator.substring(0, separator.length - 1);
+    return word.endsWith(str) ? word.substring(0, word.length - str.length) : word;
+}
+
 function wordAtCaret(caretIdx, text, separator) {
-    return text.split(separator)[indexOfWordAtCaret(caretIdx, text, separator)];
+    const result = text.split(separator)[indexOfWordAtCaret(caretIdx, text, separator)];
+    return trim(result, separator);
 }
 
 function replaceWordAtCaret(caretIdx, text, word, separator) {
@@ -51,4 +57,4 @@ function replaceWordAtCaret(caretIdx, text, word, separator) {
     return words.join(separator);
 }
 
-export { caretPosition, caretSelection, indexOfWordAtCaret, wordAtCaret, replaceWordAtCaret };
+export { caretIndex, caretSelection, indexOfWordAtCaret, wordAtCaret, replaceWordAtCaret };
