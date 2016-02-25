@@ -31,6 +31,15 @@ function caretIndex(element) {
     return element.disabled ? undefined : element.selectionStart;
 }
 
+function selectEndOfWord(element, startIndex, text, separator) {
+    const word = wordAtCaret(startIndex, text, separator);
+    const tmp = text.substring(0, startIndex).split(separator);
+    const beginning = tmp[tmp.length - 1];
+    const endIndex = startIndex + (word.length - beginning.length);
+
+    caretSelection(element, startIndex, endIndex);
+}
+
 function indexOfWordAtCaret(caretIdx, text, separator) {
     return separator ? text.substring(0, caretIdx).split(separator).length - 1 : 0;
 }
@@ -50,11 +59,7 @@ function replaceWordAtCaret(caretIdx, text, word, separator) {
 
     words.splice(indexOfWordAtCaret(caretIdx, text, separator), 1, word);
 
-    if (separator && words[words.length - 1] !== "") {
-        words.push("");
-    }
-
     return words.join(separator);
 }
 
-export { caretIndex, caretSelection, indexOfWordAtCaret, wordAtCaret, replaceWordAtCaret };
+export { caretIndex, caretSelection, indexOfWordAtCaret, wordAtCaret, selectEndOfWord, replaceWordAtCaret };

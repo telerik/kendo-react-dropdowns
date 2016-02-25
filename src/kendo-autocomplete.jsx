@@ -13,6 +13,7 @@ class KendoAutoComplete extends React.Component {
         onSearch: PropTypes.func,
         placeholder: PropTypes.string,
         separator: PropTypes.string,
+        suggest: PropTypes.bool,
         textField: PropTypes.string,
         value: PropTypes.string,
         valueRenderer: PropTypes.func
@@ -26,11 +27,21 @@ class KendoAutoComplete extends React.Component {
         super(props);
         this.state = {
             value: [],
-            text: ""
+            text: "",
+            suggest: ""
         };
+        this.shouldSuggest = true;
         this.search = this.search.bind(this);
         this.textUpdate = this.textUpdate.bind(this);
         this.select = this.select.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const { suggest, data, textField } = nextProps;
+
+        if (suggest && data.length && this.shouldSuggest) {
+            this.setState({ suggest: data[0][textField] });
+        }
     }
 
     renderValue() {
@@ -52,6 +63,7 @@ class KendoAutoComplete extends React.Component {
         }
 
         this.setState({ value: update(this.state.value, { $splice: [ [ index, 1, word ] ] }) });
+        this.shouldSuggest = true;
     }
 
     textUpdate(text) {
@@ -67,6 +79,8 @@ class KendoAutoComplete extends React.Component {
             value: value,
             text: value.join(this.props.separator)
         });
+
+        this.shouldSuggest = false;
     }
 
     render() {
@@ -84,7 +98,8 @@ class KendoAutoComplete extends React.Component {
             disabled: this.props.disabled,
             placeholder: this.props.placeholder,
             text: this.state.text,
-            separator: this.props.separator
+            separator: this.props.separator,
+            suggest: this.state.suggest
         };
 
         return (
