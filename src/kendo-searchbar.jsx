@@ -59,14 +59,6 @@ export default class KendoSearchBar extends React.Component {
         }
     }
 
-    suggest(word) {
-        const { text, separator } = this.props;
-        let words = text.split(separator);
-        const index = indexOfWordAtCaret(caretIndex(this._input), text, separator);
-
-        return words.splice(index, 1, word).join(separator);
-    }
-
     keyDown(event) {
         const BACKSPACE = 8;
         const DELETE = 46;
