@@ -75,11 +75,13 @@ export default class KendoSearchBar extends React.Component {
         const value = suggest && this.shouldSuggest ? replaceWordAtCaret(caretIndex(this._input), text, suggest, separator) : text;
         return (
             <input
+                className="k-input"
                 disabled={this.props.disabled}
                 onChange={this.change}
                 onKeyDown={this.keyDown}
                 placeholder={this.props.placeholder}
                 ref={this.getInput}
+                type="text"
                 value={value}
             />
         );

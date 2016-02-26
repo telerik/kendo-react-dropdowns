@@ -104,7 +104,7 @@ class KendoAutoComplete extends React.Component {
         };
 
         return (
-            <span>
+            <span className="k-widget k-autocomplete k-header" tabIndex="-1">
                 <KendoSearchBar ref="searchBar" {...searchBarProps} />
                 <KendoList {...listProps} />
             </span>

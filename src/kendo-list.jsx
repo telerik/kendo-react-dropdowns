@@ -44,7 +44,7 @@ export default class KendoList extends React.Component {
 
     render() {
         return (
-            <ul className="k-list">{this.renderItems()}</ul>
+            <ul className="k-list k-reset">{this.renderItems()}</ul>
         );
     }
 }
