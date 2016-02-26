@@ -13,6 +13,7 @@ const data = [
     { text: "foo6", value: 6 }
 ];
 const foo = (text) => {
+    console.log(text);
     let dataList;
 
     if(text) {
@@ -37,7 +38,8 @@ const render = (data) => {
             onSearch={foo}
             placeholder="awesome autocomplete!"
             separator=", "
-            textField="text"
+            suggest
+            valueField="text"
         />,
         document.getElementById('app')
     );

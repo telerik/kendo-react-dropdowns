@@ -14,8 +14,8 @@ class KendoAutoComplete extends React.Component {
         placeholder: PropTypes.string,
         separator: PropTypes.string,
         suggest: PropTypes.bool,
-        textField: PropTypes.string,
         value: PropTypes.string,
+        valueField: PropTypes.string,
         valueRenderer: PropTypes.func
     };
 
@@ -37,10 +37,10 @@ class KendoAutoComplete extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const { suggest, data, textField } = nextProps;
+        const { suggest, data, valueField } = nextProps;
 
         if (suggest && data.length && this.shouldSuggest) {
-            this.setState({ suggest: data[0][textField] });
+            this.setState({ suggest: data[0][valueField] });
         }
     }
 
@@ -73,7 +73,7 @@ class KendoAutoComplete extends React.Component {
     select(dataItem) {
         const index = this.refs.searchBar.indexOfWordAtCaret();
         let value = this.state.value;
-        value = update(value, { $splice: [ [ index, 1, dataItem[this.props.textField] ] ] });
+        value = update(value, { $splice: [ [ index, 1, dataItem[this.props.valueField] ] ] });
 
         this.setState({
             value: value,
@@ -89,7 +89,8 @@ class KendoAutoComplete extends React.Component {
             renderer: this.props.itemRenderer,
             onSearch: this.search,
             onClick: this.select, //TODO: onChange or onClick? List is stateless!
-            textField: this.props.textField
+            textField: this.props.valueField,
+            valueField: this.props.valueField
         };
 
         const searchBarProps = {
