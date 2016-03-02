@@ -1,40 +1,55 @@
 import React, { PropTypes } from 'react';
-import { caretIndex, indexOfWordAtCaret, replaceWordAtCaret, selectEndOfWord, wordAtCaret } from './util';
+import { caretIndex, indexOfWordAtCaret, caretSelection, textReduced, replaceWordAtCaret, selectEndOfWord, wordAtCaret } from './util';
 
 export default class KendoSearchBar extends React.Component {
 
     static propTypes = {
         change: PropTypes.func,
         disabled: PropTypes.bool,
+        highlight: PropTypes.bool,
         placeholder: PropTypes.string,
         search: PropTypes.func,
         separator: PropTypes.string,
-        suggest: PropTypes.string,
-        text: PropTypes.string
+        text: PropTypes.string,
+        word: PropTypes.string
     };
 
     constructor(props) {
         super(props);
 
         this.searchWord = "";
-        this.shouldSuggest = true;
 
         this.change = this.change.bind(this);
         this.keyDown = this.keyDown.bind(this);
         this.getInput = function(input) { this._input = input; }.bind(this);
     }
 
-    componentWillReceiveProps() {
-        this.setState({ caretIdx: caretIndex(this._input) });
+    componentWillReceiveProps(nextProps) {
+        const highlight = nextProps.highlight;
+
+        if (highlight) { //suggested
+            this.accept = !textReduced(nextProps.text, this.hasSelection ? this.props.text : this._oldValue);
+        } else { //selected from list
+            this.accept = true;
+        }
+
+        this.caretIdx = caretIndex(this._input);
+        this.hasSelection = false;
     }
 
     componentDidUpdate() {
-        if (this._input !== null) {
-            if (this.props.suggest && this.shouldSuggest) {
-                selectEndOfWord(this._input, this.state.caretIdx, this._input.value, this.props.separator);
+        if (this.props.word) {
+            if (this.props.highlight) {
+                //only when there is a word to suggest
+                selectEndOfWord(this._input, this.caretIdx, this.props.separator);
+                this.hasSelection = true;
             } else {
-                this._input.focus();
+                //only when something is chosen from the list
+                caretSelection(this._input, this._input.value.length);
             }
+        } else {
+            //in every other case
+            this.caretIdx = caretIndex(this._input);
         }
     }
 
@@ -49,14 +64,12 @@ export default class KendoSearchBar extends React.Component {
         const word = separator ? wordAtCaret(caretIndex(this._input), text, separator) : text;
         const index = indexOfWordAtCaret(caretIndex(this._input), text, separator);
 
-        this.props.change(text);
-
         if (word !== this.searchWord) {
             this.props.search(word, index);
             this.searchWord = word;
-        } else {
-            this.shouldSuggest = false;
         }
+
+        this.props.change(text);
     }
 
     keyDown(event) {
@@ -71,8 +84,21 @@ export default class KendoSearchBar extends React.Component {
     }
 
     render() {
-        const { suggest, separator, text } = this.props;
-        const value = suggest && this.shouldSuggest ? replaceWordAtCaret(caretIndex(this._input), text, suggest, separator) : text;
+        const { word, separator, text } = this.props;
+        let value;
+
+        if (text) {
+            if (word && this.accept) {
+                value = replaceWordAtCaret(caretIndex(this._input), text, word, separator);
+                this.searchWord = word;
+            } else {
+                value = text;
+                this.searchWord = wordAtCaret(this.caretIdx || text.length, text, separator);
+            }
+        }
+
+        this._oldValue = value;
+
         return (
             <input
                 className="k-input"

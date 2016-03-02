@@ -72,14 +72,49 @@ const foo = (text) => {
 
 const render = (data) => {
     ReactDOM.render(
-        <KendoAutoComplete
-            data={data}
-            onSearch={foo}
-            placeholder="awesome autocomplete!"
-            separator=", "
-            suggest
-            valueField="text"
-        />,
+        <div>
+            {/*
+            <p>suggest: false, separator: false</p>
+            <KendoAutoComplete
+                data={data}
+                onSearch={foo}
+                placeholder="awesome autocomplete!"
+                valueField="text"
+            />
+            */}
+
+            <p>suggest: false, separator: true</p>
+            <KendoAutoComplete
+                data={data}
+                onSearch={foo}
+                placeholder="awesome autocomplete!"
+                separator=", "
+                suggest
+                valueField="text"
+            />
+
+            {/*
+            <p>suggest: true, separator: true</p>
+            <KendoAutoComplete
+                data={data}
+                onSearch={foo}
+                placeholder="awesome autocomplete!"
+                separator=", "
+                suggest
+                valueField="text"
+            />
+
+            {/*
+            <p>suggest: true, separator: false</p>
+            <KendoAutoComplete
+                data={data}
+                onSearch={foo}
+                placeholder="awesome autocomplete!"
+                suggest
+                valueField="text"
+            />
+            */}
+        </div>,
         document.getElementById('app')
     );
 };

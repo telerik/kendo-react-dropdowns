@@ -19,6 +19,9 @@ function caret(element, startIndex, endIndex = startIndex) {
     return selectionStart;
 }
 */
+function caretIndex(element) {
+    return element.disabled ? undefined : element.selectionStart;
+}
 
 function caretSelection(element, startIndex, endIndex = startIndex) {
     if (startIndex && !element.disabled && element.selectionStart !== undefined) {
@@ -27,17 +30,22 @@ function caretSelection(element, startIndex, endIndex = startIndex) {
     }
 }
 
-function caretIndex(element) {
-    return element.disabled ? undefined : element.selectionStart;
-}
-
-function selectEndOfWord(element, startIndex, text, separator) {
+function selectEndOfWord(element, startIndex, separator) {
+    const text = element.value;
     const word = wordAtCaret(startIndex, text, separator);
     const tmp = text.substring(0, startIndex).split(separator);
     const beginning = tmp[tmp.length - 1];
     const endIndex = startIndex + (word.length - beginning.length);
 
     caretSelection(element, startIndex, endIndex);
+}
+
+function moveToEndOfWord(element, caretIdx, separator) {
+    const word = wordAtCaret(element, element.value, separator);
+    const end = caretIdx + word.length;
+    caretSelection(element, end, end);
+
+    return end;
 }
 
 function indexOfWordAtCaret(caretIdx, text, separator) {
@@ -62,4 +70,8 @@ function replaceWordAtCaret(caretIdx, text, word, separator) {
     return words.join(separator);
 }
 
-export { caretIndex, caretSelection, indexOfWordAtCaret, wordAtCaret, selectEndOfWord, replaceWordAtCaret };
+function textReduced(newValue = "", oldValue = "") {
+    return newValue.length <= oldValue.length;
+}
+
+export { caretIndex, caretSelection, indexOfWordAtCaret, moveToEndOfWord, textReduced, wordAtCaret, selectEndOfWord, replaceWordAtCaret };

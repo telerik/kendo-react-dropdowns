@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import update from 'react-addons-update';
 import KendoList from './kendo-list';
 import KendoSearchBar from './kendo-searchbar';
 
@@ -20,75 +19,63 @@ class KendoAutoComplete extends React.Component {
     };
 
     static defaultProps = {
-        minLength: 1
+        minLength: 0
     };
 
     constructor(props) {
         super(props);
         this.state = {
-            value: [],
             text: "",
-            suggest: ""
+            word: null,
+            highlight: false
         };
-        this.shouldSuggest = true;
         this.search = this.search.bind(this);
         this.textUpdate = this.textUpdate.bind(this);
         this.select = this.select.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
+        //data is received, should I suggest?
         const { suggest, data, valueField } = nextProps;
 
-        if (suggest && data.length && this.shouldSuggest) {
-            this.setState({ suggest: data[0][valueField] });
+        if (suggest && data.length) {
+            this.setState({
+                word: data[0][valueField],
+                highlight: true
+            });
         }
     }
 
-    renderValue() {
-        const value = this.state.value;
-        const renderer = this.props.valueRenderer;
-
-        if (typeof(renderer) === "function") {
-            return renderer(value);
-        }
-
-        return value;
-    }
-
-    search(word, index) {
+    search(word) {
+        //suggest during search
         const minLength = this.props.minLength;
 
         if (word.length >= minLength) {
             this.props.onSearch(word);
         }
-
-        this.setState({ value: update(this.state.value, { $splice: [ [ index, 1, word ] ] }) });
-        this.shouldSuggest = true;
     }
 
     textUpdate(text) {
-        this.setState({ text: text });
+        this.setState({
+            text: text,
+            word: null,
+            highlight: false
+        });
     }
 
     select(dataItem) {
-        const index = this.refs.searchBar.indexOfWordAtCaret();
-        let value = this.state.value;
-        value = update(value, { $splice: [ [ index, 1, dataItem[this.props.valueField] ] ] });
-
         this.setState({
-            value: value,
-            text: value.join(this.props.separator)
+            word: dataItem[this.props.valueField],
+            highlight: false
         });
-
-        this.shouldSuggest = false;
     }
 
     render() {
         const listProps = {
             data: this.props.data,
             renderer: this.props.itemRenderer,
-            onSearch: this.search,
-            onClick: this.select, //TODO: onChange or onClick? List is stateless!
+            //onSearch: this.search,
+            onClick: this.select,
             textField: this.props.valueField,
             valueField: this.props.valueField
         };
@@ -98,9 +85,10 @@ class KendoAutoComplete extends React.Component {
             change: this.textUpdate,
             disabled: this.props.disabled,
             placeholder: this.props.placeholder,
-            text: this.state.text,
-            separator: this.props.separator,
-            suggest: this.state.suggest
+            text: this.state.text ? this.state.text : this.props.value || "",
+            separator: this.props.separator || "",
+            highlight: this.state.highlight,
+            word: this.state.word
         };
 
         return (
