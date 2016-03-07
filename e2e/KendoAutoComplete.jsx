@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import KendoAutoComplete from '../src/kendo-autocomplete';
 
+import { type } from './util';
+
 // e2e-utils is a module exposed from react-tasks
 // it exports `$` and `withRoot` - higher order function for describe (example below)
 import { withRoot } from 'e2e-utils';
@@ -75,12 +77,6 @@ describe('KendoAutoComplete', withRoot(root => {
         }
 
         ReactDOM.render( <KendoAutoComplete data={dataList} {...props} />, root[0]);
-    };
-
-    const type = function(input, value) {
-        const event = new Event('input', { bubbles: true });
-        input.value = value;
-        input.dispatchEvent(event);
     };
 
     let props;
