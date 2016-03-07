@@ -20,7 +20,6 @@ export default class KendoSearchBar extends React.Component {
         this.searchWord = "";
 
         this.change = this.change.bind(this);
-        this.keyDown = this.keyDown.bind(this);
         this.getInput = function(input) { this._input = input; }.bind(this);
     }
 
@@ -72,17 +71,6 @@ export default class KendoSearchBar extends React.Component {
         this.props.change(text);
     }
 
-    keyDown(event) {
-        const BACKSPACE = 8;
-        const DELETE = 46;
-
-        if (event.keyCode === BACKSPACE || event.keyCode === DELETE) {
-            this.shouldSuggest = false;
-        } else {
-            this.shouldSuggest = true;
-        }
-    }
-
     render() {
         const { word, separator, text } = this.props;
         let value;
@@ -104,7 +92,6 @@ export default class KendoSearchBar extends React.Component {
                 className="k-input"
                 disabled={this.props.disabled}
                 onChange={this.change}
-                onKeyDown={this.keyDown}
                 placeholder={this.props.placeholder}
                 ref={this.getInput}
                 type="text"
