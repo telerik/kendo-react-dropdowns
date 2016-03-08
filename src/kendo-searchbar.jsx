@@ -77,7 +77,11 @@ export default class KendoSearchBar extends React.Component {
 
         if (text) {
             if (word && this.accept) {
-                value = replaceWordAtCaret(caretIndex(this._input), text, word, separator);
+                if (separator) {
+                    value = replaceWordAtCaret(caretIndex(this._input), text, word, separator);
+                } else {
+                    value = word;
+                }
                 this.searchWord = word;
             } else {
                 value = text;

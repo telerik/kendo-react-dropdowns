@@ -12,10 +12,15 @@ function caretSelection(element, startIndex, endIndex = startIndex) {
 
 function selectEndOfWord(element, startIndex, separator) {
     const text = element.value;
-    const word = wordAtCaret(startIndex, text, separator);
-    const tmp = text.substring(0, startIndex).split(separator);
-    const beginning = tmp[tmp.length - 1];
-    const endIndex = startIndex + (word.length - beginning.length);
+    let endIndex;
+    if (separator !== "") {
+        const word = wordAtCaret(startIndex, text, separator);
+        const tmp = text.substring(0, startIndex).split(separator);
+        const beginning = tmp[tmp.length - 1];
+        endIndex = startIndex + (word.length - beginning.length);
+    } else {
+        endIndex = text.length;
+    }
 
     caretSelection(element, startIndex, endIndex);
 }

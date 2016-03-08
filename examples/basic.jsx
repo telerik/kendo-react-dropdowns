@@ -81,19 +81,15 @@ const render = (data) => {
                 placeholder="awesome autocomplete!"
                 valueField="text"
             />
-            */}
-
             <p>suggest: false, separator: true</p>
             <KendoAutoComplete
                 data={data}
                 onSearch={foo}
                 placeholder="awesome autocomplete!"
-                separator=", "
                 suggest
                 valueField="text"
+                separator=", "
             />
-
-            {/*
             <p>suggest: true, separator: true</p>
             <KendoAutoComplete
                 data={data}
@@ -104,7 +100,7 @@ const render = (data) => {
                 valueField="text"
             />
 
-            {/*
+            */}
             <p>suggest: true, separator: false</p>
             <KendoAutoComplete
                 data={data}
@@ -113,7 +109,6 @@ const render = (data) => {
                 suggest
                 valueField="text"
             />
-            */}
         </div>,
         document.getElementById('app')
     );
