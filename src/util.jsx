@@ -1,24 +1,4 @@
-/*
-function caret(element, startIndex, endIndex = startIndex) {
-    const isPosition = startIndex !== undefined;
-    let selectionStart;
-
-    if (isPosition && element.disabled) {
-        return undefined;
-    }
-
-    if (element.selectionStart !== undefined) {
-        if (isPosition) {
-            element.focus();
-            element.setSelectionRange(startIndex, endIndex);
-        } else {
-            selectionStart = element.selectionStart;
-        }
-    }
-
-    return selectionStart;
-}
-*/
+/* DOM dependent */
 function caretIndex(element) {
     return element.disabled ? undefined : element.selectionStart;
 }
@@ -48,6 +28,7 @@ function moveToEndOfWord(element, caretIdx, separator) {
     return end;
 }
 
+/* DOM independent */
 function indexOfWordAtCaret(caretIdx, text, separator) {
     return separator ? text.substring(0, caretIdx).split(separator).length - 1 : 0;
 }
@@ -74,4 +55,14 @@ function textReduced(newValue = "", oldValue = "") {
     return newValue.length <= oldValue.length;
 }
 
-export { caretIndex, caretSelection, indexOfWordAtCaret, moveToEndOfWord, textReduced, wordAtCaret, selectEndOfWord, replaceWordAtCaret };
+export {
+    caretIndex,
+    caretSelection,
+    indexOfWordAtCaret,
+    moveToEndOfWord,
+    textReduced,
+    trim,
+    wordAtCaret,
+    selectEndOfWord,
+    replaceWordAtCaret
+};
