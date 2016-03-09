@@ -1,5 +1,4 @@
 import * as util from '../src/util';
-
 /*
 
 function textReduced(newValue = "", oldValue = "") {
@@ -86,4 +85,23 @@ describe('Util', () => {
             expect(util.textReduced(element.newValue, element.oldValue)).toEqual(element.expected, `table row ${index} failed` );
         });
     });
+
+    it('endOfWordIndex', () => {
+        const table = [
+            { text: "foo",            startIndex: 1,  expected: 3, separator: "" },
+            { text: "foo, bar",       startIndex: 6,  expected: 8, separator: ", " },
+            { text: "foo, bar",       startIndex: 6,  expected: 8, separator: "" },
+            { text: "foo, bar",       startIndex: 0,  expected: 3, separator: ", " },
+            { text: "foo, bar, baz",  startIndex: 5,  expected: 8, separator: ", " },
+            { text: "foo, bar, baz",  startIndex: 0,  expected: 13, separator: "" },
+            { text: "foo, bar, baz",  startIndex: 11,  expected: 13, separator: ", " },
+            { text: "foo, bar, baz",  startIndex: 0,  expected: 3, separator: ", " }
+
+        ];
+
+        table.forEach(function(element, index) {
+            expect(util.endOfWordIndex(element.text, element.startIndex, element.separator)).toEqual(element.expected, `table row ${index} failed` );
+        });
+    });
+
 });

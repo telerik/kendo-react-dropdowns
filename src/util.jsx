@@ -10,8 +10,7 @@ function caretSelection(element, startIndex, endIndex = startIndex) {
     }
 }
 
-function selectEndOfWord(element, startIndex, separator) {
-    const text = element.value;
+function endOfWordIndex(text, startIndex, separator) {
     let endIndex;
     if (separator !== "") {
         const word = wordAtCaret(startIndex, text, separator);
@@ -22,7 +21,11 @@ function selectEndOfWord(element, startIndex, separator) {
         endIndex = text.length;
     }
 
-    caretSelection(element, startIndex, endIndex);
+    return endIndex;
+}
+
+function selectEndOfWord(element, startIndex, separator) {
+    caretSelection(element, startIndex, endOfWordIndex(element.value, startIndex, separator));
 }
 
 function moveToEndOfWord(element, caretIdx, separator) {
@@ -69,5 +72,6 @@ export {
     trim,
     wordAtCaret,
     selectEndOfWord,
-    replaceWordAtCaret
+    replaceWordAtCaret,
+    endOfWordIndex
 };
