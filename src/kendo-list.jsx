@@ -6,6 +6,7 @@ export default class KendoList extends React.Component {
 
     static propTypes = {
         data: PropTypes.arrayOf(PropTypes.object),
+        focused: PropTypes.number,
         onClick: PropTypes.func,
         renderer: PropTypes.func,
         textField: PropTypes.string,
@@ -26,20 +27,22 @@ export default class KendoList extends React.Component {
     }
 
     renderItems() {
-        const { renderer, textField, valueField } = this.props;
+        const { renderer, textField, valueField, focused } = this.props;
         const value = this.props.value || {};
 
-        return this.props.data.map(item => (
-            //TODO: assign unique key
-            <KendoListItem
-                dataItem={item}
-                key={item.text}
-                onClick={this.clickAction}
-                renderer={renderer}
-                selected={item[valueField] === value}
-                textField={textField}
-            />
-        ));
+        return this.props.data.map((item, index) => (
+                //TODO: assign unique key
+                <KendoListItem
+                    dataItem={item}
+                    focused={index === focused}
+                    key={item.text}
+                    onClick={this.clickAction}
+                    renderer={renderer}
+                    selected={item[valueField] === value}
+                    textField={textField}
+                />
+            )
+        );
     }
 
     render() {

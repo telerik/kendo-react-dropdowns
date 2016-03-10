@@ -7,6 +7,7 @@ export default class KendoSearchBar extends React.Component {
         change: PropTypes.func,
         disabled: PropTypes.bool,
         highlight: PropTypes.bool,
+        navigate: PropTypes.func,
         placeholder: PropTypes.string,
         search: PropTypes.func,
         separator: PropTypes.string,

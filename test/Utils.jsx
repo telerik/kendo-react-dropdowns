@@ -1,11 +1,7 @@
+/* eslint-disable no-multi-spaces */
 import * as util from '../src/util';
-/*
 
-function textReduced(newValue = "", oldValue = "") {
-    return newValue.length <= oldValue.length;
-}
-
-*/
+import * as util from '../src/util';
 
 describe('Util', () => {
     it('indexOfWordAtCaret', () => {
@@ -74,11 +70,11 @@ describe('Util', () => {
 
     it('textReduced', () => {
         const table = [
-            { oldValue: undefined, newValue: "fo", expected: false},
-            { oldValue: "f", newValue: "fo", expected: false},
-            { oldValue: "foo", newValue: "fo", expected: true},
-            { oldValue: "foo", newValue: "f", expected: true},
-            { oldValue: "foo", newValue: "bar", expected: true}
+            { oldValue: undefined, newValue: "fo", expected: false },
+            { oldValue: "f", newValue: "fo", expected: false },
+            { oldValue: "foo", newValue: "fo", expected: true },
+            { oldValue: "foo", newValue: "f", expected: true },
+            { oldValue: "foo", newValue: "bar", expected: true }
         ];
 
         table.forEach(function(element, index) {

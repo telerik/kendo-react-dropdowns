@@ -36,6 +36,10 @@ function moveToEndOfWord(element, caretIdx, separator) {
     return end;
 }
 
+function hasSelection(element) {
+    return element.selectionStart !== element.selectionEnd;
+}
+
 /* DOM independent */
 function indexOfWordAtCaret(caretIdx, text, separator) {
     return separator ? text.substring(0, caretIdx).split(separator).length - 1 : 0;
@@ -60,13 +64,32 @@ function replaceWordAtCaret(caretIdx, text, word, separator) {
 }
 
 function textReduced(newValue = "", oldValue = "") {
-    return newValue.length <= oldValue.length;
+    let result;
+
+    if (!newValue && !oldValue) {
+        result = false;
+    } else if (newValue.length < oldValue.length) {
+        result = true;
+    } else if (newValue.length === oldValue.length) {
+        result = newValue === oldValue;
+    }
+
+    return result;
 }
+
+const keys = {
+    LEFT: 37,
+    UP: 38,
+    RIGHT: 39,
+    DOWN: 40
+};
 
 export {
     caretIndex,
     caretSelection,
+    hasSelection,
     indexOfWordAtCaret,
+    keys,
     moveToEndOfWord,
     textReduced,
     trim,

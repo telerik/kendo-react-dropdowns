@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import KendoList from './kendo-list';
 import KendoSearchBar from './kendo-searchbar';
+import { keys } from './util';
 
 class KendoAutoComplete extends React.Component {
 
@@ -27,8 +28,11 @@ class KendoAutoComplete extends React.Component {
         this.state = {
             text: "",
             word: null,
-            highlight: false
+            highlight: false,
+            focused: null
         };
+
+        this.navigate = this.navigate.bind(this);
         this.search = this.search.bind(this);
         this.textUpdate = this.textUpdate.bind(this);
         this.select = this.select.bind(this);
@@ -44,6 +48,8 @@ class KendoAutoComplete extends React.Component {
                 highlight: true
             });
         }
+
+        this.setState({ focused: null });
     }
 
     search(word) {
@@ -70,17 +76,35 @@ class KendoAutoComplete extends React.Component {
         });
     }
 
+    navigate(keyCode) {
+        const max = this.props.data.length - 1;
+        const { suggest, valueField } = this.props;
+        let focused;
+        if (keyCode === keys.UP) {
+            focused = this.state.focused ? this.state.focused - 1 : max;
+        } else if (keyCode === keys.DOWN) {
+            focused = (this.state.focused !== null && this.state.focused !== max) ? this.state.focused + 1 : 0;
+        }
+
+        this.setState({
+            focused: focused,
+            word: suggest ? this.props.data[focused][valueField] : null,
+            highlight: suggest
+        });
+    }
+
     render() {
         const listProps = {
             data: this.props.data,
+            focused: this.state.focused,
             renderer: this.props.itemRenderer,
-            //onSearch: this.search,
             onClick: this.select,
             textField: this.props.valueField,
             valueField: this.props.valueField
         };
 
         const searchBarProps = {
+            navigate: this.navigate,
             search: this.search,
             change: this.textUpdate,
             disabled: this.props.disabled,

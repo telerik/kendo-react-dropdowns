@@ -6,6 +6,7 @@ export default class KendoListItem extends React.Component {
 
     static propTypes = {
         dataItem: PropTypes.object, //eslint-disable-line react/forbid-prop-types
+        focused: PropTypes.bool,
         onClick: PropTypes.func,
         renderer: PropTypes.func,
         selected: PropTypes.bool,
@@ -34,7 +35,8 @@ export default class KendoListItem extends React.Component {
     render() {
         const itemClasses = classNames({
             'k-item': true,
-            'k-state-selected': this.props.selected
+            'k-state-selected': this.props.selected,
+            'k-state-focused': this.props.focused
         });
 
         return (
