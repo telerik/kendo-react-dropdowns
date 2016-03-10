@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { caretIndex, indexOfWordAtCaret, caretSelection, textReduced, replaceWordAtCaret, selectEndOfWord, wordAtCaret } from './util';
+import { keys, caretIndex, indexOfWordAtCaret, caretSelection, textReduced, replaceWordAtCaret, selectEndOfWord, wordAtCaret } from './util';
 
 export default class KendoSearchBar extends React.Component {
 
@@ -20,7 +20,6 @@ export default class KendoSearchBar extends React.Component {
 
         this.searchWord = "";
 
-        this.change = this.change.bind(this);
         this.getInput = function(input) { this._input = input; }.bind(this);
     }
 
@@ -34,7 +33,6 @@ export default class KendoSearchBar extends React.Component {
         }
 
         this.caretIdx = caretIndex(this._input);
-        this.hasSelection = false;
     }
 
     componentDidUpdate() {
@@ -42,7 +40,6 @@ export default class KendoSearchBar extends React.Component {
             if (this.props.highlight) {
                 //only when there is a word to suggest
                 selectEndOfWord(this._input, this.caretIdx, this.props.separator);
-                this.hasSelection = true;
             } else {
                 //only when something is chosen from the list
                 caretSelection(this._input, this._input.value.length);
@@ -53,12 +50,26 @@ export default class KendoSearchBar extends React.Component {
         }
     }
 
-    indexOfWordAtCaret() {
-        const separator = this.props.separator;
-        return separator ? indexOfWordAtCaret(caretIndex(this._input), this._input.value, separator) : 0;
-    }
+    onSelectionChange = () => {
+        this.hasSelection = this._input.selectionStart !== this._input.selectionEnd;
+    };
 
-    change(event) {
+    onFocus = () => {
+        window.document.addEventListener("selectionchange", this.onSelectionChange);
+    };
+
+    onBlur = () => {
+        window.document.removeEventListener("selectionchange", this.onSelectionChange);
+    };
+
+    onKeyDown = (event) => {
+        if (event.keyCode === keys.UP || event.keyCode === keys.DOWN) {
+            event.preventDefault();
+            this.props.navigate(event.keyCode);
+        }
+    };
+
+    onChange = (event) => {
         const text = event.target.value;
         const separator = this.props.separator;
         const word = separator ? wordAtCaret(caretIndex(this._input), text, separator) : text;
@@ -70,7 +81,7 @@ export default class KendoSearchBar extends React.Component {
         }
 
         this.props.change(text);
-    }
+    };
 
     render() {
         const { word, separator, text } = this.props;
@@ -86,7 +97,7 @@ export default class KendoSearchBar extends React.Component {
                 this.searchWord = word;
             } else {
                 value = text;
-                this.searchWord = wordAtCaret(this.caretIdx || text.length, text, separator);
+                this.searchWord = text ? wordAtCaret(this.caretIdx || text.length, text, separator) : "";
             }
         }
 
@@ -96,7 +107,10 @@ export default class KendoSearchBar extends React.Component {
             <input
                 className="k-input"
                 disabled={this.props.disabled}
-                onChange={this.change}
+                onBlur={this.onBlur}
+                onChange={this.onChange}
+                onFocus={this.onFocus}
+                onKeyDown={this.onKeyDown}
                 placeholder={this.props.placeholder}
                 ref={this.getInput}
                 type="text"
