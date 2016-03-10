@@ -1,8 +1,6 @@
 /* eslint-disable no-multi-spaces */
 import * as util from '../src/util';
 
-import * as util from '../src/util';
-
 describe('Util', () => {
     it('indexOfWordAtCaret', () => {
         const table = [
@@ -74,7 +72,7 @@ describe('Util', () => {
             { oldValue: "f", newValue: "fo", expected: false },
             { oldValue: "foo", newValue: "fo", expected: true },
             { oldValue: "foo", newValue: "f", expected: true },
-            { oldValue: "foo", newValue: "bar", expected: true }
+            { oldValue: "foo", newValue: "bar", expected: false }
         ];
 
         table.forEach(function(element, index) {

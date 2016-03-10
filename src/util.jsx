@@ -72,6 +72,8 @@ function textReduced(newValue = "", oldValue = "") {
         result = true;
     } else if (newValue.length === oldValue.length) {
         result = newValue === oldValue;
+    } else {
+        result = false;
     }
 
     return result;
