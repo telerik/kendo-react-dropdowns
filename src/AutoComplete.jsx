@@ -39,12 +39,6 @@ class AutoComplete extends React.Component {
             highlight: false,
             focused: null
         };
-        this.navigate = this.navigate.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.filter = this.filter.bind(this);
-        this.valueUpdate = this.valueUpdate.bind(this);
-        this.select = this.select.bind(this);
-        this.selectFocused = this.selectFocused.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -60,11 +54,11 @@ class AutoComplete extends React.Component {
         this.setState({ focused: null });
     }
 
-    handleChange(value) {
+    handleChange = (value) => {
         this.props.onChange(value);
     }
 
-    filter(word) {
+    filter = (word) => {
         const minLength = this.props.minLength;
 
         if (word.length >= minLength) {
@@ -72,7 +66,7 @@ class AutoComplete extends React.Component {
         }
     }
 
-    valueUpdate(value) {
+    valueUpdate = (value) => {
         this.setState({
             value: value,
             word: null,
@@ -80,14 +74,14 @@ class AutoComplete extends React.Component {
         });
     }
 
-    select(dataItem) {
+    select = (dataItem) => {
         this.setState({
             word: dataItem[this.props.valueField],
             highlight: false
         });
     }
 
-    selectFocused() {
+    selectFocused = () => {
         const focused = this.state.focused;
 
         if (focused !== null) {
@@ -95,7 +89,7 @@ class AutoComplete extends React.Component {
         }
     }
 
-    navigate(keyCode) {
+    navigate = (keyCode) => {
         const max = this.props.data.length - 1;
         const { suggest, valueField } = this.props;
         let focused;

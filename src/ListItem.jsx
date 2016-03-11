@@ -15,7 +15,6 @@ export default class ListItem extends React.Component {
 
     constructor(props) {
         super(props);
-        this.clickAction = this.clickHandler.bind(this);
     }
 
     renderer() {
@@ -28,11 +27,11 @@ export default class ListItem extends React.Component {
         return dataItem[textField];
     }
 
-    mouseDownHandler(e) {
-        e.preventDefault();
+    onMouseDown = (event) => {
+        event.preventDefault();
     }
 
-    clickHandler() {
+    onClick = () => {
         this.props.onClick(this.props.dataItem);
     }
 
@@ -45,9 +44,11 @@ export default class ListItem extends React.Component {
 
         return (
             <li className={itemClasses}
-                onClick={this.clickAction}
-                onMouseDown={this.mouseDownHandler}
-            >{this.renderer()}</li>
+                onClick={this.onClick}
+                onMouseDown={this.onMouseDown}
+            >
+                {this.renderer()}
+            </li>
         );
     }
 }

@@ -19,10 +19,9 @@ export default class List extends React.Component {
 
     constructor(props) {
         super(props);
-        this.clickAction = this.clickHandler.bind(this);
     }
 
-    clickHandler(dataItem) {
+    clickHandler = (dataItem) => {
         this.props.onClick(dataItem);
     }
 
@@ -36,7 +35,7 @@ export default class List extends React.Component {
                     dataItem={item}
                     focused={index === focused}
                     key={item.text}
-                    onClick={this.clickAction}
+                    onClick={this.clickHandler}
                     renderer={renderer}
                     selected={item[valueField] === value}
                     textField={textField}
