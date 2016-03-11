@@ -80,6 +80,7 @@ function textReduced(newValue = "", oldValue = "") {
 }
 
 const keys = {
+    ENTER: 13,
     LEFT: 37,
     UP: 38,
     RIGHT: 39,

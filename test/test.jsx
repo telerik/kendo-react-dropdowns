@@ -8,14 +8,7 @@ import KendoSearchBar from '../src/kendo-searchbar';
 
 describe('KendoListItem', () => {
     let result;
-    let dataItem = { text: "foo", value: 1 };
-    let clickHandler = function(dataItem) {
-        expect(dataItem).not.toBeUndefined();
-        expect(dataItem.value).toEqual(1);
-    };
-    let renderer = function(dataItem) {
-        return `${dataItem.text}bar`;
-    };
+    const dataItem = { text: "foo", value: 1 };
 
     it('should render a li', () => {
         result = shallow(<KendoListItem dataItem={dataItem} />);
@@ -23,8 +16,9 @@ describe('KendoListItem', () => {
     });
 
     it('should accept custom render function', () => {
-        result = shallow(<KendoListItem dataItem={dataItem} renderer={renderer} />);
-        expect(result.text()).toEqual('foobar');
+        const spy = jasmine.createSpy('spy');
+        result = shallow(<KendoListItem dataItem={dataItem} renderer={spy} />);
+        expect(spy).toHaveBeenCalledWith({ text: 'foo', value: 1 });
     });
 
     it('should add selected state class if selected prop is true', () => {
@@ -37,9 +31,21 @@ describe('KendoListItem', () => {
         expect(result.hasClass('k-state-selected')).toBe(false);
     });
 
+    it('should add focused state class if focused prop is true', () => {
+        result = shallow(<KendoListItem dataItem={dataItem} focused />);
+        expect(result.hasClass('k-state-focused')).toBe(true);
+    });
+
+    it('should not add focused state class if focused prop is false', () => {
+        result = shallow(<KendoListItem dataItem={dataItem} />);
+        expect(result.hasClass('k-state-focused')).toBe(false);
+    });
+
     it('should pass dataItem to the click handler', () => {
-        result = shallow(<KendoListItem dataItem={dataItem} onClick={clickHandler} />);
+        const spy = jasmine.createSpy('spy');
+        result = shallow(<KendoListItem dataItem={dataItem} onClick={spy} />);
         result.simulate('click');
+        expect(spy).toHaveBeenCalledWith({ text: 'foo', value: 1 });
     });
 });
 
@@ -55,6 +61,32 @@ describe('KendoList', () => {
     it('should render KendoListItems', () => {
         result = shallow(<KendoList data={data} />);
         expect(result.find(KendoListItem).length).toEqual(2);
+    });
+
+    it('should select', () => {
+        result = shallow(<KendoList data={data} textField="text" value={2} valueField="value" />);
+        const items = result.find(KendoListItem);
+        expect(items.at(0).shallow().hasClass('k-state-selected')).toBe(false);
+        expect(items.at(1).shallow().hasClass('k-state-selected')).toBe(true);
+    });
+
+    it('should focus', () => {
+        result = shallow(<KendoList data={data} focused={0} textField="text" valueField="value" />);
+        const items = result.find(KendoListItem);
+        expect(items.at(0).shallow().hasClass('k-state-focused')).toBe(true);
+        expect(items.at(1).shallow().hasClass('k-state-focused')).toBe(false);
+    });
+
+    it('should fire onClick', () => {
+        const spy = jasmine.createSpy('spy');
+        result = shallow(<KendoList data={data} onClick={spy} textField="text" valueField="value" />);
+        const items = result.find(KendoListItem);
+
+        items.at(0).shallow().simulate('click');
+        expect(spy).toHaveBeenCalledWith({ text: 'foo', value: 1 });
+
+        items.at(1).shallow().simulate('click');
+        expect(spy).toHaveBeenCalledWith({ text: 'bar', value: 2 });
     });
 
 });

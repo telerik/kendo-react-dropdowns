@@ -11,6 +11,7 @@ export default class KendoSearchBar extends React.Component {
         navigate: PropTypes.func,
         placeholder: PropTypes.string,
         search: PropTypes.func,
+        selectFocused: PropTypes.func,
         separator: PropTypes.string,
         text: PropTypes.string,
         word: PropTypes.string
@@ -73,6 +74,10 @@ export default class KendoSearchBar extends React.Component {
         if (event.keyCode === keys.UP || event.keyCode === keys.DOWN) {
             event.preventDefault();
             this.props.navigate(event.keyCode);
+        }
+
+        if (event.keyCode === keys.ENTER) {
+            this.props.selectFocused();
         }
     };
 

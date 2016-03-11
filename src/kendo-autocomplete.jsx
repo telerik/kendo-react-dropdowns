@@ -44,6 +44,7 @@ class KendoAutoComplete extends React.Component {
         this.search = this.search.bind(this);
         this.textUpdate = this.textUpdate.bind(this);
         this.select = this.select.bind(this);
+        this.selectFocused = this.selectFocused.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -86,6 +87,14 @@ class KendoAutoComplete extends React.Component {
             word: dataItem[this.props.valueField],
             highlight: false
         });
+    }
+
+    selectFocused() {
+        const focused = this.state.focused;
+
+        if (focused !== null) {
+            this.select(this.props.data[focused]);
+        }
     }
 
     navigate(keyCode) {
@@ -133,6 +142,7 @@ class KendoAutoComplete extends React.Component {
             navigate: this.navigate,
             search: this.search,
             change: this.textUpdate,
+            selectFocused: this.selectFocused,
             disabled: this.props.disabled,
             placeholder: this.props.placeholder,
             text: this.state.text ? this.state.text : this.props.value || "",
