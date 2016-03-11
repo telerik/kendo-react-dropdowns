@@ -133,15 +133,14 @@ describe('KendoAutoComplete', () => {
         expect(result.find(KendoSearchBar).prop('disabled')).toBe(true);
     });
 
-    /* it('should trigger onSearch', () => {
-       let spy = jasmine.createSpy('search');
-       result = shallow(<KendoAutoComplete data={data} onSearch={spy}/>);
-       console.log(result.find(KendoSearchBar), 1);
-       result.find(KendoSearchBar).simulate('keypress', {
-       which: 97,
-       keyCode: 97
-       });
-       expect(spy).toHaveBeenCalled();
-       });
-     */
+    // it('should trigger onChange on list keyboard selection', () => {
+        // let spy = jasmine.createSpy('onChange');
+        // result = shallow(<KendoAutoComplete data={data} valueField="text" onChange={spy} />);
+        // result.setState({
+            // focused: 3
+        // });
+        // result.find(KendoSearchBar).at(0).shallow().simulate("keydown", {keyCode: 13, preventDefault: function() {}})
+        // result.find(KendoSearchBar).at(0).shallow().simulate("keydown", {keyCode: 40, preventDefault: function() {}})
+        // expect(spy).toHaveBeenCalledWith("Albania");
+    // });
 });

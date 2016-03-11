@@ -117,4 +117,24 @@ describe('KendoAutoComplete', withRoot(root => {
         type(input, "B");
         expect(input.value).toEqual("B");
     });
+
+    it('should trigger onChange after input loses focus', () => {
+        let spy = jasmine.createSpy('onChange');
+        props = { suggest: true, valueField: "text", onChange: spy };
+        render("");
+
+        const input = root.find("input");
+        type(input[0], "f");
+        input.blur();
+        expect(spy).toHaveBeenCalledWith("f");
+    });
+
+    it('should trigger onChange on list selection', () => {
+        let spy = jasmine.createSpy('onChange');
+        props = { suggest: true, valueField: "text", onChange: spy };
+        render("");
+        root.find("li:first").click();
+        expect(spy).toHaveBeenCalledWith("Albania");
+    });
+
 }));
