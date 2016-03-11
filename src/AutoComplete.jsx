@@ -34,7 +34,7 @@ class AutoComplete extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            text: "",
+            value: "",
             word: null,
             highlight: false,
             focused: null
@@ -42,7 +42,7 @@ class AutoComplete extends React.Component {
         this.navigate = this.navigate.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.search = this.search.bind(this);
-        this.textUpdate = this.textUpdate.bind(this);
+        this.valueUpdate = this.valueUpdate.bind(this);
         this.select = this.select.bind(this);
         this.selectFocused = this.selectFocused.bind(this);
     }
@@ -72,9 +72,9 @@ class AutoComplete extends React.Component {
         }
     }
 
-    textUpdate(text) {
+    valueUpdate(value) {
         this.setState({
-            text: text,
+            value: value,
             word: null,
             highlight: false
         });
@@ -139,11 +139,11 @@ class AutoComplete extends React.Component {
             handleChange: this.handleChange,
             navigate: this.navigate,
             search: this.search,
-            change: this.textUpdate,
+            change: this.valueUpdate,
             selectFocused: this.selectFocused,
             disabled: this.props.disabled,
             placeholder: this.props.placeholder,
-            text: this.state.text ? this.state.text : this.props.value || "",
+            value: this.state.value ? this.state.value : this.props.value || "",
             separator: this.props.separator || "",
             highlight: this.state.highlight,
             word: this.state.word

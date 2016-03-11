@@ -13,7 +13,7 @@ export default class SearchBar extends React.Component {
         search: PropTypes.func,
         selectFocused: PropTypes.func,
         separator: PropTypes.string,
-        text: PropTypes.string,
+        value: PropTypes.string,
         word: PropTypes.string
     };
 
@@ -30,7 +30,7 @@ export default class SearchBar extends React.Component {
         const highlight = nextProps.highlight;
 
         if (highlight) { //suggested
-            this.accept = !textReduced(nextProps.text, this.hasSelection ? this.props.text : this._oldValue);
+            this.accept = !textReduced(nextProps.value, this.hasSelection ? this.props.value : this._oldValue);
         } else { //selected from list
             this.accept = true;
         }
@@ -82,38 +82,38 @@ export default class SearchBar extends React.Component {
     };
 
     onChange = (event) => {
-        const text = event.target.value;
+        const value = event.target.value;
         const separator = this.props.separator;
-        const word = separator ? wordAtCaret(caretIndex(this._input), text, separator) : text;
-        const index = indexOfWordAtCaret(caretIndex(this._input), text, separator);
+        const word = separator ? wordAtCaret(caretIndex(this._input), value, separator) : value;
+        const index = indexOfWordAtCaret(caretIndex(this._input), value, separator);
 
         if (word !== this.searchWord) {
             this.props.search(word, index);
             this.searchWord = word;
         }
 
-        this.props.change(text);
+        this.props.change(value);
     };
 
     render() {
-        const { word, separator, text } = this.props;
-        let value;
+        const { word, separator, value } = this.props;
+        let newValue;
 
         //if (text) {
         if (word && this.accept) {
             if (separator) {
-                value = replaceWordAtCaret(caretIndex(this._input), text, word, separator);
+                newValue = replaceWordAtCaret(caretIndex(this._input), value, word, separator);
             } else {
-                value = word;
+                newValue = word;
             }
             this.searchWord = word;
         } else {
-            value = text;
-            this.searchWord = text ? wordAtCaret(this.caretIdx || text.length, text, separator) : "";
+            newValue = value;
+            this.searchWord = value ? wordAtCaret(this.caretIdx || value.length, value, separator) : "";
         }
         //}
 
-        this._oldValue = value;
+        this._oldValue = newValue;
 
         return (
             <input
@@ -126,7 +126,7 @@ export default class SearchBar extends React.Component {
                 placeholder={this.props.placeholder}
                 ref={this.getInput}
                 type="text"
-                value={value}
+                value={newValue}
             />
         );
     }
