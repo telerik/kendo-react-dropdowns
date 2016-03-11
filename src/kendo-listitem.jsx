@@ -28,6 +28,10 @@ export default class KendoListItem extends React.Component {
         return dataItem[textField];
     }
 
+    mouseDownHandler(e) {
+        e.preventDefault();
+    }
+
     clickHandler() {
         this.props.onClick(this.props.dataItem);
     }
@@ -40,7 +44,10 @@ export default class KendoListItem extends React.Component {
         });
 
         return (
-            <li className={itemClasses} onClick={this.clickAction}>{this.renderer()}</li>
+            <li className={itemClasses}
+                onClick={this.clickAction}
+                onMouseDown={this.mouseDownHandler}
+            >{this.renderer()}</li>
         );
     }
 }

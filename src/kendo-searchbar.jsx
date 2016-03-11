@@ -6,6 +6,7 @@ export default class KendoSearchBar extends React.Component {
     static propTypes = {
         change: PropTypes.func,
         disabled: PropTypes.bool,
+        handleChange: PropTypes.func,
         highlight: PropTypes.bool,
         navigate: PropTypes.func,
         placeholder: PropTypes.string,
@@ -15,6 +16,7 @@ export default class KendoSearchBar extends React.Component {
         word: PropTypes.string
     };
 
+    //TODO add defaultProps
     constructor(props) {
         super(props);
 
@@ -43,6 +45,7 @@ export default class KendoSearchBar extends React.Component {
             } else {
                 //only when something is chosen from the list
                 caretSelection(this._input, this._input.value.length);
+                this.props.handleChange(this._input.value);
             }
         } else {
             //in every other case
@@ -60,6 +63,10 @@ export default class KendoSearchBar extends React.Component {
 
     onBlur = () => {
         window.document.removeEventListener("selectionchange", this.onSelectionChange);
+        //only when NOT chosen from list
+        if (!this.props.word || (this.props.word && this.props.highlight)) {
+            this.props.handleChange(this._input.value);
+        }
     };
 
     onKeyDown = (event) => {

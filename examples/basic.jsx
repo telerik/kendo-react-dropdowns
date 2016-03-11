@@ -69,6 +69,9 @@ const foo = (text) => {
     render(dataList);
 };
 
+const onChange = (e) => {
+    console.log("change event triggered: ", e);
+}
 
 const render = (data) => {
     ReactDOM.render(
@@ -104,7 +107,9 @@ const render = (data) => {
             <p>suggest: true, separator: false</p>
             <KendoAutoComplete
                 data={data}
+                onChange={onChange}
                 onSearch={foo}
+                separator=", "
                 placeholder="awesome autocomplete!"
                 suggest
                 valueField="text"

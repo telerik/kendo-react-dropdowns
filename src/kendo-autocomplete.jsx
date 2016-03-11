@@ -2,25 +2,33 @@ import React, { PropTypes } from 'react';
 import KendoList from './kendo-list';
 import KendoSearchBar from './kendo-searchbar';
 import { keys } from './util';
+// import styles from '@telerik/kendo-theme-default/styles/autocomplete/main';
+import classNames from 'classnames';
 
 class KendoAutoComplete extends React.Component {
 
     static propTypes = {
+        change: PropTypes.func,
+        className: React.PropTypes.string,
         data: PropTypes.arrayOf(PropTypes.object),
         disabled: PropTypes.bool,
         itemRenderer: PropTypes.func,
         minLength: PropTypes.number,
+        onChange: PropTypes.func,
         onSearch: PropTypes.func,
         placeholder: PropTypes.string,
         separator: PropTypes.string,
         suggest: PropTypes.bool,
+        tabIndex: React.PropTypes.number,
         value: PropTypes.string,
         valueField: PropTypes.string,
         valueRenderer: PropTypes.func
     };
 
     static defaultProps = {
-        minLength: 0
+        minLength: 0,
+        onChange() {},
+        onSearch() {}
     };
 
     constructor(props) {
@@ -31,8 +39,8 @@ class KendoAutoComplete extends React.Component {
             highlight: false,
             focused: null
         };
-
         this.navigate = this.navigate.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.search = this.search.bind(this);
         this.textUpdate = this.textUpdate.bind(this);
         this.select = this.select.bind(this);
@@ -50,6 +58,10 @@ class KendoAutoComplete extends React.Component {
         }
 
         this.setState({ focused: null });
+    }
+
+    handleChange(value) {
+        this.props.onChange(value);
     }
 
     search(word) {
@@ -94,6 +106,19 @@ class KendoAutoComplete extends React.Component {
     }
 
     render() {
+        let autocompleteClasses = classNames({
+            // [styles.button]: true,
+            'k-widget': true,
+            'k-autocomplete': true,
+            'k-header': true
+        }, this.props.className);
+
+        let autocompleteProps = {
+            role: 'autocomplete',
+            tabIndex: this.props.tabIndex || -1,
+            className: autocompleteClasses
+        };
+
         const listProps = {
             data: this.props.data,
             focused: this.state.focused,
@@ -104,6 +129,7 @@ class KendoAutoComplete extends React.Component {
         };
 
         const searchBarProps = {
+            handleChange: this.handleChange,
             navigate: this.navigate,
             search: this.search,
             change: this.textUpdate,
@@ -116,7 +142,7 @@ class KendoAutoComplete extends React.Component {
         };
 
         return (
-            <span className="k-widget k-autocomplete k-header" tabIndex="-1">
+            <span {...autocompleteProps}>
                 <KendoSearchBar ref="searchBar" {...searchBarProps} />
                 <KendoList {...listProps} />
             </span>
