@@ -1,8 +1,8 @@
 import * as React from 'react';
-import KendoList from './kendo-list';
+import List from './List';
 //import styles from '@telerik/kendo-theme-default-base/styles/main';
 
-export default class KendoDropDownList extends React.Component {
+export default class DropDownList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -33,13 +33,13 @@ export default class KendoDropDownList extends React.Component {
         return (
             <span>
                 {this.renderValue()}
-                <KendoList {...listProps} />
+                <List {...listProps} />
             </span>
         );
     }
 }
 
-KendoDropDownList.propTypes = {
+DropDownList.propTypes = {
     data: React.PropTypes.arrayOf(React.PropTypes.object),
     itemRenderer: React.PropTypes.func,
     value: React.PropTypes.oneOfType([

@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
-import KendoList from './kendo-list';
-import KendoSearchBar from './kendo-searchbar';
-import { keys } from './util';
-// import styles from '@telerik/kendo-theme-default/styles/autocomplete/main';
 import classNames from 'classnames';
+import { keys } from './Util';
+import List from './List';
+import SearchBar from './SearchBar';
+// import styles from '@telerik/kendo-theme-default/styles/autocomplete/main';
 
-class KendoAutoComplete extends React.Component {
+class AutoComplete extends React.Component {
 
     static propTypes = {
         change: PropTypes.func,
@@ -48,7 +48,6 @@ class KendoAutoComplete extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        //data is received, should I suggest?
         const { suggest, data, valueField } = nextProps;
 
         if (suggest && data.length) {
@@ -66,7 +65,6 @@ class KendoAutoComplete extends React.Component {
     }
 
     search(word) {
-        //suggest during search
         const minLength = this.props.minLength;
 
         if (word.length >= minLength) {
@@ -153,11 +151,11 @@ class KendoAutoComplete extends React.Component {
 
         return (
             <span {...autocompleteProps}>
-                <KendoSearchBar ref="searchBar" {...searchBarProps} />
-                <KendoList {...listProps} />
+                <SearchBar ref="searchBar" {...searchBarProps} />
+                <List {...listProps} />
             </span>
         );
     }
 }
 
-export default KendoAutoComplete;
+export default AutoComplete;

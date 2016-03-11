@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
-import { keys, caretIndex, indexOfWordAtCaret, caretSelection, textReduced, replaceWordAtCaret, selectEndOfWord, wordAtCaret } from './util';
+import { keys, caretIndex, indexOfWordAtCaret, caretSelection, textReduced, replaceWordAtCaret, selectEndOfWord, wordAtCaret } from './Util';
 
-export default class KendoSearchBar extends React.Component {
+export default class SearchBar extends React.Component {
 
     static propTypes = {
         change: PropTypes.func,

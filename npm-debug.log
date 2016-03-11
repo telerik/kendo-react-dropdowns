@@ -1,0 +1,766 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'update' ]
+2 info using npm@3.6.0
+3 info using node@v4.1.2
+4 silly mapToRegistry name classnames
+5 silly mapToRegistry using default registry
+6 silly mapToRegistry registry https://registry.npmjs.org/
+7 silly mapToRegistry uri https://registry.npmjs.org/classnames
+8 silly mapToRegistry name cz-conventional-changelog
+9 silly mapToRegistry using default registry
+10 silly mapToRegistry registry https://registry.npmjs.org/
+11 silly mapToRegistry uri https://registry.npmjs.org/cz-conventional-changelog
+12 silly mapToRegistry name ghooks
+13 silly mapToRegistry using default registry
+14 silly mapToRegistry registry https://registry.npmjs.org/
+15 silly mapToRegistry uri https://registry.npmjs.org/ghooks
+16 silly mapToRegistry name gulp
+17 silly mapToRegistry using default registry
+18 silly mapToRegistry registry https://registry.npmjs.org/
+19 silly mapToRegistry uri https://registry.npmjs.org/gulp
+20 silly mapToRegistry name react
+21 silly mapToRegistry using default registry
+22 silly mapToRegistry registry https://registry.npmjs.org/
+23 silly mapToRegistry uri https://registry.npmjs.org/react
+24 silly mapToRegistry name react-addons-update
+25 silly mapToRegistry using default registry
+26 silly mapToRegistry registry https://registry.npmjs.org/
+27 silly mapToRegistry uri https://registry.npmjs.org/react-addons-update
+28 silly mapToRegistry name react-dom
+29 silly mapToRegistry using default registry
+30 silly mapToRegistry registry https://registry.npmjs.org/
+31 silly mapToRegistry uri https://registry.npmjs.org/react-dom
+32 silly mapToRegistry name validate-commit-msg
+33 silly mapToRegistry using default registry
+34 silly mapToRegistry registry https://registry.npmjs.org/
+35 silly mapToRegistry uri https://registry.npmjs.org/validate-commit-msg
+36 verbose request uri https://registry.npmjs.org/cz-conventional-changelog
+37 verbose request no auth needed
+38 info attempt registry request try #1 at 18:58:08
+39 verbose request id 64db9a25436563c6
+40 verbose etag "3VEH4WG3I52FTKWVFPMJWIADJ"
+41 http request GET https://registry.npmjs.org/cz-conventional-changelog
+42 verbose request uri https://registry.npmjs.org/ghooks
+43 verbose request no auth needed
+44 info attempt registry request try #1 at 18:58:08
+45 verbose etag "2EMOO1AIW7ET4YUD71XLGYAR0"
+46 http request GET https://registry.npmjs.org/ghooks
+47 verbose request uri https://registry.npmjs.org/classnames
+48 verbose request no auth needed
+49 info attempt registry request try #1 at 18:58:08
+50 verbose etag "D0AY9PG19JKGL1MA8FR3XF1J0"
+51 http request GET https://registry.npmjs.org/classnames
+52 verbose request uri https://registry.npmjs.org/gulp
+53 verbose request no auth needed
+54 info attempt registry request try #1 at 18:58:08
+55 verbose etag "8VNB13O6COSJUM0HPKWF98BUV"
+56 http request GET https://registry.npmjs.org/gulp
+57 verbose request uri https://registry.npmjs.org/react-dom
+58 verbose request no auth needed
+59 info attempt registry request try #1 at 18:58:08
+60 verbose etag "88PO1XE53SHBKICXY70PXJ9YW"
+61 http request GET https://registry.npmjs.org/react-dom
+62 verbose request uri https://registry.npmjs.org/react
+63 verbose request no auth needed
+64 info attempt registry request try #1 at 18:58:08
+65 verbose etag "8ETW0HR6HJY1GOY5ZPBOQZPZV"
+66 http request GET https://registry.npmjs.org/react
+67 verbose request uri https://registry.npmjs.org/validate-commit-msg
+68 verbose request no auth needed
+69 info attempt registry request try #1 at 18:58:08
+70 verbose etag "8X4C0L1H0DUALK4FZIM3FSVFP"
+71 http request GET https://registry.npmjs.org/validate-commit-msg
+72 verbose request uri https://registry.npmjs.org/react-addons-update
+73 verbose request no auth needed
+74 info attempt registry request try #1 at 18:58:08
+75 verbose etag "EAC8PKIOSCNZYJP4G3J1F2EDQ"
+76 http request GET https://registry.npmjs.org/react-addons-update
+77 http 304 https://registry.npmjs.org/classnames
+78 verbose headers { date: 'Fri, 11 Mar 2016 16:58:11 GMT',
+78 verbose headers   via: '1.1 varnish',
+78 verbose headers   'cache-control': 'max-age=300',
+78 verbose headers   etag: '"D0AY9PG19JKGL1MA8FR3XF1J0"',
+78 verbose headers   age: '300',
+78 verbose headers   connection: 'keep-alive',
+78 verbose headers   'x-served-by': 'cache-fra1247-FRA',
+78 verbose headers   'x-cache': 'HIT',
+78 verbose headers   'x-cache-hits': '1',
+78 verbose headers   'x-timer': 'S1457715491.386149,VS0,VE0',
+78 verbose headers   vary: 'Accept' }
+79 silly get cb [ 304,
+79 silly get   { date: 'Fri, 11 Mar 2016 16:58:11 GMT',
+79 silly get     via: '1.1 varnish',
+79 silly get     'cache-control': 'max-age=300',
+79 silly get     etag: '"D0AY9PG19JKGL1MA8FR3XF1J0"',
+79 silly get     age: '300',
+79 silly get     connection: 'keep-alive',
+79 silly get     'x-served-by': 'cache-fra1247-FRA',
+79 silly get     'x-cache': 'HIT',
+79 silly get     'x-cache-hits': '1',
+79 silly get     'x-timer': 'S1457715491.386149,VS0,VE0',
+79 silly get     vary: 'Accept' } ]
+80 verbose etag https://registry.npmjs.org/classnames from cache
+81 verbose get saving classnames to /home/valchev/.npm/registry.npmjs.org/classnames/.cache.json
+82 verbose correctMkdir /home/valchev/.npm correctMkdir not in flight; initializing
+83 http 304 https://registry.npmjs.org/gulp
+84 verbose headers { date: 'Fri, 11 Mar 2016 16:58:11 GMT',
+84 verbose headers   via: '1.1 varnish',
+84 verbose headers   'cache-control': 'max-age=300',
+84 verbose headers   etag: '"8VNB13O6COSJUM0HPKWF98BUV"',
+84 verbose headers   age: '131',
+84 verbose headers   connection: 'keep-alive',
+84 verbose headers   'x-served-by': 'cache-fra1241-FRA',
+84 verbose headers   'x-cache': 'HIT',
+84 verbose headers   'x-cache-hits': '3',
+84 verbose headers   'x-timer': 'S1457715491.387141,VS0,VE0',
+84 verbose headers   vary: 'Accept' }
+85 silly get cb [ 304,
+85 silly get   { date: 'Fri, 11 Mar 2016 16:58:11 GMT',
+85 silly get     via: '1.1 varnish',
+85 silly get     'cache-control': 'max-age=300',
+85 silly get     etag: '"8VNB13O6COSJUM0HPKWF98BUV"',
+85 silly get     age: '131',
+85 silly get     connection: 'keep-alive',
+85 silly get     'x-served-by': 'cache-fra1241-FRA',
+85 silly get     'x-cache': 'HIT',
+85 silly get     'x-cache-hits': '3',
+85 silly get     'x-timer': 'S1457715491.387141,VS0,VE0',
+85 silly get     vary: 'Accept' } ]
+86 verbose etag https://registry.npmjs.org/gulp from cache
+87 verbose get saving gulp to /home/valchev/.npm/registry.npmjs.org/gulp/.cache.json
+88 verbose correctMkdir /home/valchev/.npm correctMkdir already in flight; waiting
+89 http 304 https://registry.npmjs.org/react
+90 verbose headers { date: 'Fri, 11 Mar 2016 16:58:11 GMT',
+90 verbose headers   via: '1.1 varnish',
+90 verbose headers   'cache-control': 'max-age=300',
+90 verbose headers   etag: '"8ETW0HR6HJY1GOY5ZPBOQZPZV"',
+90 verbose headers   age: '180',
+90 verbose headers   connection: 'keep-alive',
+90 verbose headers   'x-served-by': 'cache-fra1233-FRA',
+90 verbose headers   'x-cache': 'HIT',
+90 verbose headers   'x-cache-hits': '2',
+90 verbose headers   'x-timer': 'S1457715491.406915,VS0,VE0',
+90 verbose headers   vary: 'Accept' }
+91 silly get cb [ 304,
+91 silly get   { date: 'Fri, 11 Mar 2016 16:58:11 GMT',
+91 silly get     via: '1.1 varnish',
+91 silly get     'cache-control': 'max-age=300',
+91 silly get     etag: '"8ETW0HR6HJY1GOY5ZPBOQZPZV"',
+91 silly get     age: '180',
+91 silly get     connection: 'keep-alive',
+91 silly get     'x-served-by': 'cache-fra1233-FRA',
+91 silly get     'x-cache': 'HIT',
+91 silly get     'x-cache-hits': '2',
+91 silly get     'x-timer': 'S1457715491.406915,VS0,VE0',
+91 silly get     vary: 'Accept' } ]
+92 verbose etag https://registry.npmjs.org/react from cache
+93 verbose get saving react to /home/valchev/.npm/registry.npmjs.org/react/.cache.json
+94 verbose correctMkdir /home/valchev/.npm correctMkdir not in flight; initializing
+95 http 200 https://registry.npmjs.org/react-addons-update
+96 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+96 verbose headers   etag: '"7X5N9GGLMWM9384TGBRXQBO9C"',
+96 verbose headers   'content-type': 'application/json',
+96 verbose headers   'cache-control': 'max-age=300',
+96 verbose headers   'content-length': '15155',
+96 verbose headers   'accept-ranges': 'bytes',
+96 verbose headers   date: 'Fri, 11 Mar 2016 16:58:11 GMT',
+96 verbose headers   via: '1.1 varnish',
+96 verbose headers   age: '71',
+96 verbose headers   connection: 'keep-alive',
+96 verbose headers   'x-served-by': 'cache-fra1236-FRA',
+96 verbose headers   'x-cache': 'HIT',
+96 verbose headers   'x-cache-hits': '1',
+96 verbose headers   'x-timer': 'S1457715491.439588,VS0,VE0',
+96 verbose headers   vary: 'Accept' }
+97 silly get cb [ 200,
+97 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+97 silly get     etag: '"7X5N9GGLMWM9384TGBRXQBO9C"',
+97 silly get     'content-type': 'application/json',
+97 silly get     'cache-control': 'max-age=300',
+97 silly get     'content-length': '15155',
+97 silly get     'accept-ranges': 'bytes',
+97 silly get     date: 'Fri, 11 Mar 2016 16:58:11 GMT',
+97 silly get     via: '1.1 varnish',
+97 silly get     age: '71',
+97 silly get     connection: 'keep-alive',
+97 silly get     'x-served-by': 'cache-fra1236-FRA',
+97 silly get     'x-cache': 'HIT',
+97 silly get     'x-cache-hits': '1',
+97 silly get     'x-timer': 'S1457715491.439588,VS0,VE0',
+97 silly get     vary: 'Accept' } ]
+98 verbose get saving react-addons-update to /home/valchev/.npm/registry.npmjs.org/react-addons-update/.cache.json
+99 verbose correctMkdir /home/valchev/.npm correctMkdir not in flight; initializing
+100 http 304 https://registry.npmjs.org/validate-commit-msg
+101 verbose headers { date: 'Fri, 11 Mar 2016 16:58:11 GMT',
+101 verbose headers   via: '1.1 varnish',
+101 verbose headers   'cache-control': 'max-age=300',
+101 verbose headers   etag: '"8X4C0L1H0DUALK4FZIM3FSVFP"',
+101 verbose headers   age: '0',
+101 verbose headers   connection: 'keep-alive',
+101 verbose headers   'x-served-by': 'cache-fra1226-FRA',
+101 verbose headers   'x-cache': 'HIT',
+101 verbose headers   'x-cache-hits': '1',
+101 verbose headers   'x-timer': 'S1457715491.394647,VS0,VE106',
+101 verbose headers   vary: 'Accept' }
+102 silly get cb [ 304,
+102 silly get   { date: 'Fri, 11 Mar 2016 16:58:11 GMT',
+102 silly get     via: '1.1 varnish',
+102 silly get     'cache-control': 'max-age=300',
+102 silly get     etag: '"8X4C0L1H0DUALK4FZIM3FSVFP"',
+102 silly get     age: '0',
+102 silly get     connection: 'keep-alive',
+102 silly get     'x-served-by': 'cache-fra1226-FRA',
+102 silly get     'x-cache': 'HIT',
+102 silly get     'x-cache-hits': '1',
+102 silly get     'x-timer': 'S1457715491.394647,VS0,VE106',
+102 silly get     vary: 'Accept' } ]
+103 verbose etag https://registry.npmjs.org/validate-commit-msg from cache
+104 verbose get saving validate-commit-msg to /home/valchev/.npm/registry.npmjs.org/validate-commit-msg/.cache.json
+105 verbose correctMkdir /home/valchev/.npm correctMkdir not in flight; initializing
+106 http 304 https://registry.npmjs.org/react-dom
+107 verbose headers { date: 'Fri, 11 Mar 2016 16:58:11 GMT',
+107 verbose headers   via: '1.1 varnish',
+107 verbose headers   'cache-control': 'max-age=300',
+107 verbose headers   etag: '"88PO1XE53SHBKICXY70PXJ9YW"',
+107 verbose headers   age: '0',
+107 verbose headers   connection: 'keep-alive',
+107 verbose headers   'x-served-by': 'cache-fra1235-FRA',
+107 verbose headers   'x-cache': 'HIT',
+107 verbose headers   'x-cache-hits': '1',
+107 verbose headers   'x-timer': 'S1457715491.390071,VS0,VE186',
+107 verbose headers   vary: 'Accept' }
+108 silly get cb [ 304,
+108 silly get   { date: 'Fri, 11 Mar 2016 16:58:11 GMT',
+108 silly get     via: '1.1 varnish',
+108 silly get     'cache-control': 'max-age=300',
+108 silly get     etag: '"88PO1XE53SHBKICXY70PXJ9YW"',
+108 silly get     age: '0',
+108 silly get     connection: 'keep-alive',
+108 silly get     'x-served-by': 'cache-fra1235-FRA',
+108 silly get     'x-cache': 'HIT',
+108 silly get     'x-cache-hits': '1',
+108 silly get     'x-timer': 'S1457715491.390071,VS0,VE186',
+108 silly get     vary: 'Accept' } ]
+109 verbose etag https://registry.npmjs.org/react-dom from cache
+110 verbose get saving react-dom to /home/valchev/.npm/registry.npmjs.org/react-dom/.cache.json
+111 verbose correctMkdir /home/valchev/.npm correctMkdir not in flight; initializing
+112 http 304 https://registry.npmjs.org/cz-conventional-changelog
+113 verbose headers { date: 'Fri, 11 Mar 2016 16:58:11 GMT',
+113 verbose headers   via: '1.1 varnish',
+113 verbose headers   'cache-control': 'max-age=300',
+113 verbose headers   etag: '"3VEH4WG3I52FTKWVFPMJWIADJ"',
+113 verbose headers   age: '0',
+113 verbose headers   connection: 'keep-alive',
+113 verbose headers   'x-served-by': 'cache-fra1233-FRA',
+113 verbose headers   'x-cache': 'HIT',
+113 verbose headers   'x-cache-hits': '1',
+113 verbose headers   'x-timer': 'S1457715491.393312,VS0,VE183',
+113 verbose headers   vary: 'Accept' }
+114 silly get cb [ 304,
+114 silly get   { date: 'Fri, 11 Mar 2016 16:58:11 GMT',
+114 silly get     via: '1.1 varnish',
+114 silly get     'cache-control': 'max-age=300',
+114 silly get     etag: '"3VEH4WG3I52FTKWVFPMJWIADJ"',
+114 silly get     age: '0',
+114 silly get     connection: 'keep-alive',
+114 silly get     'x-served-by': 'cache-fra1233-FRA',
+114 silly get     'x-cache': 'HIT',
+114 silly get     'x-cache-hits': '1',
+114 silly get     'x-timer': 'S1457715491.393312,VS0,VE183',
+114 silly get     vary: 'Accept' } ]
+115 verbose etag https://registry.npmjs.org/cz-conventional-changelog from cache
+116 verbose get saving cz-conventional-changelog to /home/valchev/.npm/registry.npmjs.org/cz-conventional-changelog/.cache.json
+117 verbose correctMkdir /home/valchev/.npm correctMkdir not in flight; initializing
+118 http 304 https://registry.npmjs.org/ghooks
+119 verbose headers { date: 'Fri, 11 Mar 2016 16:58:11 GMT',
+119 verbose headers   via: '1.1 varnish',
+119 verbose headers   'cache-control': 'max-age=300',
+119 verbose headers   etag: '"2EMOO1AIW7ET4YUD71XLGYAR0"',
+119 verbose headers   age: '0',
+119 verbose headers   connection: 'keep-alive',
+119 verbose headers   'x-served-by': 'cache-fra1235-FRA',
+119 verbose headers   'x-cache': 'HIT',
+119 verbose headers   'x-cache-hits': '1',
+119 verbose headers   'x-timer': 'S1457715491.387441,VS0,VE418',
+119 verbose headers   vary: 'Accept' }
+120 silly get cb [ 304,
+120 silly get   { date: 'Fri, 11 Mar 2016 16:58:11 GMT',
+120 silly get     via: '1.1 varnish',
+120 silly get     'cache-control': 'max-age=300',
+120 silly get     etag: '"2EMOO1AIW7ET4YUD71XLGYAR0"',
+120 silly get     age: '0',
+120 silly get     connection: 'keep-alive',
+120 silly get     'x-served-by': 'cache-fra1235-FRA',
+120 silly get     'x-cache': 'HIT',
+120 silly get     'x-cache-hits': '1',
+120 silly get     'x-timer': 'S1457715491.387441,VS0,VE418',
+120 silly get     vary: 'Accept' } ]
+121 verbose etag https://registry.npmjs.org/ghooks from cache
+122 verbose get saving ghooks to /home/valchev/.npm/registry.npmjs.org/ghooks/.cache.json
+123 verbose correctMkdir /home/valchev/.npm correctMkdir not in flight; initializing
+124 verbose outdated not updating gulp because it's currently at the maximum version that matches its specified semver range
+125 verbose outdated not updating validate-commit-msg because it's currently at the maximum version that matches its specified semver range
+126 info outdated updating [ { dep:
+126 info outdated      Node {
+126 info outdated        id: 807,
+126 info outdated        package: [Object],
+126 info outdated        path: '/home/valchev/kendo-react-dropdowns/node_modules/@telerik/eslint-config',
+126 info outdated        realpath: '/home/valchev/kendo-react-dropdowns/node_modules/@telerik/eslint-config',
+126 info outdated        parent: [Object],
+126 info outdated        isLink: false,
+126 info outdated        children: [],
+126 info outdated        error: null,
+126 info outdated        loaded: false,
+126 info outdated        requiredBy: [Object],
+126 info outdated        requires: [],
+126 info outdated        missingDeps: {},
+126 info outdated        missingDevDeps: {},
+126 info outdated        userRequired: false,
+126 info outdated        existing: false },
+126 info outdated     depname: '@telerik/eslint-config',
+126 info outdated     current: '0.1.0',
+126 info outdated     wanted: 'git',
+126 info outdated     latest: 'git',
+126 info outdated     req: 'github:telerik/eslint-config-kendo#master',
+126 info outdated     what: '@telerik/eslint-config@git' },
+126 info outdated   { dep:
+126 info outdated      Node {
+126 info outdated        id: 805,
+126 info outdated        package: [Object],
+126 info outdated        path: '/home/valchev/kendo-react-dropdowns/node_modules/@telerik/kendo-react-tasks',
+126 info outdated        realpath: '/home/valchev/kendo-react-dropdowns/node_modules/@telerik/kendo-react-tasks',
+126 info outdated        parent: [Object],
+126 info outdated        isLink: false,
+126 info outdated        children: [Object],
+126 info outdated        error: null,
+126 info outdated        loaded: false,
+126 info outdated        requiredBy: [Object],
+126 info outdated        requires: [Object],
+126 info outdated        missingDeps: {},
+126 info outdated        missingDevDeps: {},
+126 info outdated        userRequired: false,
+126 info outdated        existing: false },
+126 info outdated     depname: '@telerik/kendo-react-tasks',
+126 info outdated     current: '0.1.0',
+126 info outdated     wanted: 'git',
+126 info outdated     latest: 'git',
+126 info outdated     req: 'github:telerik/kendo-react-tasks#master',
+126 info outdated     what: '@telerik/kendo-react-tasks@git' },
+126 info outdated   { dep:
+126 info outdated      Node {
+126 info outdated        id: 867,
+126 info outdated        package: [Object],
+126 info outdated        path: '/home/valchev/kendo-react-dropdowns/node_modules/@telerik/kendo-theme-default-base',
+126 info outdated        realpath: '/home/valchev/kendo-react-dropdowns/node_modules/@telerik/kendo-theme-default-base',
+126 info outdated        parent: [Object],
+126 info outdated        isLink: false,
+126 info outdated        children: [Object],
+126 info outdated        error: null,
+126 info outdated        loaded: false,
+126 info outdated        requiredBy: [Object],
+126 info outdated        requires: [Object],
+126 info outdated        missingDeps: {},
+126 info outdated        missingDevDeps: {},
+126 info outdated        userRequired: false,
+126 info outdated        existing: false },
+126 info outdated     depname: '@telerik/kendo-theme-default-base',
+126 info outdated     current: '0.1.0',
+126 info outdated     wanted: 'git',
+126 info outdated     latest: 'git',
+126 info outdated     req: 'github:telerik/kendo-theme-default-base#master',
+126 info outdated     what: '@telerik/kendo-theme-default-base@git' } ]
+127 silly loadCurrentTree Starting
+128 silly install loadCurrentTree
+129 silly install readLocalPackageData
+130 silly fetchPackageMetaData github:telerik/eslint-config-kendo#master
+131 silly fetchPackageMetaData github:telerik/kendo-react-tasks#master
+132 silly fetchPackageMetaData github:telerik/kendo-theme-default-base#master
+133 silly fetchOtherPackageData github:telerik/eslint-config-kendo#master
+134 silly cache add args [ 'github:telerik/eslint-config-kendo#master', null ]
+135 verbose cache add spec github:telerik/eslint-config-kendo#master
+136 silly fetchOtherPackageData github:telerik/kendo-react-tasks#master
+137 silly cache add args [ 'github:telerik/kendo-react-tasks#master', null ]
+138 verbose cache add spec github:telerik/kendo-react-tasks#master
+139 silly fetchOtherPackageData github:telerik/kendo-theme-default-base#master
+140 silly cache add args [ 'github:telerik/kendo-theme-default-base#master', null ]
+141 verbose cache add spec github:telerik/kendo-theme-default-base#master
+142 silly cache add parsed spec Result {
+142 silly cache add   raw: 'github:telerik/eslint-config-kendo#master',
+142 silly cache add   scope: null,
+142 silly cache add   name: null,
+142 silly cache add   rawSpec: 'github:telerik/eslint-config-kendo#master',
+142 silly cache add   spec: 'github:telerik/eslint-config-kendo#master',
+142 silly cache add   type: 'hosted',
+142 silly cache add   hosted:
+142 silly cache add    { type: 'github',
+142 silly cache add      ssh: 'git@github.com:telerik/eslint-config-kendo.git#master',
+142 silly cache add      sshUrl: 'git+ssh://git@github.com/telerik/eslint-config-kendo.git#master',
+142 silly cache add      httpsUrl: 'git+https://github.com/telerik/eslint-config-kendo.git#master',
+142 silly cache add      gitUrl: 'git://github.com/telerik/eslint-config-kendo.git#master',
+142 silly cache add      shortcut: 'github:telerik/eslint-config-kendo#master',
+142 silly cache add      directUrl: 'https://raw.githubusercontent.com/telerik/eslint-config-kendo/master/package.json' } }
+143 verbose addRemoteGit caching github:telerik/eslint-config-kendo#master
+144 verbose addRemoteGit telerik/eslint-config-kendo#master is a repository hosted by github
+145 silly tryGitProto attempting to clone git://github.com/telerik/eslint-config-kendo.git#master
+146 silly tryClone cloning telerik/eslint-config-kendo#master via git://github.com/telerik/eslint-config-kendo.git#master
+147 verbose tryClone git-github-com-telerik-eslint-config-kendo-git-master-c09d23bd not in flight; caching
+148 verbose correctMkdir /home/valchev/.npm/_git-remotes correctMkdir not in flight; initializing
+149 silly cache add parsed spec Result {
+149 silly cache add   raw: 'github:telerik/kendo-react-tasks#master',
+149 silly cache add   scope: null,
+149 silly cache add   name: null,
+149 silly cache add   rawSpec: 'github:telerik/kendo-react-tasks#master',
+149 silly cache add   spec: 'github:telerik/kendo-react-tasks#master',
+149 silly cache add   type: 'hosted',
+149 silly cache add   hosted:
+149 silly cache add    { type: 'github',
+149 silly cache add      ssh: 'git@github.com:telerik/kendo-react-tasks.git#master',
+149 silly cache add      sshUrl: 'git+ssh://git@github.com/telerik/kendo-react-tasks.git#master',
+149 silly cache add      httpsUrl: 'git+https://github.com/telerik/kendo-react-tasks.git#master',
+149 silly cache add      gitUrl: 'git://github.com/telerik/kendo-react-tasks.git#master',
+149 silly cache add      shortcut: 'github:telerik/kendo-react-tasks#master',
+149 silly cache add      directUrl: 'https://raw.githubusercontent.com/telerik/kendo-react-tasks/master/package.json' } }
+150 verbose addRemoteGit caching github:telerik/kendo-react-tasks#master
+151 verbose addRemoteGit telerik/kendo-react-tasks#master is a repository hosted by github
+152 silly tryGitProto attempting to clone git://github.com/telerik/kendo-react-tasks.git#master
+153 silly tryClone cloning telerik/kendo-react-tasks#master via git://github.com/telerik/kendo-react-tasks.git#master
+154 verbose tryClone git-github-com-telerik-kendo-react-tasks-git-master-4d8a2643 not in flight; caching
+155 verbose correctMkdir /home/valchev/.npm/_git-remotes correctMkdir already in flight; waiting
+156 silly cache add parsed spec Result {
+156 silly cache add   raw: 'github:telerik/kendo-theme-default-base#master',
+156 silly cache add   scope: null,
+156 silly cache add   name: null,
+156 silly cache add   rawSpec: 'github:telerik/kendo-theme-default-base#master',
+156 silly cache add   spec: 'github:telerik/kendo-theme-default-base#master',
+156 silly cache add   type: 'hosted',
+156 silly cache add   hosted:
+156 silly cache add    { type: 'github',
+156 silly cache add      ssh: 'git@github.com:telerik/kendo-theme-default-base.git#master',
+156 silly cache add      sshUrl: 'git+ssh://git@github.com/telerik/kendo-theme-default-base.git#master',
+156 silly cache add      httpsUrl: 'git+https://github.com/telerik/kendo-theme-default-base.git#master',
+156 silly cache add      gitUrl: 'git://github.com/telerik/kendo-theme-default-base.git#master',
+156 silly cache add      shortcut: 'github:telerik/kendo-theme-default-base#master',
+156 silly cache add      directUrl: 'https://raw.githubusercontent.com/telerik/kendo-theme-default-base/master/package.json' } }
+157 verbose addRemoteGit caching github:telerik/kendo-theme-default-base#master
+158 verbose addRemoteGit telerik/kendo-theme-default-base#master is a repository hosted by github
+159 silly tryGitProto attempting to clone git://github.com/telerik/kendo-theme-default-base.git#master
+160 silly tryClone cloning telerik/kendo-theme-default-base#master via git://github.com/telerik/kendo-theme-default-base.git#master
+161 verbose tryClone git-github-com-telerik-kendo-theme-default-base-git-master-96f1fec2 not in flight; caching
+162 verbose correctMkdir /home/valchev/.npm/_git-remotes correctMkdir already in flight; waiting
+163 info git [ 'clone',
+163 info git   '--template=/home/valchev/.npm/_git-remotes/_templates',
+163 info git   '--mirror',
+163 info git   'git://github.com/telerik/eslint-config-kendo.git',
+163 info git   '/home/valchev/.npm/_git-remotes/git-github-com-telerik-eslint-config-kendo-git-master-c09d23bd' ]
+164 info git [ 'clone',
+164 info git   '--template=/home/valchev/.npm/_git-remotes/_templates',
+164 info git   '--mirror',
+164 info git   'git://github.com/telerik/kendo-react-tasks.git',
+164 info git   '/home/valchev/.npm/_git-remotes/git-github-com-telerik-kendo-react-tasks-git-master-4d8a2643' ]
+165 info git [ 'clone',
+165 info git   '--template=/home/valchev/.npm/_git-remotes/_templates',
+165 info git   '--mirror',
+165 info git   'git://github.com/telerik/kendo-theme-default-base.git',
+165 info git   '/home/valchev/.npm/_git-remotes/git-github-com-telerik-kendo-theme-default-base-git-master-96f1fec2' ]
+166 verbose git clone --template=/home/valchev/.npm/_git-remotes/_templates --mirror git://github.com/telerik/kendo-theme-default-base.git /home/valchev/.npm/_git-remotes/git-github-com-telerik-kendo-theme-default-base-git-master-96f1fec2: Cloning into bare repository '/home/valchev/.npm/_git-remotes/git-github-com-telerik-kendo-theme-default-base-git-master-96f1fec2'...
+166 verbose git clone --template=/home/valchev/.npm/_git-remotes/_templates --mirror git://github.com/telerik/kendo-theme-default-base.git /home/valchev/.npm/_git-remotes/git-github-com-telerik-kendo-theme-default-base-git-master-96f1fec2: fatal: remote error:
+166 verbose git clone --template=/home/valchev/.npm/_git-remotes/_templates --mirror git://github.com/telerik/kendo-theme-default-base.git /home/valchev/.npm/_git-remotes/git-github-com-telerik-kendo-theme-default-base-git-master-96f1fec2:   Repository not found.
+167 silly tryHTTPS attempting to clone git+https://github.com/telerik/kendo-theme-default-base.git#master
+168 silly tryClone cloning telerik/kendo-theme-default-base#master via git+https://github.com/telerik/kendo-theme-default-base.git#master
+169 verbose tryClone git-https-github-com-telerik-kendo-theme-default-base-git-master-cb54083a not in flight; caching
+170 verbose correctMkdir /home/valchev/.npm/_git-remotes correctMkdir not in flight; initializing
+171 info git [ 'clone',
+171 info git   '--template=/home/valchev/.npm/_git-remotes/_templates',
+171 info git   '--mirror',
+171 info git   'https://github.com/telerik/kendo-theme-default-base.git',
+171 info git   '/home/valchev/.npm/_git-remotes/git-https-github-com-telerik-kendo-theme-default-base-git-master-cb54083a' ]
+172 verbose mirrorRemote telerik/eslint-config-kendo#master git clone git://github.com/telerik/eslint-config-kendo.git
+173 verbose correctMkdir /home/valchev/.npm/_git-remotes correctMkdir not in flight; initializing
+174 verbose setPermissions telerik/eslint-config-kendo#master set permissions on /home/valchev/.npm/_git-remotes/git-github-com-telerik-eslint-config-kendo-git-master-c09d23bd
+175 verbose resolveHead telerik/eslint-config-kendo#master original treeish: master
+176 info git [ 'rev-list', '-n1', 'master' ]
+177 silly resolveHead telerik/eslint-config-kendo#master resolved treeish: 36ea0cb6b5ca4efc9e332ac0d1d2fcd3866f7734
+178 verbose resolveHead telerik/eslint-config-kendo#master resolved Git URL: git://github.com/telerik/eslint-config-kendo.git#36ea0cb6b5ca4efc9e332ac0d1d2fcd3866f7734
+179 silly resolveHead Git working directory: /tmp/npm-10805-7faa491a/git-cache-e4ff127b/36ea0cb6b5ca4efc9e332ac0d1d2fcd3866f7734
+180 info git [ 'clone',
+180 info git   '/home/valchev/.npm/_git-remotes/git-github-com-telerik-eslint-config-kendo-git-master-c09d23bd',
+180 info git   '/tmp/npm-10805-7faa491a/git-cache-e4ff127b/36ea0cb6b5ca4efc9e332ac0d1d2fcd3866f7734' ]
+181 verbose mirrorRemote telerik/kendo-react-tasks#master git clone git://github.com/telerik/kendo-react-tasks.git
+182 verbose correctMkdir /home/valchev/.npm/_git-remotes correctMkdir not in flight; initializing
+183 verbose setPermissions telerik/kendo-react-tasks#master set permissions on /home/valchev/.npm/_git-remotes/git-github-com-telerik-kendo-react-tasks-git-master-4d8a2643
+184 verbose resolveHead telerik/kendo-react-tasks#master original treeish: master
+185 info git [ 'rev-list', '-n1', 'master' ]
+186 silly resolveHead telerik/kendo-react-tasks#master resolved treeish: 7497fe93671a75cda2f30cf47e49bad7520a3e1b
+187 verbose resolveHead telerik/kendo-react-tasks#master resolved Git URL: git://github.com/telerik/kendo-react-tasks.git#7497fe93671a75cda2f30cf47e49bad7520a3e1b
+188 silly resolveHead Git working directory: /tmp/npm-10805-7faa491a/git-cache-06c21d12/7497fe93671a75cda2f30cf47e49bad7520a3e1b
+189 info git [ 'clone',
+189 info git   '/home/valchev/.npm/_git-remotes/git-github-com-telerik-kendo-react-tasks-git-master-4d8a2643',
+189 info git   '/tmp/npm-10805-7faa491a/git-cache-06c21d12/7497fe93671a75cda2f30cf47e49bad7520a3e1b' ]
+190 verbose cloneResolved telerik/eslint-config-kendo#master clone Cloning into '/tmp/npm-10805-7faa491a/git-cache-e4ff127b/36ea0cb6b5ca4efc9e332ac0d1d2fcd3866f7734'...
+190 verbose cloneResolved done.
+191 info git [ 'checkout', '36ea0cb6b5ca4efc9e332ac0d1d2fcd3866f7734' ]
+192 verbose cloneResolved telerik/kendo-react-tasks#master clone Cloning into '/tmp/npm-10805-7faa491a/git-cache-06c21d12/7497fe93671a75cda2f30cf47e49bad7520a3e1b'...
+192 verbose cloneResolved done.
+193 verbose checkoutTreeish telerik/eslint-config-kendo#master checkout Note: checking out '36ea0cb6b5ca4efc9e332ac0d1d2fcd3866f7734'.
+193 verbose checkoutTreeish
+193 verbose checkoutTreeish You are in 'detached HEAD' state. You can look around, make experimental
+193 verbose checkoutTreeish changes and commit them, and you can discard any commits you make in this
+193 verbose checkoutTreeish state without impacting any branches by performing another checkout.
+193 verbose checkoutTreeish
+193 verbose checkoutTreeish If you want to create a new branch to retain commits you create, you may
+193 verbose checkoutTreeish do so (now or later) by using -b with the checkout command again. Example:
+193 verbose checkoutTreeish
+193 verbose checkoutTreeish   git checkout -b new_branch_name
+193 verbose checkoutTreeish
+193 verbose checkoutTreeish HEAD is now at 36ea0cb... Merge pull request #1 from telerik/update-readme
+194 info git [ 'checkout', '7497fe93671a75cda2f30cf47e49bad7520a3e1b' ]
+195 verbose checkoutTreeish telerik/kendo-react-tasks#master checkout Note: checking out '7497fe93671a75cda2f30cf47e49bad7520a3e1b'.
+195 verbose checkoutTreeish
+195 verbose checkoutTreeish You are in 'detached HEAD' state. You can look around, make experimental
+195 verbose checkoutTreeish changes and commit them, and you can discard any commits you make in this
+195 verbose checkoutTreeish state without impacting any branches by performing another checkout.
+195 verbose checkoutTreeish
+195 verbose checkoutTreeish If you want to create a new branch to retain commits you create, you may
+195 verbose checkoutTreeish do so (now or later) by using -b with the checkout command again. Example:
+195 verbose checkoutTreeish
+195 verbose checkoutTreeish   git checkout -b new_branch_name
+195 verbose checkoutTreeish
+195 verbose checkoutTreeish HEAD is now at 7497fe9... Merge pull request #4 from telerik/fix-travis-e2e-run
+196 error addLocal Could not install /tmp/npm-10805-7faa491a/git-cache-e4ff127b/36ea0cb6b5ca4efc9e332ac0d1d2fcd3866f7734
+197 silly tryHTTPS attempting to clone git+https://github.com/telerik/eslint-config-kendo.git#master
+198 silly tryClone cloning telerik/eslint-config-kendo#master via git+https://github.com/telerik/eslint-config-kendo.git#master
+199 verbose tryClone git-https-github-com-telerik-eslint-config-kendo-git-master-6a9460b4 not in flight; caching
+200 verbose correctMkdir /home/valchev/.npm/_git-remotes correctMkdir not in flight; initializing
+201 error addLocal Could not install /tmp/npm-10805-7faa491a/git-cache-06c21d12/7497fe93671a75cda2f30cf47e49bad7520a3e1b
+202 silly tryHTTPS attempting to clone git+https://github.com/telerik/kendo-react-tasks.git#master
+203 silly tryClone cloning telerik/kendo-react-tasks#master via git+https://github.com/telerik/kendo-react-tasks.git#master
+204 verbose tryClone git-https-github-com-telerik-kendo-react-tasks-git-master-8744f5ec not in flight; caching
+205 verbose correctMkdir /home/valchev/.npm/_git-remotes correctMkdir not in flight; initializing
+206 info git [ 'clone',
+206 info git   '--template=/home/valchev/.npm/_git-remotes/_templates',
+206 info git   '--mirror',
+206 info git   'https://github.com/telerik/eslint-config-kendo.git',
+206 info git   '/home/valchev/.npm/_git-remotes/git-https-github-com-telerik-eslint-config-kendo-git-master-6a9460b4' ]
+207 info git [ 'clone',
+207 info git   '--template=/home/valchev/.npm/_git-remotes/_templates',
+207 info git   '--mirror',
+207 info git   'https://github.com/telerik/kendo-react-tasks.git',
+207 info git   '/home/valchev/.npm/_git-remotes/git-https-github-com-telerik-kendo-react-tasks-git-master-8744f5ec' ]
+208 verbose mirrorRemote telerik/eslint-config-kendo#master git clone https://github.com/telerik/eslint-config-kendo.git
+209 verbose correctMkdir /home/valchev/.npm/_git-remotes correctMkdir not in flight; initializing
+210 verbose git clone --template=/home/valchev/.npm/_git-remotes/_templates --mirror https://github.com/telerik/kendo-theme-default-base.git /home/valchev/.npm/_git-remotes/git-https-github-com-telerik-kendo-theme-default-base-git-master-cb54083a: Cloning into bare repository '/home/valchev/.npm/_git-remotes/git-https-github-com-telerik-kendo-theme-default-base-git-master-cb54083a'...
+210 verbose git clone --template=/home/valchev/.npm/_git-remotes/_templates --mirror https://github.com/telerik/kendo-theme-default-base.git /home/valchev/.npm/_git-remotes/git-https-github-com-telerik-kendo-theme-default-base-git-master-cb54083a: remote: Invalid username or password.
+210 verbose git clone --template=/home/valchev/.npm/_git-remotes/_templates --mirror https://github.com/telerik/kendo-theme-default-base.git /home/valchev/.npm/_git-remotes/git-https-github-com-telerik-kendo-theme-default-base-git-master-cb54083a: fatal: Authentication failed for 'https://github.com/telerik/kendo-theme-default-base.git/'
+211 silly trySSH attempting to clone git@github.com:telerik/kendo-theme-default-base.git#master
+212 silly tryClone cloning telerik/kendo-theme-default-base#master via git@github.com:telerik/kendo-theme-default-base.git#master
+213 verbose tryClone git-github-com-telerik-kendo-theme-default-base-git-master-b8f165a9 not in flight; caching
+214 verbose correctMkdir /home/valchev/.npm/_git-remotes correctMkdir not in flight; initializing
+215 info git [ 'config', '--get', 'remote.origin.url' ]
+216 verbose setPermissions telerik/eslint-config-kendo#master set permissions on /home/valchev/.npm/_git-remotes/git-https-github-com-telerik-eslint-config-kendo-git-master-6a9460b4
+217 verbose resolveHead telerik/eslint-config-kendo#master original treeish: master
+218 info git [ 'rev-list', '-n1', 'master' ]
+219 silly resolveHead telerik/eslint-config-kendo#master resolved treeish: 36ea0cb6b5ca4efc9e332ac0d1d2fcd3866f7734
+220 verbose resolveHead telerik/eslint-config-kendo#master resolved Git URL: git+https://github.com/telerik/eslint-config-kendo.git#36ea0cb6b5ca4efc9e332ac0d1d2fcd3866f7734
+221 silly resolveHead Git working directory: /tmp/npm-10805-7faa491a/git-cache-8bb08c53/36ea0cb6b5ca4efc9e332ac0d1d2fcd3866f7734
+222 info git [ 'clone',
+222 info git   '/home/valchev/.npm/_git-remotes/git-https-github-com-telerik-eslint-config-kendo-git-master-6a9460b4',
+222 info git   '/tmp/npm-10805-7faa491a/git-cache-8bb08c53/36ea0cb6b5ca4efc9e332ac0d1d2fcd3866f7734' ]
+223 silly validateExistingRemote telerik/kendo-theme-default-base#master remote.origin.url: git@github.com:telerik/kendo-theme-default-base.git
+224 verbose validateExistingRemote telerik/kendo-theme-default-base#master is updating existing cached remote /home/valchev/.npm/_git-remotes/git-github-com-telerik-kendo-theme-default-base-git-master-b8f165a9
+225 verbose mirrorRemote telerik/kendo-react-tasks#master git clone https://github.com/telerik/kendo-react-tasks.git
+226 verbose correctMkdir /home/valchev/.npm/_git-remotes correctMkdir not in flight; initializing
+227 info git [ 'fetch', '-a', 'origin' ]
+228 verbose setPermissions telerik/kendo-react-tasks#master set permissions on /home/valchev/.npm/_git-remotes/git-https-github-com-telerik-kendo-react-tasks-git-master-8744f5ec
+229 verbose resolveHead telerik/kendo-react-tasks#master original treeish: master
+230 info git [ 'rev-list', '-n1', 'master' ]
+231 verbose cloneResolved telerik/eslint-config-kendo#master clone Cloning into '/tmp/npm-10805-7faa491a/git-cache-8bb08c53/36ea0cb6b5ca4efc9e332ac0d1d2fcd3866f7734'...
+231 verbose cloneResolved done.
+232 silly resolveHead telerik/kendo-react-tasks#master resolved treeish: 7497fe93671a75cda2f30cf47e49bad7520a3e1b
+233 verbose resolveHead telerik/kendo-react-tasks#master resolved Git URL: git+https://github.com/telerik/kendo-react-tasks.git#7497fe93671a75cda2f30cf47e49bad7520a3e1b
+234 silly resolveHead Git working directory: /tmp/npm-10805-7faa491a/git-cache-65e0e2bb/7497fe93671a75cda2f30cf47e49bad7520a3e1b
+235 info git [ 'checkout', '36ea0cb6b5ca4efc9e332ac0d1d2fcd3866f7734' ]
+236 verbose checkoutTreeish telerik/eslint-config-kendo#master checkout Note: checking out '36ea0cb6b5ca4efc9e332ac0d1d2fcd3866f7734'.
+236 verbose checkoutTreeish
+236 verbose checkoutTreeish You are in 'detached HEAD' state. You can look around, make experimental
+236 verbose checkoutTreeish changes and commit them, and you can discard any commits you make in this
+236 verbose checkoutTreeish state without impacting any branches by performing another checkout.
+236 verbose checkoutTreeish
+236 verbose checkoutTreeish If you want to create a new branch to retain commits you create, you may
+236 verbose checkoutTreeish do so (now or later) by using -b with the checkout command again. Example:
+236 verbose checkoutTreeish
+236 verbose checkoutTreeish   git checkout -b new_branch_name
+236 verbose checkoutTreeish
+236 verbose checkoutTreeish HEAD is now at 36ea0cb... Merge pull request #1 from telerik/update-readme
+237 info git [ 'clone',
+237 info git   '/home/valchev/.npm/_git-remotes/git-https-github-com-telerik-kendo-react-tasks-git-master-8744f5ec',
+237 info git   '/tmp/npm-10805-7faa491a/git-cache-65e0e2bb/7497fe93671a75cda2f30cf47e49bad7520a3e1b' ]
+238 error addLocal Could not install /tmp/npm-10805-7faa491a/git-cache-8bb08c53/36ea0cb6b5ca4efc9e332ac0d1d2fcd3866f7734
+239 silly trySSH attempting to clone git@github.com:telerik/eslint-config-kendo.git#master
+240 silly tryClone cloning telerik/eslint-config-kendo#master via git@github.com:telerik/eslint-config-kendo.git#master
+241 verbose tryClone git-github-com-telerik-eslint-config-kendo-git-master-0abc5b7e not in flight; caching
+242 verbose correctMkdir /home/valchev/.npm/_git-remotes correctMkdir not in flight; initializing
+243 info git [ 'config', '--get', 'remote.origin.url' ]
+244 verbose cloneResolved telerik/kendo-react-tasks#master clone Cloning into '/tmp/npm-10805-7faa491a/git-cache-65e0e2bb/7497fe93671a75cda2f30cf47e49bad7520a3e1b'...
+244 verbose cloneResolved done.
+245 silly validateExistingRemote telerik/eslint-config-kendo#master remote.origin.url: git@github.com:telerik/eslint-config-kendo.git
+246 verbose validateExistingRemote telerik/eslint-config-kendo#master is updating existing cached remote /home/valchev/.npm/_git-remotes/git-github-com-telerik-eslint-config-kendo-git-master-0abc5b7e
+247 info git [ 'checkout', '7497fe93671a75cda2f30cf47e49bad7520a3e1b' ]
+248 info git [ 'fetch', '-a', 'origin' ]
+249 verbose checkoutTreeish telerik/kendo-react-tasks#master checkout Note: checking out '7497fe93671a75cda2f30cf47e49bad7520a3e1b'.
+249 verbose checkoutTreeish
+249 verbose checkoutTreeish You are in 'detached HEAD' state. You can look around, make experimental
+249 verbose checkoutTreeish changes and commit them, and you can discard any commits you make in this
+249 verbose checkoutTreeish state without impacting any branches by performing another checkout.
+249 verbose checkoutTreeish
+249 verbose checkoutTreeish If you want to create a new branch to retain commits you create, you may
+249 verbose checkoutTreeish do so (now or later) by using -b with the checkout command again. Example:
+249 verbose checkoutTreeish
+249 verbose checkoutTreeish   git checkout -b new_branch_name
+249 verbose checkoutTreeish
+249 verbose checkoutTreeish HEAD is now at 7497fe9... Merge pull request #4 from telerik/fix-travis-e2e-run
+250 error addLocal Could not install /tmp/npm-10805-7faa491a/git-cache-65e0e2bb/7497fe93671a75cda2f30cf47e49bad7520a3e1b
+251 silly trySSH attempting to clone git@github.com:telerik/kendo-react-tasks.git#master
+252 silly tryClone cloning telerik/kendo-react-tasks#master via git@github.com:telerik/kendo-react-tasks.git#master
+253 verbose tryClone git-github-com-telerik-kendo-react-tasks-git-master-ec605325 not in flight; caching
+254 verbose correctMkdir /home/valchev/.npm/_git-remotes correctMkdir not in flight; initializing
+255 info git [ 'config', '--get', 'remote.origin.url' ]
+256 silly validateExistingRemote telerik/kendo-react-tasks#master remote.origin.url: git@github.com:telerik/kendo-react-tasks.git
+257 verbose validateExistingRemote telerik/kendo-react-tasks#master is updating existing cached remote /home/valchev/.npm/_git-remotes/git-github-com-telerik-kendo-react-tasks-git-master-ec605325
+258 info git [ 'fetch', '-a', 'origin' ]
+259 verbose updateRemote git fetch -a origin (git@github.com:telerik/kendo-theme-default-base.git)
+260 verbose correctMkdir /home/valchev/.npm/_git-remotes correctMkdir not in flight; initializing
+261 verbose setPermissions telerik/kendo-theme-default-base#master set permissions on /home/valchev/.npm/_git-remotes/git-github-com-telerik-kendo-theme-default-base-git-master-b8f165a9
+262 verbose resolveHead telerik/kendo-theme-default-base#master original treeish: master
+263 info git [ 'rev-list', '-n1', 'master' ]
+264 silly resolveHead telerik/kendo-theme-default-base#master resolved treeish: d774d6b5db6d4fcba6de71b025947847aac521fb
+265 verbose resolveHead telerik/kendo-theme-default-base#master resolved Git URL: git+ssh://git@github.com/telerik/kendo-theme-default-base.git#d774d6b5db6d4fcba6de71b025947847aac521fb
+266 silly resolveHead Git working directory: /tmp/npm-10805-7faa491a/git-cache-21a07431/d774d6b5db6d4fcba6de71b025947847aac521fb
+267 info git [ 'clone',
+267 info git   '/home/valchev/.npm/_git-remotes/git-github-com-telerik-kendo-theme-default-base-git-master-b8f165a9',
+267 info git   '/tmp/npm-10805-7faa491a/git-cache-21a07431/d774d6b5db6d4fcba6de71b025947847aac521fb' ]
+268 verbose cloneResolved telerik/kendo-theme-default-base#master clone Cloning into '/tmp/npm-10805-7faa491a/git-cache-21a07431/d774d6b5db6d4fcba6de71b025947847aac521fb'...
+268 verbose cloneResolved done.
+269 info git [ 'checkout', 'd774d6b5db6d4fcba6de71b025947847aac521fb' ]
+270 verbose checkoutTreeish telerik/kendo-theme-default-base#master checkout Note: checking out 'd774d6b5db6d4fcba6de71b025947847aac521fb'.
+270 verbose checkoutTreeish
+270 verbose checkoutTreeish You are in 'detached HEAD' state. You can look around, make experimental
+270 verbose checkoutTreeish changes and commit them, and you can discard any commits you make in this
+270 verbose checkoutTreeish state without impacting any branches by performing another checkout.
+270 verbose checkoutTreeish
+270 verbose checkoutTreeish If you want to create a new branch to retain commits you create, you may
+270 verbose checkoutTreeish do so (now or later) by using -b with the checkout command again. Example:
+270 verbose checkoutTreeish
+270 verbose checkoutTreeish   git checkout -b new_branch_name
+270 verbose checkoutTreeish
+270 verbose checkoutTreeish HEAD is now at d774d6b... fix(): use actual variables from default theme, expose widget class
+271 verbose updateRemote git fetch -a origin (git@github.com:telerik/eslint-config-kendo.git)
+272 verbose correctMkdir /home/valchev/.npm/_git-remotes correctMkdir not in flight; initializing
+273 verbose addLocalDirectory /home/valchev/.npm/@telerik/kendo-theme-default-base/0.1.0/package.tgz not in flight; packing
+274 verbose correctMkdir /home/valchev/.npm correctMkdir not in flight; initializing
+275 verbose setPermissions telerik/eslint-config-kendo#master set permissions on /home/valchev/.npm/_git-remotes/git-github-com-telerik-eslint-config-kendo-git-master-0abc5b7e
+276 verbose resolveHead telerik/eslint-config-kendo#master original treeish: master
+277 info git [ 'rev-list', '-n1', 'master' ]
+278 silly resolveHead telerik/eslint-config-kendo#master resolved treeish: 36ea0cb6b5ca4efc9e332ac0d1d2fcd3866f7734
+279 verbose resolveHead telerik/eslint-config-kendo#master resolved Git URL: git+ssh://git@github.com/telerik/eslint-config-kendo.git#36ea0cb6b5ca4efc9e332ac0d1d2fcd3866f7734
+280 silly resolveHead Git working directory: /tmp/npm-10805-7faa491a/git-cache-c32ca5a5/36ea0cb6b5ca4efc9e332ac0d1d2fcd3866f7734
+281 info git [ 'clone',
+281 info git   '/home/valchev/.npm/_git-remotes/git-github-com-telerik-eslint-config-kendo-git-master-0abc5b7e',
+281 info git   '/tmp/npm-10805-7faa491a/git-cache-c32ca5a5/36ea0cb6b5ca4efc9e332ac0d1d2fcd3866f7734' ]
+282 verbose tar pack [ '/home/valchev/.npm/@telerik/kendo-theme-default-base/0.1.0/package.tgz',
+282 verbose tar pack   '/tmp/npm-10805-7faa491a/git-cache-21a07431/d774d6b5db6d4fcba6de71b025947847aac521fb' ]
+283 verbose tarball /home/valchev/.npm/@telerik/kendo-theme-default-base/0.1.0/package.tgz
+284 verbose folder /tmp/npm-10805-7faa491a/git-cache-21a07431/d774d6b5db6d4fcba6de71b025947847aac521fb
+285 verbose cloneResolved telerik/eslint-config-kendo#master clone Cloning into '/tmp/npm-10805-7faa491a/git-cache-c32ca5a5/36ea0cb6b5ca4efc9e332ac0d1d2fcd3866f7734'...
+285 verbose cloneResolved done.
+286 info git [ 'checkout', '36ea0cb6b5ca4efc9e332ac0d1d2fcd3866f7734' ]
+287 verbose checkoutTreeish telerik/eslint-config-kendo#master checkout Note: checking out '36ea0cb6b5ca4efc9e332ac0d1d2fcd3866f7734'.
+287 verbose checkoutTreeish
+287 verbose checkoutTreeish You are in 'detached HEAD' state. You can look around, make experimental
+287 verbose checkoutTreeish changes and commit them, and you can discard any commits you make in this
+287 verbose checkoutTreeish state without impacting any branches by performing another checkout.
+287 verbose checkoutTreeish
+287 verbose checkoutTreeish If you want to create a new branch to retain commits you create, you may
+287 verbose checkoutTreeish do so (now or later) by using -b with the checkout command again. Example:
+287 verbose checkoutTreeish
+287 verbose checkoutTreeish   git checkout -b new_branch_name
+287 verbose checkoutTreeish
+287 verbose checkoutTreeish HEAD is now at 36ea0cb... Merge pull request #1 from telerik/update-readme
+288 error addLocal Could not install /tmp/npm-10805-7faa491a/git-cache-c32ca5a5/36ea0cb6b5ca4efc9e332ac0d1d2fcd3866f7734
+289 silly fetchPackageMetaData Error: No version provided in package.json
+289 silly fetchPackageMetaData     at /usr/lib/node_modules/npm/lib/cache/add-local.js:73:17
+289 silly fetchPackageMetaData     at /usr/lib/node_modules/npm/node_modules/read-package-json/read-json.js:345:5
+289 silly fetchPackageMetaData     at checkBinReferences_ (/usr/lib/node_modules/npm/node_modules/read-package-json/read-json.js:309:45)
+289 silly fetchPackageMetaData     at final (/usr/lib/node_modules/npm/node_modules/read-package-json/read-json.js:343:3)
+289 silly fetchPackageMetaData     at then (/usr/lib/node_modules/npm/node_modules/read-package-json/read-json.js:113:5)
+289 silly fetchPackageMetaData     at /usr/lib/node_modules/npm/node_modules/read-package-json/read-json.js:232:12
+289 silly fetchPackageMetaData     at /usr/lib/node_modules/npm/node_modules/graceful-fs/graceful-fs.js:76:16
+289 silly fetchPackageMetaData     at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:380:3)
+289 silly fetchPackageMetaData  error for github:telerik/eslint-config-kendo#master [Error: No version provided in package.json]
+290 verbose addLocalTarball adding from inside cache /home/valchev/.npm/@telerik/kendo-theme-default-base/0.1.0/package.tgz
+291 verbose correctMkdir /home/valchev/.npm correctMkdir not in flight; initializing
+292 verbose addRemoteGit data._from: telerik/kendo-theme-default-base#master
+293 verbose addRemoteGit data._resolved: git+ssh://git@github.com/telerik/kendo-theme-default-base.git#d774d6b5db6d4fcba6de71b025947847aac521fb
+294 silly cache afterAdd @telerik/kendo-theme-default-base@0.1.0
+295 verbose afterAdd /home/valchev/.npm/@telerik/kendo-theme-default-base/0.1.0/package/package.json not in flight; writing
+296 verbose correctMkdir /home/valchev/.npm correctMkdir not in flight; initializing
+297 verbose afterAdd /home/valchev/.npm/@telerik/kendo-theme-default-base/0.1.0/package/package.json written
+298 verbose updateRemote git fetch -a origin (git@github.com:telerik/kendo-react-tasks.git)
+299 verbose correctMkdir /home/valchev/.npm/_git-remotes correctMkdir not in flight; initializing
+300 verbose setPermissions telerik/kendo-react-tasks#master set permissions on /home/valchev/.npm/_git-remotes/git-github-com-telerik-kendo-react-tasks-git-master-ec605325
+301 verbose resolveHead telerik/kendo-react-tasks#master original treeish: master
+302 info git [ 'rev-list', '-n1', 'master' ]
+303 silly resolveHead telerik/kendo-react-tasks#master resolved treeish: 7497fe93671a75cda2f30cf47e49bad7520a3e1b
+304 verbose resolveHead telerik/kendo-react-tasks#master resolved Git URL: git+ssh://git@github.com/telerik/kendo-react-tasks.git#7497fe93671a75cda2f30cf47e49bad7520a3e1b
+305 silly resolveHead Git working directory: /tmp/npm-10805-7faa491a/git-cache-bcc5f594/7497fe93671a75cda2f30cf47e49bad7520a3e1b
+306 info git [ 'clone',
+306 info git   '/home/valchev/.npm/_git-remotes/git-github-com-telerik-kendo-react-tasks-git-master-ec605325',
+306 info git   '/tmp/npm-10805-7faa491a/git-cache-bcc5f594/7497fe93671a75cda2f30cf47e49bad7520a3e1b' ]
+307 verbose cloneResolved telerik/kendo-react-tasks#master clone Cloning into '/tmp/npm-10805-7faa491a/git-cache-bcc5f594/7497fe93671a75cda2f30cf47e49bad7520a3e1b'...
+307 verbose cloneResolved done.
+308 info git [ 'checkout', '7497fe93671a75cda2f30cf47e49bad7520a3e1b' ]
+309 verbose checkoutTreeish telerik/kendo-react-tasks#master checkout Note: checking out '7497fe93671a75cda2f30cf47e49bad7520a3e1b'.
+309 verbose checkoutTreeish
+309 verbose checkoutTreeish You are in 'detached HEAD' state. You can look around, make experimental
+309 verbose checkoutTreeish changes and commit them, and you can discard any commits you make in this
+309 verbose checkoutTreeish state without impacting any branches by performing another checkout.
+309 verbose checkoutTreeish
+309 verbose checkoutTreeish If you want to create a new branch to retain commits you create, you may
+309 verbose checkoutTreeish do so (now or later) by using -b with the checkout command again. Example:
+309 verbose checkoutTreeish
+309 verbose checkoutTreeish   git checkout -b new_branch_name
+309 verbose checkoutTreeish
+309 verbose checkoutTreeish HEAD is now at 7497fe9... Merge pull request #4 from telerik/fix-travis-e2e-run
+310 error addLocal Could not install /tmp/npm-10805-7faa491a/git-cache-bcc5f594/7497fe93671a75cda2f30cf47e49bad7520a3e1b
+311 silly fetchPackageMetaData Error: No version provided in package.json
+311 silly fetchPackageMetaData     at /usr/lib/node_modules/npm/lib/cache/add-local.js:73:17
+311 silly fetchPackageMetaData     at /usr/lib/node_modules/npm/node_modules/read-package-json/read-json.js:345:5
+311 silly fetchPackageMetaData     at checkBinReferences_ (/usr/lib/node_modules/npm/node_modules/read-package-json/read-json.js:309:45)
+311 silly fetchPackageMetaData     at final (/usr/lib/node_modules/npm/node_modules/read-package-json/read-json.js:343:3)
+311 silly fetchPackageMetaData     at then (/usr/lib/node_modules/npm/node_modules/read-package-json/read-json.js:113:5)
+311 silly fetchPackageMetaData     at /usr/lib/node_modules/npm/node_modules/read-package-json/read-json.js:232:12
+311 silly fetchPackageMetaData     at /usr/lib/node_modules/npm/node_modules/graceful-fs/graceful-fs.js:76:16
+311 silly fetchPackageMetaData     at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:380:3)
+311 silly fetchPackageMetaData  error for github:telerik/kendo-react-tasks#master [Error: No version provided in package.json]
+312 silly rollbackFailedOptional Starting
+313 silly rollbackFailedOptional Finishing
+314 silly runTopLevelLifecycles Starting
+315 silly runTopLevelLifecycles Finishing
+316 silly install printInstalled
+317 verbose stack Error: No version provided in package.json
+317 verbose stack     at /usr/lib/node_modules/npm/lib/cache/add-local.js:73:17
+317 verbose stack     at /usr/lib/node_modules/npm/node_modules/read-package-json/read-json.js:345:5
+317 verbose stack     at checkBinReferences_ (/usr/lib/node_modules/npm/node_modules/read-package-json/read-json.js:309:45)
+317 verbose stack     at final (/usr/lib/node_modules/npm/node_modules/read-package-json/read-json.js:343:3)
+317 verbose stack     at then (/usr/lib/node_modules/npm/node_modules/read-package-json/read-json.js:113:5)
+317 verbose stack     at /usr/lib/node_modules/npm/node_modules/read-package-json/read-json.js:232:12
+317 verbose stack     at /usr/lib/node_modules/npm/node_modules/graceful-fs/graceful-fs.js:76:16
+317 verbose stack     at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:380:3)
+318 verbose cwd /home/valchev/kendo-react-dropdowns
+319 error Linux 3.13.0-65-generic
+320 error argv "/usr/bin/nodejs" "/usr/bin/npm" "update"
+321 error node v4.1.2
+322 error npm  v3.6.0
+323 error No version provided in package.json
+324 error If you need help, you may report this error at:
+324 error     <https://github.com/npm/npm/issues>
+325 verbose exit [ 1, true ]

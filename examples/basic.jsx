@@ -1,8 +1,6 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-//import KendoListItem from '../src/kendo-listitem';
-//import KendoList from '../src/kendo-list';
-import KendoAutoComplete from '../src/kendo-autocomplete';
+import AutoComplete from '../src/AutoComplete';
 
 const data = [
     { text: "Albania", value: "Alb" },
@@ -71,21 +69,21 @@ const foo = (text) => {
 
 const onChange = (e) => {
     console.log("change event triggered: ", e);
-}
+};
 
 const render = (data) => {
     ReactDOM.render(
         <div>
             {/*
             <p>suggest: false, separator: false</p>
-            <KendoAutoComplete
+            <AutoComplete
                 data={data}
                 onSearch={foo}
                 placeholder="awesome autocomplete!"
                 valueField="text"
             />
             <p>suggest: false, separator: true</p>
-            <KendoAutoComplete
+            <AutoComplete
                 data={data}
                 onSearch={foo}
                 placeholder="awesome autocomplete!"
@@ -94,7 +92,7 @@ const render = (data) => {
                 separator=", "
             />
             <p>suggest: true, separator: true</p>
-            <KendoAutoComplete
+            <AutoComplete
                 data={data}
                 onSearch={foo}
                 placeholder="awesome autocomplete!"
@@ -105,12 +103,12 @@ const render = (data) => {
 
             */}
             <p>suggest: true, separator: false</p>
-            <KendoAutoComplete
+            <AutoComplete
                 data={data}
                 onChange={onChange}
                 onSearch={foo}
-                separator=", "
                 placeholder="awesome autocomplete!"
+                separator=", "
                 suggest
                 valueField="text"
             />

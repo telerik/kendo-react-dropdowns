@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import KendoAutoComplete from '../src/kendo-autocomplete';
+import AutoComplete from '../src/AutoComplete';
 
-import { type } from './util';
+import { type } from './Util';
 
 // e2e-utils is a module exposed from react-tasks
 // it exports `$` and `withRoot` - higher order function for describe (example below)
@@ -27,7 +27,7 @@ const data = [
 // `root` parameter is a jQuery object which includes chai-jquery in it.
 // chai-jquery adds a should method to the jQuery object.
 // See https://github.com/chaijs/chai-jquery#assertions for available assertions.
-describe('KendoAutoComplete', withRoot(root => {
+describe('AutoComplete', withRoot(root => {
 
     function render(filter) {
         let dataList;
@@ -40,7 +40,7 @@ describe('KendoAutoComplete', withRoot(root => {
             dataList = data;
         }
 
-        ReactDOM.render( <KendoAutoComplete data={dataList} {...props} />, root[0]);
+        ReactDOM.render( <AutoComplete data={dataList} {...props} />, root[0]);
     }
 
     let props;
@@ -117,24 +117,4 @@ describe('KendoAutoComplete', withRoot(root => {
         type(input, "B");
         expect(input.value).toEqual("B");
     });
-
-    it('should trigger onChange after input loses focus', () => {
-        let spy = jasmine.createSpy('onChange');
-        props = { suggest: true, valueField: "text", onChange: spy };
-        render("");
-
-        const input = root.find("input");
-        type(input[0], "f");
-        input.blur();
-        expect(spy).toHaveBeenCalledWith("f");
-    });
-
-    it('should trigger onChange on list selection', () => {
-        let spy = jasmine.createSpy('onChange');
-        props = { suggest: true, valueField: "text", onChange: spy };
-        render("");
-        root.find("li:first").click();
-        expect(spy).toHaveBeenCalledWith("Albania");
-    });
-
 }));

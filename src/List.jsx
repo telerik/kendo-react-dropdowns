@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
-import KendoListItem from './kendo-listitem';
+import ListItem from './ListItem';
 //import styles from '@telerik/kendo-theme-default-base/styles/main';
 
-export default class KendoList extends React.Component {
+export default class List extends React.Component {
 
     static propTypes = {
         data: PropTypes.arrayOf(PropTypes.object),
@@ -32,7 +32,7 @@ export default class KendoList extends React.Component {
 
         return this.props.data.map((item, index) => (
                 //TODO: assign unique key
-                <KendoListItem
+                <ListItem
                     dataItem={item}
                     focused={index === focused}
                     key={item.text}

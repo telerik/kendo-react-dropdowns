@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 //import styles from '@telerik/kendo-theme-default-base/styles/main';
 
-export default class KendoListItem extends React.Component {
+export default class ListItem extends React.Component {
 
     static propTypes = {
         dataItem: PropTypes.object, //eslint-disable-line react/forbid-prop-types

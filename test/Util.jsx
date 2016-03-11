@@ -1,5 +1,5 @@
 /* eslint-disable no-multi-spaces */
-import * as util from '../src/util';
+import * as util from '../src/Util';
 
 describe('Util', () => {
     it('indexOfWordAtCaret', () => {
