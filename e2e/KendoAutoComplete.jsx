@@ -57,9 +57,9 @@ describe('AutoComplete', withRoot(root => {
         });
     });
 
-    it('should fire onSearch event when typing', () => {
+    it('should fire onFilter event when typing', () => {
         props = {
-            onSearch: function(filter) {
+            onFilter: function(filter) {
                 expect(filter).toEqual("f");
             },
             valueField: "text"
@@ -70,9 +70,9 @@ describe('AutoComplete', withRoot(root => {
         type(input, "f");
     });
 
-    it('should NOT fire onSearch when typing separator characters', () => {
+    it('should NOT fire onFilter when typing separator characters', () => {
         props = {
-            onSearch: function() {
+            onFilter: function() {
                 expect(false).toBe(true);
             },
             separator: ", ",
@@ -85,7 +85,7 @@ describe('AutoComplete', withRoot(root => {
     });
 
     it('should autofill when typing', () => {
-        props = { suggest: true, valueField: "text", onSearch: render };
+        props = { suggest: true, valueField: "text", onFilter: render };
         render("");
 
         const input = root.find("input")[0];
@@ -96,7 +96,7 @@ describe('AutoComplete', withRoot(root => {
 
     //fails due to a bug! works only if a separator is provided
     it('should assert selection of suggested part of the word', () => {
-        props = { valueField: "text", onSearch: render, suggest: true };
+        props = { valueField: "text", onFilter: render, suggest: true };
         render("");
 
         const input = root.find("input")[0];
@@ -106,7 +106,7 @@ describe('AutoComplete', withRoot(root => {
     });
 
     it('should NOT suggest when deleting', () => {
-        props = { valueField: "text", onSearch: render, suggest: true, separator: ", " };
+        props = { valueField: "text", onFilter: render, suggest: true, separator: ", " };
         render("");
 
         const input = root.find("input")[0];

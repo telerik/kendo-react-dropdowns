@@ -106,7 +106,7 @@ const render = (data) => {
             <AutoComplete
                 data={data}
                 onChange={onChange}
-                onSearch={foo}
+                onFilter={foo}
                 placeholder="awesome autocomplete!"
                 separator=", "
                 suggest

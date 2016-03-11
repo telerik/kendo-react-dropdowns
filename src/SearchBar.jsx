@@ -6,11 +6,11 @@ export default class SearchBar extends React.Component {
     static propTypes = {
         change: PropTypes.func,
         disabled: PropTypes.bool,
+        filter: PropTypes.func,
         handleChange: PropTypes.func,
         highlight: PropTypes.bool,
         navigate: PropTypes.func,
         placeholder: PropTypes.string,
-        search: PropTypes.func,
         selectFocused: PropTypes.func,
         separator: PropTypes.string,
         value: PropTypes.string,
@@ -21,7 +21,7 @@ export default class SearchBar extends React.Component {
     constructor(props) {
         super(props);
 
-        this.searchWord = "";
+        this.filterWord = "";
 
         this.getInput = function(input) { this._input = input; }.bind(this);
     }
@@ -87,9 +87,9 @@ export default class SearchBar extends React.Component {
         const word = separator ? wordAtCaret(caretIndex(this._input), value, separator) : value;
         const index = indexOfWordAtCaret(caretIndex(this._input), value, separator);
 
-        if (word !== this.searchWord) {
-            this.props.search(word, index);
-            this.searchWord = word;
+        if (word !== this.filterWord) {
+            this.props.filter(word, index);
+            this.filterWord = word;
         }
 
         this.props.change(value);
@@ -106,10 +106,10 @@ export default class SearchBar extends React.Component {
             } else {
                 newValue = word;
             }
-            this.searchWord = word;
+            this.filterWord = word;
         } else {
             newValue = value;
-            this.searchWord = value ? wordAtCaret(this.caretIdx || value.length, value, separator) : "";
+            this.filterWord = value ? wordAtCaret(this.caretIdx || value.length, value, separator) : "";
         }
         //}
 

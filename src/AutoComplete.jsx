@@ -15,7 +15,7 @@ class AutoComplete extends React.Component {
         itemRenderer: PropTypes.func,
         minLength: PropTypes.number,
         onChange: PropTypes.func,
-        onSearch: PropTypes.func,
+        onFilter: PropTypes.func,
         placeholder: PropTypes.string,
         separator: PropTypes.string,
         suggest: PropTypes.bool,
@@ -28,7 +28,7 @@ class AutoComplete extends React.Component {
     static defaultProps = {
         minLength: 0,
         onChange() {},
-        onSearch() {}
+        onFilter() {}
     };
 
     constructor(props) {
@@ -41,7 +41,7 @@ class AutoComplete extends React.Component {
         };
         this.navigate = this.navigate.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.search = this.search.bind(this);
+        this.filter = this.filter.bind(this);
         this.valueUpdate = this.valueUpdate.bind(this);
         this.select = this.select.bind(this);
         this.selectFocused = this.selectFocused.bind(this);
@@ -64,11 +64,11 @@ class AutoComplete extends React.Component {
         this.props.onChange(value);
     }
 
-    search(word) {
+    filter(word) {
         const minLength = this.props.minLength;
 
         if (word.length >= minLength) {
-            this.props.onSearch(word);
+            this.props.onFilter(word);
         }
     }
 
@@ -138,7 +138,7 @@ class AutoComplete extends React.Component {
         const searchBarProps = {
             handleChange: this.handleChange,
             navigate: this.navigate,
-            search: this.search,
+            filter: this.filter,
             change: this.valueUpdate,
             selectFocused: this.selectFocused,
             disabled: this.props.disabled,
