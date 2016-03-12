@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
-import { keys, caretIndex, indexOfWordAtCaret, caretSelection, textReduced, replaceWordAtCaret, selectEndOfWord, wordAtCaret } from './Util';
+import keycode from 'keycode';
+import { caretIndex, indexOfWordAtCaret, caretSelection, textReduced, replaceWordAtCaret, selectEndOfWord, wordAtCaret } from './Util';
 
 export default class SearchBar extends React.Component {
 
@@ -71,12 +72,12 @@ export default class SearchBar extends React.Component {
     };
 
     onKeyDown = (event) => {
-        if (event.keyCode === keys.UP || event.keyCode === keys.DOWN) {
+        if (event.keyCode === keycode.codes.up || event.keyCode === keycode.codes.down) {
             event.preventDefault();
             this.props.navigate(event.keyCode);
         }
 
-        if (event.keyCode === keys.ENTER) {
+        if (event.keyCode === keycode.codes.enter) {
             this.props.selectFocused();
         }
     };

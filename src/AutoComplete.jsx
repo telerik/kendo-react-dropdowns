@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
-import { keys } from './Util';
+import keycode from 'keycode';
 import List from './List';
 import SearchBar from './SearchBar';
 // import styles from '@telerik/kendo-theme-default/styles/autocomplete/main';
@@ -93,9 +93,9 @@ class AutoComplete extends React.Component {
         const max = this.props.data.length - 1;
         const { suggest, valueField } = this.props;
         let focused;
-        if (keyCode === keys.UP) {
+        if (keyCode === keycode.codes.up) {
             focused = this.state.focused ? this.state.focused - 1 : max;
-        } else if (keyCode === keys.DOWN) {
+        } else if (keyCode === keycode.codes.down) {
             focused = (this.state.focused !== null && this.state.focused !== max) ? this.state.focused + 1 : 0;
         }
 
