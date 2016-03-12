@@ -9,7 +9,7 @@ describe('List', () => {
 
     it('should render a ul', () => {
         result = shallow(<List data={data} />);
-        expect(result.type()).toEqual('ul');
+        expect(result.find('ul').length).toEqual(1);
     });
 
     it('should render ListItems', () => {
@@ -29,6 +29,12 @@ describe('List', () => {
         const items = result.find(ListItem);
         expect(items.at(0).shallow().hasClass('k-state-focused')).toBe(true);
         expect(items.at(1).shallow().hasClass('k-state-focused')).toBe(false);
+    });
+
+    it('should select optionLabel if no value', () => {
+        result = shallow(<List data={data} optionLabel="select..." textField="text" valueField="value" />);
+        const optionLabel = result.children().at(0).shallow();
+        expect(optionLabel.hasClass('k-state-selected')).toBe(true);
     });
 
     it('should fire onClick', () => {
