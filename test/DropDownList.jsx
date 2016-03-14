@@ -27,4 +27,18 @@ describe('DropDownList', () => {
         expect(result.state('dataItem')).toBe(data[1]);
     });
 
+    it('should select nothing if no value or index', () => {
+        result = shallow(<DropDownList data={data} textField="text" valueField="value" />);
+        expect(result.state('dataItem')).toBe(null);
+    });
+
+    it('should select the defaultItem if no value or index', () => {
+        result = shallow(<DropDownList data={data} defaultItem={{ text: "select...", value: -1 }} textField="text" valueField="value" />);
+        expect(result.state('dataItem')).toEqual({ text: "select...", value: -1 });
+    });
+
+    it('should have null state if the defaultItem is defined as string', () => {
+        result = shallow(<DropDownList data={data} defaultItem="select ..." textField="text" valueField="value" />);
+        expect(result.state('dataItem')).toEqual(null);
+    });
 });

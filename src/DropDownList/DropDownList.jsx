@@ -9,6 +9,10 @@ export default class DropDownList extends React.Component {
         change: PropTypes.func,
         className: PropTypes.string,
         data: PropTypes.arrayOf(PropTypes.object),
+        defaultItem: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.object
+        ]),
         disabled: PropTypes.bool,
         height: PropTypes.number,
         index: PropTypes.number,
@@ -16,7 +20,6 @@ export default class DropDownList extends React.Component {
         minLength: PropTypes.number,
         onChange: PropTypes.func,
         onFilter: PropTypes.func,
-        optionLabel: PropTypes.string,
         tabIndex: PropTypes.number,
         textField: PropTypes.string,
         value: PropTypes.oneOfType([
@@ -35,25 +38,32 @@ export default class DropDownList extends React.Component {
     }
 
     componentWillMount() {
-        const { data, value, index, valueField } = this.props;
+        const { data, defaultItem, value, index, valueField } = this.props;
 
         if (value) {
             this.setState({ dataItem: util.resolveInitialValue(data, value, valueField) });
         } else if (index) {
             this.setState({ dataItem: data[index] });
+        } else if (defaultItem) {
+            this.setState({ dataItem: (typeof(defaultItem) === "object") ? defaultItem : null });
         }
     }
 
     renderValue() {
         const dataItem = this.state.dataItem;
-        const { textField , optionLabel = "", valueRenderer } = this.props;
-        const value = dataItem ? dataItem[textField] : optionLabel;
+        const { textField , defaultItem = "", valueRenderer } = this.props;
+        let value;
 
-        if (typeof(valueRenderer) === "function") {
-            return valueRenderer(value);
+        if (dataItem) {
+            value = dataItem[textField];
+        } else if (typeof defaultItem === "object") {
+            value = defaultItem[textField];
+        } else {
+            //do not execute the value template
+            return defaultItem;
         }
 
-        return value;
+        return (typeof(valueRenderer) === "function") ? valueRenderer(value) : value;
     }
 
     select = (dataItem) => {
@@ -68,7 +78,7 @@ export default class DropDownList extends React.Component {
             value,
             height,
             itemRenderer,
-            optionLabel
+            defaultItem
         } = this.props;
 
         const listProps = {
@@ -78,7 +88,7 @@ export default class DropDownList extends React.Component {
             value,
             height,
             itemRenderer,
-            optionLabel,
+            defaultItem,
             onClick: this.select
         };
 
