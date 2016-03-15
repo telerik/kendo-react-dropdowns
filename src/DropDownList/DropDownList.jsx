@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import keycode from 'keycode';
 import * as util from './Util';
 import List from '../List';
+import DropDownWrapper from '../DropDownWrapper';
 //import styles from '@telerik/kendo-theme-default-base/styles/main';
 
 export default class DropDownList extends React.Component {
@@ -86,19 +87,24 @@ export default class DropDownList extends React.Component {
     }
 
     select = (dataItem) => {
-        this.setState({
-            dataItem: dataItem,
-            selected: this.props.data.indexOf(dataItem),
-            focused: this.props.data.indexOf(dataItem)
-        });
+        if (!this.props.disabled) {
+            this.setState({
+                dataItem: dataItem,
+                selected: this.props.data.indexOf(dataItem),
+                focused: this.props.data.indexOf(dataItem)
+            });
+        }
     }
 
     onKeyDown = (event) => {
         const keyCode = event.keyCode;
         const max = this.props.data.length - 1;
         const min = this.props.defaultItem ? -1 : 0;
+        const disabled = this.props.disabled;
         let { focused } = this.state;
         let dataItem;
+
+        if (disabled) { return; }
 
         if (keyCode === keycode.codes.enter) {
             if (focused === -1) {
@@ -135,7 +141,8 @@ export default class DropDownList extends React.Component {
             value,
             height,
             itemRenderer,
-            defaultItem
+            defaultItem,
+            disabled
         } = this.props;
 
         const {
@@ -171,7 +178,7 @@ export default class DropDownList extends React.Component {
         return (
             //TODO: aria attributes, title
             <span className="k-widget k-dropdown k-header" onKeyDown={this.onKeyDown} tabIndex="0" unselectable="on" {...ariaAttributes}>
-                <span className="k-dropdown-wrap k-state-default" unselectable="on">
+                <DropDownWrapper disabled={disabled}>
                     <span className="k-input" unselectable="on">
                         {this.renderValue()}
                     </span>
@@ -179,7 +186,7 @@ export default class DropDownList extends React.Component {
                         <span className="k-icon k-i-arrow-s"></span>
                     </span>
                     <List {...listProps} />
-                </span>
+                </DropDownWrapper>
             </span>
         );
     }

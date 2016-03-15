@@ -3,7 +3,8 @@ import classNames from 'classnames';
 
 const propTypes = {
     children: React.PropTypes.node,
-    className: React.PropTypes.string
+    className: React.PropTypes.string,
+    disabled: React.PropTypes.bool
 };
 
 class DropDownWrapper extends React.Component {
@@ -14,7 +15,8 @@ class DropDownWrapper extends React.Component {
     render() {
         const wrapperClasses = classNames({
             'k-dropdown-wrap': true,
-            'k-state-default': true
+            'k-state-default': !this.props.disabled,
+            'k-state-disabled': this.props.disabled
         }, this.props.className);
 
         const wrapperProps = {
@@ -24,9 +26,9 @@ class DropDownWrapper extends React.Component {
         };
 
         return (
-            <span {...wrapperProps}>
+            <span {...wrapperProps} unselectable="on">
                 {this.props.children}
-            </span >
+            </span>
         );
     }
 }

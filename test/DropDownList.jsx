@@ -76,6 +76,16 @@ describe('DropDownList', () => {
         items.at(1).shallow().simulate('click');
         expect(result.state('focused')).toEqual(1);
     });
+
+    it('should NOT change state of disabled component on click', () => {
+        result = shallow(<DropDownList data={data} disabled textField="text" valueField="value" />);
+        const items = result.find(List).shallow().find(ListItem);
+
+        items.at(1).shallow().simulate('click');
+        expect(result.state('dataItem')).toEqual(null);
+        expect(result.state('focused')).toEqual(null);
+        expect(result.state('selected')).toEqual(null);
+    });
 });
 
 describe('DropDownList keyboard navigation', () => {
@@ -166,5 +176,37 @@ describe('DropDownList keyboard navigation', () => {
 
         result.simulate('keyDown', { keyCode: keycode.codes.up });
         expect(result.state('focused')).toEqual(2);
+    });
+
+    it('should NOT focus if component is disabled', () => {
+        result = shallow(
+            <DropDownList
+                data={data}
+                disabled
+                textField="text"
+                valueField="value"
+            />
+        );
+
+        result.simulate('keyDown', { keyCode: keycode.codes.down });
+        expect(result.state('focused')).toEqual(null);
+        result.simulate('keyDown', { keyCode: keycode.codes.up });
+        expect(result.state('focused')).toEqual(null);
+    });
+
+    it('should NOT select on enter if disabled', () => {
+        result = shallow(
+            <DropDownList
+                data={data}
+                disabled
+                textField="text"
+                value={3}
+                valueField="value"
+            />
+        );
+
+        result.simulate('keyDown', { keyCode: keycode.codes.up });
+        result.simulate('keyDown', { keyCode: keycode.codes.enter });
+        expect(result.state('dataItem')).toEqual({ text: "baz", value: 3 });
     });
 });
