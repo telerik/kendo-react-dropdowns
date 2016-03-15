@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import keycode from 'keycode';
 import * as util from './Util';
 import List from '../List';
 //import styles from '@telerik/kendo-theme-default-base/styles/main';
@@ -33,19 +34,37 @@ export default class DropDownList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataItem: null
+            dataItem: null,
+            selected: null,
+            focused: null
         };
     }
 
     componentWillMount() {
         const { data, defaultItem, value, index, valueField } = this.props;
+        let dataItem;
 
         if (value) {
-            this.setState({ dataItem: util.resolveInitialValue(data, value, valueField) });
+            dataItem = util.resolveInitialValue(data, value, valueField);
+            this.setState({
+                dataItem: dataItem,
+                selected: data.indexOf(dataItem),
+                focused: data.indexOf(dataItem)
+            });
         } else if (index) {
-            this.setState({ dataItem: data[index] });
+            dataItem = data[index];
+            this.setState({
+                dataItem: data[index],
+                selected: index,
+                focused: index
+            });
         } else if (defaultItem) {
-            this.setState({ dataItem: (typeof(defaultItem) === "object") ? defaultItem : null });
+            dataItem = (typeof(defaultItem) === "object") ? defaultItem : null;
+            this.setState({
+                dataItem: dataItem,
+                selected: dataItem ? -1 : null,
+                focused: dataItem ? -1 : null
+            });
         }
     }
 
@@ -67,7 +86,45 @@ export default class DropDownList extends React.Component {
     }
 
     select = (dataItem) => {
-        this.setState({ dataItem: dataItem });
+        this.setState({
+            dataItem: dataItem,
+            selected: this.props.data.indexOf(dataItem),
+            focused: this.props.data.indexOf(dataItem)
+        });
+    }
+
+    onKeyDown = (event) => {
+        const keyCode = event.keyCode;
+        const max = this.props.data.length - 1;
+        const min = this.props.defaultItem ? -1 : 0;
+        let { focused } = this.state;
+        let dataItem;
+
+        if (keyCode === keycode.codes.enter) {
+            if (focused === -1) {
+                dataItem = (typeof(this.props.defaultItem) === "object") ? this.props.defaultItem : null;
+            } else {
+                dataItem = this.props.data[focused];
+            }
+            this.setState({
+                dataItem: dataItem,
+                selected: focused
+            });
+
+            return;
+        }
+
+        if (keyCode === keycode.codes.up) {
+            focused = (focused !== null && focused !== min) ? focused - 1 : max;
+        }
+
+        if (keyCode === keycode.codes.down) {
+            focused = (focused !== null && focused !== max) ? focused + 1 : min;
+        }
+
+        this.setState({
+            focused: focused
+        });
     }
 
     render() {
@@ -81,15 +138,23 @@ export default class DropDownList extends React.Component {
             defaultItem
         } = this.props;
 
+        const {
+            selected,
+            focused,
+            dataItem
+        } = this.state;
+
         const listProps = {
             data,
             textField,
             valueField,
-            value,
+            value: dataItem ? dataItem[valueField] : value,
             height,
             itemRenderer,
             defaultItem,
-            onClick: this.select
+            onClick: this.select,
+            focused,
+            selected
         };
 
         const ariaAttributes = {
@@ -105,7 +170,7 @@ export default class DropDownList extends React.Component {
 
         return (
             //TODO: aria attributes, title
-            <span className="k-widget k-dropdown k-header" tabIndex="0" unselectable="on" {...ariaAttributes}>
+            <span className="k-widget k-dropdown k-header" onKeyDown={this.onKeyDown} tabIndex="0" unselectable="on" {...ariaAttributes}>
                 <span className="k-dropdown-wrap k-state-default" unselectable="on">
                     <span className="k-input" unselectable="on">
                         {this.renderValue()}
