@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import List from '../src/List';
-import AutoComplete from '../src/AutoComplete';
+import ComboBox from '../src/ComboBox';
 import SearchBar from '../src/SearchBar';
 
-describe('AutoComplete', () => {
+describe('ComboBox', () => {
     const data = [
         { text: "foo1", value: 1 },
         { text: "foo2", value: 2 },
@@ -24,23 +24,18 @@ describe('AutoComplete', () => {
             dataList = data;
         }
 
-        return shallow(<AutoComplete data={dataList} />);
+        return shallow(<ComboBox data={dataList} />);
     };
 
     let result;
 
     it('should render List', () => {
-        result = shallow(<AutoComplete data={data} />);
+        result = shallow(<ComboBox data={data} />);
         expect(result.find(List).length).toEqual(1);
     });
 
     it('should render SearchBar', () => {
-        result = shallow(<AutoComplete data={data} />);
+        result = shallow(<ComboBox data={data} />);
         expect(result.find(SearchBar).length).toEqual(1);
-    });
-
-    it('should disable the search bar if disabled prop is passed', () => {
-        result = shallow(<AutoComplete data={data} disabled />);
-        expect(result.find(SearchBar).prop('disabled')).toBe(true);
     });
 });
