@@ -97,5 +97,73 @@ describe('Util', () => {
             expect(util.endOfWordIndex(element.text, element.startIndex, element.separator)).toEqual(element.expected, `table row ${index} failed` );
         });
     });
+    it('itemIndex (array of objects)', () => {
+        const data = [
+            { text: "Albania", value: "Alb" },
+            { text: "Andorra", value: "And" },
+            { text: "Armenia", value: "Arm" },
+            { text: "Austria", value: "Aus" },
+            { text: "Azerbaijan", value: "Aze" },
+            { text: "Belarus", value: "Blg" },
+            { text: "Belgium", value: "Bls" },
+            { text: "Bosnia & Herzegovina", value: "Her" },
+            { text: "Bulgaria", value: "Bul" },
+            { text: "Croatia", value: "Cro" },
+            { text: "Cyprus", value: "Cyp" },
+            { text: "Czech Republic", value: "Rep" },
+            { text: "Denmark", value: "Den" },
+            { text: "Estonia", value: "Est" },
+            { text: "Finland", value: "Fin" },
+            { text: "France", value: "Fra" },
+            { text: "Georgia", value: "Geo" },
+            { text: "Germany", value: "Ger" },
+            { text: "Greece", value: "Gre" },
+            { text: "Hungary", value: "Hun" },
+            { text: "Iceland", value: "Ice" },
+            { text: "Ireland", value: "Ire" },
+            { text: "Italy", value: "Ita" },
+            { text: "Kosovo", value: "Kos" },
+            { text: "Latvia", value: "Lat" },
+            { text: "Liechtenstein", value: "Lie" },
+            { text: "Lithuania", value: "Lit" },
+            { text: "Luxembourg", value: "Lux" },
+            { text: "Macedonia", value: "Mac" },
+            { text: "Malta", value: "Mal" },
+            { text: "Moldova", value: "Mol" },
+            { text: "Monaco", value: "Mon" },
+            { text: "Montenegro", value: "Mon" },
+            { text: "Netherlands", value: "Net" },
+            { text: "Norway", value: "Nor" },
+            { text: "Poland", value: "Pol" },
+            { text: "Portugal", value: "Por" },
+            { text: "Romania", value: "Rom" },
+            { text: "Russia", value: "Rus" },
+            { text: "San Marino", value: "Mar" },
+            { text: "Serbia", value: "Ser" },
+            { text: "Slovenia", value: "Slo" },
+            { text: "Spain", value: "Spa" },
+            { text: "Sweden", value: "Swe" },
+            { text: "Switzerland", value: "Swi" },
+            { text: "Turkey", value: "Tur" },
+            { text: "Ukraine", value: "Ukr" },
+            { text: "United Kingdom", value: "Kin" },
+            { text: "Vatican City", value: "VC" }
+        ];
+        const table = [
+            { text: "g",   expected: 16 },
+            { text: "GR",  expected: 18 },
+            { text: "a",   expected: 0  },
+            { text: "au",  expected: 3  },
+            { text: "po",  expected: 35 },
+            { text: "pos", expected: -1 },
+            { text: "mO",  expected: 30 },
+            { text: "mon", expected: 31 }
+
+        ];
+
+        table.forEach(function(item, index) {
+            expect(util.itemIndex(item.text, data, "text")).toEqual(item.expected, `table row ${index} failed` );
+        });
+    });
 
 });

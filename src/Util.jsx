@@ -83,6 +83,17 @@ function resolveInitialValue(data, value, valueField) {
     return data.find(element => element[valueField] === value);
 }
 
+function itemIndex(text, data, textField = null) {
+    let index;
+
+    if (textField) {
+        index = data.findIndex(item => item[textField].search(new RegExp(text, "i")) === 0);
+    } else {
+        index = data.findIndex(item => item.search(new RegExp(text, "i")) === 0);
+    }
+    return index;
+}
+
 export {
     caretIndex,
     caretSelection,
@@ -95,5 +106,6 @@ export {
     selectEndOfWord,
     replaceWordAtCaret,
     resolveInitialValue,
-    endOfWordIndex
+    endOfWordIndex,
+    itemIndex
 };
