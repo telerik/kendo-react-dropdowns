@@ -3,14 +3,49 @@ import classNames from 'classnames';
 import keycode from 'keycode';
 import List from './List';
 import SearchBar from './SearchBar';
+import DropDownWrapper from './DropDownWrapper';
 // import Button from 'kendo-react-buttons';
 // import styles from '@telerik/kendo-theme-default/styles/ComboBox/main';
 import buttonStyles from '@telerik/kendo-theme-default/styles/button/main';
 
-export default class ComboBox extends React.Component {
+const propTypes = {
+    className: React.PropTypes.string,
+    data: React.PropTypes.oneOfType([
+        React.PropTypes.arrayOf(React.PropTypes.object),
+        React.PropTypes.arrayOf(React.PropTypes.string)
+    ]),
+    disabled: React.PropTypes.bool,
+    itemRenderer: React.PropTypes.func,
+    minLength: React.PropTypes.number,
+    onChange: React.PropTypes.func,
+    onFilter: React.PropTypes.func,
+    placeholder: React.PropTypes.string,
+    select: React.PropTypes.func,
+    separator: React.PropTypes.string,
+    suggest: React.PropTypes.bool,
+    tabIndex: React.PropTypes.number,
+    text: React.PropTypes.string,
+    textField: React.PropTypes.string,
+    toggle: React.PropTypes.func,
+    value: React.PropTypes.oneOfType([
+        React.PropTypes.number,
+        React.PropTypes.string
+    ]),
+    valueField: React.PropTypes.string,
+    valueUpdate: React.PropTypes.func
+};
+
+const defaultProps = {
+    minLength: 0,
+    onChange() {},
+    onFilter() {}
+};
+
+class ComboBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            dataItem: null,
             value: this.props.value || null,
             focused: null
         };
@@ -25,15 +60,14 @@ export default class ComboBox extends React.Component {
                 highlight: true
             });
         }
-
-        this.setState({ focused: null });
     }
 
     handleChange = (value) => {
+        //should probably use state.value instead:
         this.props.onChange(value);
     }
 
-    filter = (word) => {
+    handleFilter = (word) => {
         const minLength = this.props.minLength;
         if (word.length >= minLength) {
             this.props.onFilter(word);
@@ -66,26 +100,29 @@ export default class ComboBox extends React.Component {
         });
     }
 
-    valueUpdate = (value) => {
+    textUpdate = (text) => {
         this.setState({
-            value: value,
+            text: text,
             word: null,
-            highlight: false
+            highlight: false,
+            focused: 0 //TODO: calculate based on matches in the data array
         });
     }
 
     select = (dataItem) => {
+        const value = dataItem ? dataItem[this.props.valueField] : this.refs.searchBar._input.value;
+        const text = dataItem ? dataItem[this.props.textField] : this.refs.searchBar._input.value;
+
         this.setState({
-            text: dataItem[this.props.textField],
-            value: dataItem[this.props.valueField],
-            word: dataItem[this.props.textField],
+            text: text,
+            value: value,
+            word: text,
             highlight: false
         });
     }
 
     selectFocused = () => {
         const focused = this.state.focused;
-
         if (focused !== null) {
             this.select(this.props.data[focused]);
         }
@@ -93,10 +130,10 @@ export default class ComboBox extends React.Component {
 
     render() {
         const searchBarProps = {
+            filter: this.handleFilter,
+            change: this.textUpdate,
             handleChange: this.handleChange,
             navigate: this.navigate,
-            filter: this.filter,
-            change: this.valueUpdate,
             selectFocused: this.selectFocused,
             disabled: this.props.disabled,
             placeholder: this.props.placeholder,
@@ -137,47 +174,20 @@ export default class ComboBox extends React.Component {
             textField: this.props.textField,
             valueField: this.props.valueField
         };
-
         return (
             <span {...comboBoxProps}>
-                <SearchBar ref="searchBar" {...searchBarProps} />
-                {/*<Button ref="" {...buttonProps}></Button>*/}
-                <button {...buttonProps}>toggle</button>
+                <DropDownWrapper>
+                    <SearchBar ref="searchBar" {...searchBarProps} />
+                    {/*<Button ref="" {...buttonProps}></Button>*/}
+                    <button {...buttonProps}>V</button>
+                </DropDownWrapper>
                 <List {...listProps} />
             </span>
         );
     }
 }
-ComboBox.defaultProps = {
-    minLength: 0,
-    onChange() {},
-    onFilter() {}
-};
 
-ComboBox.propTypes = {
-    className: React.PropTypes.string,
-    data: React.PropTypes.oneOfType([
-        React.PropTypes.arrayOf(React.PropTypes.object),
-        React.PropTypes.arrayOf(React.PropTypes.string)
-    ]),
-    disabled: React.PropTypes.bool,
-    filter: React.PropTypes.func,
-    itemRenderer: React.PropTypes.func,
-    minLength: React.PropTypes.number,
-    onChange: React.PropTypes.func,
-    onFilter: React.PropTypes.func,
-    placeholder: React.PropTypes.string,
-    select: React.PropTypes.func,
-    separator: React.PropTypes.string,
-    suggest: React.PropTypes.bool,
-    tabIndex: React.PropTypes.number,
-    text: React.PropTypes.string,
-    textField: React.PropTypes.string,
-    toggle: React.PropTypes.func,
-    value: React.PropTypes.oneOfType([
-        React.PropTypes.number,
-        React.PropTypes.string
-    ]),
-    valueField: React.PropTypes.string,
-    valueUpdate: React.PropTypes.func
-};
+ComboBox.defaultProps = defaultProps;
+ComboBox.propTypes = propTypes;
+
+export default ComboBox;
