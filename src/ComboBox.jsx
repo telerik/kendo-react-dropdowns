@@ -7,6 +7,7 @@ import DropDownWrapper from './DropDownWrapper';
 // import Button from 'kendo-react-buttons';
 // import styles from '@telerik/kendo-theme-default/styles/ComboBox/main';
 import buttonStyles from '@telerik/kendo-theme-default/styles/button/main';
+import { itemIndex } from './Util';
 
 const propTypes = {
     className: React.PropTypes.string,
@@ -57,13 +58,14 @@ class ComboBox extends React.Component {
         if (suggest && data.length) {
             this.setState({
                 word: data[0][textField],
-                highlight: true
+                highlight: true,
+                focused: itemIndex(this.text, data, textField) //get focused item on filtered data
             });
         }
     }
 
     handleChange = (value) => {
-        //should probably use state.value instead:
+        //should probably use state.value instead. also, trigger only when actual change occurs
         this.props.onChange(value);
     }
 
@@ -101,11 +103,13 @@ class ComboBox extends React.Component {
     }
 
     textUpdate = (text) => {
+        this.text = text;
+
         this.setState({
             text: text,
             word: null,
             highlight: false,
-            focused: 0 //TODO: calculate based on matches in the data array
+            focused: itemIndex(text, this.props.data, this.props.textField) //get focused item on unfiltered data
         });
     }
 
