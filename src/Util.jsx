@@ -79,6 +79,10 @@ function textReduced(newValue = "", oldValue = "") {
     return result;
 }
 
+function resolveInitialValue(data, value, valueField) {
+    return data.find(element => element[valueField] === value);
+}
+
 export {
     caretIndex,
     caretSelection,
@@ -90,5 +94,6 @@ export {
     wordAtCaret,
     selectEndOfWord,
     replaceWordAtCaret,
+    resolveInitialValue,
     endOfWordIndex
 };

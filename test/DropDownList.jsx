@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import keycode from 'keycode';
 import List from '../src/List';
 import ListItem from '../src/ListItem';
-import DropDownList from '../src/DropDownList/DropDownList';
+import DropDownList from '../src/DropDownList';
 
 describe('DropDownList', () => {
     const data = [

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import DropDownList from '../src/DropDownList/DropDownList';
+import DropDownList from '../src/DropDownList';
 
 const data = [
     { text: "foo", value: 1 },

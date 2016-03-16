@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import keycode from 'keycode';
 import * as util from './Util';
-import List from '../List';
-import DropDownWrapper from '../DropDownWrapper';
+import List from './List';
+import DropDownWrapper from './DropDownWrapper';
 //import styles from '@telerik/kendo-theme-default-base/styles/main';
 
 export default class DropDownList extends React.Component {
@@ -177,7 +177,12 @@ export default class DropDownList extends React.Component {
 
         return (
             //TODO: aria attributes, title
-            <span className="k-widget k-dropdown k-header" onKeyDown={this.onKeyDown} tabIndex="0" unselectable="on" {...ariaAttributes}>
+            <span className="k-widget k-dropdown k-header"
+                onKeyDown={this.onKeyDown}
+                tabIndex="0"
+                unselectable="on"
+                {...ariaAttributes}
+            >
                 <DropDownWrapper disabled={disabled}>
                     <span className="k-input" unselectable="on">
                         {this.renderValue()}
@@ -185,8 +190,8 @@ export default class DropDownList extends React.Component {
                     <span className="k-select" unselectable="on">
                         <span className="k-icon k-i-arrow-s"></span>
                     </span>
-                    <List {...listProps} />
                 </DropDownWrapper>
+                <List {...listProps} />
             </span>
         );
     }
