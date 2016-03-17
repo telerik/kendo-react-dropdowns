@@ -5,7 +5,8 @@ import DropDownList from '../src/DropDownList';
 const data = [
     { text: "foo", value: 1 },
     { text: "bar", value: 2 },
-    { text: "baz", value: 3 }
+    { text: "baz", value: 3 },
+    { text: "qux", value: 4 }
 ];
 
 const foo = (text) => {
@@ -26,7 +27,7 @@ const renderer = (dataItem) => `foo ${dataItem.text} bar`;
 const render = (data) => {
     ReactDOM.render(
         <div>
-            <DropDownList data={data} itemRenderer={renderer} textField="text" value={1} valueField="value" />
+            <DropDownList data={data} textField="text" value={1} valueField="value" />
         </div>,
         document.getElementById('app')
     );

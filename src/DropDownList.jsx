@@ -15,8 +15,10 @@ export default class DropDownList extends React.Component {
             PropTypes.string,
             PropTypes.object
         ]),
+        delay: PropTypes.number,
         disabled: PropTypes.bool,
         height: PropTypes.number,
+        ignoreCase: PropTypes.bool,
         index: PropTypes.number,
         itemRenderer: PropTypes.func,
         minLength: PropTypes.number,
@@ -39,6 +41,9 @@ export default class DropDownList extends React.Component {
             selected: null,
             focused: null
         };
+
+        this.word = "";
+        this.last = "";
     }
 
     componentWillMount() {
@@ -84,6 +89,83 @@ export default class DropDownList extends React.Component {
         }
 
         return (typeof(valueRenderer) === "function") ? valueRenderer(value) : value;
+    }
+
+    search() {
+        clearTimeout(this.typingTimeout);
+
+        //TODO: handle filter input scenrio
+
+        this.typingTimeout = setTimeout(() => {
+            this.word = "";
+        }, this.props.delay);
+
+        this.selectNext();
+    }
+
+    selectNext() {
+        let data = this.props.data.slice();
+        const dataLength = data.length + (this.props.defaultItem ? 1 : 0);
+        const isInLoop = util.sameCharsOnly(this.word, this.last);
+        let startIndex = this.state.selected;
+        const { defaultItem, textField, valueField, ignoreCase } = this.props;
+        const additionalItem = (typeof(defaultItem) === "object") ? defaultItem : { [textField]: defaultItem, [valueField]: null };
+
+        let text, index;
+
+        if (startIndex === -1) {
+            startIndex = 0;
+        } else {
+            startIndex += isInLoop ? 1 : 0;
+            startIndex = util.normalizeIndex(startIndex, dataLength);
+        }
+
+        data = util.shuffleData(data, startIndex, defaultItem, additionalItem);
+
+        for (let idx = 0; idx < dataLength; idx++) {
+            text = data[idx][textField];
+            index = idx;
+
+            if (isInLoop && util.matchText(text, this.last, ignoreCase)) {
+                break;
+            } else if (util.matchText(text, this.word, ignoreCase)) {
+                break;
+            }
+        }
+
+        if (index !== dataLength) {
+            //oldFocusedItem = this._focus();
+
+            this.selectByIndex(util.normalizeIndex(startIndex + index, dataLength));
+
+            /* TODO: cancel-able event
+            if (that.trigger("select", { item: that._focus() })) {
+                that._select(oldFocusedItem);
+            }
+            */
+
+            /* TODO: change event?
+            if (!that.popup.visible()) {
+                that._change();
+            }
+            */
+        }
+    }
+
+    selectByIndex(index) {
+        const defaultItem = this.props.defaultItem;
+        let dataItem;
+
+        if (index === -1) {
+            dataItem = (typeof(defaultItem) === "object") ? defaultItem : null;
+            this.setState({
+                dataItem: dataItem,
+                selected: index,
+                focused: index
+            });
+        } else {
+            this.select(this.props.data[defaultItem ? index - 1 : index]);
+        }
     }
 
     select = (dataItem) => {
@@ -143,10 +225,28 @@ export default class DropDownList extends React.Component {
                 focused: focused,
                 selected: focused
             });
+        }
+    }
 
+    onKeyPress = (event) => {
+        if (event.which === 0 || event.keyCode === keycode.codes.enter) {
             return;
         }
 
+        let character = String.fromCharCode(event.charCode || event.keyCode);
+
+        if (this.props.ignoreCase) {
+            character = character.toLowerCase();
+        }
+
+        if (character === " ") {
+            event.preventDefault();
+        }
+
+        this.word += character;
+        this.last = character;
+
+        this.search();
     }
 
     render() {
@@ -195,6 +295,7 @@ export default class DropDownList extends React.Component {
             //TODO: aria attributes, title
             <span className="k-widget k-dropdown k-header"
                 onKeyDown={this.onKeyDown}
+                onKeyPress={this.onKeyPress}
                 tabIndex="0"
                 unselectable="on"
                 {...ariaAttributes}

@@ -94,16 +94,62 @@ function itemIndex(text, data, textField = null) {
     return index;
 }
 
+function sameCharsOnly(word, character) {
+    for (let idx = 0; idx < word.length; idx++) {
+        if (word.charAt(idx) !== character) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function normalizeIndex(index, length) {
+    let result = index;
+
+    if (result >= length) {
+        result -= length;
+    }
+    return result;
+}
+
+function shuffleData(data, splitIndex, defaultItem) {
+    let result = data;
+
+    if (defaultItem) {
+        result = [ defaultItem ].concat(result);
+    }
+
+    return result.slice(splitIndex).concat(result.slice(0, splitIndex));
+}
+
+function matchText(text, word, ignoreCase) {
+    if (text === undefined || text === null) {
+        return false;
+    }
+
+    let temp = String(text);
+
+    if (ignoreCase) {
+        temp = temp.toLowerCase();
+    }
+
+    return temp.indexOf(word) === 0;
+}
+
 export {
     caretIndex,
     caretSelection,
     hasSelection,
     indexOfWordAtCaret,
     moveToEndOfWord,
+    matchText,
+    normalizeIndex,
     textReduced,
     trim,
     wordAtCaret,
     selectEndOfWord,
+    sameCharsOnly,
+    shuffleData,
     replaceWordAtCaret,
     resolveInitialValue,
     endOfWordIndex,
