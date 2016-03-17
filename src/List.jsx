@@ -26,6 +26,12 @@ export default class List extends React.Component {
     constructor(props) {
         super(props);
     }
+    componentDidUpdate() {
+        let focused = this.refs.ul.children[this.props.focused];
+        if (focused) {
+            focused.scrollIntoView();
+        }
+    }
 
     clickHandler = (dataItem) => {
         this.props.onClick(dataItem);
@@ -77,7 +83,7 @@ export default class List extends React.Component {
             <div className="k-list-container k-popup k-group k-reset" style={style}>
                 {defaultItem && <DefaultItem {...defaultItemProps} />}
                 <div className="k-list-scroller" unselectable="on">
-                    <ul className="k-list k-reset">{this.renderItems()}</ul>
+                    <ul className="k-list k-reset" ref="ul">{this.renderItems()}</ul>
                 </div>
             </div>
         );
