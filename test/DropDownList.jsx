@@ -104,11 +104,54 @@ describe('DropDownList keyboard navigation', () => {
         expect(result.state('focused')).toEqual(1);
     });
 
+    it('should increment state.focused when key "right" is pressed', () => {
+        result = shallow(<DropDownList data={data} textField="text" value={1} valueField="value" />);
+        result.simulate('keyDown', { keyCode: keycode.codes.down });
+
+        expect(result.state('focused')).toEqual(1);
+    });
+
     it('should decrement state.focused when key "up" is pressed', () => {
         result = shallow(<DropDownList data={data} textField="text" value={2} valueField="value" />);
         result.simulate('keyDown', { keyCode: keycode.codes.up });
 
         expect(result.state('focused')).toEqual(0);
+    });
+
+    it('should decrement state.focused when key "left" is pressed', () => {
+        result = shallow(<DropDownList data={data} textField="text" value={2} valueField="value" />);
+        result.simulate('keyDown', { keyCode: keycode.codes.up });
+
+        expect(result.state('focused')).toEqual(0);
+    });
+
+    it('should focus first item when key "home" is pressed', () => {
+        result = shallow(<DropDownList data={data} textField="text" value={2} valueField="value" />);
+        result.simulate('keyDown', { keyCode: keycode.codes.home });
+
+        expect(result.state('focused')).toEqual(0);
+    });
+
+    it('should focus the default item when key "home" is pressed', () => {
+        result = shallow(
+            <DropDownList
+                data={data}
+                defaultItem="select ..."
+                textField="text"
+                value={2}
+                valueField="value"
+            />
+        );
+        result.simulate('keyDown', { keyCode: keycode.codes.home });
+
+        expect(result.state('focused')).toEqual(-1);
+    });
+
+    it('should focus last item when key "home" is pressed', () => {
+        result = shallow(<DropDownList data={data} textField="text" valueField="value" />);
+        result.simulate('keyDown', { keyCode: keycode.codes.end });
+
+        expect(result.state('focused')).toEqual(data.length - 1);
     });
 
     it('should be able to focus the defaultItem', () => {

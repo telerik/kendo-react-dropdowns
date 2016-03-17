@@ -98,11 +98,12 @@ export default class DropDownList extends React.Component {
 
     onKeyDown = (event) => {
         const keyCode = event.keyCode;
-        const max = this.props.data.length - 1;
+        const data = this.props.data;
+        const max = data.length - 1;
         const min = this.props.defaultItem ? -1 : 0;
         const disabled = this.props.disabled;
         let { focused } = this.state;
-        let dataItem;
+        let dataItem, handled;
 
         if (disabled) { return; }
 
@@ -112,25 +113,40 @@ export default class DropDownList extends React.Component {
             } else {
                 dataItem = this.props.data[focused];
             }
+
+            handled = true;
+        }
+
+        if (keyCode === keycode.codes.up || keyCode === keycode.codes.left) {
+            focused = (focused !== null && focused !== min) ? focused - 1 : max;
+            handled = true;
+        }
+
+        if (keyCode === keycode.codes.down || keyCode === keycode.codes.right) {
+            focused = (focused !== null && focused !== max) ? focused + 1 : min;
+            handled = true;
+        }
+
+        if (keyCode === keycode.codes.home) {
+            focused = min;
+            handled = true;
+        }
+
+        if (keyCode === keycode.codes.end) {
+            focused = max;
+            handled = true;
+        }
+
+        if (handled) {
             this.setState({
-                dataItem: dataItem,
+                dataItem: dataItem || data[focused],
+                focused: focused,
                 selected: focused
             });
 
             return;
         }
 
-        if (keyCode === keycode.codes.up) {
-            focused = (focused !== null && focused !== min) ? focused - 1 : max;
-        }
-
-        if (keyCode === keycode.codes.down) {
-            focused = (focused !== null && focused !== max) ? focused + 1 : min;
-        }
-
-        this.setState({
-            focused: focused
-        });
     }
 
     render() {
