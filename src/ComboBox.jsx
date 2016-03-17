@@ -4,7 +4,7 @@ import keycode from 'keycode';
 import List from './List';
 import SearchBar from './SearchBar';
 import DropDownWrapper from './DropDownWrapper';
-// import Button from 'kendo-react-buttons';
+import { Button } from '@telerik/kendo-react-buttons';
 // import styles from '@telerik/kendo-theme-default/styles/ComboBox/main';
 import buttonStyles from '@telerik/kendo-theme-default/styles/button/main';
 import { itemIndex } from './Util';
@@ -154,7 +154,8 @@ class ComboBox extends React.Component {
 
         const buttonProps = {
             onClick: this.toggle,
-            className: buttonClasses
+            className: buttonClasses,
+            icon: "arrow-s"
         };
 
         const comboBoxClasses = classNames({
@@ -182,8 +183,9 @@ class ComboBox extends React.Component {
             <span {...comboBoxProps}>
                 <DropDownWrapper>
                     <SearchBar ref="searchBar" {...searchBarProps} />
-                    {/*<Button ref="" {...buttonProps}></Button>*/}
-                    <button {...buttonProps}>V</button>
+                    <span className="k-select">
+                        <Button ref="" {...buttonProps} />
+                    </span>
                 </DropDownWrapper>
                 <List {...listProps} />
             </span>
