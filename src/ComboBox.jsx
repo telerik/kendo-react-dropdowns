@@ -96,7 +96,7 @@ class ComboBox extends React.Component {
         this.setState({
             text: suggest ? dataItem[textField] : null,
             value: suggest ? dataItem[valueField] : null,
-            word: suggest ? dataItem[textField] : null,
+            word: null,
             focused: focused,
             highlight: suggest
         });
