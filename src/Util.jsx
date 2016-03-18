@@ -109,6 +109,7 @@ function normalizeIndex(index, length) {
     if (result >= length) {
         result -= length;
     }
+
     return result;
 }
 

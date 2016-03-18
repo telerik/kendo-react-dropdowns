@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import keycode from 'keycode';
+
+import { keyPress } from './Helpers';
+
 import List from '../src/List';
 import ListItem from '../src/ListItem';
 import DropDownList from '../src/DropDownList';
@@ -252,4 +255,297 @@ describe('DropDownList keyboard navigation', () => {
         result.simulate('keyDown', { keyCode: keycode.codes.enter });
         expect(result.state('dataItem')).toEqual({ text: "baz", value: 3 });
     });
+});
+
+describe('DropDownList search', () => {
+    const data = [
+        { text: "Foo", value: 1 },
+        { text: "Bar", value: 2 },
+        { text: "Baz", value: 3 }
+    ];
+
+    let result;
+
+    it('should select first match', () => {
+        result = shallow(<DropDownList data={data} textField="text" valueField="value" />);
+        keyPress(result, "b");
+
+        expect(result.state()).toEqual({
+            dataItem: { text: "Bar", value: 2 },
+            focused: 1,
+            selected: 1
+        });
+    });
+
+    it('should search select item if text is number', () => {
+        const myData = [
+            { text: "Foo", value: 1 },
+            { text: 10, value: 2 }
+        ];
+
+        result = shallow(<DropDownList data={myData} textField="text" valueField="value" />);
+        keyPress(result, 1);
+
+        expect(result.state()).toEqual({
+            dataItem: { text: 10, value: 2 },
+            focused: 1,
+            selected: 1
+        });
+    });
+
+    it('should search text if text is 0', () => {
+        const myData = [
+            { text: "Foo", value: 1 },
+            { text: 0, value: 2 }
+        ];
+
+        result = shallow(<DropDownList data={myData} textField="text" valueField="value" />);
+        keyPress(result, 0);
+
+        expect(result.state()).toEqual({
+            dataItem: { text: 0, value: 2 },
+            focused: 1,
+            selected: 1
+        });
+    });
+
+    it('should support case sensitive search', () => {
+        const myData = [
+            { text: "Foo", value: 1 },
+            { text: "Bar", value: 2 },
+            { text: "baz", value: 3 }
+        ];
+
+        result = shallow(<DropDownList data={myData} ignoreCase={false} textField="text" valueField="value" />);
+        keyPress(result, "b");
+
+        expect(result.state()).toEqual({
+            dataItem: { text: "baz", value: 3 },
+            focused: 2,
+            selected: 2
+        });
+    });
+
+    it('should select next item if it starts with the same characeter', () => {
+        result = shallow(<DropDownList data={data} textField="text" valueField="value" />);
+        keyPress(result, "b");
+        keyPress(result, "b");
+
+        expect(result.state()).toEqual({
+            dataItem: { text: "Baz", value: 3 },
+            focused: 2,
+            selected: 2
+        });
+    });
+
+    it('should select specific item if typed matches', () => {
+        const myData = [
+            { text: "Foo1", value: 1 },
+            { text: "Foo2", value: 2 },
+            { text: "Foo3", value: 3 }
+        ];
+
+        result = shallow(<DropDownList data={myData} textField="text" valueField="value" />);
+        keyPress(result, "f");
+        keyPress(result, "o");
+        keyPress(result, "o");
+        keyPress(result, "2");
+
+        expect(result.state()).toEqual({
+            dataItem: { text: "Foo2", value: 2 },
+            focused: 1,
+            selected: 1
+        });
+    });
+
+    it('should select a specific item after loop', () => {
+        const myData = [
+            { text: "tt1", value: 1 },
+            { text: "t", value: 2 },
+            { text: "ttt", value: 3 },
+            { text: "tt3", value: 3 },
+            { text: "tt", value: 3 },
+            { text: "tttt", value: 3 }
+        ];
+
+        result = shallow(<DropDownList data={myData} textField="text" valueField="value" />);
+        keyPress(result, "t");
+        keyPress(result, "t");
+        keyPress(result, "1");
+
+        expect(result.state()).toEqual({
+            dataItem: { text: "tt1", value: 1 },
+            focused: 0,
+            selected: 0
+        });
+    });
+
+    it('should stays on the same item if changed but still in loop', () => {
+        const myData = [
+            { text: "text1", value: 1 },
+            { text: "text2", value: 2 },
+            { text: "text3", value: 3 }
+        ];
+
+        result = shallow(<DropDownList data={myData} textField="text" valueField="value" />);
+
+        keyPress(result, "t"); //select text2
+        keyPress(result, "t"); //select text3
+        keyPress(result, "e");
+        keyPress(result, "x");
+        keyPress(result, "t");
+        keyPress(result, "2"); //resulting text is text2
+
+        expect(result.state()).toEqual({
+            dataItem: { text: "text2", value: 2 },
+            focused: 1,
+            selected: 1
+        });
+    });
+
+    /*
+    it('should select next item if it starts with same characeter (default item)', () => {
+        const myData = [
+            { text: "text1", value: 1 },
+            { text: "text2", value: 2 }
+        ];
+
+        result = shallow(<DropDownList data={myData} defaultItem="select..." textField="text" valueField="value" />);
+
+        keyPress(result, "t");
+        keyPress(result, "t");
+
+        expect(result.state()).toEqual({
+            dataItem: { text: "text2", value: 2 },
+            focused: 1,
+            selected: 1
+        });
+    });
+    */
+
+    it('should keep selection if typed text is same as current data item', () => {
+        const myData = [
+            { text: "test", value: 1 },
+            { text: "500.122", value: 2 },
+            { text: "500.123", value: 3 }
+        ];
+
+        result = shallow(<DropDownList data={myData} textField="text" valueField="value" />);
+
+        keyPress(result, "5");
+
+        expect(result.state()).toEqual({
+            dataItem: { text: "500.122", value: 2 },
+            focused: 1,
+            selected: 1
+        });
+
+        keyPress(result, "0");
+        keyPress(result, "0");
+
+        expect(result.state()).toEqual({
+            dataItem: { text: "500.122", value: 2 },
+            focused: 1,
+            selected: 1
+        });
+    });
+
+    /*
+    it('should keep selection if typed text differs', () => {
+        const myData = [
+            { text: "test", value: 1 },
+            { text: "500.122", value: 2 },
+            { text: "500.123", value: 3 }
+        ];
+
+        result = shallow(<DropDownList data={myData} textField="text" valueField="value" />);
+
+        keyPress(result, "5");
+
+        expect(result.state()).toEqual({
+            dataItem: { text: "500.122", value: 2 },
+            focused: 1,
+            selected: 1
+        });
+
+        keyPress(result, "0");
+        keyPress(result, "0");
+        keyPress(result, "0");
+
+        expect(result.state()).toEqual({
+            dataItem: { text: "500.122", value: 2 },
+            focused: 1,
+            selected: 1
+        });
+    });
+    */
+
+    //it('should trigger change when searching') line 184
+
+    it('should honor ignoreCase option', () => {
+        const myData = [
+            { text: "text1", value: 1 },
+            { text: "Text2", value: 2 },
+            { text: "Text3", value: 3 }
+        ];
+
+        result = shallow(<DropDownList data={myData} index={1} textField="text" valueField="value" />);
+
+        keyPress(result, "t");
+        keyPress(result, "t");
+
+        expect(result.state()).toEqual({
+            dataItem: { text: "text1", value: 1 },
+            focused: 0,
+            selected: 0
+        });
+    });
+
+    /*
+    it('should NOT move to next item if typing same letters', () => {
+        const myData = [
+            { text: "test", value: 1 },
+            { text: "Bill 1", value: 2 },
+            { text: "Bill 2", value: 3 },
+            { text: "Label", value: 4 }
+        ];
+
+        result = shallow(<DropDownList data={myData} index={1} textField="text" valueField="value" />);
+
+        keyPress(result, "b");
+        keyPress(result, "i");
+        keyPress(result, "l");
+        keyPress(result, "l");
+
+        expect(result.state()).toEqual({
+            dataItem: { text: "Bill 1", value: 2 },
+            focused: 1,
+            selected: 1
+        });
+    });
+
+    it('should support space', () => {
+        const myData = [
+            { text: "Bill 1", value: 1 },
+            { text: "Bill 2", value: 2 },
+            { text: "Bill 3", value: 3 }
+        ];
+
+        result = shallow(<DropDownList data={myData} textField="text" valueField="value" />);
+
+        keyPress(result, "b");
+        keyPress(result, "i");
+        keyPress(result, "l");
+        keyPress(result, "l");
+        keyPress(result, " ");
+        keyPress(result, "2");
+
+        expect(result.state()).toEqual({
+            dataItem: { text: "Bill 2", value: 2 },
+            focused: 1,
+            selected: 1
+        });
+    });
+    */
+
 });
