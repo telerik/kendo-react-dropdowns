@@ -67,20 +67,20 @@ class ComboBox extends React.Component {
     handleChange = (value) => {
         //should probably use state.value instead. also, trigger only when actual change occurs
         this.props.onChange(value);
-    }
+    };
 
     handleFilter = (word) => {
         const minLength = this.props.minLength;
         if (word.length >= minLength) {
             this.props.onFilter(word);
         }
-    }
+    };
 
     toggle = () => {
         //this.setState({
         //  expanded: !this.state.expanded
         // });
-    }
+    };
 
     navigate = (keyCode) => {
         const max = this.props.data.length - 1;
@@ -100,7 +100,7 @@ class ComboBox extends React.Component {
             focused: focused,
             highlight: suggest
         });
-    }
+    };
 
     textUpdate = (text) => {
         this.text = text;
@@ -111,7 +111,7 @@ class ComboBox extends React.Component {
             highlight: false,
             focused: itemIndex(text, this.props.data, this.props.textField) //get focused item on unfiltered data
         });
-    }
+    };
 
     select = (dataItem) => {
         const value = dataItem ? dataItem[this.props.valueField] : this.refs.searchBar._input.value;
@@ -123,14 +123,14 @@ class ComboBox extends React.Component {
             word: text,
             highlight: false
         });
-    }
+    };
 
     selectFocused = () => {
         const focused = this.state.focused;
         if (focused !== null) {
             this.select(this.props.data[focused]);
         }
-    }
+    };
 
     render() {
         const searchBarProps = {

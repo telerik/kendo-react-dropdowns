@@ -35,7 +35,7 @@ export default class List extends React.Component {
 
     clickHandler = (dataItem) => {
         this.props.onClick(dataItem);
-    }
+    };
 
     renderItems() {
         const { itemRenderer, textField, valueField, focused } = this.props;

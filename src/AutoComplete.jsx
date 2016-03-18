@@ -56,7 +56,7 @@ class AutoComplete extends React.Component {
 
     handleChange = (value) => {
         this.props.onChange(value);
-    }
+    };
 
     filter = (word) => {
         const minLength = this.props.minLength;
@@ -64,7 +64,7 @@ class AutoComplete extends React.Component {
         if (word.length >= minLength) {
             this.props.onFilter(word);
         }
-    }
+    };
 
     valueUpdate = (value) => {
         this.setState({
@@ -72,14 +72,14 @@ class AutoComplete extends React.Component {
             word: null,
             highlight: false
         });
-    }
+    };
 
     select = (dataItem) => {
         this.setState({
             word: dataItem[this.props.valueField],
             highlight: false
         });
-    }
+    };
 
     selectFocused = () => {
         const focused = this.state.focused;
@@ -87,7 +87,7 @@ class AutoComplete extends React.Component {
         if (focused !== null) {
             this.select(this.props.data[focused]);
         }
-    }
+    };
 
     navigate = (keyCode) => {
         const max = this.props.data.length - 1;
@@ -104,7 +104,7 @@ class AutoComplete extends React.Component {
             word: suggest ? this.props.data[focused][valueField] : null,
             highlight: suggest
         });
-    }
+    };
 
     render() {
         let autocompleteClasses = classNames({

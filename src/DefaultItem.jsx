@@ -31,12 +31,12 @@ export default class DefaultItem extends React.Component {
 
     onMouseDown = (event) => {
         event.preventDefault();
-    }
+    };
 
     onClick = () => {
         const dataItem = this.props.dataItem;
         this.props.onClick((typeof(dataItem) === "object" ? dataItem : null));
-    }
+    };
 
     render() {
         const { selected, focused } = this.props;

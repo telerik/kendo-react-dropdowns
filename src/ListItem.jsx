@@ -29,11 +29,11 @@ export default class ListItem extends React.Component {
 
     onMouseDown = (event) => {
         event.preventDefault();
-    }
+    };
 
     onClick = () => {
         this.props.onClick(this.props.dataItem);
-    }
+    };
 
     render() {
         const itemClasses = classNames({
