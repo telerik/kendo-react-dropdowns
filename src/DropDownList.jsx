@@ -34,6 +34,11 @@ export default class DropDownList extends React.Component {
         valueRenderer: PropTypes.func
     };
 
+    static defaultProps = {
+        ignoreCase: true,
+        delay: 500
+    };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -176,7 +181,7 @@ export default class DropDownList extends React.Component {
                 focused: this.props.data.indexOf(dataItem)
             });
         }
-    }
+    };
 
     onKeyDown = (event) => {
         const keyCode = event.keyCode;
@@ -226,7 +231,7 @@ export default class DropDownList extends React.Component {
                 selected: focused
             });
         }
-    }
+    };
 
     onKeyPress = (event) => {
         if (event.which === 0 || event.keyCode === keycode.codes.enter) {
@@ -235,7 +240,7 @@ export default class DropDownList extends React.Component {
 
         let character = String.fromCharCode(event.charCode || event.keyCode);
 
-        if (this.props.ignoreCase) {
+        if (!(this.props.ignoreCase === false)) {
             character = character.toLowerCase();
         }
 
@@ -247,7 +252,7 @@ export default class DropDownList extends React.Component {
         this.last = character;
 
         this.search();
-    }
+    };
 
     render() {
         const {
