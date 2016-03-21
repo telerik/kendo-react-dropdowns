@@ -48,11 +48,6 @@ describe('DropDownList', () => {
         expect(result.state('selected')).toEqual(-1);
     });
 
-    it('should have null state if the defaultItem is defined as string', () => {
-        result = shallow(<DropDownList data={data} defaultItem="select ..." textField="text" valueField="value" />);
-        expect(result.state('dataItem')).toEqual(null);
-    });
-
     it('should change state.dataItem when item is clicked', () => {
         result = shallow(<DropDownList data={data} textField="text" valueField="value" />);
         const items = result.find(List).shallow().find(ListItem);
@@ -139,7 +134,7 @@ describe('DropDownList keyboard navigation', () => {
         result = shallow(
             <DropDownList
                 data={data}
-                defaultItem="select ..."
+                defaultItem={{ text: "select...", value: null }}
                 textField="text"
                 value={2}
                 valueField="value"
@@ -387,7 +382,7 @@ describe('DropDownList search', () => {
             { text: "text3", value: 3 }
         ];
 
-        result = shallow(<DropDownList data={myData} textField="text" valueField="value" />);
+        result = shallow(<DropDownList data={myData} defaultItem={{ text: "select...", value: null }} textField="text" valueField="value" />);
 
         keyPress(result, "t"); //select text2
         keyPress(result, "t"); //select text3
@@ -403,14 +398,13 @@ describe('DropDownList search', () => {
         });
     });
 
-    /*
     it('should select next item if it starts with same characeter (default item)', () => {
         const myData = [
             { text: "text1", value: 1 },
             { text: "text2", value: 2 }
         ];
 
-        result = shallow(<DropDownList data={myData} defaultItem="select..." textField="text" valueField="value" />);
+        result = shallow(<DropDownList data={myData} defaultItem={{ text: "select...", value: null }} textField="text" valueField="value" />);
 
         keyPress(result, "t");
         keyPress(result, "t");
@@ -421,7 +415,31 @@ describe('DropDownList search', () => {
             selected: 1
         });
     });
-    */
+
+    it('should be able to find and select the defaultItem', () => {
+        const myData = [
+            { text: "text1", value: 1 },
+            { text: "text2", value: 2 }
+        ];
+
+        result = shallow(
+            <DropDownList
+                data={myData}
+                defaultItem={{ text: "select...", value: null }}
+                textField="text"
+                value={1}
+                valueField="value"
+            />
+        );
+
+        keyPress(result, "s");
+
+        expect(result.state()).toEqual({
+            dataItem: { text: "select...", value: null },
+            focused: -1,
+            selected: -1
+        });
+    });
 
     it('should keep selection if typed text is same as current data item', () => {
         const myData = [
@@ -450,7 +468,6 @@ describe('DropDownList search', () => {
         });
     });
 
-    /*
     it('should keep selection if typed text differs', () => {
         const myData = [
             { text: "test", value: 1 },
@@ -478,7 +495,6 @@ describe('DropDownList search', () => {
             selected: 1
         });
     });
-    */
 
     //it('should trigger change when searching') line 184
 
@@ -501,13 +517,11 @@ describe('DropDownList search', () => {
         });
     });
 
-    /*
     it('should NOT move to next item if typing same letters', () => {
         const myData = [
-            { text: "test", value: 1 },
-            { text: "Bill 1", value: 2 },
-            { text: "Bill 2", value: 3 },
-            { text: "Label", value: 4 }
+            { text: "Bill 1", value: 1 },
+            { text: "Bill 2", value: 2 },
+            { text: "Label", value: 3 }
         ];
 
         result = shallow(<DropDownList data={myData} index={1} textField="text" valueField="value" />);
@@ -518,9 +532,9 @@ describe('DropDownList search', () => {
         keyPress(result, "l");
 
         expect(result.state()).toEqual({
-            dataItem: { text: "Bill 1", value: 2 },
-            focused: 1,
-            selected: 1
+            dataItem: { text: "Bill 1", value: 1 },
+            focused: 0,
+            selected: 0
         });
     });
 
@@ -546,6 +560,5 @@ describe('DropDownList search', () => {
             selected: 1
         });
     });
-    */
 
 });

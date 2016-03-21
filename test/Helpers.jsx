@@ -3,7 +3,7 @@ function keyPress(shallowWrapper, key) {
 
     charCode = keyCode = String(key).charCodeAt(0);
 
-    shallowWrapper.simulate("keyPress", { charCode: charCode, keyCode: keyCode });
+    shallowWrapper.simulate("keyPress", { charCode: charCode, keyCode: keyCode, preventDefault: function() {} });
 }
 
 export {

@@ -11,10 +11,15 @@ export default class DropDownList extends React.Component {
         change: PropTypes.func,
         className: PropTypes.string,
         data: PropTypes.arrayOf(PropTypes.object),
-        defaultItem: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.object
-        ]),
+        defaultItem: function(props, propName, componentName) {
+            if (props.defaultItem && props.valueField && typeof props.defaultItem !== "object") {
+                return new Error(`
+                    ${componentName} invalid configuration.
+                    DefaultItem type should match the data items type!
+                    Define the defaultItem as an object with ${props.textField} and ${props.valueField} fields!
+                `);
+            }
+        },
         delay: PropTypes.number,
         disabled: PropTypes.bool,
         height: PropTypes.number,
@@ -70,7 +75,7 @@ export default class DropDownList extends React.Component {
                 focused: index
             });
         } else if (defaultItem) {
-            dataItem = (typeof(defaultItem) === "object") ? defaultItem : null;
+            dataItem = defaultItem;
             this.setState({
                 dataItem: dataItem,
                 selected: dataItem ? -1 : null,
@@ -81,16 +86,15 @@ export default class DropDownList extends React.Component {
 
     renderValue() {
         const dataItem = this.state.dataItem;
-        const { textField , defaultItem = "", valueRenderer } = this.props;
+        const { textField , defaultItem, valueRenderer } = this.props;
         let value;
 
         if (dataItem) {
             value = dataItem[textField];
-        } else if (typeof defaultItem === "object") {
+        } else if (defaultItem) {
             value = defaultItem[textField];
         } else {
-            //do not execute the value template
-            return defaultItem;
+            return "";
         }
 
         return (typeof(valueRenderer) === "function") ? valueRenderer(value) : value;
@@ -110,26 +114,21 @@ export default class DropDownList extends React.Component {
 
     selectNext() {
         let data = this.props.data.slice();
-        const dataLength = data.length + (this.props.defaultItem ? 1 : 0);
+        const { textField, valueField, defaultItem, ignoreCase } = this.props;
+        const dataLength = data.length + (defaultItem ? 1 : 0);
         const isInLoop = util.sameCharsOnly(this.word, this.last);
-        let startIndex = this.state.selected;
-        const { defaultItem, textField, valueField, ignoreCase } = this.props;
-        const additionalItem = (typeof(defaultItem) === "object") ? defaultItem : { [textField]: defaultItem, [valueField]: null };
+        let startIndex = this.state.selected + (defaultItem ? 1 : 0);
 
         let text, index;
 
-        if (startIndex === -1) {
-            startIndex = 0;
-        } else {
-            startIndex += isInLoop ? 1 : 0;
-            startIndex = util.normalizeIndex(startIndex, dataLength);
-        }
+        startIndex += isInLoop ? 1 : 0;
+        startIndex = util.normalizeIndex(startIndex, dataLength);
 
-        data = util.shuffleData(data, startIndex, defaultItem, additionalItem);
+        data = util.shuffleData(data, startIndex, defaultItem);
 
-        for (let idx = 0; idx < dataLength; idx++) {
-            text = data[idx][textField];
-            index = idx;
+        index = 0;
+        for (; index < dataLength; index++) {
+            text = data[index][textField];
 
             if (isInLoop && util.matchText(text, this.last, ignoreCase)) {
                 break;
@@ -141,7 +140,11 @@ export default class DropDownList extends React.Component {
         if (index !== dataLength) {
             //oldFocusedItem = this._focus();
 
-            this.selectByIndex(util.normalizeIndex(startIndex + index, dataLength));
+            if (defaultItem && data[index][valueField] === defaultItem[valueField]) {
+                this.selectByIndex(-1);
+            } else {
+                this.selectByIndex(util.normalizeIndex(startIndex + index, dataLength));
+            }
 
             /* TODO: cancel-able event
             if (that.trigger("select", { item: that._focus() })) {
@@ -158,18 +161,14 @@ export default class DropDownList extends React.Component {
     }
 
     selectByIndex(index) {
-        const defaultItem = this.props.defaultItem;
-        let dataItem;
-
         if (index === -1) {
-            dataItem = (typeof(defaultItem) === "object") ? defaultItem : null;
             this.setState({
-                dataItem: dataItem,
+                dataItem: this.props.defaultItem,
                 selected: index,
                 focused: index
             });
         } else {
-            this.select(this.props.data[defaultItem ? index - 1 : index]);
+            this.select(this.props.data[this.props.defaultItem ? index - 1 : index]);
         }
     }
 
@@ -185,10 +184,9 @@ export default class DropDownList extends React.Component {
 
     onKeyDown = (event) => {
         const keyCode = event.keyCode;
-        const data = this.props.data;
+        const { data, defaultItem, disabled } = this.props;
         const max = data.length - 1;
         const min = this.props.defaultItem ? -1 : 0;
-        const disabled = this.props.disabled;
         let { focused } = this.state;
         let dataItem, handled;
 
@@ -196,7 +194,7 @@ export default class DropDownList extends React.Component {
 
         if (keyCode === keycode.codes.enter) {
             if (focused === -1) {
-                dataItem = (typeof(this.props.defaultItem) === "object") ? this.props.defaultItem : null;
+                dataItem = defaultItem ? defaultItem : null;
             } else {
                 dataItem = this.props.data[focused];
             }
