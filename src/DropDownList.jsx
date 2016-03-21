@@ -188,17 +188,12 @@ export default class DropDownList extends React.Component {
         const max = data.length - 1;
         const min = this.props.defaultItem ? -1 : 0;
         let { focused } = this.state;
-        let dataItem, handled;
+        let dataItem, handled = false;
 
         if (disabled) { return; }
 
         if (keyCode === keycode.codes.enter) {
-            if (focused === -1) {
-                dataItem = defaultItem ? defaultItem : null;
-            } else {
-                dataItem = this.props.data[focused];
-            }
-
+            dataItem = (focused === -1) ? defaultItem || null : this.props.data[focused];
             handled = true;
         }
 
