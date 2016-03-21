@@ -64,10 +64,9 @@ class ComboBox extends React.Component {
         }
     }
 
-    handleChange = (value) => {
-        //should probably use state.value instead. also, trigger only when actual change occurs
-        this.props.onChange(value);
-    };
+    handleChange = () => {
+        this.props.onChange(this.state.value);
+    }
 
     handleFilter = (word) => {
         const minLength = this.props.minLength;
