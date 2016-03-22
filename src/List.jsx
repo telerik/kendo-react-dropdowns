@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import * as util from './Util';
 import ListItem from './ListItem';
 import DefaultItem from './DefaultItem';
 //import styles from '@telerik/kendo-theme-default-base/styles/main';
@@ -6,10 +7,15 @@ import DefaultItem from './DefaultItem';
 export default class List extends React.Component {
 
     static propTypes = {
-        data: PropTypes.arrayOf(PropTypes.object),
-        defaultItem: PropTypes.oneOfType([
+        data: PropTypes.arrayOf(PropTypes.oneOfType([
+            PropTypes.object,
             PropTypes.string,
-            PropTypes.object
+            PropTypes.number
+        ])),
+        defaultItem: PropTypes.oneOfType([
+            PropTypes.object,
+            PropTypes.string,
+            PropTypes.number
         ]),
         focused: PropTypes.number,
         height: PropTypes.number, //TODO: may change to something like popupProps: { style: { height: "" } }, to discuss after there is a popup prototype
@@ -47,10 +53,10 @@ export default class List extends React.Component {
                 <ListItem
                     dataItem={item}
                     focused={index === focused}
-                    key={item.text}
+                    key={util.getter(item, valueField)}
                     onClick={this.clickHandler}
                     renderer={itemRenderer}
-                    selected={item[valueField] === value}
+                    selected={util.getter(item, valueField) === value}
                     textField={textField}
                 />
             )

@@ -80,14 +80,14 @@ function textReduced(newValue = "", oldValue = "") {
 }
 
 function resolveInitialValue(data, value, valueField) {
-    return data.find(element => element[valueField] === value);
+    return data.find(element => getter(element, valueField) === value);
 }
 
 function itemIndex(text, data, textField = null) {
     let index;
 
     if (textField) {
-        index = data.findIndex(item => item[textField].search(new RegExp(text, "i")) === 0);
+        index = data.findIndex(item => getter(item, textField).search(new RegExp(text, "i")) === 0);
     } else {
         index = data.findIndex(item => item.search(new RegExp(text, "i")) === 0);
     }
@@ -137,9 +137,14 @@ function matchText(text, word, ignoreCase) {
     return temp.indexOf(word) === 0;
 }
 
+function getter(dataItem, field) {
+    return field ? dataItem[field] : dataItem;
+}
+
 export {
     caretIndex,
     caretSelection,
+    getter,
     hasSelection,
     indexOfWordAtCaret,
     moveToEndOfWord,

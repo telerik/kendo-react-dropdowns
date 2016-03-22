@@ -6,7 +6,8 @@ import List from '../src/List';
 
 describe('List', () => {
     let result;
-    let data = [ { text: "foo", value: 1 }, { text: "bar", value: 2 } ];
+    const data = [ { text: "foo", value: 1 }, { text: "bar", value: 2 } ];
+    const primitives = [ "foo", "bar", "baz" ];
 
     it('should render a ul', () => {
         result = shallow(<List data={data} />);
@@ -18,8 +19,20 @@ describe('List', () => {
         expect(result.find(ListItem).length).toEqual(2);
     });
 
+    it('should render ListItems (array of strings)', () => {
+        result = shallow(<List data={primitives} />);
+        expect(result.find(ListItem).length).toEqual(3);
+    });
+
     it('should select', () => {
         result = shallow(<List data={data} textField="text" value={2} valueField="value" />);
+        const items = result.find(ListItem);
+        expect(items.at(0).shallow().hasClass('k-state-selected')).toBe(false);
+        expect(items.at(1).shallow().hasClass('k-state-selected')).toBe(true);
+    });
+
+    it('should select (array of strings)', () => {
+        result = shallow(<List data={primitives} value="bar" />);
         const items = result.find(ListItem);
         expect(items.at(0).shallow().hasClass('k-state-selected')).toBe(false);
         expect(items.at(1).shallow().hasClass('k-state-selected')).toBe(true);
@@ -33,7 +46,7 @@ describe('List', () => {
     });
 
     it('should select defaultItem if no value', () => {
-        result = shallow(<List data={data} defaultItem="select..." textField="text" valueField="value" />);
+        result = shallow(<List data={primitives} defaultItem="select..." textField="text" valueField="value" />);
         const optionLabel = result.children().at(0).shallow();
         expect(optionLabel.hasClass('k-state-selected')).toBe(true);
     });
@@ -48,6 +61,18 @@ describe('List', () => {
 
         items.at(1).shallow().simulate('click');
         expect(spy).toHaveBeenCalledWith({ text: 'bar', value: 2 });
+    });
+
+    it('should fire onClick (array of strings)', () => {
+        const spy = jasmine.createSpy('spy');
+        result = shallow(<List data={primitives} onClick={spy} />);
+        const items = result.find(ListItem);
+
+        items.at(0).shallow().simulate('click');
+        expect(spy).toHaveBeenCalledWith("foo");
+
+        items.at(1).shallow().simulate('click');
+        expect(spy).toHaveBeenCalledWith("bar");
     });
 
     it('should fire onClick for the defaultItem', () => {
@@ -71,7 +96,7 @@ describe('List', () => {
         const spy = jasmine.createSpy('spy');
         result = shallow(
             <List
-                data={data}
+                data={primitives}
                 defaultItem="select ..."
                 onClick={spy}
                 textField="text"

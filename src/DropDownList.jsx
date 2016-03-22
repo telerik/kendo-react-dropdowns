@@ -10,7 +10,11 @@ export default class DropDownList extends React.Component {
     static propTypes = {
         change: PropTypes.func,
         className: PropTypes.string,
-        data: PropTypes.arrayOf(PropTypes.object),
+        data: PropTypes.arrayOf(PropTypes.oneOfType([
+            PropTypes.object,
+            PropTypes.string,
+            PropTypes.number
+        ])),
         defaultItem: function(props, propName, componentName) {
             if (props.defaultItem && props.valueField && typeof props.defaultItem !== "object") {
                 return new Error(`
@@ -90,9 +94,9 @@ export default class DropDownList extends React.Component {
         let value;
 
         if (dataItem) {
-            value = dataItem[textField];
+            value = util.getter(dataItem, textField);
         } else if (defaultItem) {
-            value = defaultItem[textField];
+            value = util.getter(defaultItem, textField);
         } else {
             return "";
         }
@@ -128,7 +132,7 @@ export default class DropDownList extends React.Component {
 
         index = 0;
         for (; index < dataLength; index++) {
-            text = data[index][textField];
+            text = util.getter(data[index], textField);
 
             if (isInLoop && util.matchText(text, this.last, ignoreCase)) {
                 break;
@@ -140,7 +144,7 @@ export default class DropDownList extends React.Component {
         if (index !== dataLength) {
             //oldFocusedItem = this._focus();
 
-            if (defaultItem && data[index][valueField] === defaultItem[valueField]) {
+            if (defaultItem && util.getter(data[index], valueField) === util.getter(defaultItem, valueField)) {
                 this.selectByIndex(-1);
             } else {
                 this.selectByIndex(util.normalizeIndex(startIndex + index, dataLength));
@@ -269,7 +273,7 @@ export default class DropDownList extends React.Component {
             data,
             textField,
             valueField,
-            value: dataItem ? dataItem[valueField] : value,
+            value: dataItem ? util.getter(dataItem, valueField) : value,
             height,
             itemRenderer,
             defaultItem,

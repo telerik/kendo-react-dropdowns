@@ -15,6 +15,8 @@ describe('DropDownList', () => {
         { text: "baz", value: 3 }
     ];
 
+    const primitives = [ "foo", "bar", "baz" ];
+
     let result;
 
     it('should render List', () => {
@@ -29,9 +31,23 @@ describe('DropDownList', () => {
         expect(result.state('selected')).toEqual(2);
     });
 
+    it('should accept value (primitives)', () => {
+        result = shallow(<DropDownList data={primitives} value="baz" />);
+        expect(result.state('dataItem')).toEqual("baz");
+        expect(result.state('focused')).toEqual(2);
+        expect(result.state('selected')).toEqual(2);
+    });
+
     it('should accept index', () => {
         result = shallow(<DropDownList data={data} index={1} textField="text" valueField="value" />);
         expect(result.state('dataItem')).toBe(data[1]);
+        expect(result.state('focused')).toEqual(1);
+        expect(result.state('selected')).toEqual(1);
+    });
+
+    it('should accept index (primitives)', () => {
+        result = shallow(<DropDownList data={primitives} index={1} />);
+        expect(result.state('dataItem')).toEqual("bar");
         expect(result.state('focused')).toEqual(1);
         expect(result.state('selected')).toEqual(1);
     });
@@ -55,6 +71,15 @@ describe('DropDownList', () => {
         expect(result.state('dataItem')).toEqual(null);
         items.at(1).shallow().simulate('click');
         expect(result.state('dataItem')).toEqual({ text: "bar", value: 2 });
+    });
+
+    it('should change state.dataItem when item is clicked (primitives)', () => {
+        result = shallow(<DropDownList data={primitives} />);
+        const items = result.find(List).shallow().find(ListItem);
+
+        expect(result.state('dataItem')).toEqual(null);
+        items.at(1).shallow().simulate('click');
+        expect(result.state('dataItem')).toEqual("bar");
     });
 
     it('should change state.selected when item is clicked', () => {
@@ -354,35 +379,24 @@ describe('DropDownList search', () => {
     });
 
     it('should select a specific item after loop', () => {
-        const myData = [
-            { text: "tt1", value: 1 },
-            { text: "t", value: 2 },
-            { text: "ttt", value: 3 },
-            { text: "tt3", value: 3 },
-            { text: "tt", value: 3 },
-            { text: "tttt", value: 3 }
-        ];
+        const primitives = [ "tt1", "t", "ttt", "tt3", "tt", "tttt" ];
 
-        result = shallow(<DropDownList data={myData} textField="text" valueField="value" />);
+        result = shallow(<DropDownList data={primitives} />);
         keyPress(result, "t");
         keyPress(result, "t");
         keyPress(result, "1");
 
         expect(result.state()).toEqual({
-            dataItem: { text: "tt1", value: 1 },
+            dataItem: "tt1",
             focused: 0,
             selected: 0
         });
     });
 
     it('should stays on the same item if changed but still in loop', () => {
-        const myData = [
-            { text: "text1", value: 1 },
-            { text: "text2", value: 2 },
-            { text: "text3", value: 3 }
-        ];
+        const primitives = [ "text1", "text2", "text3" ];
 
-        result = shallow(<DropDownList data={myData} defaultItem={{ text: "select...", value: null }} textField="text" valueField="value" />);
+        result = shallow(<DropDownList data={primitives} defaultItem="select..." />);
 
         keyPress(result, "t"); //select text2
         keyPress(result, "t"); //select text3
@@ -392,68 +406,56 @@ describe('DropDownList search', () => {
         keyPress(result, "2"); //resulting text is text2
 
         expect(result.state()).toEqual({
-            dataItem: { text: "text2", value: 2 },
+            dataItem: "text2",
             focused: 1,
             selected: 1
         });
     });
 
     it('should select next item if it starts with same characeter (default item)', () => {
-        const myData = [
-            { text: "text1", value: 1 },
-            { text: "text2", value: 2 }
-        ];
+        const primitives = [ "text1", "text2" ];
 
-        result = shallow(<DropDownList data={myData} defaultItem={{ text: "select...", value: null }} textField="text" valueField="value" />);
+        result = shallow(<DropDownList data={primitives} defaultItem="select..." />);
 
         keyPress(result, "t");
         keyPress(result, "t");
 
         expect(result.state()).toEqual({
-            dataItem: { text: "text2", value: 2 },
+            dataItem: "text2",
             focused: 1,
             selected: 1
         });
     });
 
     it('should be able to find and select the defaultItem', () => {
-        const myData = [
-            { text: "text1", value: 1 },
-            { text: "text2", value: 2 }
-        ];
+        const primitives = [ "text1", "text2" ];
 
         result = shallow(
             <DropDownList
-                data={myData}
-                defaultItem={{ text: "select...", value: null }}
-                textField="text"
+                data={primitives}
+                defaultItem="select..."
                 value={1}
-                valueField="value"
             />
         );
 
         keyPress(result, "s");
 
         expect(result.state()).toEqual({
-            dataItem: { text: "select...", value: null },
+            dataItem: "select...",
             focused: -1,
             selected: -1
         });
     });
 
     it('should keep selection if typed text is same as current data item', () => {
-        const myData = [
-            { text: "test", value: 1 },
-            { text: "500.122", value: 2 },
-            { text: "500.123", value: 3 }
-        ];
+        const primitives = [ "test", "500.122", "500.123" ];
 
-        result = shallow(<DropDownList data={myData} textField="text" valueField="value" />);
+        result = shallow(<DropDownList data={primitives} />);
 
         keyPress(result, "5");
 
         expect(result.state()).toEqual({
-            dataItem: { text: "500.122", value: 2 },
+            dataItem: "500.122",
             focused: 1,
             selected: 1
         });
@@ -462,25 +464,21 @@ describe('DropDownList search', () => {
         keyPress(result, "0");
 
         expect(result.state()).toEqual({
-            dataItem: { text: "500.122", value: 2 },
+            dataItem: "500.122",
             focused: 1,
             selected: 1
         });
     });
 
     it('should keep selection if typed text differs', () => {
-        const myData = [
-            { text: "test", value: 1 },
-            { text: "500.122", value: 2 },
-            { text: "500.123", value: 3 }
-        ];
+        const primitives = [ "test", "500.122", "500.123" ];
 
-        result = shallow(<DropDownList data={myData} textField="text" valueField="value" />);
+        result = shallow(<DropDownList data={primitives} />);
 
         keyPress(result, "5");
 
         expect(result.state()).toEqual({
-            dataItem: { text: "500.122", value: 2 },
+            dataItem: "500.122",
             focused: 1,
             selected: 1
         });
@@ -490,7 +488,7 @@ describe('DropDownList search', () => {
         keyPress(result, "0");
 
         expect(result.state()).toEqual({
-            dataItem: { text: "500.122", value: 2 },
+            dataItem: "500.122",
             focused: 1,
             selected: 1
         });
@@ -499,32 +497,24 @@ describe('DropDownList search', () => {
     //it('should trigger change when searching') line 184
 
     it('should honor ignoreCase option', () => {
-        const myData = [
-            { text: "text1", value: 1 },
-            { text: "Text2", value: 2 },
-            { text: "Text3", value: 3 }
-        ];
+        const primitives = [ "text1", "Text2", "Text3" ];
 
-        result = shallow(<DropDownList data={myData} index={1} textField="text" valueField="value" />);
+        result = shallow(<DropDownList data={primitives} index={1} />);
 
         keyPress(result, "t");
         keyPress(result, "t");
 
         expect(result.state()).toEqual({
-            dataItem: { text: "text1", value: 1 },
+            dataItem: "text1",
             focused: 0,
             selected: 0
         });
     });
 
     it('should NOT move to next item if typing same letters', () => {
-        const myData = [
-            { text: "Bill 1", value: 1 },
-            { text: "Bill 2", value: 2 },
-            { text: "Label", value: 3 }
-        ];
+        const primitives = [ "Bill 1", "Bill 2", "Label" ];
 
-        result = shallow(<DropDownList data={myData} index={1} textField="text" valueField="value" />);
+        result = shallow(<DropDownList data={primitives} index={1} />);
 
         keyPress(result, "b");
         keyPress(result, "i");
@@ -532,20 +522,16 @@ describe('DropDownList search', () => {
         keyPress(result, "l");
 
         expect(result.state()).toEqual({
-            dataItem: { text: "Bill 1", value: 1 },
+            dataItem: "Bill 1",
             focused: 0,
             selected: 0
         });
     });
 
     it('should support space', () => {
-        const myData = [
-            { text: "Bill 1", value: 1 },
-            { text: "Bill 2", value: 2 },
-            { text: "Bill 3", value: 3 }
-        ];
+        const primitives = [ "Bill 1", "Bill 2", "Bill 3" ];
 
-        result = shallow(<DropDownList data={myData} textField="text" valueField="value" />);
+        result = shallow(<DropDownList data={primitives} />);
 
         keyPress(result, "b");
         keyPress(result, "i");
@@ -555,7 +541,7 @@ describe('DropDownList search', () => {
         keyPress(result, "2");
 
         expect(result.state()).toEqual({
-            dataItem: { text: "Bill 2", value: 2 },
+            dataItem: "Bill 2",
             focused: 1,
             selected: 1
         });
