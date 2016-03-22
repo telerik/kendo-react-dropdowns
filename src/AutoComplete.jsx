@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import keycode from 'keycode';
+import * as util from './Util';
 import List from './List';
 import SearchBar from './SearchBar';
 // import styles from '@telerik/kendo-theme-default/styles/autocomplete/main';
@@ -10,7 +11,11 @@ class AutoComplete extends React.Component {
     static propTypes = {
         change: PropTypes.func,
         className: React.PropTypes.string,
-        data: PropTypes.arrayOf(PropTypes.object),
+        data: PropTypes.arrayOf(PropTypes.oneOfType([
+            PropTypes.object,
+            PropTypes.string,
+            PropTypes.number
+        ])),
         disabled: PropTypes.bool,
         itemRenderer: PropTypes.func,
         minLength: PropTypes.number,
@@ -46,7 +51,7 @@ class AutoComplete extends React.Component {
 
         if (suggest && data.length) {
             this.setState({
-                word: data[0][valueField],
+                word: util.getter(data[0], valueField),
                 highlight: true
             });
         }
@@ -76,7 +81,7 @@ class AutoComplete extends React.Component {
 
     select = (dataItem) => {
         this.setState({
-            word: dataItem[this.props.valueField],
+            word: util.getter(dataItem, this.props.valueField),
             highlight: false
         });
     };
@@ -101,7 +106,7 @@ class AutoComplete extends React.Component {
 
         this.setState({
             focused: focused,
-            word: suggest ? this.props.data[focused][valueField] : null,
+            word: suggest ? util.getter(this.props.data[focused], valueField) : null,
             highlight: suggest
         });
     };

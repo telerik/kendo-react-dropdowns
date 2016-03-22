@@ -9,19 +9,19 @@ import { type } from './Util';
 import { withRoot } from 'e2e-utils';
 
 const data = [
-    { text: "Albania", value: "Alb" },
-    { text: "Andorra", value: "And" },
-    { text: "Belarus", value: "Blg" },
-    { text: "Belgium", value: "Bls" },
-    { text: "Finland", value: "Fin" },
-    { text: "France", value: "Fra" },
-    { text: "Georgia", value: "Geo" },
-    { text: "Germany", value: "Ger" },
-    { text: "Greece", value: "Gre" },
-    { text: "Hungary", value: "Hun" },
-    { text: "Iceland", value: "Ice" },
-    { text: "Ireland", value: "Ire" },
-    { text: "Italy", value: "Ita" }
+    "Albania",
+    "Andorra",
+    "Belarus",
+    "Belgium",
+    "Finland",
+    "France",
+    "Georgia",
+    "Germany",
+    "Greece",
+    "Hungary",
+    "Iceland",
+    "Ireland",
+    "Italy"
 ];
 
 // `root` parameter is a jQuery object which includes chai-jquery in it.
@@ -34,7 +34,7 @@ describe('AutoComplete', withRoot(root => {
 
         if (filter) {
             dataList = data.filter(function(item) {
-                return item.text.toLowerCase().startsWith(filter.toLowerCase());
+                return item.toLowerCase().startsWith(filter.toLowerCase());
             });
         } else {
             dataList = data;
@@ -46,7 +46,7 @@ describe('AutoComplete', withRoot(root => {
     let props;
 
     it('should render the provided data', () => {
-        props = { valueField: "text" };
+        props = {};
         render("f");
 
         const list = root.find("ul");
@@ -61,8 +61,7 @@ describe('AutoComplete', withRoot(root => {
         props = {
             onFilter: function(filter) {
                 expect(filter).toEqual("f");
-            },
-            valueField: "text"
+            }
         };
         render();
 
@@ -75,8 +74,7 @@ describe('AutoComplete', withRoot(root => {
             onFilter: function() {
                 expect(false).toBe(true);
             },
-            separator: ", ",
-            valueField: "text"
+            separator: ", "
         };
         render("Belarus");
 
@@ -85,7 +83,7 @@ describe('AutoComplete', withRoot(root => {
     });
 
     it('should autofill when typing', () => {
-        props = { suggest: true, valueField: "text", onFilter: render };
+        props = { suggest: true, onFilter: render };
         render("");
 
         const input = root.find("input")[0];
@@ -96,7 +94,7 @@ describe('AutoComplete', withRoot(root => {
 
     //fails due to a bug! works only if a separator is provided
     it('should assert selection of suggested part of the word', () => {
-        props = { valueField: "text", onFilter: render, suggest: true };
+        props = { onFilter: render, suggest: true };
         render("");
 
         const input = root.find("input")[0];
@@ -106,7 +104,7 @@ describe('AutoComplete', withRoot(root => {
     });
 
     it('should NOT suggest when deleting', () => {
-        props = { valueField: "text", onFilter: render, suggest: true, separator: ", " };
+        props = { onFilter: render, suggest: true, separator: ", " };
         render("");
 
         const input = root.find("input")[0];
