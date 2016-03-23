@@ -4,7 +4,7 @@ import * as util from './Util';
 import List from './List';
 import ListContainer from './ListContainer';
 import ListFilter from './ListFilter';
-import DefaultItem from './DefaultItem';
+import ListDefaultItem from './ListDefaultItem';
 import DropDownWrapper from './DropDownWrapper';
 //import styles from '@telerik/kendo-theme-default-base/styles/main';
 
@@ -342,7 +342,7 @@ export default class DropDownList extends React.Component {
                 </DropDownWrapper>
                 <ListContainer style={style}>
                     {filterable && <ListFilter {...listFilterProps} />}
-                    {defaultItem && <DefaultItem {...defaultItemProps} />}
+                    {defaultItem && <ListDefaultItem {...defaultItemProps} />}
                     <List {...listProps} />
                 </ListContainer>
             </span>

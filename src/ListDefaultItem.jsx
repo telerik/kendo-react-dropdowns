@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 
-export default class DefaultItem extends React.Component {
+export default class ListDefaultItem extends React.Component {
 
     static propTypes = {
         dataItem: PropTypes.oneOfType([

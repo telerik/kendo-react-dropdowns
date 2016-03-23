@@ -11,11 +11,6 @@ export default class List extends React.Component {
             PropTypes.string,
             PropTypes.number
         ])),
-        defaultItem: PropTypes.oneOfType([
-            PropTypes.object,
-            PropTypes.string,
-            PropTypes.number
-        ]),
         focused: PropTypes.number,
         height: PropTypes.number, //TODO: may change to something like popupProps: { style: { height: "" } }, to discuss after there is a popup prototype
         itemRenderer: PropTypes.func,

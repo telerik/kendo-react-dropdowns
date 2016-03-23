@@ -612,7 +612,7 @@ describe('DropDownList filter', () => {
         expect(spy).toHaveBeenCalledWith("o");
     });
 
-    it('should pass empty string to onFilter event handler when the user clears input value', () => {
+    it('should fire the onFilter event with empty string argument when the user clears input value', () => {
         const spy = jasmine.createSpy('spy');
         result = shallow(
             <DropDownList data={data}
@@ -670,6 +670,6 @@ describe('DropDownList filter', () => {
         expect(result.state('selected')).toEqual(null);
     });
 
-    //should clear filter when clear input value
+    //should update popup height when no items are found
 
 });

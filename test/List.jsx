@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import ListItem from '../src/ListItem';
-import DefaultItem from '../src/DefaultItem';
 import List from '../src/List';
 
 describe('List', () => {
