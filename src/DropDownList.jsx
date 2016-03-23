@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react';
 import keycode from 'keycode';
 import * as util from './Util';
 import List from './List';
+import ListContainer from './ListContainer';
+import DefaultItem from './DefaultItem';
 import DropDownWrapper from './DropDownWrapper';
 //import styles from '@telerik/kendo-theme-default-base/styles/main';
 
@@ -276,10 +278,18 @@ export default class DropDownList extends React.Component {
             value: dataItem ? util.getter(dataItem, valueField) : value,
             height,
             itemRenderer,
-            defaultItem,
             onClick: this.select,
             focused,
             selected
+        };
+
+        const defaultItemProps = {
+            focused: focused === -1,
+            selected: value === undefined,
+            textField: textField,
+            dataItem: defaultItem,
+            onClick: this.select,
+            renderer: itemRenderer
         };
 
         const ariaAttributes = {
@@ -291,6 +301,11 @@ export default class DropDownList extends React.Component {
             'aria-readonly': false, //TODO: check if this is required
             'aria-busy': false,
             'aria-activedescendant': "" //TODO: check if this is required
+        };
+
+        const style = {
+            height: this.props.height || 200,
+            overflowY: "scroll" //TODO: remove after popup is added
         };
 
         return (
@@ -310,7 +325,10 @@ export default class DropDownList extends React.Component {
                         <span className="k-icon k-i-arrow-s"></span>
                     </span>
                 </DropDownWrapper>
-                <List {...listProps} />
+                <ListContainer style={style}>
+                    {defaultItem && <DefaultItem {...defaultItemProps} />}
+                    <List {...listProps} />
+                </ListContainer>
             </span>
         );
     }

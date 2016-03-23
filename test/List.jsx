@@ -45,12 +45,6 @@ describe('List', () => {
         expect(items.at(1).shallow().hasClass('k-state-focused')).toBe(false);
     });
 
-    it('should select defaultItem if no value', () => {
-        result = shallow(<List data={primitives} defaultItem="select..." textField="text" valueField="value" />);
-        const optionLabel = result.children().at(0).shallow();
-        expect(optionLabel.hasClass('k-state-selected')).toBe(true);
-    });
-
     it('should fire onClick', () => {
         const spy = jasmine.createSpy('spy');
         result = shallow(<List data={data} onClick={spy} textField="text" valueField="value" />);
@@ -73,39 +67,5 @@ describe('List', () => {
 
         items.at(1).shallow().simulate('click');
         expect(spy).toHaveBeenCalledWith("bar");
-    });
-
-    it('should fire onClick for the defaultItem', () => {
-        const spy = jasmine.createSpy('spy');
-        result = shallow(
-            <List
-                data={data}
-                defaultItem={{ text: "select...", value: -1 }}
-                onClick={spy}
-                textField="text"
-                valueField="value"
-            />
-        );
-        const defaultItem = result.find(DefaultItem);
-
-        defaultItem.at(0).shallow().simulate('click');
-        expect(spy).toHaveBeenCalledWith({ text: 'select...', value: -1 });
-    });
-
-    it('should pass null to the click handler if defaultItem is defined as string', () => {
-        const spy = jasmine.createSpy('spy');
-        result = shallow(
-            <List
-                data={primitives}
-                defaultItem="select ..."
-                onClick={spy}
-                textField="text"
-                valueField="value"
-            />
-        );
-        const defaultItem = result.find(DefaultItem);
-
-        defaultItem.at(0).shallow().simulate('click');
-        expect(spy).toHaveBeenCalledWith(null);
     });
 });

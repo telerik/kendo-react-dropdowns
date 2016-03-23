@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import keycode from 'keycode';
 import * as util from './Util';
 import List from './List';
+import ListContainer from './ListContainer';
 import SearchBar from './SearchBar';
 // import styles from '@telerik/kendo-theme-default/styles/autocomplete/main';
 
@@ -151,7 +152,9 @@ class AutoComplete extends React.Component {
         return (
             <span {...autocompleteProps}>
                 <SearchBar ref="searchBar" {...searchBarProps} />
-                <List {...listProps} />
+                <ListContainer>
+                    <List {...listProps} />
+                </ListContainer>
             </span>
         );
     }

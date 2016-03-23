@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import * as util from './Util';
 import ListItem from './ListItem';
-import DefaultItem from './DefaultItem';
 //import styles from '@telerik/kendo-theme-default-base/styles/main';
 
 export default class List extends React.Component {
@@ -64,34 +63,9 @@ export default class List extends React.Component {
     }
 
     render() {
-        const style = {
-            height: this.props.height || 200,
-            overflowY: "scroll" //TODO: remove after popup is added
-        };
-
-        const {
-            focused,
-            value,
-            defaultItem,
-            textField,
-            itemRenderer
-        } = this.props;
-
-        const defaultItemProps = {
-            focused: focused === -1,
-            selected: value === undefined,
-            textField: textField,
-            dataItem: defaultItem,
-            onClick: this.clickHandler,
-            renderer: itemRenderer
-        };
-
         return (
-            <div className="k-list-container k-popup k-group k-reset" style={style}>
-                {defaultItem && <DefaultItem {...defaultItemProps} />}
-                <div className="k-list-scroller" unselectable="on">
-                    <ul className="k-list k-reset" ref="ul">{this.renderItems()}</ul>
-                </div>
+            <div className="k-list-scroller" unselectable="on">
+                <ul className="k-list k-reset" ref="ul">{this.renderItems()}</ul>
             </div>
         );
     }

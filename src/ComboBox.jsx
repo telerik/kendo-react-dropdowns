@@ -2,6 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 import keycode from 'keycode';
 import List from './List';
+import ListContainer from './ListContainer';
 import SearchBar from './SearchBar';
 import DropDownWrapper from './DropDownWrapper';
 import { Button } from '@telerik/kendo-react-buttons';
@@ -186,7 +187,9 @@ class ComboBox extends React.Component {
                         <Button ref="" {...buttonProps} />
                     </span>
                 </DropDownWrapper>
-                <List {...listProps} />
+                <ListContainer>
+                    <List {...listProps} />
+                </ListContainer>
             </span>
         );
     }
