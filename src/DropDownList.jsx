@@ -3,6 +3,7 @@ import keycode from 'keycode';
 import * as util from './Util';
 import List from './List';
 import ListContainer from './ListContainer';
+import ListFilter from './ListFilter';
 import DefaultItem from './DefaultItem';
 import DropDownWrapper from './DropDownWrapper';
 //import styles from '@telerik/kendo-theme-default-base/styles/main';
@@ -28,6 +29,7 @@ export default class DropDownList extends React.Component {
         },
         delay: PropTypes.number,
         disabled: PropTypes.bool,
+        filterable: PropTypes.bool,
         height: PropTypes.number,
         ignoreCase: PropTypes.bool,
         index: PropTypes.number,
@@ -188,6 +190,14 @@ export default class DropDownList extends React.Component {
         }
     };
 
+    listFilterChange = (text) => {
+        this.setState({
+            selected: null,
+            focused: 0
+        });
+        this.props.onFilter(text);
+    };
+
     onKeyDown = (event) => {
         const keyCode = event.keyCode;
         const { data, defaultItem, disabled } = this.props;
@@ -262,7 +272,8 @@ export default class DropDownList extends React.Component {
             height,
             itemRenderer,
             defaultItem,
-            disabled
+            disabled,
+            filterable
         } = this.props;
 
         const {
@@ -290,6 +301,10 @@ export default class DropDownList extends React.Component {
             dataItem: defaultItem,
             onClick: this.select,
             renderer: itemRenderer
+        };
+
+        const listFilterProps = {
+            onChange: this.listFilterChange
         };
 
         const ariaAttributes = {
@@ -326,6 +341,7 @@ export default class DropDownList extends React.Component {
                     </span>
                 </DropDownWrapper>
                 <ListContainer style={style}>
+                    {filterable && <ListFilter {...listFilterProps} />}
                     {defaultItem && <DefaultItem {...defaultItemProps} />}
                     <List {...listProps} />
                 </ListContainer>

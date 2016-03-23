@@ -6,6 +6,7 @@ import { keyPress } from './Helpers';
 
 import List from '../src/List';
 import ListItem from '../src/ListItem';
+import ListFilter from '../src/ListFilter';
 import DropDownList from '../src/DropDownList';
 
 describe('DropDownList', () => {
@@ -546,5 +547,129 @@ describe('DropDownList search', () => {
             selected: 1
         });
     });
+
+});
+
+describe('DropDownList filter', () => {
+
+    const data = [
+        { text: "Black", value: "1" },
+        { text: "Orange", value: "2" },
+        { text: "Grey", value: "3" }
+    ];
+
+    class DropDownContainer extends React.Component {
+
+        constructor(props) {
+            super(props);
+            this.state = {
+                data: data,
+                value: "3",
+                filterable: true,
+                onFilter: this.onFilter,
+                textField: "text",
+                valueField: "value"
+            };
+        }
+
+        onFilter = (text) => {
+            let result;
+
+            if (text) {
+                result = data.filter(function(item) {
+                    return item.text.toLowerCase().startsWith(text.toLowerCase());
+                });
+            } else {
+                result = data;
+            }
+
+            this.setState({ data: result });
+        }
+
+        render() {
+            return (
+                <DropDownList {...this.state} />
+            );
+        }
+    }
+
+    let result;
+
+    it('should fire the onFilter event on user input', () => {
+        const spy = jasmine.createSpy('spy');
+        result = shallow(
+            <DropDownList data={data}
+                filterable
+                onFilter={spy}
+                textField="text"
+                valueField="value"
+            />
+        );
+        const input = result.find(ListFilter).shallow().find('input');
+
+        input.simulate("change", { target: { value: "o" } });
+
+        expect(spy).toHaveBeenCalledWith("o");
+    });
+
+    it('should pass empty string to onFilter event handler when the user clears input value', () => {
+        const spy = jasmine.createSpy('spy');
+        result = shallow(
+            <DropDownList data={data}
+                filterable
+                onFilter={spy}
+                textField="text"
+                valueField="value"
+            />
+        );
+        const input = result.find(ListFilter).shallow().find('input');
+
+        input.simulate("change", { target: { value: "o" } });
+        input.simulate("change", { target: { value: "" } });
+
+        expect(spy).toHaveBeenCalledWith("");
+    });
+
+    it('should NOT update selected dataItem on filter', () => {
+        const spy = jasmine.createSpy('spy');
+        result = shallow(
+            <DropDownList data={data}
+                filterable
+                onFilter={spy}
+                textField="text"
+                valueField="value"
+            />
+        );
+        const input = result.find(ListFilter).shallow().find('input');
+
+        input.simulate("change", { target: { value: "o" } });
+        expect(result.state('dataItem')).toEqual(null);
+    });
+
+    it('should keep selected dataItem after filter', () => {
+        result = shallow(<DropDownContainer />).find(DropDownList).shallow();
+        const input = result.find(ListFilter).shallow().find('input');
+
+        input.simulate("change", { target: { value: "o" } });
+        expect(result.state('dataItem')).toEqual({ text: "Grey", value: "3" });
+    });
+
+    it('should focus the first item after filter', () => {
+        result = shallow(<DropDownContainer />).find(DropDownList).shallow();
+        const input = result.find(ListFilter).shallow().find('input');
+
+        input.simulate("change", { target: { value: "o" } });
+        expect(result.state('focused')).toEqual(0);
+    });
+
+    it('should NOT select the first item after filter', () => {
+        result = shallow(<DropDownContainer />).find(DropDownList).shallow();
+        const input = result.find(ListFilter).shallow().find('input');
+
+        input.simulate("change", { target: { value: "o" } });
+        expect(result.state('selected')).toEqual(null);
+    });
+
+    //should clear filter when clear input value
 
 });
