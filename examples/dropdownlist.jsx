@@ -2,6 +2,7 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 import DropDownList from '../src/DropDownList';
 
+//sample data
 const data = [
     { text: "foo", value: 1 },
     { text: "bar", value: 2 },
@@ -9,28 +10,49 @@ const data = [
     { text: "qux", value: 4 }
 ];
 
-const foo = (text) => {
-    let dataList;
+//sample primitive data
+const primitives = [ "foo", "bar", "baz" ];
 
-    if (text) {
-        dataList = data.filter(function(item) {
-            return item.text.toLowerCase().startsWith(text.toLowerCase());
-        });
-    } else {
-        dataList = data;
+class DropDownContainer extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: data,
+            value: 2,
+            filterable: true,
+            onFilter: this.onFilter,
+            defaultItem: { text: "select...", value: null },
+            textField: "text",
+            valueField: "value",
+            renderer: this.itemRenderer
+        };
     }
-    render(dataList);
-};
 
-const renderer = (dataItem) => `foo ${dataItem.text} bar`;
+    onFilter = (text) => {
+        let result;
 
-const render = (data) => {
-    ReactDOM.render(
-        <div>
-            <DropDownList data={data} textField="text" value={1} valueField="value" />
-        </div>,
-        document.getElementById('app')
-    );
-};
+        if (text) {
+            result = data.filter(function(item) {
+                return item.text.toLowerCase().startsWith(text.toLowerCase());
+            });
+        } else {
+            result = data;
+        }
 
-foo();
+        this.setState({ data: result });
+    }
+
+    itemRenderer = (dataItem) => `renderer: ${dataItem.text}`
+
+    render() {
+        return (
+            <DropDownList {...this.state} />
+        );
+    }
+}
+
+ReactDOM.render(
+    <DropDownContainer />,
+    document.getElementById('app')
+);
