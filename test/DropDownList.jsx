@@ -197,6 +197,24 @@ describe('DropDownList keyboard navigation', () => {
         expect(result.state('focused')).toEqual(-1);
     });
 
+    it('should remove the deselected the current listItem when defaultItem is focused', () => {
+        result = shallow(
+            <DropDownList
+                data={data}
+                defaultItem={{ text: "select...", value: null }}
+                textField="text"
+                value={1}
+                valueField="value"
+            />
+        );
+
+        result.simulate('keyDown', { keyCode: keycode.codes.up });
+        const item = result.find(List).shallow().find(ListItem).at(0);
+
+        expect(item.hasClass('k-state-selected')).toBe(false);
+        expect(item.hasClass('k-state-focused')).toBe(false);
+    });
+
     it('should select the focused item on enter', () => {
         result = shallow(
             <DropDownList

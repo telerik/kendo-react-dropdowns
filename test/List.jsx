@@ -24,14 +24,14 @@ describe('List', () => {
     });
 
     it('should select', () => {
-        result = shallow(<List data={data} textField="text" value={2} valueField="value" />);
+        result = shallow(<List data={data} selected={1} textField="text" valueField="value" />);
         const items = result.find(ListItem);
         expect(items.at(0).shallow().hasClass('k-state-selected')).toBe(false);
         expect(items.at(1).shallow().hasClass('k-state-selected')).toBe(true);
     });
 
     it('should select (array of strings)', () => {
-        result = shallow(<List data={primitives} value="bar" />);
+        result = shallow(<List data={primitives} selected={1} />);
         const items = result.find(ListItem);
         expect(items.at(0).shallow().hasClass('k-state-selected')).toBe(false);
         expect(items.at(1).shallow().hasClass('k-state-selected')).toBe(true);

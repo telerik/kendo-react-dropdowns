@@ -278,15 +278,13 @@ export default class DropDownList extends React.Component {
 
         const {
             selected,
-            focused,
-            dataItem
+            focused
         } = this.state;
 
         const listProps = {
             data,
             textField,
             valueField,
-            value: dataItem ? util.getter(dataItem, valueField) : value,
             height,
             itemRenderer,
             onClick: this.select,
@@ -319,8 +317,7 @@ export default class DropDownList extends React.Component {
         };
 
         const style = {
-            height: this.props.height || 200,
-            overflowY: "scroll" //TODO: remove after popup is added
+            height: this.props.height || 200
         };
 
         return (
