@@ -35,7 +35,6 @@ const data = [
     { text: "Malta", value: "Mal" },
     { text: "Moldova", value: "Mol" },
     { text: "Monaco", value: "Mon" },
-    { text: "Montenegro", value: "Mon" },
     { text: "Netherlands", value: "Net" },
     { text: "Norway", value: "Nor" },
     { text: "Poland", value: "Pol" },

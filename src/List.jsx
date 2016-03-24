@@ -17,7 +17,12 @@ export default class List extends React.Component {
         onClick: PropTypes.func,
         selected: PropTypes.number,
         textField: PropTypes.string,
-        valueField: PropTypes.string
+        value: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.string
+        ]),
+        valueField: PropTypes.string,
+        visible: PropTypes.bool
     };
 
     constructor(props) {
@@ -31,8 +36,8 @@ export default class List extends React.Component {
         }
     }
 
-    clickHandler = (dataItem) => {
-        this.props.onClick(dataItem);
+    clickHandler = (dataItem, index) => {
+        this.props.onClick(dataItem, index);
     };
 
     renderItems() {
@@ -44,6 +49,7 @@ export default class List extends React.Component {
                     dataItem={item}
                     focused={index === focused}
                     key={util.getter(item, valueField)}
+                    index={index}
                     onClick={this.clickHandler}
                     renderer={itemRenderer}
                     selected={index === selected}
@@ -55,7 +61,27 @@ export default class List extends React.Component {
 
     render() {
         const style = {
-            height: 140
+            height: 140,
+            display: this.props.visible ? "block" : "none",
+            height: this.props.height || 200,
+            overflowY: "scroll" //TODO: remove after popup is added
+        };
+
+        const {
+            focused,
+            value,
+            defaultItem,
+            textField,
+            itemRenderer
+        } = this.props;
+
+        const defaultItemProps = {
+            focused: focused === -1,
+            selected: value === undefined,
+            textField: textField,
+            dataItem: defaultItem,
+            onClick: this.clickHandler,
+            renderer: itemRenderer
         };
 
         return (

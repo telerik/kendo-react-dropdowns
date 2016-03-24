@@ -12,6 +12,7 @@ export default class ListItem extends React.Component {
             PropTypes.string
         ]),
         focused: PropTypes.bool,
+        index: PropTypes.number,
         onClick: PropTypes.func,
         renderer: PropTypes.func,
         selected: PropTypes.bool,
@@ -37,7 +38,7 @@ export default class ListItem extends React.Component {
     };
 
     onClick = () => {
-        this.props.onClick(this.props.dataItem);
+        this.props.onClick(this.props.dataItem, this.props.index);
     };
 
     render() {

@@ -39,8 +39,9 @@ describe('ListItem', () => {
 
     it('should pass dataItem to the click handler', () => {
         const spy = jasmine.createSpy('spy');
-        result = shallow(<ListItem dataItem={dataItem} onClick={spy} />);
+        const index = 1;
+        result = shallow(<ListItem dataItem={dataItem} onClick={spy} index={index}/>);
         result.simulate('click');
-        expect(spy).toHaveBeenCalledWith({ text: 'foo', value: 1 });
+        expect(spy).toHaveBeenCalledWith({ text: 'foo', value: 1 }, index);
     });
 });

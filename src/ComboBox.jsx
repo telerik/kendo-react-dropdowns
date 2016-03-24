@@ -46,9 +46,12 @@ const defaultProps = {
 class ComboBox extends React.Component {
     constructor(props) {
         super(props);
+        this._oldText = "";
+        this._oldValue = "";
         this.state = {
             dataItem: null,
-            value: this.props.value || null,
+            expanded: false,
+            value: this.props.value || "",
             focused: null
         };
     }
@@ -58,16 +61,29 @@ class ComboBox extends React.Component {
 
         if (suggest && data.length) {
             this.setState({
+                expanded: data.length > 0,
                 word: data[0][textField],
                 highlight: true,
-                focused: itemIndex(this.text, data, textField) //get focused item on filtered data
+                focused: itemIndex(this.text, data, textField) //filtered data focused item
             });
         }
     }
 
-    handleChange = () => {
+    handleChange = (text) => {
+        if (this._oldText === text || this._oldValue === this.state.value) {
+            return;
+        }
+
+        this._oldText = this.state.text;
+        this._oldValue = this.state.value;
         this.props.onChange(this.state.value);
     }
+
+    handleBlur = () => {
+        if (!this.state.dateItem) {
+            this.selectFocused();
+        }
+    };
 
     handleFilter = (word) => {
         const minLength = this.props.minLength;
@@ -77,9 +93,9 @@ class ComboBox extends React.Component {
     };
 
     toggle = () => {
-        //this.setState({
-        //  expanded: !this.state.expanded
-        // });
+        this.setState({
+            expanded: !this.state.expanded //TODO: check data.length
+        });
     };
 
     navigate = (keyCode) => {
@@ -103,37 +119,45 @@ class ComboBox extends React.Component {
     };
 
     textUpdate = (text) => {
-        this.text = text;
+        const index = itemIndex(text, this.props.data, this.props.textField); //unfiltered data focused item
+        const dataItem = this.props.data[index];
 
+        this.text = text;
         this.setState({
+            expanded: index >= 0,
             text: text,
-            word: null,
-            highlight: false,
-            focused: itemIndex(text, this.props.data, this.props.textField) //get focused item on unfiltered data
+            word: dataItem && this.props.suggest ? this.props.data[index][this.props.textField] : null,
+            highlight: true,
+            focused: index
         });
     };
 
-    select = (dataItem) => {
+    select = (dataItem, index) => {
         const value = dataItem ? dataItem[this.props.valueField] : this.refs.searchBar._input.value;
         const text = dataItem ? dataItem[this.props.textField] : this.refs.searchBar._input.value;
 
         this.setState({
+            dataItem: dataItem ? dataItem : null,
             text: text,
             value: value,
-            word: text,
-            highlight: false
-        });
+            highlight: false,
+            focused: index,
+            expanded: false
+        }, function() {
+            this.handleChange(value);
+        }.bind(this));
     };
 
     selectFocused = () => {
         const focused = this.state.focused;
         if (focused !== null) {
-            this.select(this.props.data[focused]);
+            this.select(this.props.data[focused], focused);
         }
     };
 
     render() {
         const searchBarProps = {
+            blur: this.handleBlur,
             filter: this.handleFilter,
             change: this.textUpdate,
             handleChange: this.handleChange,
@@ -154,6 +178,9 @@ class ComboBox extends React.Component {
 
         const buttonProps = {
             onClick: this.toggle,
+            onMouseDown: function(event) {
+                event.preventDefault();
+            },
             className: buttonClasses,
             icon: "arrow-s"
         };
@@ -177,7 +204,8 @@ class ComboBox extends React.Component {
             renderer: this.props.itemRenderer,
             onClick: this.select,
             textField: this.props.textField,
-            valueField: this.props.valueField
+            valueField: this.props.valueField,
+            visible: this.state.expanded
         };
         return (
             <span {...comboBoxProps}>

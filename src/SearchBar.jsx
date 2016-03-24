@@ -5,6 +5,7 @@ import { caretIndex, indexOfWordAtCaret, caretSelection, textReduced, replaceWor
 export default class SearchBar extends React.Component {
 
     static propTypes = {
+        blur: PropTypes.func,
         change: PropTypes.func,
         disabled: PropTypes.bool,
         filter: PropTypes.func,
@@ -18,7 +19,11 @@ export default class SearchBar extends React.Component {
         word: PropTypes.string
     };
 
-    //TODO add defaultProps
+    static defaultProps = {
+        blur() {},
+        handleChange() {}
+    };
+
     constructor(props) {
         super(props);
 
@@ -47,7 +52,8 @@ export default class SearchBar extends React.Component {
             } else {
                 //only when something is chosen from the list
                 caretSelection(this._input, this._input.value.length);
-                this.props.handleChange(this._input.value);
+                // console.log("call handleChange from SearchBar.componentDidUpdate")
+                // this.props.handleChange(this._input.value);
             }
         } else {
             //in every other case
@@ -64,11 +70,8 @@ export default class SearchBar extends React.Component {
     };
 
     onBlur = () => {
+        this.props.blur();
         window.document.removeEventListener("selectionchange", this.onSelectionChange);
-        //only when NOT chosen from list
-        if (!this.props.word || (this.props.word && this.props.highlight)) {
-            this.props.handleChange(this._input.value);
-        }
     };
 
     onKeyDown = (event) => {

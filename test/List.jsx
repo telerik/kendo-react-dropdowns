@@ -50,10 +50,10 @@ describe('List', () => {
         const items = result.find(ListItem);
 
         items.at(0).shallow().simulate('click');
-        expect(spy).toHaveBeenCalledWith({ text: 'foo', value: 1 });
+        expect(spy).toHaveBeenCalledWith({ text: 'foo', value: 1 }, 0);
 
         items.at(1).shallow().simulate('click');
-        expect(spy).toHaveBeenCalledWith({ text: 'bar', value: 2 });
+        expect(spy).toHaveBeenCalledWith({ text: 'bar', value: 2 }, 1);
     });
 
     it('should fire onClick (array of strings)', () => {
@@ -62,9 +62,9 @@ describe('List', () => {
         const items = result.find(ListItem);
 
         items.at(0).shallow().simulate('click');
-        expect(spy).toHaveBeenCalledWith("foo");
+        expect(spy).toHaveBeenCalledWith("foo", 0);
 
         items.at(1).shallow().simulate('click');
-        expect(spy).toHaveBeenCalledWith("bar");
+        expect(spy).toHaveBeenCalledWith("bar", 1);
     });
 });
