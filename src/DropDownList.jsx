@@ -130,16 +130,37 @@ export default class DropDownList extends React.Component {
         return (typeof(valueRenderer) === "function") ? valueRenderer(value) : value;
     }
 
+    listFilterChange = (text) => {
+        clearTimeout(this.typingTimeout);
+
+        this.typingTimeout = setTimeout(() => {
+            if (this.prevFilterWord !== text) {
+                this.prevFilterWord = text;
+                this.filter(text);
+            }
+
+            this.typingTimeout = null;
+        }, this.props.delay);
+    };
+
+    filter = (text) => {
+        this.setState({
+            selected: null,
+            focused: 0
+        });
+        this.props.onFilter(text);
+    };
+
     search() {
         clearTimeout(this.typingTimeout);
 
-        //TODO: handle filter input scenrio
+        if (!this.props.filterable) {
+            this.typingTimeout = setTimeout(() => {
+                this.word = "";
+            }, this.props.delay);
 
-        this.typingTimeout = setTimeout(() => {
-            this.word = "";
-        }, this.props.delay);
-
-        this.selectNext();
+            this.selectNext();
+        }
     }
 
     selectNext() {
@@ -216,14 +237,6 @@ export default class DropDownList extends React.Component {
         if (!this.props.disabled) {
             this.setState({ expanded: !this.state.expanded });
         }
-    };
-
-    listFilterChange = (text) => {
-        this.setState({
-            selected: null,
-            focused: 0
-        });
-        this.props.onFilter(text);
     };
 
     onKeyDown = (event) => {

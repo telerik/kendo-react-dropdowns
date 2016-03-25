@@ -554,6 +554,18 @@ describe('DropDownList search', () => {
         expect(result.state('selected')).toEqual(1);
     });
 
+    it('should NOT search if filterable', () => {
+        const primitives = [ "foo", "bar", "baz" ];
+
+        result = shallow(<DropDownListStub data={primitives} filterable />);
+
+        keyPress(result, "b");
+
+        expect(result.state('dataItem')).toEqual(null);
+        expect(result.state('focused')).toEqual(null);
+        expect(result.state('selected')).toEqual(null);
+    });
+
 });
 
 describe('DropDownList filter', () => {
@@ -570,6 +582,7 @@ describe('DropDownList filter', () => {
             super(props);
             this.state = {
                 data: data,
+                delay: 0,
                 value: "3",
                 filterable: true,
                 onFilter: this.onFilter,
@@ -601,10 +614,11 @@ describe('DropDownList filter', () => {
 
     let result;
 
-    it('should fire the onFilter event on user input', () => {
+    it('should fire the onFilter event on user input', (done) => {
         const spy = jasmine.createSpy('spy');
         result = shallow(
             <DropDownListStub data={data}
+                delay={0}
                 filterable
                 onFilter={spy}
                 textField="text"
@@ -615,13 +629,17 @@ describe('DropDownList filter', () => {
 
         input.simulate("change", { target: { value: "o" } });
 
-        expect(spy).toHaveBeenCalledWith("o");
+        setTimeout(() => {
+            expect(spy).toHaveBeenCalledWith("o");
+            done();
+        }, 0);
     });
 
-    it('should fire the onFilter event with empty string argument when the user clears input value', () => {
+    it('should fire the onFilter event with empty string argument when the user clears input value', (done) => {
         const spy = jasmine.createSpy('spy');
         result = shallow(
             <DropDownListStub data={data}
+                delay={0}
                 filterable
                 onFilter={spy}
                 textField="text"
@@ -633,13 +651,17 @@ describe('DropDownList filter', () => {
         input.simulate("change", { target: { value: "o" } });
         input.simulate("change", { target: { value: "" } });
 
-        expect(spy).toHaveBeenCalledWith("");
+        setTimeout(() => {
+            expect(spy).toHaveBeenCalledWith("");
+            done();
+        }, 0);
     });
 
-    it('should NOT update selected dataItem on filter', () => {
+    it('should NOT update selected dataItem on filter', (done) => {
         const spy = jasmine.createSpy('spy');
         result = shallow(
             <DropDownListStub data={data}
+                delay={0}
                 filterable
                 onFilter={spy}
                 textField="text"
@@ -649,31 +671,47 @@ describe('DropDownList filter', () => {
         const input = result.find(ListFilter).shallow().find('input');
 
         input.simulate("change", { target: { value: "o" } });
-        expect(result.state('dataItem')).toEqual(null);
+
+        setTimeout(() => {
+            expect(result.state('dataItem')).toEqual(null);
+            done();
+        }, 0);
     });
 
-    it('should keep selected dataItem after filter', () => {
+    it('should keep selected dataItem after filter', (done) => {
         result = shallow(<DropDownContainer />).find(DropDownListStub).shallow();
         const input = result.find(ListFilter).shallow().find('input');
 
         input.simulate("change", { target: { value: "o" } });
-        expect(result.state('dataItem')).toEqual({ text: "Grey", value: "3" });
+
+        setTimeout(() => {
+            expect(result.state('dataItem')).toEqual({ text: "Grey", value: "3" });
+            done();
+        }, 0);
     });
 
-    it('should focus the first item after filter', () => {
+    it('should focus the first item after filter', (done) => {
         result = shallow(<DropDownContainer />).find(DropDownListStub).shallow();
         const input = result.find(ListFilter).shallow().find('input');
 
         input.simulate("change", { target: { value: "o" } });
-        expect(result.state('focused')).toEqual(0);
+
+        setTimeout(() => {
+            expect(result.state('focused')).toEqual(0);
+            done();
+        }, 0);
     });
 
-    it('should NOT select the first item after filter', () => {
+    it('should NOT select the first item after filter', (done) => {
         result = shallow(<DropDownContainer />).find(DropDownListStub).shallow();
         const input = result.find(ListFilter).shallow().find('input');
 
         input.simulate("change", { target: { value: "o" } });
-        expect(result.state('selected')).toEqual(null);
+
+        setTimeout(() => {
+            expect(result.state('selected')).toEqual(null);
+            done();
+        }, 0);
     });
 
     //should update popup height when no items are found

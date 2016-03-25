@@ -14,6 +14,10 @@ export default class ListFilter extends React.Component {
         event.preventDefault();
     };
 
+    onKeyPress = (event) => {
+        event.stopPropagation();
+    };
+
     onChange = (event) => {
         this.props.onChange(event.target.value);
     };
@@ -21,7 +25,7 @@ export default class ListFilter extends React.Component {
     render() {
         return (
             <span className="k-list-filter">
-                <input className="k-textbox" onChange={this.onChange} />
+                <input className="k-textbox" onChange={this.onChange} onKeyPress={this.onKeyPress} />
                 <span className="k-icon k-i-search" unselectable="on"></span>
             </span>
         );
