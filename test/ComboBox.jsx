@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import List from '../src/List';
 import ComboBox from '../src/ComboBox';
 import SearchBar from '../src/SearchBar';
+import ListContainer from '../src/ListContainer';
 
 describe('ComboBox', () => {
     const data = [
@@ -37,5 +38,10 @@ describe('ComboBox', () => {
     it('should render SearchBar', () => {
         result = shallow(<ComboBox data={data} />);
         expect(result.find(SearchBar).length).toEqual(1);
+    });
+
+    it('should List with style height="inherit" if no height explicitly set', () => {
+        result = shallow(<ComboBox data={data} />);
+        expect(result.find(ListContainer).find(List).props().height).toEqual("inherit");
     });
 });

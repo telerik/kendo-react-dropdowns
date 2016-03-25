@@ -38,6 +38,9 @@ const propTypes = {
 };
 
 const defaultProps = {
+    delay: 500,
+    height: 200,
+    ignoreCase: true,
     minLength: 0,
     onChange() {},
     onFilter() {}
@@ -201,12 +204,17 @@ class ComboBox extends React.Component {
         const listProps = {
             data: this.props.data,
             focused: this.state.focused,
+            height: "inherit",
             renderer: this.props.itemRenderer,
             onClick: this.select,
             textField: this.props.textField,
-            valueField: this.props.valueField,
-            visible: this.state.expanded
+            valueField: this.props.valueField
         };
+
+        const listContainerStyle = {
+            height: this.props.height
+        };
+
         return (
             <span {...comboBoxProps}>
                 <DropDownWrapper>
@@ -215,7 +223,7 @@ class ComboBox extends React.Component {
                         <Button ref="" {...buttonProps} />
                     </span>
                 </DropDownWrapper>
-                <ListContainer>
+                <ListContainer style={listContainerStyle} visible={this.state.expanded}>
                     <List {...listProps} />
                 </ListContainer>
             </span>

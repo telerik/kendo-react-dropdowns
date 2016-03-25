@@ -12,7 +12,11 @@ export default class List extends React.Component {
             PropTypes.number
         ])),
         focused: PropTypes.number,
-        height: PropTypes.number, //TODO: may change to something like popupProps: { style: { height: "" } }, to discuss after there is a popup prototype
+        //TODO: may change to something like popupProps: { style: { height: "" } }, to discuss after there is a popup prototype
+        height: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.string
+        ]), 
         itemRenderer: PropTypes.func,
         onClick: PropTypes.func,
         selected: PropTypes.number,
@@ -21,8 +25,7 @@ export default class List extends React.Component {
             PropTypes.number,
             PropTypes.string
         ]),
-        valueField: PropTypes.string,
-        visible: PropTypes.bool
+        valueField: PropTypes.string
     };
 
     constructor(props) {
@@ -65,12 +68,8 @@ export default class List extends React.Component {
     }
 
     render() {
-        const style = {
-            display: this.props.visible ? "block" : "none"
-        };
-
         return (
-            <div className="k-list-scroller" ref="listWrapper" style={style} unselectable="on">
+            <div className="k-list-scroller" ref="listWrapper" unselectable="on" style={{height: this.props.height}}>
                 <ul className="k-list k-reset" ref="ul">{this.renderItems()}</ul>
             </div>
         );

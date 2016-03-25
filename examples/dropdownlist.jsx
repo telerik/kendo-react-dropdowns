@@ -7,7 +7,12 @@ const data = [
     { text: "foo", value: 1 },
     { text: "bar", value: 2 },
     { text: "baz", value: 3 },
-    { text: "qux", value: 4 }
+    { text: "baz", value: 4 },
+    { text: "baz", value: 5 },
+    { text: "baz", value: 6 },
+    { text: "baz", value: 7 },
+    { text: "baz", value: 8 },
+    { text: "qux", value: 9 }
 ];
 
 //sample primitive data

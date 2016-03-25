@@ -5,7 +5,8 @@ export default class ListContainer extends React.Component {
 
     static propTypes = {
         children: PropTypes.node,
-        style: PropTypes.object // eslint-disable-line
+        style: PropTypes.object, // eslint-disable-line,
+        visible: PropTypes.bool
     };
 
     constructor(props) {
@@ -20,8 +21,10 @@ export default class ListContainer extends React.Component {
             'k-reset': true
         });
 
+        const style = { ...this.props.style, display: this.props.visible ? "block" : "none" };
+
         return (
-            <div className={containerClasses} style={this.props.style}>
+            <div className={containerClasses} style={style}>
                 {this.props.children}
             </div>
         );
