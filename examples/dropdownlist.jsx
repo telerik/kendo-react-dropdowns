@@ -7,12 +7,11 @@ const data = [
     { text: "foo", value: 1 },
     { text: "bar", value: 2 },
     { text: "baz", value: 3 },
-    { text: "baz", value: 4 },
-    { text: "baz", value: 5 },
-    { text: "baz", value: 6 },
-    { text: "baz", value: 7 },
-    { text: "baz", value: 8 },
-    { text: "qux", value: 9 }
+    { text: "qux", value: 4 },
+    { text: "test1", value: 10 },
+    { text: "test2", value: 11 },
+    { text: "test3", value: 12 },
+    { text: "test4", value: 13 }
 ];
 
 //sample primitive data
@@ -24,13 +23,15 @@ class DropDownContainer extends React.Component {
         super(props);
         this.state = {
             data: data,
-            value: 2,
+            value: 1,
             filterable: true,
             onFilter: this.onFilter,
             defaultItem: { text: "select...", value: null },
             textField: "text",
-            valueField: "value",
+            valueField: "value"
+            /*
             renderer: this.itemRenderer
+            */
         };
     }
 
