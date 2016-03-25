@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 import keycode from 'keycode';
 import * as util from './Util';
 import List from './List';
@@ -48,8 +49,9 @@ export default class DropDownList extends React.Component {
     };
 
     static defaultProps = {
-        ignoreCase: true,
-        delay: 500
+        delay: 500,
+        height: 200,
+        ignoreCase: true
     };
 
     constructor(props) {
@@ -89,6 +91,25 @@ export default class DropDownList extends React.Component {
                 selected: dataItem ? -1 : null,
                 focused: dataItem ? -1 : null
             });
+        }
+    }
+
+    componentDidMount() {
+        this.calculateListHeight();
+    }
+
+    componentDidUpdate() {
+        this.calculateListHeight();
+    }
+
+    calculateListHeight() {
+        const wrapper = ReactDOM.findDOMNode(this);
+        if (wrapper) {
+            const filterInput = wrapper.getElementsByClassName('k-list-filter')[0];
+            const defaultItem = wrapper.getElementsByClassName('k-list-optionlabel')[0];
+            const listHeight = this.props.height - (filterInput ? filterInput.offsetHeight : 0) - (defaultItem ? defaultItem.offsetHeight : 0);
+
+            this.refs.list.setHeight(listHeight);
         }
     }
 
@@ -317,7 +338,7 @@ export default class DropDownList extends React.Component {
         };
 
         const style = {
-            height: this.props.height || 200
+            height: this.props.height
         };
 
         return (
@@ -340,7 +361,7 @@ export default class DropDownList extends React.Component {
                 <ListContainer style={style}>
                     {filterable && <ListFilter {...listFilterProps} />}
                     {defaultItem && <ListDefaultItem {...defaultItemProps} />}
-                    <List {...listProps} />
+                    <List {...listProps} ref="list" />
                 </ListContainer>
             </span>
         );

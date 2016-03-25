@@ -28,12 +28,17 @@ export default class List extends React.Component {
     constructor(props) {
         super(props);
     }
+
     componentDidUpdate() {
         let focused = this.refs.ul.children[this.props.focused];
         //TODO: check if already visible
         if (focused) {
             focused.scrollIntoView();
         }
+    }
+
+    setHeight(height) {
+        this.refs.listWrapper.style.height = height + "px";
     }
 
     clickHandler = (dataItem, index) => {
@@ -61,12 +66,11 @@ export default class List extends React.Component {
 
     render() {
         const style = {
-            height: 140,
             display: this.props.visible ? "block" : "none"
         };
 
         return (
-            <div className="k-list-scroller" style={style} unselectable="on">
+            <div className="k-list-scroller" ref="listWrapper" style={style} unselectable="on">
                 <ul className="k-list k-reset" ref="ul">{this.renderItems()}</ul>
             </div>
         );

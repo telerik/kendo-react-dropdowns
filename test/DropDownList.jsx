@@ -9,6 +9,10 @@ import ListItem from '../src/ListItem';
 import ListFilter from '../src/ListFilter';
 import DropDownList from '../src/DropDownList';
 
+const DropDownListStub = class extends DropDownList {
+    calculateListHeight() {}
+};
+
 describe('DropDownList', () => {
     const data = [
         { text: "foo", value: 1 },
@@ -66,7 +70,7 @@ describe('DropDownList', () => {
     });
 
     it('should change state.dataItem when item is clicked', () => {
-        result = shallow(<DropDownList data={data} textField="text" valueField="value" />);
+        result = shallow(<DropDownListStub data={data} textField="text" valueField="value" />);
         const items = result.find(List).shallow().find(ListItem);
 
         expect(result.state('dataItem')).toEqual(null);
@@ -75,7 +79,7 @@ describe('DropDownList', () => {
     });
 
     it('should change state.dataItem when item is clicked (primitives)', () => {
-        result = shallow(<DropDownList data={primitives} />);
+        result = shallow(<DropDownListStub data={primitives} />);
         const items = result.find(List).shallow().find(ListItem);
 
         expect(result.state('dataItem')).toEqual(null);
@@ -84,7 +88,7 @@ describe('DropDownList', () => {
     });
 
     it('should change state.selected when item is clicked', () => {
-        result = shallow(<DropDownList data={data} textField="text" valueField="value" />);
+        result = shallow(<DropDownListStub data={data} textField="text" valueField="value" />);
         const items = result.find(List).shallow().find(ListItem);
 
         expect(result.state('selected')).toEqual(null);
@@ -93,7 +97,7 @@ describe('DropDownList', () => {
     });
 
     it('should change state.focused when item is clicked', () => {
-        result = shallow(<DropDownList data={data} textField="text" valueField="value" />);
+        result = shallow(<DropDownListStub data={data} textField="text" valueField="value" />);
         const items = result.find(List).shallow().find(ListItem);
 
         expect(result.state('focused')).toEqual(null);
@@ -102,7 +106,7 @@ describe('DropDownList', () => {
     });
 
     it('should NOT change state of disabled component on click', () => {
-        result = shallow(<DropDownList data={data} disabled textField="text" valueField="value" />);
+        result = shallow(<DropDownListStub data={data} disabled textField="text" valueField="value" />);
         const items = result.find(List).shallow().find(ListItem);
 
         items.at(1).shallow().simulate('click');
@@ -122,35 +126,35 @@ describe('DropDownList keyboard navigation', () => {
     let result;
 
     it('should increment state.focused when key "down" is pressed', () => {
-        result = shallow(<DropDownList data={data} textField="text" value={1} valueField="value" />);
+        result = shallow(<DropDownListStub data={data} textField="text" value={1} valueField="value" />);
         result.simulate('keyDown', { keyCode: keycode.codes.down });
 
         expect(result.state('focused')).toEqual(1);
     });
 
     it('should increment state.focused when key "right" is pressed', () => {
-        result = shallow(<DropDownList data={data} textField="text" value={1} valueField="value" />);
+        result = shallow(<DropDownListStub data={data} textField="text" value={1} valueField="value" />);
         result.simulate('keyDown', { keyCode: keycode.codes.down });
 
         expect(result.state('focused')).toEqual(1);
     });
 
     it('should decrement state.focused when key "up" is pressed', () => {
-        result = shallow(<DropDownList data={data} textField="text" value={2} valueField="value" />);
+        result = shallow(<DropDownListStub data={data} textField="text" value={2} valueField="value" />);
         result.simulate('keyDown', { keyCode: keycode.codes.up });
 
         expect(result.state('focused')).toEqual(0);
     });
 
     it('should decrement state.focused when key "left" is pressed', () => {
-        result = shallow(<DropDownList data={data} textField="text" value={2} valueField="value" />);
+        result = shallow(<DropDownListStub data={data} textField="text" value={2} valueField="value" />);
         result.simulate('keyDown', { keyCode: keycode.codes.up });
 
         expect(result.state('focused')).toEqual(0);
     });
 
     it('should focus first item when key "home" is pressed', () => {
-        result = shallow(<DropDownList data={data} textField="text" value={2} valueField="value" />);
+        result = shallow(<DropDownListStub data={data} textField="text" value={2} valueField="value" />);
         result.simulate('keyDown', { keyCode: keycode.codes.home });
 
         expect(result.state('focused')).toEqual(0);
@@ -158,7 +162,7 @@ describe('DropDownList keyboard navigation', () => {
 
     it('should focus the default item when key "home" is pressed', () => {
         result = shallow(
-            <DropDownList
+            <DropDownListStub
                 data={data}
                 defaultItem={{ text: "select...", value: null }}
                 textField="text"
@@ -172,7 +176,7 @@ describe('DropDownList keyboard navigation', () => {
     });
 
     it('should focus last item when key "home" is pressed', () => {
-        result = shallow(<DropDownList data={data} textField="text" valueField="value" />);
+        result = shallow(<DropDownListStub data={data} textField="text" valueField="value" />);
         result.simulate('keyDown', { keyCode: keycode.codes.end });
 
         expect(result.state('focused')).toEqual(data.length - 1);
@@ -180,7 +184,7 @@ describe('DropDownList keyboard navigation', () => {
 
     it('should be able to focus the defaultItem', () => {
         result = shallow(
-            <DropDownList
+            <DropDownListStub
                 data={data}
                 defaultItem={{ text: "select...", value: null }}
                 textField="text"
@@ -199,7 +203,7 @@ describe('DropDownList keyboard navigation', () => {
 
     it('should remove the deselected the current listItem when defaultItem is focused', () => {
         result = shallow(
-            <DropDownList
+            <DropDownListStub
                 data={data}
                 defaultItem={{ text: "select...", value: null }}
                 textField="text"
@@ -217,7 +221,7 @@ describe('DropDownList keyboard navigation', () => {
 
     it('should select the focused item on enter', () => {
         result = shallow(
-            <DropDownList
+            <DropDownListStub
                 data={data}
                 textField="text"
                 value={3}
@@ -232,7 +236,7 @@ describe('DropDownList keyboard navigation', () => {
 
     it('should select the focused default item on enter', () => {
         result = shallow(
-            <DropDownList
+            <DropDownListStub
                 data={data}
                 defaultItem={{ text: "select...", value: null }}
                 textField="text"
@@ -248,7 +252,7 @@ describe('DropDownList keyboard navigation', () => {
 
     it('should be able to move the focus from last to first item and vice versa', () => {
         result = shallow(
-            <DropDownList
+            <DropDownListStub
                 data={data}
                 textField="text"
                 value={3}
@@ -306,7 +310,7 @@ describe('DropDownList search', () => {
     let result;
 
     it('should select first match', () => {
-        result = shallow(<DropDownList data={data} textField="text" valueField="value" />);
+        result = shallow(<DropDownListStub data={data} textField="text" valueField="value" />);
         keyPress(result, "b");
 
         expect(result.state()).toEqual({
@@ -322,7 +326,7 @@ describe('DropDownList search', () => {
             { text: 10, value: 2 }
         ];
 
-        result = shallow(<DropDownList data={myData} textField="text" valueField="value" />);
+        result = shallow(<DropDownListStub data={myData} textField="text" valueField="value" />);
         keyPress(result, 1);
 
         expect(result.state()).toEqual({
@@ -338,7 +342,7 @@ describe('DropDownList search', () => {
             { text: 0, value: 2 }
         ];
 
-        result = shallow(<DropDownList data={myData} textField="text" valueField="value" />);
+        result = shallow(<DropDownListStub data={myData} textField="text" valueField="value" />);
         keyPress(result, 0);
 
         expect(result.state()).toEqual({
@@ -355,7 +359,7 @@ describe('DropDownList search', () => {
             { text: "baz", value: 3 }
         ];
 
-        result = shallow(<DropDownList data={myData} ignoreCase={false} textField="text" valueField="value" />);
+        result = shallow(<DropDownListStub data={myData} ignoreCase={false} textField="text" valueField="value" />);
         keyPress(result, "b");
 
         expect(result.state()).toEqual({
@@ -366,7 +370,7 @@ describe('DropDownList search', () => {
     });
 
     it('should select next item if it starts with the same characeter', () => {
-        result = shallow(<DropDownList data={data} textField="text" valueField="value" />);
+        result = shallow(<DropDownListStub data={data} textField="text" valueField="value" />);
         keyPress(result, "b");
         keyPress(result, "b");
 
@@ -384,7 +388,7 @@ describe('DropDownList search', () => {
             { text: "Foo3", value: 3 }
         ];
 
-        result = shallow(<DropDownList data={myData} textField="text" valueField="value" />);
+        result = shallow(<DropDownListStub data={myData} textField="text" valueField="value" />);
         keyPress(result, "f");
         keyPress(result, "o");
         keyPress(result, "o");
@@ -400,7 +404,7 @@ describe('DropDownList search', () => {
     it('should select a specific item after loop', () => {
         const primitives = [ "tt1", "t", "ttt", "tt3", "tt", "tttt" ];
 
-        result = shallow(<DropDownList data={primitives} />);
+        result = shallow(<DropDownListStub data={primitives} />);
         keyPress(result, "t");
         keyPress(result, "t");
         keyPress(result, "1");
@@ -415,7 +419,7 @@ describe('DropDownList search', () => {
     it('should stays on the same item if changed but still in loop', () => {
         const primitives = [ "text1", "text2", "text3" ];
 
-        result = shallow(<DropDownList data={primitives} defaultItem="select..." />);
+        result = shallow(<DropDownListStub data={primitives} defaultItem="select..." />);
 
         keyPress(result, "t"); //select text2
         keyPress(result, "t"); //select text3
@@ -434,7 +438,7 @@ describe('DropDownList search', () => {
     it('should select next item if it starts with same characeter (default item)', () => {
         const primitives = [ "text1", "text2" ];
 
-        result = shallow(<DropDownList data={primitives} defaultItem="select..." />);
+        result = shallow(<DropDownListStub data={primitives} defaultItem="select..." />);
 
         keyPress(result, "t");
         keyPress(result, "t");
@@ -450,7 +454,7 @@ describe('DropDownList search', () => {
         const primitives = [ "text1", "text2" ];
 
         result = shallow(
-            <DropDownList
+            <DropDownListStub
                 data={primitives}
                 defaultItem="select..."
                 value={1}
@@ -469,7 +473,7 @@ describe('DropDownList search', () => {
     it('should keep selection if typed text is same as current data item', () => {
         const primitives = [ "test", "500.122", "500.123" ];
 
-        result = shallow(<DropDownList data={primitives} />);
+        result = shallow(<DropDownListStub data={primitives} />);
 
         keyPress(result, "5");
 
@@ -492,7 +496,7 @@ describe('DropDownList search', () => {
     it('should keep selection if typed text differs', () => {
         const primitives = [ "test", "500.122", "500.123" ];
 
-        result = shallow(<DropDownList data={primitives} />);
+        result = shallow(<DropDownListStub data={primitives} />);
 
         keyPress(result, "5");
 
@@ -518,7 +522,7 @@ describe('DropDownList search', () => {
     it('should honor ignoreCase option', () => {
         const primitives = [ "text1", "Text2", "Text3" ];
 
-        result = shallow(<DropDownList data={primitives} index={1} />);
+        result = shallow(<DropDownListStub data={primitives} index={1} />);
 
         keyPress(result, "t");
         keyPress(result, "t");
@@ -533,7 +537,7 @@ describe('DropDownList search', () => {
     it('should NOT move to next item if typing same letters', () => {
         const primitives = [ "Bill 1", "Bill 2", "Label" ];
 
-        result = shallow(<DropDownList data={primitives} index={1} />);
+        result = shallow(<DropDownListStub data={primitives} index={1} />);
 
         keyPress(result, "b");
         keyPress(result, "i");
@@ -550,7 +554,7 @@ describe('DropDownList search', () => {
     it('should support space', () => {
         const primitives = [ "Bill 1", "Bill 2", "Bill 3" ];
 
-        result = shallow(<DropDownList data={primitives} />);
+        result = shallow(<DropDownListStub data={primitives} />);
 
         keyPress(result, "b");
         keyPress(result, "i");
@@ -606,7 +610,7 @@ describe('DropDownList filter', () => {
 
         render() {
             return (
-                <DropDownList {...this.state} />
+                <DropDownListStub {...this.state} />
             );
         }
     }
@@ -616,7 +620,7 @@ describe('DropDownList filter', () => {
     it('should fire the onFilter event on user input', () => {
         const spy = jasmine.createSpy('spy');
         result = shallow(
-            <DropDownList data={data}
+            <DropDownListStub data={data}
                 filterable
                 onFilter={spy}
                 textField="text"
@@ -633,7 +637,7 @@ describe('DropDownList filter', () => {
     it('should fire the onFilter event with empty string argument when the user clears input value', () => {
         const spy = jasmine.createSpy('spy');
         result = shallow(
-            <DropDownList data={data}
+            <DropDownListStub data={data}
                 filterable
                 onFilter={spy}
                 textField="text"
@@ -651,7 +655,7 @@ describe('DropDownList filter', () => {
     it('should NOT update selected dataItem on filter', () => {
         const spy = jasmine.createSpy('spy');
         result = shallow(
-            <DropDownList data={data}
+            <DropDownListStub data={data}
                 filterable
                 onFilter={spy}
                 textField="text"
@@ -665,7 +669,7 @@ describe('DropDownList filter', () => {
     });
 
     it('should keep selected dataItem after filter', () => {
-        result = shallow(<DropDownContainer />).find(DropDownList).shallow();
+        result = shallow(<DropDownContainer />).find(DropDownListStub).shallow();
         const input = result.find(ListFilter).shallow().find('input');
 
         input.simulate("change", { target: { value: "o" } });
@@ -673,7 +677,7 @@ describe('DropDownList filter', () => {
     });
 
     it('should focus the first item after filter', () => {
-        result = shallow(<DropDownContainer />).find(DropDownList).shallow();
+        result = shallow(<DropDownContainer />).find(DropDownListStub).shallow();
         const input = result.find(ListFilter).shallow().find('input');
 
         input.simulate("change", { target: { value: "o" } });
@@ -681,7 +685,7 @@ describe('DropDownList filter', () => {
     });
 
     it('should NOT select the first item after filter', () => {
-        result = shallow(<DropDownContainer />).find(DropDownList).shallow();
+        result = shallow(<DropDownContainer />).find(DropDownListStub).shallow();
         const input = result.find(ListFilter).shallow().find('input');
 
         input.simulate("change", { target: { value: "o" } });
