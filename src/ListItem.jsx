@@ -23,6 +23,10 @@ export default class ListItem extends React.Component {
         super(props);
     }
 
+    shouldComponentUpdate(nextProps) {
+        return nextProps.focused !== this.props.focused;
+    }
+
     renderer() {
         const { dataItem, textField, renderer } = this.props;
 
