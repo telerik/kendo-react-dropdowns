@@ -59,7 +59,8 @@ export default class DropDownList extends React.Component {
         this.state = {
             dataItem: null,
             selected: null,
-            focused: null
+            focused: null,
+            expanded: false
         };
 
         this.word = "";
@@ -211,6 +212,12 @@ export default class DropDownList extends React.Component {
         }
     };
 
+    toggle = () => {
+        if (!this.props.disabled) {
+            this.setState({ expanded: !this.state.expanded });
+        }
+    };
+
     listFilterChange = (text) => {
         this.setState({
             selected: null,
@@ -299,7 +306,8 @@ export default class DropDownList extends React.Component {
 
         const {
             selected,
-            focused
+            focused,
+            expanded
         } = this.state;
 
         const listProps = {
@@ -354,11 +362,11 @@ export default class DropDownList extends React.Component {
                     <span className="k-input" unselectable="on">
                         {this.renderValue()}
                     </span>
-                    <span className="k-select" unselectable="on">
+                    <span className="k-select" onClick={this.toggle} unselectable="on">
                         <span className="k-icon k-i-arrow-s"></span>
                     </span>
                 </DropDownWrapper>
-                <ListContainer style={style}>
+                <ListContainer style={style} visible={expanded}>
                     {filterable && <ListFilter {...listFilterProps} />}
                     {defaultItem && <ListDefaultItem {...defaultItemProps} />}
                     <List {...listProps} ref="list" />

@@ -114,6 +114,24 @@ describe('DropDownList', () => {
         expect(result.state('focused')).toEqual(null);
         expect(result.state('selected')).toEqual(null);
     });
+
+    it('should change state.expanded on arrow click', () => {
+        result = shallow(<DropDownListStub data={data} textField="text" valueField="value" />);
+        const arrow = result.find("span.k-select");
+
+        expect(result.state('expanded')).toBe(false);
+        arrow.simulate("click");
+        expect(result.state('expanded')).toBe(true);
+    });
+
+    it('should NOT change state.expanded of disabled component on arrow click', () => {
+        result = shallow(<DropDownListStub data={data} disabled textField="text" valueField="value" />);
+        const arrow = result.find("span.k-select");
+
+        expect(result.state('expanded')).toBe(false);
+        arrow.simulate("click");
+        expect(result.state('expanded')).toBe(false);
+    });
 });
 
 describe('DropDownList keyboard navigation', () => {
@@ -313,11 +331,9 @@ describe('DropDownList search', () => {
         result = shallow(<DropDownListStub data={data} textField="text" valueField="value" />);
         keyPress(result, "b");
 
-        expect(result.state()).toEqual({
-            dataItem: { text: "Bar", value: 2 },
-            focused: 1,
-            selected: 1
-        });
+        expect(result.state('dataItem')).toEqual({ text: "Bar", value: 2 });
+        expect(result.state('focused')).toEqual(1);
+        expect(result.state('selected')).toEqual(1);
     });
 
     it('should search select item if text is number', () => {
@@ -329,11 +345,9 @@ describe('DropDownList search', () => {
         result = shallow(<DropDownListStub data={myData} textField="text" valueField="value" />);
         keyPress(result, 1);
 
-        expect(result.state()).toEqual({
-            dataItem: { text: 10, value: 2 },
-            focused: 1,
-            selected: 1
-        });
+        expect(result.state('dataItem')).toEqual({ text: 10, value: 2 });
+        expect(result.state('focused')).toEqual(1);
+        expect(result.state('selected')).toEqual(1);
     });
 
     it('should search text if text is 0', () => {
@@ -345,11 +359,9 @@ describe('DropDownList search', () => {
         result = shallow(<DropDownListStub data={myData} textField="text" valueField="value" />);
         keyPress(result, 0);
 
-        expect(result.state()).toEqual({
-            dataItem: { text: 0, value: 2 },
-            focused: 1,
-            selected: 1
-        });
+        expect(result.state('dataItem')).toEqual({ text: 0, value: 2 });
+        expect(result.state('focused')).toEqual(1);
+        expect(result.state('selected')).toEqual(1);
     });
 
     it('should support case sensitive search', () => {
@@ -362,11 +374,9 @@ describe('DropDownList search', () => {
         result = shallow(<DropDownListStub data={myData} ignoreCase={false} textField="text" valueField="value" />);
         keyPress(result, "b");
 
-        expect(result.state()).toEqual({
-            dataItem: { text: "baz", value: 3 },
-            focused: 2,
-            selected: 2
-        });
+        expect(result.state('dataItem')).toEqual({ text: "baz", value: 3 });
+        expect(result.state('focused')).toEqual(2);
+        expect(result.state('selected')).toEqual(2);
     });
 
     it('should select next item if it starts with the same characeter', () => {
@@ -374,11 +384,9 @@ describe('DropDownList search', () => {
         keyPress(result, "b");
         keyPress(result, "b");
 
-        expect(result.state()).toEqual({
-            dataItem: { text: "Baz", value: 3 },
-            focused: 2,
-            selected: 2
-        });
+        expect(result.state('dataItem')).toEqual({ text: "Baz", value: 3 });
+        expect(result.state('focused')).toEqual(2);
+        expect(result.state('selected')).toEqual(2);
     });
 
     it('should select specific item if typed matches', () => {
@@ -394,11 +402,9 @@ describe('DropDownList search', () => {
         keyPress(result, "o");
         keyPress(result, "2");
 
-        expect(result.state()).toEqual({
-            dataItem: { text: "Foo2", value: 2 },
-            focused: 1,
-            selected: 1
-        });
+        expect(result.state('dataItem')).toEqual({ text: "Foo2", value: 2 });
+        expect(result.state('focused')).toEqual(1);
+        expect(result.state('selected')).toEqual(1);
     });
 
     it('should select a specific item after loop', () => {
@@ -409,11 +415,9 @@ describe('DropDownList search', () => {
         keyPress(result, "t");
         keyPress(result, "1");
 
-        expect(result.state()).toEqual({
-            dataItem: "tt1",
-            focused: 0,
-            selected: 0
-        });
+        expect(result.state('dataItem')).toEqual("tt1");
+        expect(result.state('focused')).toEqual(0);
+        expect(result.state('selected')).toEqual(0);
     });
 
     it('should stays on the same item if changed but still in loop', () => {
@@ -428,11 +432,9 @@ describe('DropDownList search', () => {
         keyPress(result, "t");
         keyPress(result, "2"); //resulting text is text2
 
-        expect(result.state()).toEqual({
-            dataItem: "text2",
-            focused: 1,
-            selected: 1
-        });
+        expect(result.state('dataItem')).toEqual("text2");
+        expect(result.state('focused')).toEqual(1);
+        expect(result.state('selected')).toEqual(1);
     });
 
     it('should select next item if it starts with same characeter (default item)', () => {
@@ -443,11 +445,9 @@ describe('DropDownList search', () => {
         keyPress(result, "t");
         keyPress(result, "t");
 
-        expect(result.state()).toEqual({
-            dataItem: "text2",
-            focused: 1,
-            selected: 1
-        });
+        expect(result.state('dataItem')).toEqual("text2");
+        expect(result.state('focused')).toEqual(1);
+        expect(result.state('selected')).toEqual(1);
     });
 
     it('should be able to find and select the defaultItem', () => {
@@ -463,11 +463,9 @@ describe('DropDownList search', () => {
 
         keyPress(result, "s");
 
-        expect(result.state()).toEqual({
-            dataItem: "select...",
-            focused: -1,
-            selected: -1
-        });
+        expect(result.state('dataItem')).toEqual("select...");
+        expect(result.state('focused')).toEqual(-1);
+        expect(result.state('selected')).toEqual(-1);
     });
 
     it('should keep selection if typed text is same as current data item', () => {
@@ -477,20 +475,16 @@ describe('DropDownList search', () => {
 
         keyPress(result, "5");
 
-        expect(result.state()).toEqual({
-            dataItem: "500.122",
-            focused: 1,
-            selected: 1
-        });
+        expect(result.state('dataItem')).toEqual("500.122");
+        expect(result.state('focused')).toEqual(1);
+        expect(result.state('selected')).toEqual(1);
 
         keyPress(result, "0");
         keyPress(result, "0");
 
-        expect(result.state()).toEqual({
-            dataItem: "500.122",
-            focused: 1,
-            selected: 1
-        });
+        expect(result.state('dataItem')).toEqual("500.122");
+        expect(result.state('focused')).toEqual(1);
+        expect(result.state('selected')).toEqual(1);
     });
 
     it('should keep selection if typed text differs', () => {
@@ -500,21 +494,17 @@ describe('DropDownList search', () => {
 
         keyPress(result, "5");
 
-        expect(result.state()).toEqual({
-            dataItem: "500.122",
-            focused: 1,
-            selected: 1
-        });
+        expect(result.state('dataItem')).toEqual("500.122");
+        expect(result.state('focused')).toEqual(1);
+        expect(result.state('selected')).toEqual(1);
 
         keyPress(result, "0");
         keyPress(result, "0");
         keyPress(result, "0");
 
-        expect(result.state()).toEqual({
-            dataItem: "500.122",
-            focused: 1,
-            selected: 1
-        });
+        expect(result.state('dataItem')).toEqual("500.122");
+        expect(result.state('focused')).toEqual(1);
+        expect(result.state('selected')).toEqual(1);
     });
 
     //it('should trigger change when searching') line 184
@@ -527,11 +517,9 @@ describe('DropDownList search', () => {
         keyPress(result, "t");
         keyPress(result, "t");
 
-        expect(result.state()).toEqual({
-            dataItem: "text1",
-            focused: 0,
-            selected: 0
-        });
+        expect(result.state('dataItem')).toEqual("text1");
+        expect(result.state('focused')).toEqual(0);
+        expect(result.state('selected')).toEqual(0);
     });
 
     it('should NOT move to next item if typing same letters', () => {
@@ -544,11 +532,9 @@ describe('DropDownList search', () => {
         keyPress(result, "l");
         keyPress(result, "l");
 
-        expect(result.state()).toEqual({
-            dataItem: "Bill 1",
-            focused: 0,
-            selected: 0
-        });
+        expect(result.state('dataItem')).toEqual("Bill 1");
+        expect(result.state('focused')).toEqual(0);
+        expect(result.state('selected')).toEqual(0);
     });
 
     it('should support space', () => {
@@ -563,11 +549,9 @@ describe('DropDownList search', () => {
         keyPress(result, " ");
         keyPress(result, "2");
 
-        expect(result.state()).toEqual({
-            dataItem: "Bill 2",
-            focused: 1,
-            selected: 1
-        });
+        expect(result.state('dataItem')).toEqual("Bill 2");
+        expect(result.state('focused')).toEqual(1);
+        expect(result.state('selected')).toEqual(1);
     });
 
 });
