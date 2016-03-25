@@ -48,8 +48,8 @@ export default class List extends React.Component {
                 <ListItem
                     dataItem={item}
                     focused={index === focused}
-                    key={util.getter(item, valueField)}
                     index={index}
+                    key={util.getter(item, valueField)}
                     onClick={this.clickHandler}
                     renderer={itemRenderer}
                     selected={index === selected}
