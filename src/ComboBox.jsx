@@ -18,6 +18,10 @@ const propTypes = {
     ]),
     disabled: React.PropTypes.bool,
     itemRenderer: React.PropTypes.func,
+    height: React.PropTypes.oneOfType([
+        React.PropTypes.number,
+        React.PropTypes.string
+    ]),
     minLength: React.PropTypes.number,
     onChange: React.PropTypes.func,
     onFilter: React.PropTypes.func,

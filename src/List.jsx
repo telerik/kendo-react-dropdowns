@@ -16,7 +16,7 @@ export default class List extends React.Component {
         height: PropTypes.oneOfType([
             PropTypes.number,
             PropTypes.string
-        ]), 
+        ]),
         itemRenderer: PropTypes.func,
         onClick: PropTypes.func,
         selected: PropTypes.number,
@@ -69,7 +69,7 @@ export default class List extends React.Component {
 
     render() {
         return (
-            <div className="k-list-scroller" ref="listWrapper" unselectable="on" style={{height: this.props.height}}>
+            <div className="k-list-scroller" ref="listWrapper" style={{ height: this.props.height }} unselectable="on">
                 <ul className="k-list k-reset" ref="ul">{this.renderItems()}</ul>
             </div>
         );

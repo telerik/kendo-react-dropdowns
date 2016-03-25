@@ -5,7 +5,7 @@ export default class ListContainer extends React.Component {
 
     static propTypes = {
         children: PropTypes.node,
-        style: PropTypes.object, // eslint-disable-line,
+        style: PropTypes.object, // eslint-disable-line
         visible: PropTypes.bool
     };
 
