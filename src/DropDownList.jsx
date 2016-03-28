@@ -189,47 +189,37 @@ export default class DropDownList extends React.Component {
         }
 
         if (index !== dataLength) {
-            //oldFocusedItem = this._focus();
-
             if (defaultItem && util.getter(data[index], valueField) === util.getter(defaultItem, valueField)) {
                 this.selectByIndex(-1);
             } else {
                 this.selectByIndex(util.normalizeIndex(startIndex + index, dataLength));
             }
-
-            /* TODO: cancel-able event
-            if (that.trigger("select", { item: that._focus() })) {
-                that._select(oldFocusedItem);
-            }
-            */
-
-            /* TODO: change event?
-            if (!that.popup.visible()) {
-                that._change();
-            }
-            */
         }
     }
 
     selectByIndex(index) {
         if (index === -1) {
-            this.setState({
-                dataItem: this.props.defaultItem,
-                selected: index,
-                focused: index
-            });
+            this.select(this.props.defaultItem);
         } else {
             this.select(this.props.data[this.props.defaultItem ? index - 1 : index]);
         }
     }
 
     select = (dataItem) => {
+        const { onChange, valueField } = this.props;
+
         if (!this.props.disabled) {
             this.setState({
                 dataItem: dataItem,
                 selected: this.props.data.indexOf(dataItem),
                 focused: this.props.data.indexOf(dataItem)
             });
+
+            //if popup is visible
+            if (onChange && this.previous !== util.getter(dataItem, valueField)) {
+                this.props.onChange(dataItem);
+                this.previous = util.getter(dataItem, valueField);
+            }
         }
     };
 
@@ -275,11 +265,7 @@ export default class DropDownList extends React.Component {
         }
 
         if (handled) {
-            this.setState({
-                dataItem: dataItem || data[focused],
-                focused: focused,
-                selected: focused
-            });
+            this.select(dataItem || (data[focused] || defaultItem));
         }
     };
 

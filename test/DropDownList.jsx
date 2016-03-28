@@ -7,6 +7,7 @@ import { keyPress } from './Helpers';
 import List from '../src/List';
 import ListItem from '../src/ListItem';
 import ListFilter from '../src/ListFilter';
+import ListDefaultItem from '../src/ListDefaultItem';
 import DropDownList from '../src/DropDownList';
 
 const DropDownListStub = class extends DropDownList {
@@ -507,8 +508,6 @@ describe('DropDownList search', () => {
         expect(result.state('selected')).toEqual(1);
     });
 
-    //it('should trigger change when searching') line 184
-
     it('should honor ignoreCase option', () => {
         const primitives = [ "text1", "Text2", "Text3" ];
 
@@ -715,5 +714,99 @@ describe('DropDownList filter', () => {
     });
 
     //should update popup height when no items are found
+
+});
+
+describe('DropDownList change event', () => {
+    const primitives = [ "foo", "bar", "baz" ];
+    const data = [
+        { text: "foo", value: 1 },
+        { text: "bar", value: 2 },
+        { text: "baz", value: 3 }
+    ];
+
+    let result;
+
+    it('should not fire change event on load when value is selected by index', () => {
+        const spy = jasmine.createSpy('spy');
+
+        result = shallow(<DropDownListStub data={primitives} index={2} onChange={spy} />);
+        expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('should not fire change event on load when value is selected by value', () => {
+        const spy = jasmine.createSpy('spy');
+
+        result = shallow(<DropDownListStub data={primitives} onChange={spy} value="baz" />);
+        expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('should trigger change when item is clicked', () => {
+        const spy = jasmine.createSpy('spy');
+
+        result = shallow(<DropDownListStub data={primitives} onChange={spy} />);
+        const items = result.find(List).shallow().find(ListItem);
+
+        items.at(1).shallow().simulate('click');
+        expect(spy).toHaveBeenCalledWith("bar");
+    });
+
+    it('should trigger change when default item is clicked', () => {
+        const spy = jasmine.createSpy('spy');
+
+        result = shallow(
+            <DropDownListStub
+                data={data}
+                defaultItem={{ text: "select...", value: null }}
+                onChange={spy}
+                textField="text"
+                valueField="value"
+            />
+        );
+        const defaultItem = result.find(ListDefaultItem).shallow();
+
+        defaultItem.simulate('click');
+        expect(spy).toHaveBeenCalledWith({ text: "select...", value: null });
+    });
+
+    it('should trigger change when default item is clicked (primitives)', () => {
+        const spy = jasmine.createSpy('spy');
+
+        result = shallow(<DropDownListStub data={primitives} defaultItem="select..." onChange={spy} />);
+        const defaultItem = result.find(ListDefaultItem).shallow();
+
+        defaultItem.simulate('click');
+        expect(spy).toHaveBeenCalledWith(null);
+    });
+
+    it('should trigger change when searching', () => {
+        const spy = jasmine.createSpy('spy');
+
+        result = shallow(<DropDownListStub data={primitives} onChange={spy} />);
+
+        keyPress(result, "b");
+        expect(spy).toHaveBeenCalledWith("bar");
+        keyPress(result, "b");
+        expect(spy).toHaveBeenCalledWith("baz");
+    });
+
+    it('should trigger change when searching default item', () => {
+        const spy = jasmine.createSpy('spy');
+
+        result = shallow(<DropDownListStub data={primitives} defaultItem="select..." onChange={spy} />);
+
+        keyPress(result, "s");
+        expect(spy).toHaveBeenCalledWith("select...");
+    });
+
+    it('should NOT trigger change when searching but value does not change', () => {
+        const spy = jasmine.createSpy('spy');
+
+        result = shallow(<DropDownListStub data={primitives} onChange={spy} />);
+
+        keyPress(result, "f");
+        keyPress(result, "f");
+        expect(spy.calls.count()).toEqual(1);
+    });
 
 });

@@ -24,8 +24,8 @@ class DropDownContainer extends React.Component {
         this.state = {
             data: data,
             value: 1,
-            filterable: true,
             onFilter: this.onFilter,
+            onChange: this.onChange,
             defaultItem: { text: "select...", value: null },
             textField: "text",
             valueField: "value"
@@ -47,6 +47,10 @@ class DropDownContainer extends React.Component {
         }
 
         this.setState({ data: result });
+    }
+
+    onChange = (dataItem) => {
+        console.log(dataItem);
     }
 
     itemRenderer = (dataItem) => `renderer: ${dataItem.text}`
