@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import List from '../src/List';
+import ListItem from '../src/ListItem';
 import ComboBox from '../src/ComboBox';
 import SearchBar from '../src/SearchBar';
 import ListContainer from '../src/ListContainer';
@@ -14,6 +15,9 @@ describe('ComboBox', () => {
         { text: "foo5", value: 5 },
         { text: "foo6", value: 6 }
     ];
+
+    const primitives = [ "foo", "bar", "baz" ];
+
     const filterData = (text) => {
         let dataList;
 
@@ -43,5 +47,45 @@ describe('ComboBox', () => {
     it('should List with style height="inherit" if no height explicitly set', () => {
         result = shallow(<ComboBox data={data} />);
         expect(result.find(ListContainer).find(List).props().height).toEqual("inherit");
+    });
+
+    it('should update state when item is selected from List', () => {
+        result = shallow(<ComboBox data={data} textField="text" valueField="value" />);
+        const items = result.find(List).shallow().find(ListItem);
+
+        expect(result.state('dataItem')).toEqual(null);
+        expect(result.state('value')).toEqual('');
+        items.at(1).shallow().simulate('click');
+        expect(result.state('dataItem')).toEqual(data[1]);
+        expect(result.state('value')).toEqual(data[1].value);
+    });
+
+    it('should update state when item is selected from List (primitives)', () => {
+        result = shallow(<ComboBox data={primitives} />);
+        const items = result.find(List).shallow().find(ListItem);
+
+        expect(result.state('dataItem')).toEqual(null);
+        expect(result.state('value')).toEqual('');
+        items.at(1).shallow().simulate('click');
+        expect(result.state('dataItem')).toEqual(primitives[1]);
+        expect(result.state('value')).toEqual(primitives[1]);
+    });
+
+    it('should fire change event when item selected from the list', () => {
+        const spy = jasmine.createSpy('spy');
+        result = shallow(<ComboBox data={data} onChange={spy} textField="text" valueField="value" />);
+        const items = result.find(List).shallow().find(ListItem);
+
+        items.at(3).shallow().simulate('click');
+        expect(spy).toHaveBeenCalledWith(data[3].value);
+    });
+
+    it('should fire change event when item selected from the list (primitives)', () => {
+        const spy = jasmine.createSpy('spy');
+        result = shallow(<ComboBox data={primitives} onChange={spy} />);
+        const items = result.find(List).shallow().find(ListItem);
+
+        items.at(2).shallow().simulate('click');
+        expect(spy).toHaveBeenCalledWith(primitives[2]);
     });
 });

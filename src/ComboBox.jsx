@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as util from './Util';
 import classNames from 'classnames';
 import keycode from 'keycode';
 import List from './List';
@@ -12,10 +13,11 @@ import { itemIndex } from './Util';
 
 const propTypes = {
     className: React.PropTypes.string,
-    data: React.PropTypes.oneOfType([
-        React.PropTypes.arrayOf(React.PropTypes.object),
-        React.PropTypes.arrayOf(React.PropTypes.string)
-    ]),
+    data: React.PropTypes.arrayOf(React.PropTypes.oneOfType([
+        React.PropTypes.object,
+        React.PropTypes.string,
+        React.PropTypes.number
+    ])),
     disabled: React.PropTypes.bool,
     itemRenderer: React.PropTypes.func,
     height: React.PropTypes.oneOfType([
@@ -69,7 +71,8 @@ class ComboBox extends React.Component {
         if (suggest && data.length) {
             this.setState({
                 expanded: data.length > 0,
-                word: data[0][textField],
+                // word: data[0][textField],
+                word: util.getter(data[0], textField),
                 highlight: true,
                 focused: itemIndex(this.text, data, textField) //filtered data focused item
             });
@@ -117,8 +120,8 @@ class ComboBox extends React.Component {
 
         const dataItem = this.props.data[focused];
         this.setState({
-            text: suggest ? dataItem[textField] : null,
-            value: suggest ? dataItem[valueField] : null,
+            text: suggest ? util.getter(dataItem, textField) : null,
+            value: suggest ? util.getter(dataItem, valueField) : null,
             word: null,
             focused: focused,
             highlight: suggest
@@ -133,15 +136,15 @@ class ComboBox extends React.Component {
         this.setState({
             expanded: index >= 0,
             text: text,
-            word: dataItem && this.props.suggest ? this.props.data[index][this.props.textField] : null,
+            word: dataItem && this.props.suggest ? util.getter(dataItem, this.props.textField) : null,
             highlight: true,
             focused: index
         });
     };
 
     select = (dataItem, index) => {
-        const value = dataItem ? dataItem[this.props.valueField] : this.refs.searchBar._input.value;
-        const text = dataItem ? dataItem[this.props.textField] : this.refs.searchBar._input.value;
+        const value = dataItem ? util.getter(dataItem, this.props.valueField) : this.refs.searchBar._input.value;
+        const text = dataItem ? util.getter(dataItem, this.props.textField) : this.refs.searchBar._input.value;
 
         this.setState({
             dataItem: dataItem ? dataItem : null,
@@ -209,7 +212,7 @@ class ComboBox extends React.Component {
             data: this.props.data,
             focused: this.state.focused,
             height: "inherit",
-            renderer: this.props.itemRenderer,
+            itemRenderer: this.props.itemRenderer,
             onClick: this.select,
             textField: this.props.textField,
             valueField: this.props.valueField

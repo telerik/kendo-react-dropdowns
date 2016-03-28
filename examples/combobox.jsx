@@ -52,6 +52,57 @@ const data = [
     { text: "United Kingdom", value: "Kin" },
     { text: "Vatican City", value: "VC" }
 ];
+const primitives = [
+    "Albania",
+    "Andorra",
+    "Armenia",
+    "Austria",
+    "Azerbaijan",
+    "Belarus",
+    "Belgium",
+    "Bosnia & Herzegovina",
+    "Bulgaria",
+    "Croatia",
+    "Cyprus",
+    "Czech Republic",
+    "Denmark",
+    "Estonia",
+    "Finland",
+    "France",
+    "Georgia",
+    "Germany",
+    "Greece",
+    "Hungary",
+    "Iceland",
+    "Ireland",
+    "Italy",
+    "Kosovo",
+    "Latvia",
+    "Liechtenstein",
+    "Lithuania",
+    "Luxembourg",
+    "Macedonia",
+    "Malta",
+    "Moldova",
+    "Monaco",
+    "Netherlands",
+    "Norway",
+    "Poland",
+    "Portugal",
+    "Romania",
+    "Russia",
+    "San Marino",
+    "Serbia",
+    "Slovakia",
+    "Slovenia",
+    "Spain",
+    "Sweden",
+    "Switzerland",
+    "Turkey",
+    "Ukraine",
+    "United Kingdom",
+    "Vatican City"
+];
 
 const filterData = (text) => {
     let dataList;
@@ -70,6 +121,8 @@ const onChange = (e) => {
     console.log("change event triggered: ", e);
 };
 
+const itemRenderer = (text) => `${text}`;
+
 const render = (data) => {
     ReactDOM.render(
         <div>
@@ -81,6 +134,7 @@ const render = (data) => {
                 suggest
                 valueField="value"
                 textField="text"
+                itemRenderer={itemRenderer}
             />
         </div>,
         document.getElementById('app')
