@@ -91,6 +91,9 @@ class ComboBox extends React.Component {
         if (!this.state.dateItem) {
             this.selectFocused();
         }
+        this.setState({
+            expanded: false
+        });
     };
 
     handleFilter = (word) => {
