@@ -41,7 +41,8 @@ export default class List extends React.Component {
     }
 
     setHeight(height) {
-        this.refs.listWrapper.style.height = height + "px";
+        const scrollHeight = this.refs.wrapper.scrollHeight;
+        this.refs.wrapper.style.height = scrollHeight > height ? (height + "px") : "auto";
     }
 
     clickHandler = (dataItem, index) => {
@@ -69,7 +70,7 @@ export default class List extends React.Component {
 
     render() {
         return (
-            <div className="k-list-scroller" ref="listWrapper" style={{ height: this.props.height }} unselectable="on">
+            <div className="k-list-scroller" ref="wrapper" style={{ height: this.props.height }} unselectable="on">
                 <ul className="k-list k-reset" ref="ul">{this.renderItems()}</ul>
             </div>
         );

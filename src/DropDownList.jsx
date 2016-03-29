@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import ReactDOM from 'react-dom';
 import keycode from 'keycode';
 import * as util from './Util';
 import List from './List';
@@ -96,22 +95,30 @@ export default class DropDownList extends React.Component {
     }
 
     componentDidMount() {
-        this.calculateListHeight();
+        this.resizeList();
     }
 
     componentDidUpdate() {
-        this.calculateListHeight();
+        this.resizeList();
     }
 
-    calculateListHeight() {
-        const wrapper = ReactDOM.findDOMNode(this);
-        if (wrapper) {
-            const filterInput = wrapper.getElementsByClassName('k-list-filter')[0];
-            const defaultItem = wrapper.getElementsByClassName('k-list-optionlabel')[0];
-            const listHeight = this.props.height - (filterInput ? filterInput.offsetHeight : 0) - (defaultItem ? defaultItem.offsetHeight : 0);
+    resizeList() {
+        if (this.listWrapper && this.listContainer) {
+            const height = this.props.height;
+            const extraHeight = util.getExtraHeight(this.listWrapper);
+            const listHeight = this.listWrapper.scrollHeight || this.listWrapper.offsetHeight;
 
-            this.refs.list.setHeight(listHeight);
+            this.listContainer.style.height = listHeight > height ? height + "px" : "auto";
+            this.listWrapper.style.height = listHeight > height ? height - extraHeight + "px" : "auto";
         }
+    }
+
+    getList = (list) => {
+        this.listWrapper = list.refs.wrapper;
+    }
+
+    getListContainer = (container) => {
+        this.listContainer = container.refs.wrapper;
     }
 
     renderValue() {
@@ -344,10 +351,6 @@ export default class DropDownList extends React.Component {
             'aria-activedescendant': "" //TODO: check if this is required
         };
 
-        const style = {
-            height: this.props.height
-        };
-
         return (
             //TODO: aria attributes, title
             <span className="k-widget k-dropdown k-header"
@@ -365,10 +368,10 @@ export default class DropDownList extends React.Component {
                         <span className="k-icon k-i-arrow-s"></span>
                     </span>
                 </DropDownWrapper>
-                <ListContainer style={style} visible={expanded}>
+                <ListContainer ref={this.getListContainer} visible={expanded}>
                     {filterable && <ListFilter {...listFilterProps} />}
                     {defaultItem && <ListDefaultItem {...defaultItemProps} />}
-                    <List {...listProps} ref="list" />
+                    <List {...listProps} ref={this.getList} />
                 </ListContainer>
             </span>
         );

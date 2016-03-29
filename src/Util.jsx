@@ -40,6 +40,18 @@ function hasSelection(element) {
     return element.selectionStart !== element.selectionEnd;
 }
 
+function getExtraHeight(element) {
+    let result = 0;
+    let dom = element.previousElementSibling;
+
+    while (dom) {
+        result += dom.offsetHeight;
+        dom = dom.previousElementSibling;
+    }
+
+    return result;
+}
+
 /* DOM independent */
 function indexOfWordAtCaret(caretIdx, text, separator) {
     return separator ? text.substring(0, caretIdx).split(separator).length - 1 : 0;
@@ -145,6 +157,7 @@ export {
     caretIndex,
     caretSelection,
     getter,
+    getExtraHeight,
     hasSelection,
     indexOfWordAtCaret,
     moveToEndOfWord,

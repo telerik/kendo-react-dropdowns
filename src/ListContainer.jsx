@@ -13,6 +13,10 @@ export default class ListContainer extends React.Component {
         super(props);
     }
 
+    setHeight(height) {
+        this.refs.wrapper.style.height = height;
+    }
+
     render() {
         const containerClasses = classNames({
             'k-list-container': true,
@@ -24,7 +28,7 @@ export default class ListContainer extends React.Component {
         const style = { ...this.props.style, display: this.props.visible ? "block" : "none" };
 
         return (
-            <div className={containerClasses} style={style}>
+            <div className={containerClasses} ref="wrapper" style={style}>
                 {this.props.children}
             </div>
         );
