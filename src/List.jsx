@@ -40,8 +40,7 @@ export default class List extends React.Component {
     }
 
     setHeight(height) {
-        const scrollHeight = this.refs.wrapper.scrollHeight;
-        this.refs.wrapper.style.height = scrollHeight > height ? (height + "px") : "auto";
+        this.refs.wrapper.style.height = height;
     }
 
     clickHandler = (dataItem, index) => {
