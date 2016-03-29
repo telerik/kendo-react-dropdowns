@@ -184,7 +184,8 @@ class ComboBox extends React.Component {
 
         const buttonClasses = classNames({
             [buttonStyles.button]: true,
-            'k-state-disabled': this.props.disabled
+            'k-state-disabled': this.props.disabled,
+            'k-select': true
         }, this.props.className);
 
         const buttonProps = {
@@ -227,9 +228,7 @@ class ComboBox extends React.Component {
             <span {...comboBoxProps}>
                 <DropDownWrapper>
                     <SearchBar ref="searchBar" {...searchBarProps} />
-                    <span className="k-select">
                         <Button ref="" {...buttonProps} />
-                    </span>
                 </DropDownWrapper>
                 <ListContainer style={listContainerStyle} visible={this.state.expanded}>
                     <List {...listProps} />
