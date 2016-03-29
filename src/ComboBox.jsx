@@ -146,14 +146,14 @@ class ComboBox extends React.Component {
     select = (dataItem, index) => {
         const value = dataItem ? util.getter(dataItem, this.props.valueField) : this.refs.searchBar._input.value;
         const text = dataItem ? util.getter(dataItem, this.props.textField) : this.refs.searchBar._input.value;
-
         this.setState({
             dataItem: dataItem ? dataItem : null,
             text: text,
             value: value,
             highlight: false,
             focused: index,
-            expanded: false
+            expanded: false,
+            word: null
         }, function() {
             this.handleChange(value);
         }.bind(this));
