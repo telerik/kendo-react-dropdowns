@@ -67,11 +67,9 @@ class ComboBox extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         const { suggest, data, textField } = nextProps;
-
         if (suggest && data.length) {
             this.setState({
                 expanded: data.length > 0,
-                // word: data[0][textField],
                 word: util.getter(data[0], textField),
                 highlight: true,
                 focused: itemIndex(this.text, data, textField) //filtered data focused item
@@ -104,8 +102,11 @@ class ComboBox extends React.Component {
 
     toggle = () => {
         this.setState({
-            expanded: !this.state.expanded //TODO: check data.length
+            expanded: this.props.data.length ? !this.state.expanded : false
         });
+        if (!this.props.data.length) {
+            this.handleFilter("");
+        }
     };
 
     navigate = (keyCode) => {
