@@ -34,9 +34,8 @@ export default class List extends React.Component {
 
     componentDidUpdate() {
         let focused = this.refs.ul.children[this.props.focused];
-        //TODO: check if already visible
         if (focused) {
-            focused.scrollIntoView();
+            focused.scrollIntoViewIfNeeded();
         }
     }
 
