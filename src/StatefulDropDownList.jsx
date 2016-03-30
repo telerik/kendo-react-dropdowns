@@ -64,12 +64,19 @@ export default class StatefulDropDownList extends React.Component {
     };
 
     onSelect = (dataItem) => {
+        const { onChange, valueField } = this.props;
+
         this.setState({
             dataItem: dataItem,
             selected: this.props.data.indexOf(dataItem),
             focused: this.props.data.indexOf(dataItem)
         });
-        //TODO: fire change
+
+        //if popup is visible
+        if (onChange && this.previous !== util.getter(dataItem, valueField)) {
+            this.props.onChange(dataItem);
+            this.previous = util.getter(dataItem, valueField);
+        }
     };
 
     onToggle = (isOpen) => {
