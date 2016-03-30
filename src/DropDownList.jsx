@@ -11,13 +11,16 @@ import DropDownWrapper from './DropDownWrapper';
 export default class DropDownList extends React.Component {
 
     static propTypes = {
-        change: PropTypes.func,
-        className: PropTypes.string,
         data: PropTypes.arrayOf(PropTypes.oneOfType([
             PropTypes.object,
             PropTypes.string,
             PropTypes.number
         ])),
+        dataItem: PropTypes.oneOfType([
+            PropTypes.object,
+            PropTypes.string,
+            PropTypes.number
+        ]),
         defaultItem: function(props, propName, componentName) {
             if (props.defaultItem && props.valueField && typeof props.defaultItem !== "object") {
                 return new Error(`
@@ -29,20 +32,18 @@ export default class DropDownList extends React.Component {
         },
         delay: PropTypes.number,
         disabled: PropTypes.bool,
+        expanded: PropTypes.bool,
         filterable: PropTypes.bool,
+        focused: PropTypes.number,
         height: PropTypes.number,
         ignoreCase: PropTypes.bool,
-        index: PropTypes.number,
         itemRenderer: PropTypes.func,
-        minLength: PropTypes.number,
-        onChange: PropTypes.func,
         onFilter: PropTypes.func,
+        onSelect: PropTypes.func,
+        onToggle: PropTypes.func,
+        selected: PropTypes.number,
         tabIndex: PropTypes.number,
         textField: PropTypes.string,
-        value: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.number
-        ]),
         valueField: PropTypes.string,
         valueRenderer: PropTypes.func
     };
@@ -55,43 +56,9 @@ export default class DropDownList extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            dataItem: null,
-            selected: null,
-            focused: null,
-            expanded: false
-        };
 
         this.word = "";
         this.last = "";
-    }
-
-    componentWillMount() {
-        const { data, defaultItem, value, index, valueField } = this.props;
-        let dataItem;
-
-        if (value) {
-            dataItem = util.resolveInitialValue(data, value, valueField);
-            this.setState({
-                dataItem: dataItem,
-                selected: data.indexOf(dataItem),
-                focused: data.indexOf(dataItem)
-            });
-        } else if (index) {
-            dataItem = data[index];
-            this.setState({
-                dataItem: data[index],
-                selected: index,
-                focused: index
-            });
-        } else if (defaultItem) {
-            dataItem = defaultItem;
-            this.setState({
-                dataItem: dataItem,
-                selected: dataItem ? -1 : null,
-                focused: dataItem ? -1 : null
-            });
-        }
     }
 
     componentDidMount() {
@@ -122,8 +89,7 @@ export default class DropDownList extends React.Component {
     }
 
     renderValue() {
-        const dataItem = this.state.dataItem;
-        const { textField , defaultItem, valueRenderer } = this.props;
+        const { dataItem, textField, defaultItem, valueRenderer } = this.props;
         let value;
 
         if (dataItem) {
@@ -134,7 +100,7 @@ export default class DropDownList extends React.Component {
             return "";
         }
 
-        return (typeof(valueRenderer) === "function") ? valueRenderer(value) : value;
+        return (typeof(valueRenderer) === "function") ? valueRenderer(dataItem) : value;
     }
 
     listFilterChange = (text) => {
@@ -151,10 +117,6 @@ export default class DropDownList extends React.Component {
     };
 
     filter = (text) => {
-        this.setState({
-            selected: null,
-            focused: 0
-        });
         this.props.onFilter(text);
     };
 
@@ -175,7 +137,7 @@ export default class DropDownList extends React.Component {
         const { textField, valueField, defaultItem, ignoreCase } = this.props;
         const dataLength = data.length + (defaultItem ? 1 : 0);
         const isInLoop = util.sameCharsOnly(this.word, this.last);
-        let startIndex = this.state.selected + (defaultItem ? 1 : 0);
+        let startIndex = this.props.selected || 0 + (defaultItem ? 1 : 0);
 
         let text, index;
 
@@ -213,26 +175,21 @@ export default class DropDownList extends React.Component {
     }
 
     select = (dataItem) => {
-        const { onChange, valueField } = this.props;
-
         if (!this.props.disabled) {
-            this.setState({
-                dataItem: dataItem,
-                selected: this.props.data.indexOf(dataItem),
-                focused: this.props.data.indexOf(dataItem)
-            });
-
+            this.props.onSelect(dataItem);
+            /*
             //if popup is visible
             if (onChange && this.previous !== util.getter(dataItem, valueField)) {
                 this.props.onChange(dataItem);
                 this.previous = util.getter(dataItem, valueField);
             }
+            */
         }
     };
 
     toggle = () => {
         if (!this.props.disabled) {
-            this.setState({ expanded: !this.state.expanded });
+            this.props.onToggle(!this.props.expanded);
         }
     };
 
@@ -241,7 +198,7 @@ export default class DropDownList extends React.Component {
         const { data, defaultItem, disabled } = this.props;
         const max = data.length - 1;
         const min = this.props.defaultItem ? -1 : 0;
-        let { focused } = this.state;
+        let focused = this.props.focused;
         let dataItem, handled = false;
 
         if (disabled) { return; }
@@ -302,19 +259,16 @@ export default class DropDownList extends React.Component {
             data,
             textField,
             valueField,
-            value,
+            dataItem,
             height,
             itemRenderer,
             defaultItem,
             disabled,
-            filterable
-        } = this.props;
-
-        const {
+            filterable,
             selected,
             focused,
             expanded
-        } = this.state;
+        } = this.props;
 
         const listProps = {
             data,
@@ -329,7 +283,7 @@ export default class DropDownList extends React.Component {
 
         const defaultItemProps = {
             focused: focused === -1,
-            selected: value === undefined,
+            selected: dataItem === undefined,
             textField: textField,
             dataItem: defaultItem,
             onClick: this.select,

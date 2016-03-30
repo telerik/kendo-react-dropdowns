@@ -1,68 +1,66 @@
-import * as React from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import DropDownList from '../src/DropDownList';
+import StatefulDropDownList from '../src/StatefulDropDownList';
 
 //sample data
 const data = [
     { text: "foo", value: 1 },
     { text: "bar", value: 2 },
     { text: "baz", value: 3 },
-    { text: "qux", value: 4 },
-    { text: "test1", value: 10 },
-    { text: "test2", value: 11 },
-    { text: "test3", value: 12 },
-    { text: "test4", value: 13 }
+    { text: "qux", value: 4 }
 ];
 
-//sample primitive data
-const primitives = [ "foo", "bar", "baz" ];
+function mockDataProvider(filter) {
+    let result;
 
-class DropDownContainer extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: data,
-            value: 1,
-            onFilter: this.onFilter,
-            onChange: this.onChange,
-            defaultItem: { text: "select...", value: null },
-            textField: "text",
-            valueField: "value"
-            /*
-            renderer: this.itemRenderer
-            */
-        };
+    if (filter) {
+        result = data.filter(function(item) {
+            return item.text.toLowerCase().startsWith(filter.toLowerCase());
+        });
+    } else {
+        result = data;
     }
 
-    onFilter = (text) => {
-        let result;
+    return result;
+}
 
-        if (text) {
-            result = data.filter(function(item) {
-                return item.text.toLowerCase().startsWith(text.toLowerCase());
-            });
-        } else {
-            result = data;
-        }
+class DropDownTest extends React.Component {
+    state = {
+        data: mockDataProvider()
+    };
 
-        this.setState({ data: result });
-    }
+    handleFilter = (text) => {
+        this.setState({ data: mockDataProvider(text) });
+    };
 
-    onChange = (dataItem) => {
-        console.log(dataItem);
-    }
+    handleChange = (value) => {
+        console.log(value);
+    };
 
-    itemRenderer = (dataItem) => `renderer: ${dataItem.text}`
+    itemRenderer = (dataItem) => `.:: ${dataItem.text} ::.`;
+    valueRenderer = (dataItem) => `== ${dataItem.value} ==`;
 
     render() {
         return (
-            <DropDownList {...this.state} />
+            <StatefulDropDownList
+                data={this.state.data}
+                defaultItem={{ text: "select...", value: null }}
+                delay={700}
+                filterable
+                height={400}
+                itemRenderer={this.itemRenderer}
+                onChange={this.handleChange}
+                onFilter={this.handleFilter}
+                textField="text"
+                value={2}
+                valueField="value"
+                valueRenderer={this.valueRenderer}
+            />
         );
     }
 }
 
 ReactDOM.render(
-    <DropDownContainer />,
+    <DropDownTest />,
     document.getElementById('app')
 );

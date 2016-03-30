@@ -91,8 +91,36 @@ function textReduced(newValue = "", oldValue = "") {
     return result;
 }
 
-function resolveInitialValue(data, value, valueField) {
+function resolveValue(data, value, valueField) {
     return data.find(element => getter(element, valueField) === value);
+}
+
+function resolveInitialValue(props) {
+    const { data, defaultItem, value, index, valueField } = props;
+    let dataItem;
+
+    if (value) {
+        dataItem = resolveValue(data, value, valueField);
+        return {
+            dataItem: dataItem,
+            selected: data.indexOf(dataItem),
+            focused: data.indexOf(dataItem)
+        };
+    } else if (index) {
+        dataItem = data[index];
+        return {
+            dataItem: data[index],
+            selected: index,
+            focused: index
+        };
+    } else if (defaultItem) {
+        dataItem = defaultItem;
+        return {
+            dataItem: dataItem,
+            selected: dataItem ? -1 : null,
+            focused: dataItem ? -1 : null
+        };
+    }
 }
 
 function itemIndex(text, data, textField = null) {

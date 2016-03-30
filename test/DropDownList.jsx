@@ -2,19 +2,16 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import keycode from 'keycode';
 
-import { keyPress } from './Helpers';
+import { keyPress, lastCallArgs } from './Helpers';
 
 import List from '../src/List';
 import ListItem from '../src/ListItem';
 import ListFilter from '../src/ListFilter';
 import ListDefaultItem from '../src/ListDefaultItem';
+import StatefulDropDownList from '../src/StatefulDropDownList';
 import DropDownList from '../src/DropDownList';
 
-const DropDownListStub = class extends DropDownList {
-    calculateListHeight() {}
-};
-
-describe('DropDownList', () => {
+describe('StatefulDropDownList initialization', () => {
     const data = [
         { text: "foo", value: 1 },
         { text: "bar", value: 2 },
@@ -25,113 +22,208 @@ describe('DropDownList', () => {
 
     let result;
 
-    it('should render List', () => {
-        result = shallow(<DropDownList data={data} textField="text" valueField="value" />);
-        expect(result.find(List).length).toEqual(1);
+    it('should render stateless DropDownList', () => {
+        result = shallow(<StatefulDropDownList data={data} textField="text" valueField="value" />);
+        expect(result.find(DropDownList).length).toEqual(1);
     });
 
     it('should accept value', () => {
-        result = shallow(<DropDownList data={data} textField="text" value={3} valueField="value" />);
+        result = shallow(<StatefulDropDownList data={data} textField="text" value={3} valueField="value" />);
         expect(result.state('dataItem')).toBe(data[2]);
         expect(result.state('focused')).toEqual(2);
         expect(result.state('selected')).toEqual(2);
     });
 
     it('should accept value (primitives)', () => {
-        result = shallow(<DropDownList data={primitives} value="baz" />);
+        result = shallow(<StatefulDropDownList data={primitives} value="baz" />);
         expect(result.state('dataItem')).toEqual("baz");
         expect(result.state('focused')).toEqual(2);
         expect(result.state('selected')).toEqual(2);
     });
 
     it('should accept index', () => {
-        result = shallow(<DropDownList data={data} index={1} textField="text" valueField="value" />);
+        result = shallow(<StatefulDropDownList data={data} index={1} textField="text" valueField="value" />);
         expect(result.state('dataItem')).toBe(data[1]);
         expect(result.state('focused')).toEqual(1);
         expect(result.state('selected')).toEqual(1);
     });
 
     it('should accept index (primitives)', () => {
-        result = shallow(<DropDownList data={primitives} index={1} />);
+        result = shallow(<StatefulDropDownList data={primitives} index={1} />);
         expect(result.state('dataItem')).toEqual("bar");
         expect(result.state('focused')).toEqual(1);
         expect(result.state('selected')).toEqual(1);
     });
 
     it('should select nothing if no value or index', () => {
-        result = shallow(<DropDownList data={data} textField="text" valueField="value" />);
+        result = shallow(<StatefulDropDownList data={data} textField="text" valueField="value" />);
         expect(result.state('dataItem')).toBe(null);
+        expect(result.state('focused')).toEqual(null);
+        expect(result.state('selected')).toEqual(null);
+    });
+
+    it('should select nothing if no value or index (primitives)', () => {
+        result = shallow(<StatefulDropDownList data={primitives} />);
+        expect(result.state('dataItem')).toBe(null);
+        expect(result.state('focused')).toEqual(null);
+        expect(result.state('selected')).toEqual(null);
     });
 
     it('should select the defaultItem if no value or index', () => {
-        result = shallow(<DropDownList data={data} defaultItem={{ text: "select...", value: -1 }} textField="text" valueField="value" />);
+        result = shallow(<StatefulDropDownList data={data} defaultItem={{ text: "select...", value: -1 }} textField="text" valueField="value" />);
         expect(result.state('dataItem')).toEqual({ text: "select...", value: -1 });
         expect(result.state('focused')).toEqual(-1);
         expect(result.state('selected')).toEqual(-1);
     });
 
-    it('should change state.dataItem when item is clicked', () => {
-        result = shallow(<DropDownListStub data={data} textField="text" valueField="value" />);
-        const items = result.find(List).shallow().find(ListItem);
-
-        expect(result.state('dataItem')).toEqual(null);
-        items.at(1).shallow().simulate('click');
-        expect(result.state('dataItem')).toEqual({ text: "bar", value: 2 });
+    it('should select the defaultItem if no value or index (primitives)', () => {
+        result = shallow(<StatefulDropDownList data={primitives} defaultItem="select..." />);
+        expect(result.state('dataItem')).toEqual("select...");
+        expect(result.state('focused')).toEqual(-1);
+        expect(result.state('selected')).toEqual(-1);
     });
+});
 
-    it('should change state.dataItem when item is clicked (primitives)', () => {
-        result = shallow(<DropDownListStub data={primitives} />);
-        const items = result.find(List).shallow().find(ListItem);
+describe('StatefulDropDownList event handlers', () => {
+    const data = [
+        { text: "foo", value: 1 },
+        { text: "bar", value: 2 },
+        { text: "baz", value: 3 }
+    ];
 
-        expect(result.state('dataItem')).toEqual(null);
-        items.at(1).shallow().simulate('click');
-        expect(result.state('dataItem')).toEqual("bar");
-    });
+    let result;
 
-    it('should change state.selected when item is clicked', () => {
-        result = shallow(<DropDownListStub data={data} textField="text" valueField="value" />);
-        const items = result.find(List).shallow().find(ListItem);
+    it('should change state.selected onSelect', () => {
+        result = shallow(<StatefulDropDownList data={data} textField="text" valueField="value" />);
+        const dropDownList = result.find(DropDownList);
 
         expect(result.state('selected')).toEqual(null);
-        items.at(1).shallow().simulate('click');
+        dropDownList.prop('onSelect')(data[1]);
         expect(result.state('selected')).toEqual(1);
     });
 
-    it('should change state.focused when item is clicked', () => {
-        result = shallow(<DropDownListStub data={data} textField="text" valueField="value" />);
-        const items = result.find(List).shallow().find(ListItem);
+    it('should change state.focused onSelect', () => {
+        result = shallow(<StatefulDropDownList data={data} textField="text" valueField="value" />);
+        const dropDownList = result.find(DropDownList);
 
-        expect(result.state('focused')).toEqual(null);
-        items.at(1).shallow().simulate('click');
+        dropDownList.prop('onSelect')(data[1]);
         expect(result.state('focused')).toEqual(1);
     });
 
-    it('should NOT change state of disabled component on click', () => {
-        result = shallow(<DropDownListStub data={data} disabled textField="text" valueField="value" />);
-        const items = result.find(List).shallow().find(ListItem);
+    it('should change state.dataItem onSelect', () => {
+        result = shallow(<StatefulDropDownList data={data} textField="text" valueField="value" />);
+        const dropDownList = result.find(DropDownList);
 
-        items.at(1).shallow().simulate('click');
-        expect(result.state('dataItem')).toEqual(null);
-        expect(result.state('focused')).toEqual(null);
+        dropDownList.prop('onSelect')(data[1]);
+        expect(result.state('dataItem')).toEqual({ text: "bar", value: 2 });
+    });
+
+    //TODO: test change event
+
+    it('should change state.expanded onToggle', () => {
+        result = shallow(<StatefulDropDownList data={data} textField="text" valueField="value" />);
+        const dropDownList = result.find(DropDownList);
+
+        dropDownList.prop('onToggle')(true);
+        expect(result.state('expanded')).toEqual(true);
+    });
+
+    it('should reset selected item onFilter', () => {
+        result = shallow(<StatefulDropDownList data={data} textField="text" valueField="value" />);
+        const dropDownList = result.find(DropDownList);
+
+        dropDownList.prop('onFilter')("b");
         expect(result.state('selected')).toEqual(null);
     });
 
-    it('should change state.expanded on arrow click', () => {
-        result = shallow(<DropDownListStub data={data} textField="text" valueField="value" />);
-        const arrow = result.find("span.k-select");
+    it('should focus first item onFilter', () => {
+        result = shallow(<StatefulDropDownList data={data} textField="text" valueField="value" />);
+        const dropDownList = result.find(DropDownList);
 
-        expect(result.state('expanded')).toBe(false);
-        arrow.simulate("click");
-        expect(result.state('expanded')).toBe(true);
+        dropDownList.prop('onFilter')("b");
+        expect(result.state('focused')).toEqual(0);
     });
 
-    it('should NOT change state.expanded of disabled component on arrow click', () => {
-        result = shallow(<DropDownListStub data={data} disabled textField="text" valueField="value" />);
+    it('should fire onFilter event', () => {
+        const spy = jasmine.createSpy('spy');
+        result = shallow(<StatefulDropDownList data={data} onFilter={spy} textField="text" valueField="value" />);
+        const dropDownList = result.find(DropDownList);
+
+        dropDownList.prop('onFilter')("b");
+        expect(spy).toHaveBeenCalledWith("b");
+    });
+});
+
+describe('DropDownList list click', () => {
+    const data = [
+        { text: "foo", value: 1 },
+        { text: "bar", value: 2 },
+        { text: "baz", value: 3 }
+    ];
+
+    const primitives = [ "foo", "bar", "baz" ];
+
+    let result;
+
+    it('should change state.dataItem when item is clicked', () => {
+        const spy = jasmine.createSpy('spy');
+        result = shallow(<DropDownList data={data} onSelect={spy} textField="text" valueField="value" />);
+        const items = result.find(List).shallow().find(ListItem);
+
+        items.at(1).shallow().simulate('click');
+        expect(spy).toHaveBeenCalledWith({ text: "bar", value: 2 });
+    });
+
+    it('should change state.dataItem when item is clicked (primitives)', () => {
+        const spy = jasmine.createSpy('spy');
+        result = shallow(<DropDownList data={primitives} onSelect={spy} />);
+        const items = result.find(List).shallow().find(ListItem);
+
+        items.at(1).shallow().simulate('click');
+        expect(spy).toHaveBeenCalledWith("bar");
+    });
+
+    it('should NOT fire onSelect for disabled component on click', () => {
+        const spy = jasmine.createSpy('spy');
+        result = shallow(
+            <DropDownList
+                data={data}
+                disabled
+                onSelect={spy}
+                textField="text"
+                valueField="value"
+            />
+        );
+        const items = result.find(List).shallow().find(ListItem);
+
+        items.at(1).shallow().simulate('click');
+        expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('should fire onToggle on arrow click', () => {
+        const spy = jasmine.createSpy('spy');
+        result = shallow(<DropDownList data={data} onToggle={spy} textField="text" valueField="value" />);
         const arrow = result.find("span.k-select");
 
-        expect(result.state('expanded')).toBe(false);
         arrow.simulate("click");
-        expect(result.state('expanded')).toBe(false);
+        expect(spy).toHaveBeenCalledWith(true);
+    });
+
+    it('should NOT fire onToggle for disabled component on arrow click', () => {
+        const spy = jasmine.createSpy('spy');
+        result = shallow(
+            <DropDownList
+                data={data}
+                disabled
+                onToggle={spy}
+                textField="text"
+                valueField="value"
+            />
+        );
+        const arrow = result.find("span.k-select");
+
+        arrow.simulate("click");
+        expect(spy).not.toHaveBeenCalled();
     });
 });
 
@@ -144,178 +236,148 @@ describe('DropDownList keyboard navigation', () => {
 
     let result;
 
-    it('should increment state.focused when key "down" is pressed', () => {
-        result = shallow(<DropDownListStub data={data} textField="text" value={1} valueField="value" />);
-        result.simulate('keyDown', { keyCode: keycode.codes.down });
-
-        expect(result.state('focused')).toEqual(1);
-    });
-
-    it('should increment state.focused when key "right" is pressed', () => {
-        result = shallow(<DropDownListStub data={data} textField="text" value={1} valueField="value" />);
-        result.simulate('keyDown', { keyCode: keycode.codes.down });
-
-        expect(result.state('focused')).toEqual(1);
-    });
-
-    it('should decrement state.focused when key "up" is pressed', () => {
-        result = shallow(<DropDownListStub data={data} textField="text" value={2} valueField="value" />);
-        result.simulate('keyDown', { keyCode: keycode.codes.up });
-
-        expect(result.state('focused')).toEqual(0);
-    });
-
-    it('should decrement state.focused when key "left" is pressed', () => {
-        result = shallow(<DropDownListStub data={data} textField="text" value={2} valueField="value" />);
-        result.simulate('keyDown', { keyCode: keycode.codes.up });
-
-        expect(result.state('focused')).toEqual(0);
-    });
-
-    it('should focus first item when key "home" is pressed', () => {
-        result = shallow(<DropDownListStub data={data} textField="text" value={2} valueField="value" />);
-        result.simulate('keyDown', { keyCode: keycode.codes.home });
-
-        expect(result.state('focused')).toEqual(0);
-    });
-
-    it('should focus the default item when key "home" is pressed', () => {
-        result = shallow(
-            <DropDownListStub
+    function create(dataItem, spy, defaultItem, disabled) {
+        return shallow(
+            <DropDownList
                 data={data}
-                defaultItem={{ text: "select...", value: null }}
+                dataItem={dataItem}
+                defaultItem={defaultItem}
+                disabled={disabled}
+                focused={data.indexOf(dataItem)}
+                onSelect={spy}
+                selected={data.indexOf(dataItem)}
                 textField="text"
-                value={2}
                 valueField="value"
             />
         );
-        result.simulate('keyDown', { keyCode: keycode.codes.home });
+    }
 
-        expect(result.state('focused')).toEqual(-1);
+    it('should fire onSelect with next item when key "down" is pressed', () => {
+        const spy = jasmine.createSpy('spy');
+        result = create(data[0], spy);
+
+        result.simulate('keyDown', { keyCode: keycode.codes.down });
+        expect(spy).toHaveBeenCalledWith(data[1]);
     });
 
-    it('should focus last item when key "home" is pressed', () => {
-        result = shallow(<DropDownListStub data={data} textField="text" valueField="value" />);
+    it('should fire onSelect with next item when key "right" is pressed', () => {
+        const spy = jasmine.createSpy('spy');
+        result = create(data[0], spy);
+
+        result.simulate('keyDown', { keyCode: keycode.codes.right });
+        expect(spy).toHaveBeenCalledWith(data[1]);
+    });
+
+    it('should fire onSelect with previous item when key "up" is pressed', () => {
+        const spy = jasmine.createSpy('spy');
+        result = create(data[1], spy);
+
+        result.simulate('keyDown', { keyCode: keycode.codes.up });
+        expect(spy).toHaveBeenCalledWith(data[0]);
+    });
+
+    it('should fire onSelect with previous item when key "left" is pressed', () => {
+        const spy = jasmine.createSpy('spy');
+        result = create(data[1], spy);
+
+        result.simulate('keyDown', { keyCode: keycode.codes.left });
+        expect(spy).toHaveBeenCalledWith(data[0]);
+    });
+
+    it('should fire onSelect with first item when key "home" is pressed', () => {
+        const spy = jasmine.createSpy('spy');
+        result = create(data[1], spy);
+
+        result.simulate('keyDown', { keyCode: keycode.codes.home });
+        expect(spy).toHaveBeenCalledWith(data[0]);
+    });
+
+    it('should fire onSelect with defaultItem when key "home" is pressed', () => {
+        const defaultItem = { text: "select...", value: null };
+        const spy = jasmine.createSpy('spy');
+        result = create(data[1], spy, defaultItem);
+
+        result.simulate('keyDown', { keyCode: keycode.codes.home });
+        expect(spy).toHaveBeenCalledWith(defaultItem);
+    });
+
+    it('should fire onSelect with last item when key "end" is pressed', () => {
+        const spy = jasmine.createSpy('spy');
+        result = create(data[1], spy);
+
         result.simulate('keyDown', { keyCode: keycode.codes.end });
 
-        expect(result.state('focused')).toEqual(data.length - 1);
+        expect(spy).toHaveBeenCalledWith(data[2]);
     });
 
-    it('should be able to focus the defaultItem', () => {
-        result = shallow(
-            <DropDownListStub
-                data={data}
-                defaultItem={{ text: "select...", value: null }}
-                textField="text"
-                value={3}
-                valueField="value"
-            />
-        );
+    it('should be able to focus the defaultItem (last > default)', () => {
+        const defaultItem = { text: "select...", value: null };
+        const spy = jasmine.createSpy('spy');
+        result = create(data[2], spy, defaultItem);
 
         result.simulate('keyDown', { keyCode: keycode.codes.down });
-        expect(result.state('focused')).toEqual(-1);
-        result.simulate('keyDown', { keyCode: keycode.codes.down });
-        expect(result.state('focused')).toEqual(0);
-        result.simulate('keyDown', { keyCode: keycode.codes.up });
-        expect(result.state('focused')).toEqual(-1);
+        expect(spy).toHaveBeenCalledWith(defaultItem);
     });
 
-    it('should remove the deselected the current listItem when defaultItem is focused', () => {
-        result = shallow(
-            <DropDownListStub
-                data={data}
-                defaultItem={{ text: "select...", value: null }}
-                textField="text"
-                value={1}
-                valueField="value"
-            />
-        );
+    it('should be able to focus the defaultItem (first > default)', () => {
+        const defaultItem = { text: "select...", value: null };
+        const spy = jasmine.createSpy('spy');
+        result = create(data[0], spy, defaultItem);
 
         result.simulate('keyDown', { keyCode: keycode.codes.up });
-        const item = result.find(List).shallow().find(ListItem).at(0);
-
-        expect(item.hasClass('k-state-selected')).toBe(false);
-        expect(item.hasClass('k-state-focused')).toBe(false);
+        expect(spy).toHaveBeenCalledWith(defaultItem);
     });
 
     it('should select the focused item on enter', () => {
-        result = shallow(
-            <DropDownListStub
-                data={data}
-                textField="text"
-                value={3}
-                valueField="value"
-            />
-        );
+        const spy = jasmine.createSpy('spy');
+        result = create(data[2], spy);
 
         result.simulate('keyDown', { keyCode: keycode.codes.up });
         result.simulate('keyDown', { keyCode: keycode.codes.enter });
-        expect(result.state('dataItem')).toEqual({ text: "bar", value: 2 });
+        expect(spy).toHaveBeenCalledWith(data[1]);
     });
 
     it('should select the focused default item on enter', () => {
-        result = shallow(
-            <DropDownListStub
-                data={data}
-                defaultItem={{ text: "select...", value: null }}
-                textField="text"
-                value={1}
-                valueField="value"
-            />
-        );
+        const defaultItem = { text: "select...", value: null };
+        const spy = jasmine.createSpy('spy');
+        result = create(data[0], spy, defaultItem);
 
         result.simulate('keyDown', { keyCode: keycode.codes.up });
         result.simulate('keyDown', { keyCode: keycode.codes.enter });
-        expect(result.state('dataItem')).toEqual({ text: "select...", value: null });
+        expect(spy).toHaveBeenCalledWith(defaultItem);
     });
 
-    it('should be able to move the focus from last to first item and vice versa', () => {
-        result = shallow(
-            <DropDownListStub
-                data={data}
-                textField="text"
-                value={3}
-                valueField="value"
-            />
-        );
+    it('should be able to move the focus from last to first', () => {
+        const spy = jasmine.createSpy('spy');
+        result = create(data[2], spy);
 
         result.simulate('keyDown', { keyCode: keycode.codes.down });
-        expect(result.state('focused')).toEqual(0);
+        expect(spy).toHaveBeenCalledWith(data[0]);
+    });
+
+    it('should be able to move the focus from first to last', () => {
+        const spy = jasmine.createSpy('spy');
+        result = create(data[0], spy);
 
         result.simulate('keyDown', { keyCode: keycode.codes.up });
-        expect(result.state('focused')).toEqual(2);
+        expect(spy).toHaveBeenCalledWith(data[2]);
     });
 
     it('should NOT focus if component is disabled', () => {
-        result = shallow(
-            <DropDownList
-                data={data}
-                disabled
-                textField="text"
-                valueField="value"
-            />
-        );
+        const spy = jasmine.createSpy('spy');
+        result = create(data[0], spy, undefined, true);
 
         result.simulate('keyDown', { keyCode: keycode.codes.down });
-        expect(result.state('focused')).toEqual(null);
-        result.simulate('keyDown', { keyCode: keycode.codes.up });
-        expect(result.state('focused')).toEqual(null);
+        expect(spy).not.toHaveBeenCalled();
     });
 
     it('should NOT select on enter if disabled', () => {
-        result = shallow(
-            <DropDownList
-                data={data}
-                disabled
-                textField="text"
-                value={3}
-                valueField="value"
-            />
-        );
+        const spy = jasmine.createSpy('spy');
+        result = create(data[2], spy, undefined, true);
 
         result.simulate('keyDown', { keyCode: keycode.codes.up });
         result.simulate('keyDown', { keyCode: keycode.codes.enter });
-        expect(result.state('dataItem')).toEqual({ text: "baz", value: 3 });
+        expect(spy).not.toHaveBeenCalled();
     });
 });
 
@@ -328,13 +390,28 @@ describe('DropDownList search', () => {
 
     let result;
 
-    it('should select first match', () => {
-        result = shallow(<DropDownListStub data={data} textField="text" valueField="value" />);
-        keyPress(result, "b");
+    function statefulBuilder(data) {
+        const stateful = {
+            select: (dataItem) => {
+                result.setProps({
+                    dataItem: dataItem,
+                    selected: data.indexOf(dataItem),
+                    focused: data.indexOf(dataItem)
+                });
+            }
+        };
 
-        expect(result.state('dataItem')).toEqual({ text: "Bar", value: 2 });
-        expect(result.state('focused')).toEqual(1);
-        expect(result.state('selected')).toEqual(1);
+        spyOn(stateful, 'select').and.callThrough();
+
+        return stateful;
+    }
+
+    it('should select first match', () => {
+        const spy = jasmine.createSpy('spy');
+        result = shallow(<DropDownList data={data} onSelect={spy} textField="text" valueField="value" />);
+
+        keyPress(result, "b");
+        expect(spy).toHaveBeenCalledWith(data[1]);
     });
 
     it('should search select item if text is number', () => {
@@ -342,13 +419,12 @@ describe('DropDownList search', () => {
             { text: "Foo", value: 1 },
             { text: 10, value: 2 }
         ];
+        const spy = jasmine.createSpy('spy');
 
-        result = shallow(<DropDownListStub data={myData} textField="text" valueField="value" />);
+        result = shallow(<DropDownList data={myData} onSelect={spy} textField="text" valueField="value" />);
         keyPress(result, 1);
 
-        expect(result.state('dataItem')).toEqual({ text: 10, value: 2 });
-        expect(result.state('focused')).toEqual(1);
-        expect(result.state('selected')).toEqual(1);
+        expect(spy).toHaveBeenCalledWith(myData[1]);
     });
 
     it('should search text if text is 0', () => {
@@ -356,13 +432,12 @@ describe('DropDownList search', () => {
             { text: "Foo", value: 1 },
             { text: 0, value: 2 }
         ];
+        const spy = jasmine.createSpy('spy');
 
-        result = shallow(<DropDownListStub data={myData} textField="text" valueField="value" />);
+        result = shallow(<DropDownList data={myData} onSelect={spy} textField="text" valueField="value" />);
         keyPress(result, 0);
 
-        expect(result.state('dataItem')).toEqual({ text: 0, value: 2 });
-        expect(result.state('focused')).toEqual(1);
-        expect(result.state('selected')).toEqual(1);
+        expect(spy).toHaveBeenCalledWith(myData[1]);
     });
 
     it('should support case sensitive search', () => {
@@ -371,23 +446,30 @@ describe('DropDownList search', () => {
             { text: "Bar", value: 2 },
             { text: "baz", value: 3 }
         ];
+        const spy = jasmine.createSpy('spy');
 
-        result = shallow(<DropDownListStub data={myData} ignoreCase={false} textField="text" valueField="value" />);
+        result = shallow(
+            <DropDownList
+                data={myData}
+                ignoreCase={false}
+                onSelect={spy}
+                textField="text"
+                valueField="value"
+            />
+        );
+
         keyPress(result, "b");
-
-        expect(result.state('dataItem')).toEqual({ text: "baz", value: 3 });
-        expect(result.state('focused')).toEqual(2);
-        expect(result.state('selected')).toEqual(2);
+        expect(spy).toHaveBeenCalledWith(myData[2]);
     });
 
-    it('should select next item if it starts with the same characeter', () => {
-        result = shallow(<DropDownListStub data={data} textField="text" valueField="value" />);
+    it('should select next item if it starts with the same character', () => {
+        const stateful = statefulBuilder(data);
+
+        result = shallow(<DropDownList data={data} onSelect={stateful.select} textField="text" valueField="value" />);
         keyPress(result, "b");
         keyPress(result, "b");
 
-        expect(result.state('dataItem')).toEqual({ text: "Baz", value: 3 });
-        expect(result.state('focused')).toEqual(2);
-        expect(result.state('selected')).toEqual(2);
+        expect(lastCallArgs(stateful.select)).toEqual(data[2]);
     });
 
     it('should select specific item if typed matches', () => {
@@ -396,35 +478,36 @@ describe('DropDownList search', () => {
             { text: "Foo2", value: 2 },
             { text: "Foo3", value: 3 }
         ];
+        const stateful = statefulBuilder(myData);
 
-        result = shallow(<DropDownListStub data={myData} textField="text" valueField="value" />);
+        result = shallow(<DropDownList data={myData} onSelect={stateful.select} textField="text" valueField="value" />);
+
         keyPress(result, "f");
         keyPress(result, "o");
         keyPress(result, "o");
         keyPress(result, "2");
 
-        expect(result.state('dataItem')).toEqual({ text: "Foo2", value: 2 });
-        expect(result.state('focused')).toEqual(1);
-        expect(result.state('selected')).toEqual(1);
+        expect(lastCallArgs(stateful.select)).toEqual(myData[1]);
     });
 
     it('should select a specific item after loop', () => {
         const primitives = [ "tt1", "t", "ttt", "tt3", "tt", "tttt" ];
+        const stateful = statefulBuilder(primitives);
 
-        result = shallow(<DropDownListStub data={primitives} />);
+        result = shallow(<DropDownList data={primitives} onSelect={stateful.select} />);
+
         keyPress(result, "t");
         keyPress(result, "t");
         keyPress(result, "1");
 
-        expect(result.state('dataItem')).toEqual("tt1");
-        expect(result.state('focused')).toEqual(0);
-        expect(result.state('selected')).toEqual(0);
+        expect(lastCallArgs(stateful.select)).toEqual(primitives[0]);
     });
 
     it('should stays on the same item if changed but still in loop', () => {
         const primitives = [ "text1", "text2", "text3" ];
+        const stateful = statefulBuilder(primitives);
 
-        result = shallow(<DropDownListStub data={primitives} defaultItem="select..." />);
+        result = shallow(<DropDownList data={primitives} defaultItem="select..." onSelect={stateful.select} />);
 
         keyPress(result, "t"); //select text2
         keyPress(result, "t"); //select text3
@@ -433,113 +516,103 @@ describe('DropDownList search', () => {
         keyPress(result, "t");
         keyPress(result, "2"); //resulting text is text2
 
-        expect(result.state('dataItem')).toEqual("text2");
-        expect(result.state('focused')).toEqual(1);
-        expect(result.state('selected')).toEqual(1);
+        expect(lastCallArgs(stateful.select)).toEqual("text2");
     });
 
     it('should select next item if it starts with same characeter (default item)', () => {
         const primitives = [ "text1", "text2" ];
+        const stateful = statefulBuilder(primitives);
 
-        result = shallow(<DropDownListStub data={primitives} defaultItem="select..." />);
+        result = shallow(<DropDownList data={primitives} defaultItem="select..." onSelect={stateful.select} />);
 
         keyPress(result, "t");
         keyPress(result, "t");
 
-        expect(result.state('dataItem')).toEqual("text2");
-        expect(result.state('focused')).toEqual(1);
-        expect(result.state('selected')).toEqual(1);
+        expect(lastCallArgs(stateful.select)).toEqual("text2");
     });
 
     it('should be able to find and select the defaultItem', () => {
         const primitives = [ "text1", "text2" ];
+        const stateful = statefulBuilder(primitives);
 
         result = shallow(
-            <DropDownListStub
+            <DropDownList
                 data={primitives}
+                dataItem="text2"
                 defaultItem="select..."
-                value={1}
+                onSelect={stateful.select}
             />
         );
 
         keyPress(result, "s");
 
-        expect(result.state('dataItem')).toEqual("select...");
-        expect(result.state('focused')).toEqual(-1);
-        expect(result.state('selected')).toEqual(-1);
+        expect(stateful.select).toHaveBeenCalledWith("select...");
     });
 
     it('should keep selection if typed text is same as current data item', () => {
         const primitives = [ "test", "500.122", "500.123" ];
+        const stateful = statefulBuilder(primitives);
 
-        result = shallow(<DropDownListStub data={primitives} />);
+        result = shallow(<DropDownList data={primitives} onSelect={stateful.select} />);
 
         keyPress(result, "5");
 
-        expect(result.state('dataItem')).toEqual("500.122");
-        expect(result.state('focused')).toEqual(1);
-        expect(result.state('selected')).toEqual(1);
+        expect(stateful.select).toHaveBeenCalledWith("500.122");
 
         keyPress(result, "0");
         keyPress(result, "0");
 
-        expect(result.state('dataItem')).toEqual("500.122");
-        expect(result.state('focused')).toEqual(1);
-        expect(result.state('selected')).toEqual(1);
+        expect(lastCallArgs(stateful.select)).toEqual("500.122");
     });
 
     it('should keep selection if typed text differs', () => {
         const primitives = [ "test", "500.122", "500.123" ];
+        const stateful = statefulBuilder(primitives);
 
-        result = shallow(<DropDownListStub data={primitives} />);
+        result = shallow(<DropDownList data={primitives} onSelect={stateful.select} />);
 
         keyPress(result, "5");
 
-        expect(result.state('dataItem')).toEqual("500.122");
-        expect(result.state('focused')).toEqual(1);
-        expect(result.state('selected')).toEqual(1);
+        expect(stateful.select).toHaveBeenCalledWith("500.122");
 
         keyPress(result, "0");
         keyPress(result, "0");
         keyPress(result, "0");
 
-        expect(result.state('dataItem')).toEqual("500.122");
-        expect(result.state('focused')).toEqual(1);
-        expect(result.state('selected')).toEqual(1);
+        expect(lastCallArgs(stateful.select)).toEqual("500.122");
     });
 
     it('should honor ignoreCase option', () => {
         const primitives = [ "text1", "Text2", "Text3" ];
+        const stateful = statefulBuilder(primitives);
 
-        result = shallow(<DropDownListStub data={primitives} index={1} />);
+        result = shallow(<DropDownList data={primitives} dataItem="Text2" ignoreCase={false} onSelect={stateful.select} />);
 
         keyPress(result, "t");
         keyPress(result, "t");
 
-        expect(result.state('dataItem')).toEqual("text1");
-        expect(result.state('focused')).toEqual(0);
-        expect(result.state('selected')).toEqual(0);
+        expect(lastCallArgs(stateful.select)).toEqual("text1");
     });
 
     it('should NOT move to next item if typing same letters', () => {
         const primitives = [ "Bill 1", "Bill 2", "Label" ];
+        const stateful = statefulBuilder(primitives);
 
-        result = shallow(<DropDownListStub data={primitives} index={1} />);
+        result = shallow(<DropDownList data={primitives} dataItem="Bill 1" onSelect={stateful.select} />);
 
         keyPress(result, "b");
         keyPress(result, "i");
         keyPress(result, "l");
         keyPress(result, "l");
 
-        expect(result.state('dataItem')).toEqual("Bill 1");
-        expect(result.state('focused')).toEqual(0);
-        expect(result.state('selected')).toEqual(0);
+        expect(lastCallArgs(stateful.select)).toEqual("Bill 2");
     });
 
     it('should support space', () => {
         const primitives = [ "Bill 1", "Bill 2", "Bill 3" ];
+        const stateful = statefulBuilder(primitives);
 
-        result = shallow(<DropDownListStub data={primitives} />);
+        result = shallow(<DropDownList data={primitives} onSelect={stateful.select} />);
 
         keyPress(result, "b");
         keyPress(result, "i");
@@ -548,27 +621,22 @@ describe('DropDownList search', () => {
         keyPress(result, " ");
         keyPress(result, "2");
 
-        expect(result.state('dataItem')).toEqual("Bill 2");
-        expect(result.state('focused')).toEqual(1);
-        expect(result.state('selected')).toEqual(1);
+        expect(lastCallArgs(stateful.select)).toEqual("Bill 2");
     });
 
     it('should NOT search if filterable', () => {
         const primitives = [ "foo", "bar", "baz" ];
+        const stateful = statefulBuilder(primitives);
 
-        result = shallow(<DropDownListStub data={primitives} filterable />);
+        result = shallow(<DropDownList data={primitives} filterable onSelect={stateful.select} />);
 
         keyPress(result, "b");
 
-        expect(result.state('dataItem')).toEqual(null);
-        expect(result.state('focused')).toEqual(null);
-        expect(result.state('selected')).toEqual(null);
+        expect(stateful.select).not.toHaveBeenCalled();
     });
-
 });
 
 describe('DropDownList filter', () => {
-
     const data = [
         { text: "Black", value: "1" },
         { text: "Orange", value: "2" },
@@ -606,7 +674,7 @@ describe('DropDownList filter', () => {
 
         render() {
             return (
-                <DropDownListStub {...this.state} />
+                <StatefulDropDownList {...this.state} />
             );
         }
     }
@@ -616,7 +684,7 @@ describe('DropDownList filter', () => {
     it('should fire the onFilter event on user input', (done) => {
         const spy = jasmine.createSpy('spy');
         result = shallow(
-            <DropDownListStub data={data}
+            <DropDownList data={data}
                 delay={0}
                 filterable
                 onFilter={spy}
@@ -637,7 +705,7 @@ describe('DropDownList filter', () => {
     it('should fire the onFilter event with empty string argument when the user clears input value', (done) => {
         const spy = jasmine.createSpy('spy');
         result = shallow(
-            <DropDownListStub data={data}
+            <DropDownList data={data}
                 delay={0}
                 filterable
                 onFilter={spy}
@@ -657,12 +725,14 @@ describe('DropDownList filter', () => {
     });
 
     it('should NOT update selected dataItem on filter', (done) => {
-        const spy = jasmine.createSpy('spy');
+        const filter = jasmine.createSpy('filter');
+        const select = jasmine.createSpy('select');
         result = shallow(
-            <DropDownListStub data={data}
+            <DropDownList data={data}
                 delay={0}
                 filterable
-                onFilter={spy}
+                onFilter={filter}
+                onSelect={select}
                 textField="text"
                 valueField="value"
             />
@@ -672,14 +742,14 @@ describe('DropDownList filter', () => {
         input.simulate("change", { target: { value: "o" } });
 
         setTimeout(() => {
-            expect(result.state('dataItem')).toEqual(null);
+            expect(select).not.toHaveBeenCalled();
             done();
         }, 0);
     });
 
     it('should keep selected dataItem after filter', (done) => {
-        result = shallow(<DropDownContainer />).find(DropDownListStub).shallow();
-        const input = result.find(ListFilter).shallow().find('input');
+        result = shallow(<DropDownContainer />).find(StatefulDropDownList).shallow();
+        const input = result.find(DropDownList).shallow().find(ListFilter).shallow().find('input');
 
         input.simulate("change", { target: { value: "o" } });
 
@@ -690,8 +760,8 @@ describe('DropDownList filter', () => {
     });
 
     it('should focus the first item after filter', (done) => {
-        result = shallow(<DropDownContainer />).find(DropDownListStub).shallow();
-        const input = result.find(ListFilter).shallow().find('input');
+        result = shallow(<DropDownContainer />).find(StatefulDropDownList).shallow();
+        const input = result.find(DropDownList).shallow().find(ListFilter).shallow().find('input');
 
         input.simulate("change", { target: { value: "o" } });
 
@@ -702,8 +772,8 @@ describe('DropDownList filter', () => {
     });
 
     it('should NOT select the first item after filter', (done) => {
-        result = shallow(<DropDownContainer />).find(DropDownListStub).shallow();
-        const input = result.find(ListFilter).shallow().find('input');
+        result = shallow(<DropDownContainer />).find(StatefulDropDownList).shallow();
+        const input = result.find(DropDownList).shallow().find(ListFilter).shallow().find('input');
 
         input.simulate("change", { target: { value: "o" } });
 
@@ -714,9 +784,9 @@ describe('DropDownList filter', () => {
     });
 
     //should update popup height when no items are found
-
 });
 
+/* temporary disable DropDownList change event tests
 describe('DropDownList change event', () => {
     const primitives = [ "foo", "bar", "baz" ];
     const data = [
@@ -730,21 +800,21 @@ describe('DropDownList change event', () => {
     it('should not fire change event on load when value is selected by index', () => {
         const spy = jasmine.createSpy('spy');
 
-        result = shallow(<DropDownListStub data={primitives} index={2} onChange={spy} />);
+        result = shallow(<DropDownList data={primitives} index={2} onChange={spy} />);
         expect(spy).not.toHaveBeenCalled();
     });
 
     it('should not fire change event on load when value is selected by value', () => {
         const spy = jasmine.createSpy('spy');
 
-        result = shallow(<DropDownListStub data={primitives} onChange={spy} value="baz" />);
+        result = shallow(<DropDownList data={primitives} onChange={spy} value="baz" />);
         expect(spy).not.toHaveBeenCalled();
     });
 
     it('should trigger change when item is clicked', () => {
         const spy = jasmine.createSpy('spy');
 
-        result = shallow(<DropDownListStub data={primitives} onChange={spy} />);
+        result = shallow(<DropDownList data={primitives} onChange={spy} />);
         const items = result.find(List).shallow().find(ListItem);
 
         items.at(1).shallow().simulate('click');
@@ -755,7 +825,7 @@ describe('DropDownList change event', () => {
         const spy = jasmine.createSpy('spy');
 
         result = shallow(
-            <DropDownListStub
+            <DropDownList
                 data={data}
                 defaultItem={{ text: "select...", value: null }}
                 onChange={spy}
@@ -772,7 +842,7 @@ describe('DropDownList change event', () => {
     it('should trigger change when default item is clicked (primitives)', () => {
         const spy = jasmine.createSpy('spy');
 
-        result = shallow(<DropDownListStub data={primitives} defaultItem="select..." onChange={spy} />);
+        result = shallow(<DropDownList data={primitives} defaultItem="select..." onChange={spy} />);
         const defaultItem = result.find(ListDefaultItem).shallow();
 
         defaultItem.simulate('click');
@@ -782,7 +852,7 @@ describe('DropDownList change event', () => {
     it('should trigger change when searching', () => {
         const spy = jasmine.createSpy('spy');
 
-        result = shallow(<DropDownListStub data={primitives} onChange={spy} />);
+        result = shallow(<DropDownList data={primitives} onChange={spy} />);
 
         keyPress(result, "b");
         expect(spy).toHaveBeenCalledWith("bar");
@@ -793,7 +863,7 @@ describe('DropDownList change event', () => {
     it('should trigger change when searching default item', () => {
         const spy = jasmine.createSpy('spy');
 
-        result = shallow(<DropDownListStub data={primitives} defaultItem="select..." onChange={spy} />);
+        result = shallow(<DropDownList data={primitives} defaultItem="select..." onChange={spy} />);
 
         keyPress(result, "s");
         expect(spy).toHaveBeenCalledWith("select...");
@@ -802,11 +872,11 @@ describe('DropDownList change event', () => {
     it('should NOT trigger change when searching but value does not change', () => {
         const spy = jasmine.createSpy('spy');
 
-        result = shallow(<DropDownListStub data={primitives} onChange={spy} />);
+        result = shallow(<DropDownList data={primitives} onChange={spy} />);
 
         keyPress(result, "f");
         keyPress(result, "f");
         expect(spy.calls.count()).toEqual(1);
     });
-
 });
+*/
