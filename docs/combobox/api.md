@@ -1,90 +1,55 @@
 ---
 title: Client-Side API
-page_title: Client-Side API | Kendo UI Slider for React
-description: "Configure and customize the Kendo UI Slider for React through its client-side API reference."
-slug: api_slider_kendouiforreact
+page_title: Client-Side API | Kendo UI ComboBox for React
+description: "Configure and customize the Kendo UI ComboBox for React through its client-side API reference."
+slug: api_combobox_kendouiforreact
 position: 2
 ---
 
-# Slider Client-Side API
+# ComboBox Client-Side API
 
-Represents the Kendo UI Slider component for React.
+Represents the Kendo UI ComboBox component for React.
 
-## Buttons
+## Features
 
-#### buttons `Boolean`*(default: "true")*
+#### disabled `Boolean`*(default: "false")*
 
-Makes the Slider side arrow buttons appear. When set to `false` the buttons are not displayed.
+#### height `Number|String`
 
-#### decreaseButtonTitle `String`*(default: "Decrease")*
+#### minLength `Number`
 
-The title of the decrease button of the Slider.
+#### placeholder `String`
 
-#### increaseButtonTitle `String`*(default: "Increase")*
+#### select `Function`
 
-The title of the increase button of the Slider.
+#### separator `String`
 
-## Steps  
+#### suggest `Boolean`*(default: "true")*
 
-#### max `Number`*(default: 10)*
+#### tabIndex `Number`
 
-The maximum value of the Slider. The attribute accepts both integers and floating-point numbers.
+#### toggle `Function`
 
-#### min `Number`*(default: 0)*
 
-The minimum value of the Slider. The attribute accepts both integers and floating-point numbers.
+## Text
 
-#### smallStep `Number`*(default: 1)*
+#### text `String`
 
-The step value of the Slider. The attribute accepts only positive numbers. Can be both integer or a floating number.
+#### textField `String`
 
-#### value `Number`
+## Values
 
-The current value of the Slider when initially displayed.
+#### value `Number|String`
 
-## Ticks
+#### valueField `String`
 
-#### tickPlacement `String`*(default: "both")*
+#### valueUpdate `Function`
 
-Denotes the location of the tick marks in the Slider.
+#### itemRenderer `Function`
 
-The available options are:
-
-* `before`&mdash;Tick marks are located to the top side of the horizontal track or to the left side of a vertical track.
-* `after`&mdash;Tick marks are located to the bottom side of the horizontal track or to the right side of the vertical track.
-* `both`&mdash;Tick marks are located on both sides of the track.
-* `none`&mdash;Tick marks are not visible. The actual elements are not added to the DOM tree.
-
-#### title `String|Function`
-
-Defines title of the ticks. The default title for each tick is its Slider value. If callback function is used it will accept an argument holding the value of the component and should return a string with the new title.
-
-#### fixedTickwidth `Number`
-
-Sets the width between each two ticks along the track. The value must be set in pixels. If no `fixedTickWidth` is provided the component will automatically adjust the tick width to accommodate the elements within the size of the component.
-
-## Orientation
-
-#### vertical `Boolean`*(default: "false")*
-
-Changes the orientation of the Slider from horizontal to vertical when set to `true`.
 
 ## State
 
 #### onChange `Function`
 
-As a stateless component the Slider will fire its `onChange` event handler every time when the value is changed. It should be handled by the parent component.
-
-## Features
-
-### Handle
-
-#### dragHandleTitle `String`
-
-Changes the title attribute of the drag handle, so it can be localized.
-
-### Disabling
-
-#### disabled `Boolean`*(default: "false")*
-
-The component will be disabled when set to `true`.
+#### onFilter `Function`

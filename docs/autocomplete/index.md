@@ -16,7 +16,7 @@ The Kendo UI AutoComplete for React is part of the DropDowns `npm` package of th
 
 //screen to be added - Vasko
 
-*1. AutoComplete textbox | 2. Drop-down button | 3. Drop-down list | 4. Drop-down list item | 5. Current item*
+*1. Input area | 2. Drop-down button | 3. Drop-down list | 4. Drop-down list item | 5. Current item*
 
 ## Demos
 
@@ -72,7 +72,7 @@ For detailed information on the Kendo UI AutoComplete for React configuration, r
 
 ## Accessibility
 
-//TBD applicable? - The AutoComplete is WAI ARIA-accessible through the `Tab` key. The `aria-valuemin`, `aria-valuemax`, and `aria-valuetext` properties define the accessibility values when the user drags the handle of the Slider or interacts with the Slider through its buttons.
+//TBD applicable? - The AutoComplete is WAI ARIA-accessible through the `Tab` key. The `aria-valuemin`, `aria-valuemax`, and `aria-valuetext` properties define the accessibility values when the user drags the handle of the AutoComplete or interacts with the AutoComplete through its buttons.
 
 ## Suggested Links
 
