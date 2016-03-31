@@ -20,9 +20,9 @@ The DropDownList displays a list of predefined options and allows the user to pi
 
 Articles on Kendo UI DropDowns components for React:
 
-* [Get Started with the AutoComplete Component](...)
-* [Client-Side API Reference of the AutoComplete Component](...)
-* [Get Started with the ComboBox Component](...)
-* [Client-Side API Reference of the ComboBox Component](...)
-* [Get Started with the DropDownList Component](...)
-* [Client-Side API Reference of the DropDownList Component](...)
+* [Get Started with the AutoComplete Component](https://github.com/telerik/kendo-react-dropdowns/blob/master/docs/autocomplete/index.md)
+* [Client-Side API Reference of the AutoComplete Component](https://github.com/telerik/kendo-react-dropdowns/blob/master/docs/autocomplete/api.md)
+* [Get Started with the ComboBox Component](https://github.com/telerik/kendo-react-dropdowns/blob/master/docs/combobox/index.md)
+* [Client-Side API Reference of the ComboBox Component](https://github.com/telerik/kendo-react-dropdowns/blob/master/docs/combobox/api.md)
+* [Get Started with the DropDownList Component](https://github.com/telerik/kendo-react-dropdowns/blob/master/docs/dropdownlist/index.md)
+* [Client-Side API Reference of the DropDownList Component](https://github.com/telerik/kendo-react-dropdowns/blob/master/docs/dropdownlist/api.md)
