@@ -835,7 +835,7 @@ describe('DropDownList change event', () => {
         const defaultItem = result.find(DropDownList).shallow().find(ListDefaultItem).shallow();
 
         defaultItem.simulate('click');
-        expect(spy).toHaveBeenCalledWith({ text: "select...", value: null });
+        expect(spy).toHaveBeenCalledWith(null);
     });
 
     it('should trigger change when default item is clicked (primitives)', () => {

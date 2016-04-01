@@ -46,7 +46,15 @@ export default class StatefulDropDownList extends React.Component {
     };
 
     componentWillMount() {
-        const state = util.resolveInitialValue(this.props);
+        this.setValue(this.props);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setValue(nextProps);
+    }
+
+    setValue(props) {
+        const state = util.resolveValue(props);
         if (state) {
             this.setState(state);
         }
@@ -74,7 +82,7 @@ export default class StatefulDropDownList extends React.Component {
 
         //if popup is visible
         if (onChange && this.previous !== util.getter(dataItem, valueField)) {
-            this.props.onChange(dataItem);
+            this.props.onChange(util.getter(dataItem, this.props.valueField));
             this.previous = util.getter(dataItem, valueField);
         }
     };

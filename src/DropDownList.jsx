@@ -177,13 +177,6 @@ export default class DropDownList extends React.Component {
     select = (dataItem) => {
         if (!this.props.disabled) {
             this.props.onSelect(dataItem);
-            /*
-            //if popup is visible
-            if (onChange && this.previous !== util.getter(dataItem, valueField)) {
-                this.props.onChange(dataItem);
-                this.previous = util.getter(dataItem, valueField);
-            }
-            */
         }
     };
 

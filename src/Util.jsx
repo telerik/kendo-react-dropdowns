@@ -91,16 +91,12 @@ function textReduced(newValue = "", oldValue = "") {
     return result;
 }
 
-function resolveValue(data, value, valueField) {
-    return data.find(element => getter(element, valueField) === value);
-}
-
-function resolveInitialValue(props) {
+function resolveValue(props) {
     const { data, defaultItem, value, index, valueField } = props;
     let dataItem;
 
     if (value) {
-        dataItem = resolveValue(data, value, valueField);
+        dataItem = data.find(element => getter(element, valueField) === value);
         return {
             dataItem: dataItem,
             selected: data.indexOf(dataItem),
@@ -198,7 +194,7 @@ export {
     sameCharsOnly,
     shuffleData,
     replaceWordAtCaret,
-    resolveInitialValue,
+    resolveValue,
     endOfWordIndex,
     itemIndex
 };
