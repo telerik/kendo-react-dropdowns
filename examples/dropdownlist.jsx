@@ -2,65 +2,70 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import StatefulDropDownList from '../src/StatefulDropDownList';
 
-//sample data
-const data = [
-    { text: "foo", value: 1 },
-    { text: "bar", value: 2 },
-    { text: "baz", value: 3 },
-    { text: "qux", value: 4 }
+const colors = [
+    { text: "Blue", value: "#00007f" },
+    { text: "Orange", value: "#ffa500" },
+    { text: "Green", value: "#007f00" }
 ];
 
-function mockDataProvider(filter) {
-    let result;
+const sizes = [ 100, 150, 200, 250, 300 ];
 
-    if (filter) {
-        result = data.filter(function(item) {
-            return item.text.toLowerCase().startsWith(filter.toLowerCase());
+class BasicUsageExample extends React.Component {
+    state = {
+        color: "#00007f",
+        size: 100
+    };
+
+    handleColorChange = (value) => {
+        this.setState({
+            color: value
         });
-    } else {
-        result = data;
+    };
+
+    handleSizeChange = (value) => {
+        this.setState({
+            size: value
+        });
+    };
+
+    reset = () => {
+        this.setState({
+            color: "#00007f",
+            size: 100
+        });
     }
 
-    return result;
-}
-
-class DropDownTest extends React.Component {
-    state = {
-        data: mockDataProvider()
-    };
-
-    handleFilter = (text) => {
-        this.setState({ data: mockDataProvider(text) });
-    };
-
-    handleChange = (value) => {
-        console.log(value);
-    };
-
-    itemRenderer = (dataItem) => `.:: ${dataItem.text} ::.`;
-    valueRenderer = (dataItem) => `== ${dataItem.value} ==`;
-
     render() {
+        const style = {
+            backgroundColor: this.state.color,
+            width: this.state.size + "px",
+            height: this.state.size + "px"
+        };
+
         return (
-            <StatefulDropDownList
-                data={this.state.data}
-                defaultItem={{ text: "select...", value: null }}
-                delay={700}
-                filterable
-                height={400}
-                itemRenderer={this.itemRenderer}
-                onChange={this.handleChange}
-                onFilter={this.handleFilter}
-                textField="text"
-                value={2}
-                valueField="value"
-                valueRenderer={this.valueRenderer}
-            />
+            <div className="example">
+                <div id="square" style={style}></div>
+                <StatefulDropDownList
+                    data={colors}
+                    onChange={this.handleColorChange}
+                    textField="text"
+                    value={this.state.color}
+                    valueField="value"
+                />
+                <br />
+                <StatefulDropDownList
+                    data={sizes}
+                    onChange={this.handleSizeChange}
+                    value={this.state.size}
+                />
+                <br />
+                <button className="k-button" onClick={this.reset}>Reset</button>
+            </div>
         );
     }
 }
 
 ReactDOM.render(
-    <DropDownTest />,
+    <BasicUsageExample />,
     document.getElementById('app')
 );
