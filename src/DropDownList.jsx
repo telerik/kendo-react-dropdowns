@@ -204,13 +204,27 @@ export default class DropDownList extends React.Component {
 
     onKeyDown = (event) => {
         const keyCode = event.keyCode;
-        const { data, defaultItem, disabled } = this.props;
+        const { data, defaultItem, disabled, expanded } = this.props;
         const max = data.length - 1;
         const min = this.props.defaultItem ? -1 : 0;
         let focused = this.props.focused;
         let dataItem, handled = false;
 
         if (disabled) { return; }
+
+        if (event.altKey && keyCode === keycode.codes.down) {
+            if (!expanded) {
+                this.open();
+            }
+            return;
+        }
+
+        if (event.altKey && keyCode === keycode.codes.up) {
+            if (expanded) {
+                this.close();
+            }
+            return;
+        }
 
         if (keyCode === keycode.codes.enter) {
             dataItem = (focused === -1) ? defaultItem || null : this.props.data[focused];

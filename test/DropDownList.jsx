@@ -413,6 +413,46 @@ describe('DropDownList keyboard navigation', () => {
         result.simulate('keyDown', { keyCode: keycode.codes.enter });
         expect(spy).not.toHaveBeenCalled();
     });
+
+    it('should fire onOpen on alt + down', () => {
+        const spy = jasmine.createSpy('spy');
+        result = shallow(<DropDownList data={data} onOpen={spy} textField="text" valueField="value" />);
+
+        result.simulate('keyDown', { keyCode: keycode.codes.down, altKey: true });
+        expect(spy).toHaveBeenCalled();
+    });
+
+    it('should NOT fire onOpen on alt + down if the list is already opened', () => {
+        const spy = jasmine.createSpy('spy');
+        result = shallow(
+            <DropDownList
+                data={data}
+                expanded
+                onOpen={spy}
+                textField="text"
+                valueField="value"
+            />
+        );
+
+        result.simulate('keyDown', { keyCode: keycode.codes.down, altKey: true });
+        expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('should fire onClose on alt + up', () => {
+        const spy = jasmine.createSpy('spy');
+        result = shallow(
+            <DropDownList
+                data={data}
+                expanded
+                onClose={spy}
+                textField="text"
+                valueField="value"
+            />
+        );
+
+        result.simulate('keyDown', { keyCode: keycode.codes.up, altKey: true });
+        expect(spy).toHaveBeenCalled();
+    });
 });
 
 describe('DropDownList search', () => {
