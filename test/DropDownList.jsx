@@ -120,12 +120,20 @@ describe('StatefulDropDownList event handlers', () => {
 
     //TODO: test change event
 
-    it('should change state.expanded onToggle', () => {
+    it('should change state.expanded onOpen', () => {
         result = shallow(<StatefulDropDownList data={data} textField="text" valueField="value" />);
         const dropDownList = result.find(DropDownList);
 
-        dropDownList.prop('onToggle')(true);
+        dropDownList.prop('onOpen')();
         expect(result.state('expanded')).toEqual(true);
+    });
+
+    it('should change state.expanded onClose', () => {
+        result = shallow(<StatefulDropDownList data={data} textField="text" valueField="value" />);
+        const dropDownList = result.find(DropDownList);
+
+        dropDownList.prop('onClose')();
+        expect(result.state('expanded')).toEqual(false);
     });
 
     it('should reset selected item onFilter', () => {
@@ -200,22 +208,22 @@ describe('DropDownList list click', () => {
         expect(spy).not.toHaveBeenCalled();
     });
 
-    it('should fire onToggle on arrow click', () => {
+    it('should fire onOpen on arrow click', () => {
         const spy = jasmine.createSpy('spy');
-        result = shallow(<DropDownList data={data} onToggle={spy} textField="text" valueField="value" />);
+        result = shallow(<DropDownList data={data} onOpen={spy} textField="text" valueField="value" />);
         const arrow = result.find("span.k-select");
 
         arrow.simulate("click");
-        expect(spy).toHaveBeenCalledWith(true);
+        expect(spy).toHaveBeenCalled();
     });
 
-    it('should NOT fire onToggle for disabled component on arrow click', () => {
+    it('should NOT fire onOpen for disabled component on arrow click', () => {
         const spy = jasmine.createSpy('spy');
         result = shallow(
             <DropDownList
                 data={data}
                 disabled
-                onToggle={spy}
+                onOpen={spy}
                 textField="text"
                 valueField="value"
             />
@@ -224,6 +232,32 @@ describe('DropDownList list click', () => {
 
         arrow.simulate("click");
         expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('should NOT fire onOpen on arrow click when the list has no data and no defaultItem', () => {
+        const spy = jasmine.createSpy('spy');
+        result = shallow(<DropDownList data={[]} onOpen={spy} textField="text" valueField="value" />);
+        const arrow = result.find("span.k-select");
+
+        arrow.simulate("click");
+        expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('should fire onOpen on arrow click when the list has no data but is filterable', () => {
+        const spy = jasmine.createSpy('spy');
+        result = shallow(
+            <DropDownList
+                data={[]}
+                filterable
+                onOpen={spy}
+                textField="text"
+                valueField="value"
+            />
+        );
+        const arrow = result.find("span.k-select");
+
+        arrow.simulate("click");
+        expect(spy).toHaveBeenCalled();
     });
 });
 

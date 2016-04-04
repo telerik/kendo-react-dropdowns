@@ -38,9 +38,10 @@ export default class DropDownList extends React.Component {
         height: PropTypes.number,
         ignoreCase: PropTypes.bool,
         itemRenderer: PropTypes.func,
+        onClose: PropTypes.func,
         onFilter: PropTypes.func,
+        onOpen: PropTypes.func,
         onSelect: PropTypes.func,
-        onToggle: PropTypes.func,
         selected: PropTypes.number,
         tabIndex: PropTypes.number,
         textField: PropTypes.string,
@@ -180,9 +181,24 @@ export default class DropDownList extends React.Component {
         }
     };
 
+    allowOpening = () => {
+        const { defaultItem, filterable, data } = this.props;
+        return defaultItem || filterable || data.length;
+    };
+
+    open = () => {
+        if (this.allowOpening()) {
+            this.props.onOpen();
+        }
+    };
+
+    close = () => {
+        this.props.onClose();
+    }
+
     toggle = () => {
         if (!this.props.disabled) {
-            this.props.onToggle(!this.props.expanded);
+            this.props.expanded ? this.close() : this.open();
         }
     };
 

@@ -87,8 +87,12 @@ export default class StatefulDropDownList extends React.Component {
         }
     };
 
-    onToggle = (isOpen) => {
-        this.setState({ expanded: isOpen });
+    onOpen = () => {
+        this.setState({ expanded: true });
+    };
+
+    onClose = () => {
+        this.setState({ expanded: false });
     };
 
     render() {
@@ -125,7 +129,8 @@ export default class StatefulDropDownList extends React.Component {
 
             onSelect: this.onSelect,
             onFilter: this.onFilter,
-            onToggle: this.onToggle
+            onOpen: this.onOpen,
+            onClose: this.onClose
         };
 
         return (
