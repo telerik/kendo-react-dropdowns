@@ -52,7 +52,8 @@ export default class DropDownList extends React.Component {
     static defaultProps = {
         delay: 500,
         height: 200,
-        ignoreCase: true
+        ignoreCase: true,
+        tabIndex: 0
     };
 
     constructor(props) {
@@ -290,7 +291,8 @@ export default class DropDownList extends React.Component {
             filterable,
             selected,
             focused,
-            expanded
+            expanded,
+            tabIndex
         } = this.props;
 
         const listProps = {
@@ -333,7 +335,7 @@ export default class DropDownList extends React.Component {
             <span className="k-widget k-dropdown k-header"
                 onKeyDown={this.onKeyDown}
                 onKeyPress={this.onKeyPress}
-                tabIndex="0"
+                tabIndex={tabIndex}
                 unselectable="on"
                 {...ariaAttributes}
             >
