@@ -3,7 +3,7 @@ import keycode from 'keycode';
 import classNames from 'classnames';
 import * as util from '../Util';
 import { List, ListContainer, ListFilter, ListDefaultItem, DropDownWrapper } from './main';
-//import styles from '@telerik/kendo-theme-default-base/styles/main';
+import styles from '@telerik/kendo-theme-default/styles/dropdowns/main';
 
 export default class DropDownList extends React.Component {
 
@@ -334,9 +334,9 @@ export default class DropDownList extends React.Component {
         };
 
         const wrapperClasses = classNames({
-            'k-widget': true,
-            'k-dropdown': true,
-            'k-header': true
+            [styles.widget]: true,
+            [styles.dropdown]: true,
+            [styles.header]: true
         }, this.props.className);
 
         const ariaAttributes = {
@@ -368,11 +368,11 @@ export default class DropDownList extends React.Component {
             //TODO: aria attributes, title
             <span {...dropDownListProps} ref="anchor" unselectable="on">
                 <DropDownWrapper disabled={disabled}>
-                    <span className="k-input" unselectable="on">
+                    <span className={styles.input} unselectable="on">
                         {this.renderValue()}
                     </span>
-                    <span className="k-select" unselectable="on">
-                        <span className="k-icon k-i-arrow-s"></span>
+                    <span className={styles.select} unselectable="on">
+                        <span className={classNames(styles.icon, styles['i-arrow-s'])}></span>
                     </span>
                 </DropDownWrapper>
                 <ListContainer ref="ListContainer"{...listContainerProps}>

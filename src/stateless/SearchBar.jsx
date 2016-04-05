@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import keycode from 'keycode';
 import { caretIndex, indexOfWordAtCaret, caretSelection, textReduced, replaceWordAtCaret, selectEndOfWord, wordAtCaret } from '../Util';
+import styles from '@telerik/kendo-theme-default/styles/dropdowns/main';
 
 export default class SearchBar extends React.Component {
 
@@ -115,7 +116,7 @@ export default class SearchBar extends React.Component {
 
         return (
             <input
-                className="k-input"
+                className={styles.input}
                 disabled={this.props.disabled}
                 onBlur={this.onBlur}
                 onChange={this.onChange}

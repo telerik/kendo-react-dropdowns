@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import keycode from 'keycode';
 import { List, ListContainer, SearchBar, DropDownWrapper } from './main';
 import { Button } from '@telerik/kendo-react-buttons';
-import buttonStyles from '@telerik/kendo-theme-default/styles/button/main';
+import styles from '@telerik/kendo-theme-default/styles/dropdowns/main';
 import * as util from '../Util';
 
 export default class ComboBox extends React.Component {
@@ -194,9 +194,9 @@ export default class ComboBox extends React.Component {
         };
 
         const buttonClasses = classNames({
-            [buttonStyles.button]: true,
-            'k-state-disabled': this.props.disabled,
-            'k-select': true
+            [styles.button]: true,
+            [styles['state-disabled']]: this.props.disabled,
+            [styles.select]: true
         }, this.props.className);
 
         const buttonProps = {
@@ -209,9 +209,9 @@ export default class ComboBox extends React.Component {
         };
 
         const comboBoxClasses = classNames({
-            'k-widget': true,
-            'k-combobox': true,
-            'k-header': true
+            [styles.widget]: true,
+            [styles.combobox]: true,
+            [styles.header]: true
         }, this.props.className);
 
         const comboBoxProps = {

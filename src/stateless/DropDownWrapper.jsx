@@ -1,5 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
+import styles from '@telerik/kendo-theme-default/styles/dropdowns/main';
 
 const propTypes = {
     children: React.PropTypes.node,
@@ -12,18 +13,18 @@ class DropDownWrapper extends React.Component {
     constructor(props) {
         super(props);
         this.handleFocus = () => {
-            this.refs.span.classList.add("k-state-focused");
+            this.refs.span.classList.add(styles['state-focused']);
         };
         this.handleBlur = () => {
-            this.refs.span.classList.remove("k-state-focused");
+            this.refs.span.classList.remove(styles['state-focused']);
         };
     }
 
     render() {
         const wrapperClasses = classNames({
-            'k-dropdown-wrap': true,
-            'k-state-default': !this.props.disabled,
-            'k-state-disabled': this.props.disabled
+            [styles['dropdown-wrap']]: true,
+            [styles['state-default']]: !this.props.disabled,
+            [styles['state-disabled']]: this.props.disabled
         }, this.props.className);
 
         const wrapperProps = {

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import * as util from '../Util';
-//import styles from '@telerik/kendo-theme-default-base/styles/main';
+import styles from '@telerik/kendo-theme-default/styles/dropdowns/main';
 
 export default class ListItem extends React.Component {
 
@@ -27,14 +27,6 @@ export default class ListItem extends React.Component {
         return (nextProps.focused !== this.props.focused) || (nextProps.selected !== this.props.selected);
     }
 
-    handleMouseEnter = () => {
-        this.refs.li.classList.add("k-state-hover");
-    }
-
-    handleMouseOut = () => {
-        this.refs.li.classList.remove("k-state-hover");
-    }
-
     handleClick = (event) => {
         event.preventDefault();
         this.props.onClick(this.props.dataItem, this.props.index);
@@ -52,13 +44,12 @@ export default class ListItem extends React.Component {
 
     render() {
         const itemClasses = classNames({
-            'k-item': true,
-            'k-state-selected': this.props.selected,
-            'k-state-focused': this.props.focused
+            [styles.item]: true,
+            [styles['state-selected']]: this.props.selected,
+            [styles['state-focused']]: this.props.focused
         });
 
         const itemProps = {
-            ref: "li",
             className: itemClasses,
             onClick: this.handleClick,
             onMouseEnter: this.handleMouseEnter,

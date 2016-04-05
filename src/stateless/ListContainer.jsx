@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import Popup from '@telerik/kendo-react-popup';
+import styles from '@telerik/kendo-theme-default/styles/dropdowns/main';
 
 export default class ListContainer extends React.Component {
 
@@ -21,10 +22,8 @@ export default class ListContainer extends React.Component {
 
     render() {
         const containerClasses = classNames({
-            'k-list-container': true,
-            'k-popup': true,
-            'k-group': true,
-            'k-reset': true
+            [styles['list-container']]: true,
+            [styles.reset]: true
         });
 
         const popupProps = {

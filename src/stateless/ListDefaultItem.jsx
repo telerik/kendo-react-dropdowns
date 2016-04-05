@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
+import styles from '@telerik/kendo-theme-default/styles/dropdowns/main';
 
 export default class ListDefaultItem extends React.Component {
 
@@ -42,9 +43,9 @@ export default class ListDefaultItem extends React.Component {
     render() {
         const { selected, focused } = this.props;
         const itemClasses = classNames({
-            'k-list-optionlabel': true,
-            'k-state-selected': selected,
-            'k-state-focused': focused
+            [styles['list-optionlabel']]: true,
+            [styles['state-selected']]: selected,
+            [styles['state-focused']]: focused
         });
 
         return (

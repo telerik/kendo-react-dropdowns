@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import * as util from '../Util';
 import ListItem from './ListItem';
+import classNames from 'classnames';
+import styles from '@telerik/kendo-theme-default/styles/dropdowns/main';
 
 export default class List extends React.Component {
 
@@ -76,8 +78,10 @@ export default class List extends React.Component {
 
     render() {
         return (
-            <div ref="element" className="k-list-scroller" style={{ maxHeight: this.props.height || "none" }} unselectable="on">
-                <ul className="k-list k-reset" ref="ul">{this.renderItems()}</ul>
+            <div ref="element" className={styles['list-scroller']} style={{ maxHeight: this.props.height || "none" }} unselectable="on">
+                <ul className={classNames(styles.list, styles.reset)} ref="ul">
+                    {this.renderItems()}
+                </ul>
             </div>
         );
     }

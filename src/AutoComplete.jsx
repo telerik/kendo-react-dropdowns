@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import keycode from 'keycode';
 import * as util from './Util';
 import { List, ListContainer, SearchBar } from './stateless/main';
+import styles from '@telerik/kendo-theme-default/styles/dropdowns/main';
 
 class AutoComplete extends React.Component {
 
@@ -112,9 +113,9 @@ class AutoComplete extends React.Component {
     render() {
         let autocompleteClasses = classNames({
             // [styles.button]: true,
-            'k-widget': true,
-            'k-autocomplete': true,
-            'k-header': true
+            [styles.widget]: true,
+            [styles.autocomplete]: true,
+            [styles.header]: true
         }, this.props.className);
 
         let autocompleteProps = {
