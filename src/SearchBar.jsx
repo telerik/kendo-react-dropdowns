@@ -9,7 +9,6 @@ export default class SearchBar extends React.Component {
         change: PropTypes.func,
         disabled: PropTypes.bool,
         filter: PropTypes.func,
-        handleChange: PropTypes.func,
         highlight: PropTypes.bool,
         navigate: PropTypes.func,
         placeholder: PropTypes.string,
@@ -20,8 +19,7 @@ export default class SearchBar extends React.Component {
     };
 
     static defaultProps = {
-        blur() {},
-        handleChange() {}
+        blur() {}
     };
 
     constructor(props) {
@@ -52,8 +50,6 @@ export default class SearchBar extends React.Component {
             } else {
                 //only when something is chosen from the list
                 caretSelection(this._input, this._input.value.length);
-                // console.log("call handleChange from SearchBar.componentDidUpdate")
-                // this.props.handleChange(this._input.value);
             }
         } else {
             //in every other case

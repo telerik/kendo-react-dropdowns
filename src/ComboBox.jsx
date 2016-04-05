@@ -18,15 +18,31 @@ const propTypes = {
         React.PropTypes.string,
         React.PropTypes.number
     ])),
+    dataItem: React.PropTypes.oneOfType([
+        React.PropTypes.bool,
+        React.PropTypes.object,
+        React.PropTypes.date,
+        React.PropTypes.number,
+        React.PropTypes.string
+    ]),
+    expanded: React.PropTypes.bool,
     disabled: React.PropTypes.bool,
+    focused: React.PropTypes.bool,
     itemRenderer: React.PropTypes.func,
     height: React.PropTypes.oneOfType([
         React.PropTypes.number,
         React.PropTypes.string
     ]),
+    word: React.PropTypes.string,
+    highlight: React.PropTypes.bool,
     minLength: React.PropTypes.number,
+    onBlur: React.PropTypes.func,
     onChange: React.PropTypes.func,
     onFilter: React.PropTypes.func,
+    onNavigate: React.PropTypes.func,
+    onTextUpdate: React.PropTypes.func,
+    onToggle: React.PropTypes.func,
+    onSelect: React.PropTypes.func,
     placeholder: React.PropTypes.string,
     select: React.PropTypes.func,
     separator: React.PropTypes.string,
@@ -36,11 +52,13 @@ const propTypes = {
     textField: React.PropTypes.string,
     toggle: React.PropTypes.func,
     value: React.PropTypes.oneOfType([
+        React.PropTypes.bool,
+        React.PropTypes.object,
+        React.PropTypes.date,
         React.PropTypes.number,
         React.PropTypes.string
     ]),
-    valueField: React.PropTypes.string,
-    valueUpdate: React.PropTypes.func
+    valueField: React.PropTypes.string
 };
 
 const defaultProps = {
@@ -49,49 +67,20 @@ const defaultProps = {
     ignoreCase: true,
     minLength: 0,
     onChange() {},
+    onSelect() {},
     onFilter() {}
 };
 
 class ComboBox extends React.Component {
     constructor(props) {
         super(props);
-        this._oldText = "";
-        this._oldValue = "";
-        this.state = {
-            dataItem: null,
-            expanded: false,
-            value: this.props.value || "",
-            focused: null
-        };
-    }
-
-    componentWillReceiveProps(nextProps) {
-        const { suggest, data, textField } = nextProps;
-        if (suggest && data.length) {
-            this.setState({
-                expanded: data.length > 0,
-                word: util.getter(data[0], textField),
-                highlight: true,
-                focused: itemIndex(this.text, data, textField) //filtered data focused item
-            });
-        }
-    }
-
-    handleChange = (text) => {
-        if (this._oldText === text || this._oldValue === this.state.value) {
-            return;
-        }
-
-        this._oldText = this.state.text;
-        this._oldValue = this.state.value;
-        this.props.onChange(this.state.value);
     }
 
     handleBlur = () => {
-        if (!this.state.dateItem) {
+        if (!this.props.dataItem) {
             this.selectFocused();
         }
-        this.setState({
+        this.props.onBlur({
             expanded: false
         });
     };
@@ -104,26 +93,35 @@ class ComboBox extends React.Component {
     };
 
     toggle = () => {
-        this.setState({
-            expanded: this.props.data.length ? !this.state.expanded : false
+        this.refs.searchBar._input.focus();
+        this.props.onToggle({
+            expanded: !this.props.expanded
         });
-        if (!this.props.data.length) {
-            this.handleFilter("");
-        }
     };
 
     navigate = (keyCode) => {
         const max = this.props.data.length - 1;
-        const { suggest, textField, valueField } = this.props;
+        const { suggest, textField, valueField, disabled } = this.props;
+
+        if (disabled) {
+            return;
+        }
+
+        if (!this.props.data.length) {
+            //clear filter?
+            this.props.onFilter("");
+            return;
+        }
+
         let focused;
         if (keyCode === keycode.codes.up) {
-            focused = this.state.focused ? this.state.focused - 1 : max;
+            focused = this.props.focused ? this.props.focused - 1 : max;
         } else if (keyCode === keycode.codes.down) {
-            focused = (this.state.focused !== null && this.state.focused !== max) ? this.state.focused + 1 : 0;
+            focused = (this.props.focused !== null && this.props.focused !== max) ? this.props.focused + 1 : 0;
         }
 
         const dataItem = this.props.data[focused];
-        this.setState({
+        this.props.onNavigate(keyCode, {
             text: suggest ? util.getter(dataItem, textField) : null,
             value: suggest ? util.getter(dataItem, valueField) : null,
             word: null,
@@ -136,11 +134,12 @@ class ComboBox extends React.Component {
         const index = itemIndex(text, this.props.data, this.props.textField); //unfiltered data focused item
         const dataItem = this.props.data[index];
 
-        this.text = text;
-        this.setState({
+        this.props.onTextUpdate({
             expanded: index >= 0,
+            value: null,
+            dataItem: null,
             text: text,
-            word: dataItem && this.props.suggest ? util.getter(dataItem, this.props.textField) : null,
+            word: dataItem && this.props.suggest & text.length ? util.getter(dataItem, this.props.textField) : null,
             highlight: true,
             focused: index
         });
@@ -149,7 +148,7 @@ class ComboBox extends React.Component {
     select = (dataItem, index) => {
         const value = dataItem ? util.getter(dataItem, this.props.valueField) : this.refs.searchBar._input.value;
         const text = dataItem ? util.getter(dataItem, this.props.textField) : this.refs.searchBar._input.value;
-        this.setState({
+        this.props.onSelect({
             dataItem: dataItem ? dataItem : null,
             text: text,
             value: value,
@@ -157,13 +156,11 @@ class ComboBox extends React.Component {
             focused: index,
             expanded: false,
             word: null
-        }, function() {
-            this.handleChange(value);
-        }.bind(this));
+        });
     };
 
     selectFocused = () => {
-        const focused = this.state.focused;
+        const focused = this.props.focused;
         if (focused !== null) {
             this.select(this.props.data[focused], focused);
         }
@@ -174,15 +171,14 @@ class ComboBox extends React.Component {
             blur: this.handleBlur,
             filter: this.handleFilter,
             change: this.textUpdate,
-            handleChange: this.handleChange,
             navigate: this.navigate,
             selectFocused: this.selectFocused,
             disabled: this.props.disabled,
             placeholder: this.props.placeholder,
-            value: this.state.text ? this.state.text : this.props.value || "",
+            value: this.props.text ? this.props.text : this.props.value || "",
             separator: this.props.separator || "",
-            highlight: this.state.highlight,
-            word: this.state.word
+            highlight: this.props.highlight,
+            word: this.props.word
         };
 
         const buttonClasses = classNames({
@@ -215,7 +211,7 @@ class ComboBox extends React.Component {
 
         const listProps = {
             data: this.props.data,
-            focused: this.state.focused,
+            focused: this.props.focused,
             height: "inherit",
             itemRenderer: this.props.itemRenderer,
             onClick: this.select,
@@ -233,7 +229,7 @@ class ComboBox extends React.Component {
                     <SearchBar ref="searchBar" {...searchBarProps} />
                         <Button ref="" {...buttonProps} />
                 </DropDownWrapper>
-                <ListContainer style={listContainerStyle} visible={this.state.expanded}>
+                <ListContainer style={listContainerStyle} visible={this.props.expanded}>
                     <List {...listProps} />
                 </ListContainer>
             </span>

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import ComboBox from '../src/ComboBox';
+import ComboBoxContainer from '../src/ComboBoxContainer';
 
 const data = [
     { text: "Albania", value: "Alb" },
@@ -121,12 +122,14 @@ const onChange = (e) => {
     console.log("change event triggered: ", e);
 };
 
-const itemRenderer = (text) => `${text}`;
+const itemRenderer = (item) => {
+    return item instanceof Object ? item.text : item;
+};
 
 const render = (data) => {
     ReactDOM.render(
         <div>
-            <ComboBox
+            <ComboBoxContainer
                 data={data}
                 onChange={onChange}
                 onFilter={filterData}
