@@ -173,18 +173,28 @@ describe('DropDownList list click', () => {
 
     let result;
 
-    it('should change state.dataItem when item is clicked', () => {
+    it('should fire onSelect event with dataItem when item is clicked', () => {
         const spy = jasmine.createSpy('spy');
-        result = shallow(<DropDownList data={data} onSelect={spy} textField="text" valueField="value" />);
+        const mock = function() {};
+        result = shallow(
+            <DropDownList
+                data={data}
+                onClose={mock}
+                onSelect={spy}
+                textField="text"
+                valueField="value"
+            />
+        );
         const items = result.find(List).shallow().find(ListItem);
 
         items.at(1).shallow().simulate('click');
         expect(spy).toHaveBeenCalledWith({ text: "bar", value: 2 });
     });
 
-    it('should change state.dataItem when item is clicked (primitives)', () => {
+    it('should fire onSelect event with dataItem when item is clicked (primitives)', () => {
         const spy = jasmine.createSpy('spy');
-        result = shallow(<DropDownList data={primitives} onSelect={spy} />);
+        const mock = function() {};
+        result = shallow(<DropDownList data={primitives} onClose={mock} onSelect={spy} />);
         const items = result.find(List).shallow().find(ListItem);
 
         items.at(1).shallow().simulate('click');
@@ -193,10 +203,12 @@ describe('DropDownList list click', () => {
 
     it('should NOT fire onSelect for disabled component on click', () => {
         const spy = jasmine.createSpy('spy');
+        const mock = function() {};
         result = shallow(
             <DropDownList
                 data={data}
                 disabled
+                onClose={mock}
                 onSelect={spy}
                 textField="text"
                 valueField="value"
@@ -210,7 +222,16 @@ describe('DropDownList list click', () => {
 
     it('should fire onOpen on arrow click', () => {
         const spy = jasmine.createSpy('spy');
-        result = shallow(<DropDownList data={data} onOpen={spy} textField="text" valueField="value" />);
+        const mock = function() {};
+        result = shallow(
+            <DropDownList
+                data={data}
+                onClose={mock}
+                onOpen={spy}
+                textField="text"
+                valueField="value"
+            />
+        );
         const arrow = result.find("span.k-select");
 
         arrow.simulate("click");
@@ -278,6 +299,7 @@ describe('DropDownList keyboard navigation', () => {
                 defaultItem={defaultItem}
                 disabled={disabled}
                 focused={data.indexOf(dataItem)}
+                onClose={function() { }}
                 onSelect={spy}
                 selected={data.indexOf(dataItem)}
                 textField="text"
@@ -451,6 +473,22 @@ describe('DropDownList keyboard navigation', () => {
         );
 
         result.simulate('keyDown', { keyCode: keycode.codes.up, altKey: true });
+        expect(spy).toHaveBeenCalled();
+    });
+
+    it('should fire onClose on blur', () => {
+        const spy = jasmine.createSpy('spy');
+        result = shallow(
+            <DropDownList
+                data={data}
+                expanded
+                onClose={spy}
+                textField="text"
+                valueField="value"
+            />
+        );
+
+        result.simulate('blur', {});
         expect(spy).toHaveBeenCalled();
     });
 });

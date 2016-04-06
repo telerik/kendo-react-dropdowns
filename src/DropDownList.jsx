@@ -168,13 +168,18 @@ export default class DropDownList extends React.Component {
         }
     }
 
-    selectByIndex(index) {
+    selectByIndex = (index) => {
         if (index === -1) {
             this.select(this.props.defaultItem);
         } else {
             this.select(this.props.data[this.props.defaultItem ? index - 1 : index]);
         }
-    }
+    };
+
+    selectFromList = (dataItem) => {
+        this.select(dataItem);
+        this.close();
+    };
 
     select = (dataItem) => {
         if (!this.props.disabled) {
@@ -203,6 +208,10 @@ export default class DropDownList extends React.Component {
         }
     };
 
+    onBlur = () => {
+        this.close();
+    };
+
     onKeyDown = (event) => {
         const keyCode = event.keyCode;
         const { data, defaultItem, disabled, expanded } = this.props;
@@ -229,7 +238,9 @@ export default class DropDownList extends React.Component {
 
         if (keyCode === keycode.codes.enter) {
             dataItem = (focused === -1) ? defaultItem || null : this.props.data[focused];
-            handled = true;
+            this.selectFromList(dataItem || (data[focused] || defaultItem));
+
+            return;
         }
 
         if (keyCode === keycode.codes.up || keyCode === keycode.codes.left) {
@@ -301,7 +312,7 @@ export default class DropDownList extends React.Component {
             valueField,
             height,
             itemRenderer,
-            onClick: this.select,
+            onClick: this.selectFromList,
             focused,
             selected
         };
@@ -311,7 +322,7 @@ export default class DropDownList extends React.Component {
             selected: dataItem === undefined,
             textField: textField,
             dataItem: defaultItem,
-            onClick: this.select,
+            onClick: this.selectFromList,
             renderer: itemRenderer
         };
 
@@ -333,6 +344,7 @@ export default class DropDownList extends React.Component {
         return (
             //TODO: aria attributes, title
             <span className="k-widget k-dropdown k-header"
+                onBlur={this.onBlur}
                 onKeyDown={this.onKeyDown}
                 onKeyPress={this.onKeyPress}
                 tabIndex={tabIndex}
