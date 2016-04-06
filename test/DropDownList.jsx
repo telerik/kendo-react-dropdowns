@@ -366,15 +366,6 @@ describe('DropDownList keyboard navigation', () => {
         expect(spy).toHaveBeenCalledWith(data[2]);
     });
 
-    it('should be able to focus the defaultItem (last > default)', () => {
-        const defaultItem = { text: "select...", value: null };
-        const spy = jasmine.createSpy('spy');
-        result = create(data[2], spy, defaultItem);
-
-        result.simulate('keyDown', { keyCode: keycode.codes.down });
-        expect(spy).toHaveBeenCalledWith(defaultItem);
-    });
-
     it('should be able to focus the defaultItem (first > default)', () => {
         const defaultItem = { text: "select...", value: null };
         const spy = jasmine.createSpy('spy');
@@ -403,20 +394,20 @@ describe('DropDownList keyboard navigation', () => {
         expect(spy).toHaveBeenCalledWith(defaultItem);
     });
 
-    it('should be able to move the focus from last to first', () => {
+    it('should NOT be able to move the focus from last to first', () => {
         const spy = jasmine.createSpy('spy');
         result = create(data[2], spy);
 
         result.simulate('keyDown', { keyCode: keycode.codes.down });
-        expect(spy).toHaveBeenCalledWith(data[0]);
+        expect(spy).toHaveBeenCalledWith(data[2]);
     });
 
-    it('should be able to move the focus from first to last', () => {
+    it('should NOT be able to move the focus from first to last', () => {
         const spy = jasmine.createSpy('spy');
         result = create(data[0], spy);
 
         result.simulate('keyDown', { keyCode: keycode.codes.up });
-        expect(spy).toHaveBeenCalledWith(data[2]);
+        expect(spy).toHaveBeenCalledWith(data[0]);
     });
 
     it('should NOT focus if component is disabled', () => {

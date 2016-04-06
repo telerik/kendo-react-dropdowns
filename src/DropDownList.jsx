@@ -244,12 +244,12 @@ export default class DropDownList extends React.Component {
         }
 
         if (keyCode === keycode.codes.up || keyCode === keycode.codes.left) {
-            focused = (focused !== null && focused !== min) ? focused - 1 : max;
+            focused = (focused !== null && focused !== min) ? focused - 1 : min;
             handled = true;
         }
 
         if (keyCode === keycode.codes.down || keyCode === keycode.codes.right) {
-            focused = (focused !== null && focused !== max) ? focused + 1 : min;
+            focused = (focused !== null && focused !== max) ? focused + 1 : max;
             handled = true;
         }
 
@@ -352,7 +352,7 @@ export default class DropDownList extends React.Component {
                 {...ariaAttributes}
             >
                 <DropDownWrapper disabled={disabled}>
-                    <span className="k-input" unselectable="on">
+                    <span className="k-input" onClick={this.toggle} unselectable="on">
                         {this.renderValue()}
                     </span>
                     <span className="k-select" onClick={this.toggle} unselectable="on">
