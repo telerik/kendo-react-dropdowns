@@ -10,10 +10,47 @@ const colors = [
 
 const sizes = [ 100, 150, 200, 250, 300 ];
 
+const brands = [ "Sprint", "Cross", "RAM" ];
+
+const models = [
+    { text: "HT 1", brand: "RAM", value: "ht-1" },
+    { text: "HT 2", brand: "RAM", value: "ht-2" },
+    { text: "XC Race", brand: "RAM", value: "xc-race" },
+    { text: "AM 1", brand: "RAM", value: "am-1" },
+    { text: "Apolon", brand: "Sprint", value: "apolon" },
+    { text: "Active", brand: "Sprint", value: "active" },
+    { text: "Elite FT", brand: "Sprint", value: "elite" },
+    { text: "Avalon", brand: "Cross", value: "avalon" },
+    { text: "Fusion", brand: "Cross", value: "fusion" },
+    { text: "Grip", brand: "Cross", value: "grip" }
+];
+
+const frameSizes = [ 14, 16, 18, 19, 21, 23 ];
+
 class BasicUsageExample extends React.Component {
     state = {
         color: "#00007f",
-        size: 100
+        size: 100,
+
+        brand: undefined,
+        model: undefined,
+        frameSize: undefined,
+
+        modelDisabled: true,
+        frameSizeDisabled: true
+    };
+
+    getModels = (brand) => {
+        let result = [];
+        if (brand) {
+            result = models.filter(function(item) {
+                return item.brand.toLowerCase() === brand.toLowerCase();
+            });
+        } else {
+            result = models;
+        }
+
+        return result;
     };
 
     handleColorChange = (value) => {
@@ -25,6 +62,26 @@ class BasicUsageExample extends React.Component {
     handleSizeChange = (value) => {
         this.setState({
             size: value
+        });
+    };
+
+    handleBrandChange = (value) => {
+        this.setState({
+            brand: value,
+            modelDisabled: false
+        });
+    };
+
+    handleModelChange = (value) => {
+        this.setState({
+            model: value,
+            frameSizeDisabled: false
+        });
+    };
+
+    handleFrameSizeChange = (value) => {
+        this.setState({
+            frameSize: value
         });
     };
 
@@ -42,24 +99,46 @@ class BasicUsageExample extends React.Component {
             height: this.state.size + "px"
         };
 
+        const modelsData = this.getModels(this.state.brand);
+
         return (
             <div className="example">
-                <div id="square" style={style}></div>
-                <StatefulDropDownList
-                    data={colors}
-                    onChange={this.handleColorChange}
-                    textField="text"
-                    value={this.state.color}
-                    valueField="value"
-                />
+                <div style={{ float: "left", width: "400px" }}>
+                    <div id="square" style={style}></div>
+                </div>
+                <div style={{ float: "left", width: "300px" }}>
+                    <StatefulDropDownList
+                        data={colors}
+                        onChange={this.handleColorChange}
+                        textField="text"
+                        value={this.state.color}
+                        valueField="value"
+                    />
+                    <br />
+                    <StatefulDropDownList
+                        data={sizes}
+                        onChange={this.handleSizeChange}
+                        value={this.state.size}
+                    />
+                    <br />
+                    <button className="k-button" onClick={this.reset}>Reset</button>
+                </div>
+                <hr style={{ width: "100%" }} />
                 <br />
-                <StatefulDropDownList
-                    data={sizes}
-                    onChange={this.handleSizeChange}
-                    value={this.state.size}
-                />
-                <br />
-                <button className="k-button" onClick={this.reset}>Reset</button>
+                <p>Cascading DropDowns</p>
+                <label>Brand: <StatefulDropDownList data={brands} onChange={this.handleBrandChange} value={this.state.brand} /></label>
+                <label>Model:
+                    <StatefulDropDownList
+                        data={modelsData}
+                        disabled={this.state.modelDisabled}
+                        filterable
+                        onChange={this.handleModelChange}
+                        textField="text"
+                        value={this.state.model}
+                        valueField="value"
+                    />
+                </label>
+                <label>Size: <StatefulDropDownList data={frameSizes} disabled={this.state.frameSizeDisabled} onChange={this.handleFrameSizeChange} value={this.state.frameSize} /></label>
             </div>
         );
     }
