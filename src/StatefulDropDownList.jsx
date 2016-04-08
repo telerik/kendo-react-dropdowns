@@ -23,6 +23,7 @@ export default class StatefulDropDownList extends React.Component {
         disabled: PropTypes.bool,
         filterable: PropTypes.bool,
         height: PropTypes.number,
+        highlightFirst: PropTypes.bool,
         ignoreCase: PropTypes.bool,
         index: PropTypes.number,
         itemRenderer: PropTypes.func,
@@ -36,7 +37,11 @@ export default class StatefulDropDownList extends React.Component {
         ]),
         valueField: PropTypes.string,
         valueRenderer: PropTypes.func
-    }
+    };
+
+    static defaultProps = {
+        highlightFirst: true
+    };
 
     state = {
         dataItem: null,
@@ -63,7 +68,7 @@ export default class StatefulDropDownList extends React.Component {
     onFilter = (text) => {
         this.setState({
             selected: null,
-            focused: 0
+            focused: this.props.highlightFirst ? 0 : null
         });
 
         if (this.props.onFilter) {
