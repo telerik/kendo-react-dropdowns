@@ -92,6 +92,10 @@ class BasicUsageExample extends React.Component {
         });
     }
 
+    selectChange = () => {
+        console.log("change")
+    }
+
     render() {
         const style = {
             backgroundColor: this.state.color,
@@ -139,6 +143,12 @@ class BasicUsageExample extends React.Component {
                     />
                 </label>
                 <label>Size: <StatefulDropDownList data={frameSizes} disabled={this.state.frameSizeDisabled} onChange={this.handleFrameSizeChange} value={this.state.frameSize} /></label>
+                <br />
+                <select onChange={this.selectChange}>
+                    <option value="1">Item 1</option>
+                    <option value="2">Item 2</option>
+                    <option value="3">Item 3</option>
+                </select>
             </div>
         );
     }
