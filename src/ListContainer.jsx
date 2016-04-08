@@ -17,6 +17,10 @@ export default class ListContainer extends React.Component {
         this.refs.wrapper.style.height = height;
     }
 
+    onMouseDown = (event) => {
+        event.preventDefault();
+    };
+
     render() {
         const containerClasses = classNames({
             'k-list-container': true,
@@ -28,7 +32,7 @@ export default class ListContainer extends React.Component {
         const style = { ...this.props.style, display: this.props.visible ? "block" : "none" };
 
         return (
-            <div className={containerClasses} ref="wrapper" style={style}>
+            <div className={containerClasses} onMouseDown={this.onMouseDown} ref="wrapper" style={style}>
                 {this.props.children}
             </div>
         );

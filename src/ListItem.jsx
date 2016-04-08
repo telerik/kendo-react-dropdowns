@@ -37,10 +37,6 @@ export default class ListItem extends React.Component {
         return util.getter(dataItem, textField);
     }
 
-    onMouseDown = (event) => {
-        event.preventDefault();
-    };
-
     onClick = (event) => {
         event.preventDefault();
         this.props.onClick(this.props.dataItem, this.props.index);
@@ -54,10 +50,7 @@ export default class ListItem extends React.Component {
         });
 
         return (
-            <li className={itemClasses}
-                onClick={this.onClick}
-                onMouseDown={this.onMouseDown}
-            >
+            <li className={itemClasses} onClick={this.onClick} >
                 {this.renderer()}
             </li>
         );
