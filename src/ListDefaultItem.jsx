@@ -33,7 +33,8 @@ export default class ListDefaultItem extends React.Component {
         event.preventDefault();
     };
 
-    onClick = () => {
+    onClick = (event) => {
+        event.preventDefault();
         const dataItem = this.props.dataItem;
         this.props.onClick((typeof(dataItem) === "object" ? dataItem : null));
     };

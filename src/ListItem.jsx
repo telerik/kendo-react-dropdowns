@@ -41,7 +41,8 @@ export default class ListItem extends React.Component {
         event.preventDefault();
     };
 
-    onClick = () => {
+    onClick = (event) => {
+        event.preventDefault();
         this.props.onClick(this.props.dataItem, this.props.index);
     };
 

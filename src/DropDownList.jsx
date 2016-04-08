@@ -345,6 +345,7 @@ export default class DropDownList extends React.Component {
             //TODO: aria attributes, title
             <span className="k-widget k-dropdown k-header"
                 onBlur={this.onBlur}
+                onClick={this.toggle}
                 onKeyDown={this.onKeyDown}
                 onKeyPress={this.onKeyPress}
                 tabIndex={tabIndex}
@@ -352,10 +353,10 @@ export default class DropDownList extends React.Component {
                 {...ariaAttributes}
             >
                 <DropDownWrapper disabled={disabled}>
-                    <span className="k-input" onClick={this.toggle} unselectable="on">
+                    <span className="k-input" unselectable="on">
                         {this.renderValue()}
                     </span>
-                    <span className="k-select" onClick={this.toggle} unselectable="on">
+                    <span className="k-select" unselectable="on">
                         <span className="k-icon k-i-arrow-s"></span>
                     </span>
                 </DropDownWrapper>

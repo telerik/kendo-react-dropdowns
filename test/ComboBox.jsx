@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
+import { click } from './Helpers';
 import List from '../src/List';
 import ListItem from '../src/ListItem';
 import ComboBox from '../src/ComboBox';
@@ -56,7 +57,7 @@ describe('ComboBox', () => {
 
         expect(result.state('dataItem')).toEqual(null);
         expect(result.state('value')).toEqual('');
-        items.at(1).shallow().simulate('click');
+        click(items.at(1).shallow());
         expect(result.state('dataItem')).toEqual(data[1]);
         expect(result.state('value')).toEqual(data[1].value);
     });
@@ -67,7 +68,7 @@ describe('ComboBox', () => {
 
         expect(result.state('dataItem')).toEqual(null);
         expect(result.state('value')).toEqual('');
-        items.at(1).shallow().simulate('click');
+        click(items.at(1).shallow());
         expect(result.state('dataItem')).toEqual(primitives[1]);
         expect(result.state('value')).toEqual(primitives[1]);
     });
@@ -77,7 +78,7 @@ describe('ComboBox', () => {
         result = shallow(<ComboBoxContainer data={data} onChange={spy} textField="text" valueField="value" />);
         const items = result.find(ComboBox).shallow().find(List).shallow().find(ListItem);
 
-        items.at(3).shallow().simulate('click');
+        click(items.at(3).shallow());
         expect(spy).toHaveBeenCalledWith(data[3].value);
     });
 
@@ -86,7 +87,7 @@ describe('ComboBox', () => {
         result = shallow(<ComboBoxContainer data={primitives} onChange={spy} />);
         const items = result.find(ComboBox).shallow().find(List).shallow().find(ListItem);
 
-        items.at(2).shallow().simulate('click');
+        click(items.at(2).shallow());
         expect(spy).toHaveBeenCalledWith(primitives[2]);
     });
 });

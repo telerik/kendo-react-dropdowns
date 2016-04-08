@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
+import { click } from './Helpers';
 import ListItem from '../src/ListItem';
 
 describe('ListItem', () => {
@@ -41,7 +42,7 @@ describe('ListItem', () => {
         const spy = jasmine.createSpy('spy');
         const index = 1;
         result = shallow(<ListItem dataItem={dataItem} onClick={spy} index={index}/>);
-        result.simulate('click');
+        click(result);
         expect(spy).toHaveBeenCalledWith({ text: 'foo', value: 1 }, index);
     });
 });

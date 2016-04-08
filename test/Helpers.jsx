@@ -1,3 +1,7 @@
+function click(shallowWrapper, args) {
+    shallowWrapper.simulate('click', { preventDefault: function() {}, ...args });
+}
+
 function keyPress(shallowWrapper, key) {
     let charCode, keyCode;
     charCode = keyCode = String(key).charCodeAt(0);
@@ -9,6 +13,7 @@ function lastCallArgs(spy) {
 }
 
 export {
+    click,
     keyPress,
     lastCallArgs
 };

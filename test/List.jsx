@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
+import { click } from './Helpers';
 import ListItem from '../src/ListItem';
 import List from '../src/List';
 
@@ -49,10 +50,10 @@ describe('List', () => {
         result = shallow(<List data={data} onClick={spy} textField="text" valueField="value" />);
         const items = result.find(ListItem);
 
-        items.at(0).shallow().simulate('click');
+        click(items.at(0).shallow());
         expect(spy).toHaveBeenCalledWith({ text: 'foo', value: 1 }, 0);
 
-        items.at(1).shallow().simulate('click');
+        click(items.at(1).shallow());
         expect(spy).toHaveBeenCalledWith({ text: 'bar', value: 2 }, 1);
     });
 
@@ -61,10 +62,10 @@ describe('List', () => {
         result = shallow(<List data={primitives} onClick={spy} />);
         const items = result.find(ListItem);
 
-        items.at(0).shallow().simulate('click');
+        click(items.at(0).shallow());
         expect(spy).toHaveBeenCalledWith("foo", 0);
 
-        items.at(1).shallow().simulate('click');
+        click(items.at(1).shallow());
         expect(spy).toHaveBeenCalledWith("bar", 1);
     });
 });

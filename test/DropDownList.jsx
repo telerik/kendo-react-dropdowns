@@ -2,7 +2,7 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import keycode from 'keycode';
 
-import { keyPress, lastCallArgs } from './Helpers';
+import { click, keyPress, lastCallArgs } from './Helpers';
 
 import List from '../src/List';
 import ListItem from '../src/ListItem';
@@ -187,7 +187,7 @@ describe('DropDownList list click', () => {
         );
         const items = result.find(List).shallow().find(ListItem);
 
-        items.at(1).shallow().simulate('click');
+        click(items.at(1).shallow());
         expect(spy).toHaveBeenCalledWith({ text: "bar", value: 2 });
     });
 
@@ -197,7 +197,7 @@ describe('DropDownList list click', () => {
         result = shallow(<DropDownList data={primitives} onClose={mock} onSelect={spy} />);
         const items = result.find(List).shallow().find(ListItem);
 
-        items.at(1).shallow().simulate('click');
+        click(items.at(1).shallow());
         expect(spy).toHaveBeenCalledWith("bar");
     });
 
@@ -216,11 +216,11 @@ describe('DropDownList list click', () => {
         );
         const items = result.find(List).shallow().find(ListItem);
 
-        items.at(1).shallow().simulate('click');
+        click(items.at(1).shallow());
         expect(spy).not.toHaveBeenCalled();
     });
 
-    it('should fire onOpen on arrow click', () => {
+    it('should fire onOpen on DropDownList click', () => {
         const spy = jasmine.createSpy('spy');
         const mock = function() {};
         result = shallow(
@@ -232,13 +232,12 @@ describe('DropDownList list click', () => {
                 valueField="value"
             />
         );
-        const arrow = result.find("span.k-select");
 
-        arrow.simulate("click");
+        click(result);
         expect(spy).toHaveBeenCalled();
     });
 
-    it('should NOT fire onOpen for disabled component on arrow click', () => {
+    it('should NOT fire onOpen for disabled component on DropDownList click', () => {
         const spy = jasmine.createSpy('spy');
         result = shallow(
             <DropDownList
@@ -249,22 +248,20 @@ describe('DropDownList list click', () => {
                 valueField="value"
             />
         );
-        const arrow = result.find("span.k-select");
 
-        arrow.simulate("click");
+        click(result);
         expect(spy).not.toHaveBeenCalled();
     });
 
-    it('should NOT fire onOpen on arrow click when the list has no data and no defaultItem', () => {
+    it('should NOT fire onOpen on DropDownList click when the list has no data and no defaultItem', () => {
         const spy = jasmine.createSpy('spy');
         result = shallow(<DropDownList data={[]} onOpen={spy} textField="text" valueField="value" />);
-        const arrow = result.find("span.k-select");
 
-        arrow.simulate("click");
+        click(result);
         expect(spy).not.toHaveBeenCalled();
     });
 
-    it('should fire onOpen on arrow click when the list has no data but is filterable', () => {
+    it('should fire onOpen on DropDownList click when the list has no data but is filterable', () => {
         const spy = jasmine.createSpy('spy');
         result = shallow(
             <DropDownList
@@ -275,9 +272,8 @@ describe('DropDownList list click', () => {
                 valueField="value"
             />
         );
-        const arrow = result.find("span.k-select");
 
-        arrow.simulate("click");
+        click(result);
         expect(spy).toHaveBeenCalled();
     });
 });
@@ -919,7 +915,7 @@ describe('DropDownList change event', () => {
         result = shallow(<StatefulDropDownList data={primitives} onChange={spy} />);
         const items = result.find(DropDownList).shallow().find(List).shallow().find(ListItem);
 
-        items.at(1).shallow().simulate('click');
+        click(items.at(1).shallow());
         expect(spy).toHaveBeenCalledWith("bar");
     });
 
@@ -937,7 +933,7 @@ describe('DropDownList change event', () => {
         );
         const defaultItem = result.find(DropDownList).shallow().find(ListDefaultItem).shallow();
 
-        defaultItem.simulate('click');
+        click(defaultItem);
         expect(spy).toHaveBeenCalledWith(null);
     });
 
@@ -947,7 +943,7 @@ describe('DropDownList change event', () => {
         result = shallow(<StatefulDropDownList data={primitives} defaultItem="select..." onChange={spy} />);
         const defaultItem = result.find(DropDownList).shallow().find(ListDefaultItem).shallow();
 
-        defaultItem.simulate('click');
+        click(defaultItem);
         expect(spy).toHaveBeenCalledWith(null);
     });
 
