@@ -120,20 +120,20 @@ describe('StatefulDropDownList event handlers', () => {
 
     //TODO: test change event
 
-    it('should change state.expanded onOpen', () => {
+    it('should change state.show onOpen', () => {
         result = shallow(<StatefulDropDownList data={data} textField="text" valueField="value" />);
         const dropDownList = result.find(DropDownList);
 
         dropDownList.prop('onOpen')();
-        expect(result.state('expanded')).toEqual(true);
+        expect(result.state('show')).toEqual(true);
     });
 
-    it('should change state.expanded onClose', () => {
+    it('should change state.show onClose', () => {
         result = shallow(<StatefulDropDownList data={data} textField="text" valueField="value" />);
         const dropDownList = result.find(DropDownList);
 
         dropDownList.prop('onClose')();
-        expect(result.state('expanded')).toEqual(false);
+        expect(result.state('show')).toEqual(false);
     });
 
     it('should reset selected item onFilter', () => {
@@ -436,8 +436,8 @@ describe('DropDownList keyboard navigation', () => {
         result = shallow(
             <DropDownList
                 data={data}
-                expanded
                 onOpen={spy}
+                show
                 textField="text"
                 valueField="value"
             />
@@ -452,8 +452,8 @@ describe('DropDownList keyboard navigation', () => {
         result = shallow(
             <DropDownList
                 data={data}
-                expanded
                 onClose={spy}
+                show
                 textField="text"
                 valueField="value"
             />
@@ -468,7 +468,7 @@ describe('DropDownList keyboard navigation', () => {
         result = shallow(
             <DropDownList
                 data={data}
-                expanded
+                show
                 onClose={spy}
                 textField="text"
                 valueField="value"

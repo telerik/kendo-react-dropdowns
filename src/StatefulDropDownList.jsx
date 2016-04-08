@@ -42,7 +42,7 @@ export default class StatefulDropDownList extends React.Component {
         dataItem: null,
         selected: null,
         focused: null,
-        expanded: false
+        show: false
     };
 
     componentWillMount() {
@@ -88,11 +88,11 @@ export default class StatefulDropDownList extends React.Component {
     };
 
     onOpen = () => {
-        this.setState({ expanded: true });
+        this.setState({ show: true });
     };
 
     onClose = () => {
-        this.setState({ expanded: false });
+        this.setState({ show: false });
     };
 
     render() {

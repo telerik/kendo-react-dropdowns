@@ -32,7 +32,6 @@ export default class DropDownList extends React.Component {
         },
         delay: PropTypes.number,
         disabled: PropTypes.bool,
-        expanded: PropTypes.bool,
         filterable: PropTypes.bool,
         focused: PropTypes.number,
         height: PropTypes.number,
@@ -43,6 +42,7 @@ export default class DropDownList extends React.Component {
         onOpen: PropTypes.func,
         onSelect: PropTypes.func,
         selected: PropTypes.number,
+        show: PropTypes.bool,
         tabIndex: PropTypes.number,
         textField: PropTypes.string,
         valueField: PropTypes.string,
@@ -102,7 +102,7 @@ export default class DropDownList extends React.Component {
             return "";
         }
 
-        return (typeof(valueRenderer) === "function") ? valueRenderer(dataItem) : value;
+        return valueRenderer ? valueRenderer(dataItem) : value;
     }
 
     listFilterChange = (text) => {
@@ -204,7 +204,7 @@ export default class DropDownList extends React.Component {
 
     toggle = () => {
         if (!this.props.disabled) {
-            this.props.expanded ? this.close() : this.open();
+            this.props.show ? this.close() : this.open();
         }
     };
 
@@ -214,7 +214,7 @@ export default class DropDownList extends React.Component {
 
     onKeyDown = (event) => {
         const keyCode = event.keyCode;
-        const { data, defaultItem, disabled, expanded } = this.props;
+        const { data, defaultItem, disabled, show } = this.props;
         const max = data.length - 1;
         const min = this.props.defaultItem ? -1 : 0;
         let focused = this.props.focused;
@@ -223,14 +223,14 @@ export default class DropDownList extends React.Component {
         if (disabled) { return; }
 
         if (event.altKey && keyCode === keycode.codes.down) {
-            if (!expanded) {
+            if (!show) {
                 this.open();
             }
             return;
         }
 
         if (event.altKey && keyCode === keycode.codes.up) {
-            if (expanded) {
+            if (show) {
                 this.close();
             }
             return;
@@ -302,7 +302,7 @@ export default class DropDownList extends React.Component {
             filterable,
             selected,
             focused,
-            expanded,
+            show,
             tabIndex
         } = this.props;
 
@@ -333,10 +333,9 @@ export default class DropDownList extends React.Component {
         const ariaAttributes = {
             'role': 'listbox',
             'aria-haspopup': true,
-            'aria-expanded': false, //TODO: has to change when popup is toggled
+            'aria-show': false, //TODO: has to change when popup is toggled
             'aria-owns': "", //TODO: check if this is required, in react the popup will be placed in the widget container
             'aria-disabled': false, //TODO: has to change when the widget is enabled/disabled
-            'aria-readonly': false, //TODO: check if this is required
             'aria-busy': false,
             'aria-activedescendant': "" //TODO: check if this is required
         };
@@ -360,7 +359,7 @@ export default class DropDownList extends React.Component {
                         <span className="k-icon k-i-arrow-s"></span>
                     </span>
                 </DropDownWrapper>
-                <ListContainer ref={this.getListContainer} visible={expanded}>
+                <ListContainer ref={this.getListContainer} visible={show}>
                     {filterable && <ListFilter {...listFilterProps} />}
                     {defaultItem && <ListDefaultItem {...defaultItemProps} />}
                     <List {...listProps} ref={this.getList} />

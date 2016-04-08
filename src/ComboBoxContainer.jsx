@@ -41,7 +41,7 @@ export default class ComboBoxContainer extends React.Component {
         this.state = {
             dataItem: null,
             highlight: null,
-            expanded: false,
+            show: false,
             value: this.props.value || "",
             focused: null,
             text: null,
@@ -53,7 +53,7 @@ export default class ComboBoxContainer extends React.Component {
         const { suggest, data, textField } = nextProps;
         if (suggest && data.length) {
             this.setState({
-                expanded: data.length > 0,
+                show: data.length > 0,
                 word: getter(data[0], textField),
                 highlight: true,
                 focused: itemIndex(this.text, data, textField) //filtered data focused item
@@ -108,7 +108,7 @@ export default class ComboBoxContainer extends React.Component {
             value: this.state.value,
             highlight: this.state.highlight,
             focused: this.state.focused,
-            expanded: this.state.expanded,
+            show: this.state.show,
             word: this.state.word,
             //from props
             suggest: this.props.suggest,

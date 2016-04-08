@@ -25,7 +25,7 @@ const propTypes = {
         React.PropTypes.number,
         React.PropTypes.string
     ]),
-    expanded: React.PropTypes.bool,
+    show: React.PropTypes.bool,
     disabled: React.PropTypes.bool,
     focused: React.PropTypes.bool,
     itemRenderer: React.PropTypes.func,
@@ -81,7 +81,7 @@ class ComboBox extends React.Component {
             this.selectFocused();
         }
         this.props.onBlur({
-            expanded: false
+            show: false
         });
     };
 
@@ -95,7 +95,7 @@ class ComboBox extends React.Component {
     toggle = () => {
         this.refs.searchBar._input.focus();
         this.props.onToggle({
-            expanded: !this.props.expanded
+            show: !this.props.show
         });
     };
 
@@ -135,7 +135,7 @@ class ComboBox extends React.Component {
         const dataItem = this.props.data[index];
 
         this.props.onTextUpdate({
-            expanded: index >= 0,
+            show: index >= 0,
             value: null,
             dataItem: null,
             text: text,
@@ -154,7 +154,7 @@ class ComboBox extends React.Component {
             value: value,
             highlight: false,
             focused: index,
-            expanded: false,
+            show: false,
             word: null
         });
     };
@@ -229,7 +229,7 @@ class ComboBox extends React.Component {
                     <SearchBar ref="searchBar" {...searchBarProps} />
                         <Button ref="" {...buttonProps} />
                 </DropDownWrapper>
-                <ListContainer style={listContainerStyle} visible={this.props.expanded}>
+                <ListContainer style={listContainerStyle} visible={this.props.show}>
                     <List {...listProps} />
                 </ListContainer>
             </span>

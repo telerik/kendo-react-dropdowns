@@ -54,7 +54,7 @@ defaultItem: function(props, propName, componentName) {
 
 delay: PropTypes.number,
 disabled: PropTypes.bool,
-expanded: PropTypes.bool,
+show: PropTypes.bool,
 filterable: PropTypes.bool,
 focused: PropTypes.number,
 height: PropTypes.number,
