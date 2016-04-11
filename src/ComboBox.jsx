@@ -27,7 +27,7 @@ const propTypes = {
     ]),
     show: React.PropTypes.bool,
     disabled: React.PropTypes.bool,
-    focused: React.PropTypes.bool,
+    focused: React.PropTypes.number,
     itemRenderer: React.PropTypes.func,
     height: React.PropTypes.oneOfType([
         React.PropTypes.number,
@@ -52,9 +52,6 @@ const propTypes = {
     textField: React.PropTypes.string,
     toggle: React.PropTypes.func,
     value: React.PropTypes.oneOfType([
-        React.PropTypes.bool,
-        React.PropTypes.object,
-        React.PropTypes.date,
         React.PropTypes.number,
         React.PropTypes.string
     ]),

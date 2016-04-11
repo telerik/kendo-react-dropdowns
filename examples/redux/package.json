@@ -1,0 +1,16 @@
+{
+  "name": "kendo-react-dropdowns-demo",
+  "version": "0.1.0",
+  "description": "Kendo UI React dropdowns Redux demo",
+  "dependencies": {
+    "react": "~0.14.3",
+    "react-dom": "~0.14.3",
+    "react-addons-update": "~0.14.3",
+    "redux": "^3.3.1",
+    "react-redux": "^4.4.1",
+    "redux-devtools": "^3.2.0"
+  },
+  "author": "Telerik",
+  "license": "Apache-2.0"
+
+}

@@ -22,13 +22,14 @@
   },
   "devDependencies": {
     "@telerik/eslint-config": "1.1.0",
+    "@telerik/kendo-react-tasks": "~1.0.0",
+    "@telerik/kendo-theme-default": "telerik/kendo-theme-default#master",
     "cz-conventional-changelog": "^1.1.5",
     "ghooks": "^1.0.3",
     "gulp": "3.9.0",
-    "@telerik/kendo-react-tasks": "~1.0.0",
-    "@telerik/kendo-theme-default": "telerik/kendo-theme-default#master",
-    "validate-commit-msg": "^1.1.1",
-    "semantic-release": "^4.3.5"
+    "redux-devtools": "^3.2.0",
+    "semantic-release": "^4.3.5",
+    "validate-commit-msg": "^1.1.1"
   },
   "author": "Telerik",
   "license": "Apache-2.0",

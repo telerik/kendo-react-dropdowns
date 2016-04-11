@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import ComboBox from '../src/ComboBox';
-import ComboBoxContainer from '../src/ComboBoxContainer';
+import StatefulComboBox from '../src/StatefulComboBox';
 
 const data = [
     { text: "Albania", value: "Alb" },
@@ -129,7 +129,7 @@ const itemRenderer = (item) => {
 const render = (data) => {
     ReactDOM.render(
         <div>
-            <ComboBoxContainer
+            <StatefulComboBox
                 data={data}
                 onChange={onChange}
                 onFilter={filterData}

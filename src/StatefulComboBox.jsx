@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import ComboBox from './ComboBox';
 import { itemIndex, getter } from './Util';
 
-export default class ComboBoxContainer extends React.Component {
+export default class StatefulComboBox extends React.Component {
 
     static propTypes = {
         children: PropTypes.node,
@@ -51,6 +51,7 @@ export default class ComboBoxContainer extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         const { suggest, data, textField } = nextProps;
+        // debugger
         if (suggest && data.length) {
             this.setState({
                 show: data.length > 0,
@@ -97,7 +98,6 @@ export default class ComboBoxContainer extends React.Component {
             this.handleFilter("");
         }
         this.setState(state);
-
     }
 
     render() {
