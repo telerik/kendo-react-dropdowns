@@ -4,7 +4,7 @@ import { click } from './Helpers';
 import List from '../src/List';
 import ListItem from '../src/ListItem';
 import ComboBox from '../src/ComboBox';
-import ComboBoxContainer from '../src/ComboBoxContainer';
+import StatefulComboBox from '../src/StatefulComboBox';
 import SearchBar from '../src/SearchBar';
 import ListContainer from '../src/ListContainer';
 
@@ -52,7 +52,7 @@ describe('ComboBox', () => {
     });
 
     it('should update state when item is selected from List', () => {
-        result = shallow(<ComboBoxContainer data={data} textField="text" valueField="value" />);
+        result = shallow(<StatefulComboBox data={data} textField="text" valueField="value" />);
         const items = result.find(ComboBox).shallow().find(List).shallow().find(ListItem);
 
         expect(result.state('dataItem')).toEqual(null);
@@ -63,7 +63,7 @@ describe('ComboBox', () => {
     });
 
     it('should update state when item is selected from List (primitives)', () => {
-        result = shallow(<ComboBoxContainer data={primitives} />);
+        result = shallow(<StatefulComboBox data={primitives} />);
         const items = result.find(ComboBox).shallow().find(List).shallow().find(ListItem);
 
         expect(result.state('dataItem')).toEqual(null);
@@ -75,7 +75,7 @@ describe('ComboBox', () => {
 
     it('should fire change event when item selected from the list', () => {
         const spy = jasmine.createSpy('spy');
-        result = shallow(<ComboBoxContainer data={data} onChange={spy} textField="text" valueField="value" />);
+        result = shallow(<StatefulComboBox data={data} onChange={spy} textField="text" valueField="value" />);
         const items = result.find(ComboBox).shallow().find(List).shallow().find(ListItem);
 
         click(items.at(3).shallow());
@@ -84,7 +84,7 @@ describe('ComboBox', () => {
 
     it('should fire change event when item selected from the list (primitives)', () => {
         const spy = jasmine.createSpy('spy');
-        result = shallow(<ComboBoxContainer data={primitives} onChange={spy} />);
+        result = shallow(<StatefulComboBox data={primitives} onChange={spy} />);
         const items = result.find(ComboBox).shallow().find(List).shallow().find(ListItem);
 
         click(items.at(2).shallow());
