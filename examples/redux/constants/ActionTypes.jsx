@@ -1,4 +1,5 @@
 const constants = {
+    INIT: "@@INIT",
     CHANGE: "CHANGE",
     SELECT: "SELECT",
     FILTER: "FILTER",

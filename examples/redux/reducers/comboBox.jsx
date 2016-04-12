@@ -19,6 +19,8 @@ export function getData(state, action) {
     switch (action.type) {
         case ACTIONS.FILTER:
             return filterData(action.query, initialState().complexItems);
+        case ACTIONS.CHANGE:
+            return state;
     }
     return initialState().complexItems;
 }

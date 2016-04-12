@@ -1,5 +1,5 @@
-export function onChange(data) {
-    return { type: "CHANGE", value: data };
+export function onChange(value) {
+    return { type: "CHANGE", value: value };
 }
 
 export function onFilter(data) {

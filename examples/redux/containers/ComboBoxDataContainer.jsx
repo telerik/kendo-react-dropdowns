@@ -15,7 +15,7 @@ const propTypes = {
 export class ComboBoxContainer extends React.Component {
     render() {
         return (
-            <ComboBoxContainer {...this.props} />
+            <StatefulComboBox {...this.props} />
         );
     }
 }
@@ -35,4 +35,4 @@ const mapDispatchToProps = function(dispatch) {
     };
 };
 
-export const ComboBoxDataContainer = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(StatefulComboBox);
+export const ComboBoxDataContainer = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(ComboBoxContainer);
