@@ -5,6 +5,7 @@ import DropDownList from './DropDownList';
 export default class StatefulDropDownList extends React.Component {
 
     static propTypes = {
+        className: PropTypes.string,
         data: PropTypes.arrayOf(PropTypes.oneOfType([
             PropTypes.object,
             PropTypes.string,
@@ -29,6 +30,7 @@ export default class StatefulDropDownList extends React.Component {
         itemRenderer: PropTypes.func,
         onChange: PropTypes.func,
         onFilter: PropTypes.func,
+        style: PropTypes.object, // eslint-disable-line
         tabIndex: PropTypes.number,
         textField: PropTypes.string,
         value: PropTypes.oneOfType([
@@ -102,6 +104,7 @@ export default class StatefulDropDownList extends React.Component {
 
     render() {
         const {
+            className,
             data,
             defaultItem,
             delay,
@@ -111,6 +114,7 @@ export default class StatefulDropDownList extends React.Component {
             ignoreCase,
             index,
             itemRenderer,
+            style,
             tabIndex,
             textField,
             valueField,
@@ -118,6 +122,7 @@ export default class StatefulDropDownList extends React.Component {
         } = this.props;
 
         const dropDownListProps = {
+            className,
             data,
             defaultItem,
             delay,
@@ -127,6 +132,7 @@ export default class StatefulDropDownList extends React.Component {
             ignoreCase,
             index,
             itemRenderer,
+            style,
             tabIndex,
             textField,
             valueField,

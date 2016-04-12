@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import keycode from 'keycode';
+import classNames from 'classnames';
 import * as util from './Util';
 import List from './List';
 import ListContainer from './ListContainer';
@@ -11,6 +12,7 @@ import DropDownWrapper from './DropDownWrapper';
 export default class DropDownList extends React.Component {
 
     static propTypes = {
+        className: PropTypes.string,
         data: PropTypes.arrayOf(PropTypes.oneOfType([
             PropTypes.object,
             PropTypes.string,
@@ -43,6 +45,7 @@ export default class DropDownList extends React.Component {
         onSelect: PropTypes.func,
         selected: PropTypes.number,
         show: PropTypes.bool,
+        style: PropTypes.object, // eslint-disable-line
         tabIndex: PropTypes.number,
         textField: PropTypes.string,
         valueField: PropTypes.string,
@@ -303,6 +306,7 @@ export default class DropDownList extends React.Component {
             selected,
             focused,
             show,
+            style,
             tabIndex
         } = this.props;
 
@@ -330,6 +334,12 @@ export default class DropDownList extends React.Component {
             onChange: this.listFilterChange
         };
 
+        const wrapperClasses = classNames({
+            'k-widget': true,
+            'k-dropdown': true,
+            'k-header': true
+        }, this.props.className);
+
         const ariaAttributes = {
             'role': 'listbox',
             'aria-haspopup': true,
@@ -342,11 +352,12 @@ export default class DropDownList extends React.Component {
 
         return (
             //TODO: aria attributes, title
-            <span className="k-widget k-dropdown k-header"
+            <span className={wrapperClasses}
                 onBlur={this.onBlur}
                 onClick={this.toggle}
                 onKeyDown={this.onKeyDown}
                 onKeyPress={this.onKeyPress}
+                style={style}
                 tabIndex={tabIndex}
                 unselectable="on"
                 {...ariaAttributes}

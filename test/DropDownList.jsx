@@ -82,6 +82,11 @@ describe('StatefulDropDownList initialization', () => {
         expect(result.state('focused')).toEqual(-1);
         expect(result.state('selected')).toEqual(-1);
     });
+
+    it('should accept className', () => {
+        result = shallow(<StatefulDropDownList className="foo" data={data} textField="text" valueField="value" />);
+        expect(result.find(DropDownList).hasClass('foo')).toEqual(true);
+    });
 });
 
 describe('StatefulDropDownList event handlers', () => {
@@ -468,8 +473,8 @@ describe('DropDownList keyboard navigation', () => {
         result = shallow(
             <DropDownList
                 data={data}
-                show
                 onClose={spy}
+                show
                 textField="text"
                 valueField="value"
             />
