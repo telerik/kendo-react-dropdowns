@@ -74,7 +74,7 @@ class ComboBox extends React.Component {
     }
 
     handleBlur = () => {
-        if (!this.props.dataItem) {
+        if (!this.props.dataItem && this.props.text) {
             this.selectFocused();
         }
         this.props.onBlur({
@@ -92,7 +92,8 @@ class ComboBox extends React.Component {
     toggle = () => {
         this.refs.searchBar._input.focus();
         this.props.onToggle({
-            show: !this.props.show
+            show: !this.props.show,
+            focused: this.props.focused ? this.props.focused : 0
         });
     };
 

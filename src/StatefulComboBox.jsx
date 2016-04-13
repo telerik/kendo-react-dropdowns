@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import ComboBox from './ComboBox';
-import { itemIndex, getter } from './Util';
+import { itemIndex } from './Util';
 
 export default class StatefulComboBox extends React.Component {
 
@@ -11,12 +11,15 @@ export default class StatefulComboBox extends React.Component {
             React.PropTypes.string,
             React.PropTypes.number
         ])),
+        highlight: React.PropTypes.bool,
         itemRenderer: React.PropTypes.func,
         onChange: React.PropTypes.func,
         onFilter: React.PropTypes.func,
         placeholder: React.PropTypes.string,
+        show: React.PropTypes.bool,
         style: PropTypes.object, // eslint-disable-line
         suggest: React.PropTypes.bool,
+        text: React.PropTypes.string,
         textField: React.PropTypes.string,
         value: React.PropTypes.oneOfType([
             React.PropTypes.bool,
@@ -51,11 +54,9 @@ export default class StatefulComboBox extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         const { suggest, data, textField } = nextProps;
-        // debugger
         if (suggest && data.length) {
             this.setState({
                 show: data.length > 0,
-                word: getter(data[0], textField),
                 highlight: true,
                 focused: itemIndex(this.text, data, textField) //filtered data focused item
             });
