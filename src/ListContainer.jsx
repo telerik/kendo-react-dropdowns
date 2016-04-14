@@ -1,12 +1,14 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
+import Popup from '@telerik/kendo-react-popup';
 
 export default class ListContainer extends React.Component {
 
     static propTypes = {
+        anchor: PropTypes.object, // eslint-disable-line
         children: PropTypes.node,
-        style: PropTypes.object, // eslint-disable-line
-        visible: PropTypes.bool
+        show: PropTypes.bool,
+        style: PropTypes.object // eslint-disable-line
     };
 
     constructor(props) {
@@ -29,12 +31,20 @@ export default class ListContainer extends React.Component {
             'k-reset': true
         });
 
-        const style = { ...this.props.style, display: this.props.visible ? "block" : "none" };
+        const style = { ...this.props.style };
+
+        const popupProps = {
+            anchor: this.props.anchor,
+            show: this.props.show
+        };
 
         return (
-            <div className={containerClasses} onMouseDown={this.onMouseDown} ref="wrapper" style={style}>
-                {this.props.children}
-            </div>
+            <Popup {...popupProps} >
+                <div className={containerClasses} onMouseDown={this.onMouseDown} ref="wrapper" style={style}>
+                    {this.props.children}
+                </div>
+            </Popup>
+
         );
     }
 }

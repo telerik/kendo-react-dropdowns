@@ -127,8 +127,9 @@ export default class StatefulComboBox extends React.Component {
             onToggle: this.handleToggle,
             onNavigate: this.handleNavigate
         };
+
         return (
-            <div>
+            <div >
                 <ComboBox {...comboBoxProps} />
             </div>
         );

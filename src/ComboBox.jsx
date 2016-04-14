@@ -221,13 +221,19 @@ class ComboBox extends React.Component {
             height: this.props.height
         };
 
+        const listContainerProps = {
+            style: listContainerStyle,
+            anchor: this.refs.anchor,
+            show: this.props.show
+        };
+
         return (
-            <span {...comboBoxProps}>
+            <span ref="anchor" {...comboBoxProps}>
                 <DropDownWrapper>
                     <SearchBar ref="searchBar" {...searchBarProps} />
                         <Button ref="" {...buttonProps} />
                 </DropDownWrapper>
-                <ListContainer style={listContainerStyle} visible={this.props.show}>
+                <ListContainer {...listContainerProps}>
                     <List {...listProps} />
                 </ListContainer>
             </span>
