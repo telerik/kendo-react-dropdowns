@@ -86,11 +86,15 @@ export default class DropDownList extends React.Component {
     }
 
     getList = (list) => {
-        this.listWrapper = list.refs.wrapper;
+        if (list) {
+            this.listWrapper = list.refs.wrapper;
+        }
     }
 
     getListContainer = (container) => {
-        this.listContainer = container.refs.wrapper;
+        if (container) {
+            this.listContainer = container.refs.wrapper;
+        }
     }
 
     renderValue() {
@@ -343,25 +347,31 @@ export default class DropDownList extends React.Component {
         const ariaAttributes = {
             'role': 'listbox',
             'aria-haspopup': true,
-            'aria-show': false, //TODO: has to change when popup is toggled
+            'aria-show': show,
             'aria-owns': "", //TODO: check if this is required, in react the popup will be placed in the widget container
-            'aria-disabled': false, //TODO: has to change when the widget is enabled/disabled
-            'aria-busy': false,
+            'aria-disabled': disabled,
             'aria-activedescendant': "" //TODO: check if this is required
+        };
+
+        const dropDownListProps = {
+            className: wrapperClasses,
+            onBlur: this.onBlur,
+            onClick: this.toggle,
+            onKeyDown: this.onKeyDown,
+            onKeyPress: this.onKeyPress,
+            style: style,
+            tabIndex: tabIndex,
+            ...ariaAttributes
+        };
+
+        const listContainerProps = {
+            anchor: this.refs.anchor,
+            show: show
         };
 
         return (
             //TODO: aria attributes, title
-            <span className={wrapperClasses}
-                onBlur={this.onBlur}
-                onClick={this.toggle}
-                onKeyDown={this.onKeyDown}
-                onKeyPress={this.onKeyPress}
-                style={style}
-                tabIndex={tabIndex}
-                unselectable="on"
-                {...ariaAttributes}
-            >
+            <span {...dropDownListProps} ref="anchor" unselectable="on">
                 <DropDownWrapper disabled={disabled}>
                     <span className="k-input" unselectable="on">
                         {this.renderValue()}
@@ -370,7 +380,7 @@ export default class DropDownList extends React.Component {
                         <span className="k-icon k-i-arrow-s"></span>
                     </span>
                 </DropDownWrapper>
-                <ListContainer ref={this.getListContainer} visible={show}>
+                <ListContainer {...listContainerProps} ref={this.getListContainer}>
                     {filterable && <ListFilter {...listFilterProps} />}
                     {defaultItem && <ListDefaultItem {...defaultItemProps} />}
                     <List {...listProps} ref={this.getList} />
