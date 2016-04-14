@@ -41,7 +41,7 @@ The example below demonstrates the default setup of a Kendo UI AutoComplete for 
 
 The AutoComplete allows you to disable it by setting the [`disabled`]() configuration property to `true`. When diabled, the component is visible, but is does not function. 
 
-By default, `disabled` is set to `true`.
+By default, `disabled` is set to `false`.
 
 ```html
 
@@ -97,29 +97,77 @@ tabIndex: React.PropTypes.number
 
 ### Values
 
-value: PropTypes.string,
-valueField: PropTypes.string,
+value: PropTypes.string
+
+```html
+
+```
+```jsx
+
+```
+
+valueField: PropTypes.string
+
+```html
+
+```
+```jsx
+
+```
+
 valueRenderer: PropTypes.func
-itemRenderer: PropTypes.func,
+
+```html
+
+```
+```jsx
+
+```
+
+itemRenderer: PropTypes.func
+
+```html
+
+```
+```jsx
+
+```
 
 ### State
 
-onChange: PropTypes.func,
-onFilter: PropTypes.func,
+The AutoComplete is designed as a stateless component. To store its state and configuration properties, wrap it in a high-order component.
 
-For detailed information on the Kendo UI AutoComplete for React configuration, refer to its [client-side API documentation](https://github.com/telerik/kendo-react-dropdowns/blob/master/docs/autocomplete/api.md).
+The [`onChange`]({% slug api_autocomplete_kendouiforreact %}#onchange-function) event fires each time a user interacts with the AutoComplete. The new value is passed as an argument to the `onChange` callback.
+
+```html
+
+```
+```jsx
+
+```
+
+onFilter: PropTypes.func
+
+```html
+
+```
+```jsx
+
+```
+
+For detailed information on the Kendo UI AutoComplete for React configuration, refer to its [client-side API documentation]({% slug api_autocomplete_kendouiforreact %}).
 
 ## Keyboard Navigation
 
-//TBD applicable? - Below is the list with the keyboard shortcuts the AutoComplete supports.
+Below is the list with the keyboard shortcuts the AutoComplete supports.
 
 | SHORTCUT                            | DESCRIPTION         |
 |:---                                 |:---                 |
 
 ## Accessibility
 
-//TBD applicable? - The AutoComplete is WAI ARIA-accessible through the `Tab` key. The `aria-valuemin`, `aria-valuemax`, and `aria-valuetext` properties define the accessibility values when the user drags the handle of the AutoComplete or interacts with the AutoComplete through its buttons.
+The AutoComplete is WAI ARIA-accessible through the `Tab` key. The `aria-valuemin`, `aria-valuemax`, and `aria-valuetext` properties define the accessibility values when the user drags the handle of the AutoComplete or interacts with the AutoComplete through its buttons.
 
 ## Suggested Links
 
-* [Client-Side API Reference for the Kendo UI AutoComplete Component](https://github.com/telerik/kendo-react-dropdowns/blob/master/docs/autocomplete/api.md)
+* [Client-Side API Reference for the Kendo UI AutoComplete Component]({% slug api_autocomplete_kendouiforreact %})
