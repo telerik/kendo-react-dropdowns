@@ -16,7 +16,11 @@ The Kendo UI DropDownList for React is part of the DropDowns `npm` package of th
 
 //screen to be added - Vasko
 
-*1. Text area | 2. Drop-down button | 3. Drop-down list | 4. Drop-down list item | 5. Current item*
+1. Text area
+2. Drop-down button
+3. Drop-down list
+4. Drop-down list item
+5. Current item
 
 ## Demos
 
@@ -39,7 +43,9 @@ dataItem: PropTypes.oneOfType([
         PropTypes.object,
         PropTypes.string,
         PropTypes.number
-    ]),
+    ])
+    
+
 defaultItem: function(props, propName, componentName) {
     if (props.defaultItem && props.valueField && typeof props.defaultItem !== "object") {
         return new Error(`
@@ -52,26 +58,144 @@ defaultItem: function(props, propName, componentName) {
 
 ### Features
 
-delay: PropTypes.number,
-disabled: PropTypes.bool,
-show: PropTypes.bool,
-filterable: PropTypes.bool,
-focused: PropTypes.number,
-height: PropTypes.number,
-ignoreCase: PropTypes.bool,
-selected: PropTypes.number,
-tabIndex: PropTypes.number,
-textField: PropTypes.string,
+className: PropTypes.string
+
+```html
+
+```
+```jsx
+
+```
+
+delay: PropTypes.number
+
+```html
+
+```
+```jsx
+
+```
+
+disabled: PropTypes.bool
+
+```html
+
+```
+```jsx
+
+```
+
+show: PropTypes.bool
+
+```html
+
+```
+```jsx
+
+```
+
+filterable: PropTypes.bool
+
+```html
+
+```
+```jsx
+
+```
+
+focused: PropTypes.number
+
+```html
+
+```
+```jsx
+
+```
+
+height: PropTypes.number
+
+```html
+
+```
+```jsx
+
+```
+
+ignoreCase: PropTypes.bool
+
+```html
+
+```
+```jsx
+
+```
+
+selected: PropTypes.number
+
+```html
+
+```
+```jsx
+
+```
+
+tabIndex: PropTypes.number
+
+```html
+
+```
+```jsx
+
+```
+
+textField: PropTypes.string
+
+```html
+
+```
+```jsx
+
+```
 
 ### Values
 
-itemRenderer: PropTypes.func,
-valueField: PropTypes.string,
+itemRenderer: PropTypes.func
+
+```html
+
+```
+```jsx
+
+```
+
+valueField: PropTypes.string
+
+```html
+
+```
+```jsx
+
+```
+
 valueRenderer: PropTypes.func
+
+```html
+
+```
+```jsx
+
+```
 
 ### State
 
-onFilter: PropTypes.func,
+onFilter: PropTypes.func
+
+```html
+
+```
+```jsx
+
+```
 onSelect: PropTypes.func,
 onToggle: PropTypes.func,
 
