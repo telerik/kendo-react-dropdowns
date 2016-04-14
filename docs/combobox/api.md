@@ -12,7 +12,7 @@ Represents the Kendo UI ComboBox component for React.
 
 ## Features
 
-#### show `Boolean`
+#### show `Boolean`*(default: "true")*
 
 #### disabled `Boolean`*(default: "false")*
 
@@ -20,7 +20,7 @@ Represents the Kendo UI ComboBox component for React.
 
 #### height `Number|String`
 
-#### highlight `Boolean`
+#### highlight `Boolean`*(default: "true")*
 
 #### minLength `Number`
 
