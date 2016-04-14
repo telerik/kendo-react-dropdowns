@@ -12,9 +12,15 @@ Represents the Kendo UI ComboBox component for React.
 
 ## Features
 
+#### show `Boolean`
+
 #### disabled `Boolean`*(default: "false")*
 
+#### focused `Number`
+
 #### height `Number|String`
+
+### highlight `Boolean`
 
 #### minLength `Number`
 
@@ -30,8 +36,9 @@ Represents the Kendo UI ComboBox component for React.
 
 #### toggle `Function`
 
-
 ## Text
+
+#### word `String`
 
 #### text `String`
 
@@ -43,13 +50,20 @@ Represents the Kendo UI ComboBox component for React.
 
 #### valueField `String`
 
-#### valueUpdate `Function`
-
 #### itemRenderer `Function`
 
-
 ## State
+
+#### onBlur `Function`
 
 #### onChange `Function`
 
 #### onFilter `Function`
+
+#### onNavigate `Function`
+
+#### onTextUpdate `Function`
+
+#### onToggle `Function`
+
+#### onSelect `Function`
