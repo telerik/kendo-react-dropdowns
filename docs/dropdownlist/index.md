@@ -156,6 +156,24 @@ selected: PropTypes.number
 
 ```
 
+show: PropTypes.bool 
+
+```html
+
+```
+```jsx
+
+```
+
+style: PropTypes.object 
+
+```html
+
+```
+```jsx
+
+```
+
 tabIndex: PropTypes.number
 
 ```html
