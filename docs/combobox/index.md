@@ -39,7 +39,7 @@ The example below demonstrates the default setup of a Kendo UI ComboBox for Reac
 
 ### Features
 
-The ComboBox allows you to disable it by setting the [`disabled`]() configuration property to `true`. When diabled, the component is visible, but does not function. 
+The ComboBox allows you to disable it by setting the [`disabled`]() configuration property to `true`. When disabled, the component is visible, but does not function. 
 
 By default, `disabled` is set to `false`.
 
