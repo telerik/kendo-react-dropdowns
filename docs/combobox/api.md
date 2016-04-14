@@ -20,7 +20,7 @@ Represents the Kendo UI ComboBox component for React.
 
 #### height `Number|String`
 
-### highlight `Boolean`
+#### highlight `Boolean`
 
 #### minLength `Number`
 
