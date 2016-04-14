@@ -10,14 +10,17 @@ position: 2
 
 Represents the Kendo UI DropDownList component for React.
 
-## Items
+## Data 
+
+#### data `Object|String|Number`
 
 #### dataItem `Object|String|Number`
 
 #### defaultItem `Object`
 
-
 ## Features
+
+#### className `String`
 
 #### delay `Number`
 
@@ -33,10 +36,13 @@ Represents the Kendo UI DropDownList component for React.
 
 #### selected `Number`
 
+#### show `Boolean`*(default: "true")*
+
+#### style `Object`
+
 #### tabIndex `Number`
 
 #### textField `String`
-
 
 ## Values
 
@@ -46,11 +52,13 @@ Represents the Kendo UI DropDownList component for React.
 
 #### valueRenderer `Function`
 
-
 ## State
+
+#### onClose `Function`
 
 #### onFilter `Function`
 
+#### onOpen `Function`
+
 #### onSelect `Function`
 
-#### onToggle `Function`
