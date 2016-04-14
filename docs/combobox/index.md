@@ -39,9 +39,27 @@ The example below demonstrates the default setup of a Kendo UI ComboBox for Reac
 
 ### Features
 
+show: React.PropTypes.bool
+
+```html
+
+```
+```jsx
+
+```
+
 The ComboBox allows you to disable it by setting the [`disabled`]() configuration property to `true`. When disabled, the component is visible, but does not function. 
 
 By default, `disabled` is set to `false`.
+
+```html
+
+```
+```jsx
+
+```
+
+focused: React.PropTypes.number
 
 ```html
 
@@ -64,6 +82,15 @@ height: React.PropTypes.oneOfType([
 
 By configuring the [`minLength`]({% slug api_combobox_kendouiforreact %}#minlength-number) property, the ComboBox allows you to define a minimum number of characters the user should type in the input field before any suggestion is displayed. 
 
+```html
+
+```
+```jsx
+
+```
+
+highlight: React.PropTypes.bool
+ 
 ```html
 
 ```
@@ -127,6 +154,15 @@ toggle: React.PropTypes.func
 
 ### Text
 
+word: React.PropTypes.string
+
+```html
+
+```
+```jsx
+
+```
+
 text: React.PropTypes.string
 
 ```html
@@ -168,15 +204,6 @@ valueField: React.PropTypes.string
 
 ```
 
-valueUpdate: React.PropTypes.func
-
-```html
-
-```
-```jsx
-
-```
-
 itemRenderer: React.PropTypes.func
 
 ```html
@@ -187,6 +214,15 @@ itemRenderer: React.PropTypes.func
 ```
 
 ### State
+
+onBlur: React.PropTypes.func
+
+```html
+
+```
+```jsx
+
+```
 
 The ComboBox is designed as a stateless component. To store its state and configuration properties, wrap it in a high-order component.
 
@@ -200,6 +236,42 @@ The [`onChange`]({% slug api_combobox_kendouiforreact %}#onchange-function) even
 ```
 
 onFilter: React.PropTypes.func
+
+```html
+
+```
+```jsx
+
+```
+
+onNavigate: React.PropTypes.func
+
+```html
+
+```
+```jsx
+
+```
+
+onTextUpdate: React.PropTypes.func
+
+```html
+
+```
+```jsx
+
+```
+
+onToggle: React.PropTypes.func
+
+```html
+
+```
+```jsx
+
+```
+
+onSelect: React.PropTypes.func
 
 ```html
 
