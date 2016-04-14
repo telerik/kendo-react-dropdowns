@@ -39,7 +39,7 @@ The example below demonstrates the default setup of a Kendo UI AutoComplete for 
 
 ### Features
 
-The AutoComplete allows you to disable it by setting the [`disabled`]() configuration property to `true`. When diabled, the component is visible, but is does not function. 
+The AutoComplete allows you to disable it by setting the [`disabled`]({% slug api_autocomplete_kendouiforreact %}#disabled-booleandefault-false) configuration property to `true`. When diabled, the component is visible, but does not function. 
 
 By default, `disabled` is set to `false`.
 
@@ -50,7 +50,7 @@ By default, `disabled` is set to `false`.
 
 ```
 
-By configuring the [`minLength`]() property, the AutoComplete allows you to define a minimum number of characters the user should type in the input field before any suggestion is displayed.  
+By configuring the [`minLength`]({% slug api_autocomplete_kendouiforreact %}#minlength-number) property, the AutoComplete allows you to define a minimum number of characters the user should type in the input field before any suggestion is displayed.  
 
 ```html
 
