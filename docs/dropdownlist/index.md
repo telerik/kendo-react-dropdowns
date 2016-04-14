@@ -225,6 +225,12 @@ valueRenderer: PropTypes.func
 
 onClose: PropTypes.func
 
+```html
+
+```
+```jsx
+
+```
 
 onFilter: PropTypes.func
 
@@ -235,7 +241,7 @@ onFilter: PropTypes.func
 
 ```
 
-onSelect: PropTypes.func
+onOpen: PropTypes.func
 
 ```html
 
@@ -244,7 +250,7 @@ onSelect: PropTypes.func
 
 ```
 
-onToggle: PropTypes.func
+onSelect: PropTypes.func
 
 ```html
 
