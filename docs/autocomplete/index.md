@@ -14,9 +14,13 @@ The Kendo UI AutoComplete for React is part of the DropDowns `npm` package of th
 
 **Figure 1: A template of the Kendo UI AutoComplete for React**
 
-//screen to be added - Vasko
+//template screen to be added - Vasko
 
-*1. Input area | 2. Drop-down button | 3. Drop-down list | 4. Drop-down list item | 5. Current item*
+1. Input area 
+2. Drop-down button
+3. Drop-down list
+4. Drop-down list item
+5. Current item
 
 ## Demos
 
@@ -35,12 +39,54 @@ The example below demonstrates the default setup of a Kendo UI AutoComplete for 
 
 ### Features
 
-disabled: PropTypes.bool,
-minLength: PropTypes.number,
-placeholder: PropTypes.string,
-separator: PropTypes.string,
-suggest: PropTypes.bool,
-tabIndex: React.PropTypes.number,
+The AutoComplete allows you to disable it by setting the [`disabled`]() configuration property to `true`. When diabled, the component is visible, but is does not function. 
+
+By default, `disabled` is set to `true`.
+
+```html
+
+```
+```jsx
+
+```
+
+By configuring the [`minLength`]() property, the AutoComplete allows you to define a minimum number of characters the user should type in the input field before any suggestion is displayed.  
+
+```html
+
+```
+```jsx
+
+```
+
+placeholder: PropTypes.string
+
+```html
+
+```
+```jsx
+
+```
+
+separator: PropTypes.string
+
+```html
+
+```
+```jsx
+
+```
+
+suggest: PropTypes.bool
+
+```html
+
+```
+```jsx
+
+```
+
+tabIndex: React.PropTypes.number
 
 ```html
 
