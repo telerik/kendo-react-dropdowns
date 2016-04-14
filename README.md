@@ -22,7 +22,7 @@ Currently, the package includes the following components:
 
 Telerik works on porting the MultiSelect component for React too.
 
-//TBD create a roadmap? - For more information on forthcoming DropDowns package features and components, refer to the [Roadmap](https://github.com/telerik/kendo-react-dropdowns/blob/master/docs/roadmap.md).
+For more information on upcoming DropDowns package features and components, refer to the [Roadmap](https://github.com/telerik/kendo-react-dropdowns/blob/master/docs/roadmap.md).
 
 ## Basic Usage
 
@@ -41,7 +41,7 @@ For more examples and available configuration options, refer to the [AutoComplet
 
 ### Kendo UI ComboBox Component
 
-The ComboBox displays a list of predefined options. It allows the user to pick a single value from that list, or to enter a custom value through keyboard input.  
+The ComboBox displays a list of pre-defined options. It allows the user to pick a single value from that list, or to enter a custom value through keyboard input.  
 
 ```html-preview
 
@@ -54,7 +54,7 @@ For more examples and available configuration options, refer to the [ComboBox do
 
 ### Kendo UI DropDownList Component
 
-The DropDownList displays a list of predefined options and allows the user to pick a single value from that list.  
+The DropDownList displays a list of pre-defined options and allows the user to pick a single value from that list.  
 
 ```html-preview
 
