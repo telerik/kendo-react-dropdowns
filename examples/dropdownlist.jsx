@@ -113,6 +113,7 @@ class BasicUsageExample extends React.Component {
                 <div style={{ float: "left", width: "300px" }}>
                     <StatefulDropDownList
                         data={colors}
+                        defaultItem={{ text: "select color", value: null }}
                         onChange={this.handleColorChange}
                         textField="text"
                         value={this.state.color}
@@ -121,6 +122,7 @@ class BasicUsageExample extends React.Component {
                     <br />
                     <StatefulDropDownList
                         data={sizes}
+                        defaultItem="-"
                         onChange={this.handleSizeChange}
                         value={this.state.size}
                     />

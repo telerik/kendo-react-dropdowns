@@ -301,7 +301,6 @@ export default class DropDownList extends React.Component {
             data,
             textField,
             valueField,
-            dataItem,
             height,
             itemRenderer,
             defaultItem,
@@ -327,7 +326,7 @@ export default class DropDownList extends React.Component {
 
         const defaultItemProps = {
             focused: focused === -1,
-            selected: dataItem === undefined,
+            selected: selected === -1,
             textField: textField,
             dataItem: defaultItem,
             onClick: this.selectFromList,
