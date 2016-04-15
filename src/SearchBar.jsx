@@ -99,7 +99,6 @@ export default class SearchBar extends React.Component {
         const { word, separator, value } = this.props;
         let newValue;
 
-        //if (text) {
         if (word && this.accept) {
             if (separator) {
                 newValue = replaceWordAtCaret(caretIndex(this._input), value, word, separator);
@@ -111,7 +110,6 @@ export default class SearchBar extends React.Component {
             newValue = value;
             this.filterWord = value ? wordAtCaret(this.caretIdx || value.length, value, separator) : "";
         }
-        //}
 
         this._oldValue = newValue;
 

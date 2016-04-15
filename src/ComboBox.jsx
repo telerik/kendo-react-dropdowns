@@ -106,7 +106,6 @@ class ComboBox extends React.Component {
         }
 
         if (!this.props.data.length) {
-            //clear filter?
             this.props.onFilter("");
             return;
         }
