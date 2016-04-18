@@ -18,7 +18,7 @@ The DropDownList displays a list of pre-defined options and allows the user to p
 
 ## Suggested Links
 
-Articles on Kendo UI DropDowns components for React:
+Articles on the Kendo UI DropDowns package for React:
 
 * [Get Started with the AutoComplete Component]({% slug overview_autocomplete_kendouiforreact %})
 * [Client-Side API Reference of the AutoComplete Component]({% slug api_autocomplete_kendouiforreact %})
