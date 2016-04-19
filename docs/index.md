@@ -1,7 +1,7 @@
 ---
 title: Overview
 page_title: Overview | Kendo UI DropDowns for React
-description: "Learn which Kendo UI components for React the DropDowns package delivers."
+description: "Learn about the Kendo UI components for React which are delivered by the DropDowns package."
 slug: overview_dropdowns_kendouiforreact
 position: 1
 ---
