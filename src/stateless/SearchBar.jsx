@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import keycode from 'keycode';
-import { caretIndex, indexOfWordAtCaret, caretSelection, textReduced, replaceWordAtCaret, selectEndOfWord, wordAtCaret } from './Util';
+import { caretIndex, indexOfWordAtCaret, caretSelection, textReduced, replaceWordAtCaret, selectEndOfWord, wordAtCaret } from '../Util';
 
 export default class SearchBar extends React.Component {
 

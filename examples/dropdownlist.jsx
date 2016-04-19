@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import StatefulDropDownList from '../src/StatefulDropDownList';
+import { DropDownList } from '../src/bundle';
 
 const colors = [
     { text: "Blue", value: "#00007f" },
@@ -111,7 +111,7 @@ class BasicUsageExample extends React.Component {
                     <div id="square" style={style}></div>
                 </div>
                 <div style={{ float: "left", width: "300px" }}>
-                    <StatefulDropDownList
+                    <DropDownList
                         data={colors}
                         defaultItem={{ text: "select color", value: null }}
                         onChange={this.handleColorChange}
@@ -120,7 +120,7 @@ class BasicUsageExample extends React.Component {
                         valueField="value"
                     />
                     <br />
-                    <StatefulDropDownList
+                    <DropDownList
                         data={sizes}
                         defaultItem="-"
                         onChange={this.handleSizeChange}
@@ -132,9 +132,9 @@ class BasicUsageExample extends React.Component {
                 <hr style={{ width: "100%" }} />
                 <br />
                 <p>Cascading DropDowns</p>
-                <label>Brand: <StatefulDropDownList data={brands} onChange={this.handleBrandChange} value={this.state.brand} /></label>
+                <label>Brand: <DropDownList data={brands} onChange={this.handleBrandChange} value={this.state.brand} /></label>
                 <label>Model:
-                    <StatefulDropDownList
+                    <DropDownList
                         data={modelsData}
                         disabled={this.state.modelDisabled}
                         filterable
@@ -144,7 +144,7 @@ class BasicUsageExample extends React.Component {
                         valueField="value"
                     />
                 </label>
-                <label>Size: <StatefulDropDownList data={frameSizes} disabled={this.state.frameSizeDisabled} onChange={this.handleFrameSizeChange} value={this.state.frameSize} /></label>
+                <label>Size: <DropDownList data={frameSizes} disabled={this.state.frameSizeDisabled} onChange={this.handleFrameSizeChange} value={this.state.frameSize} /></label>
                 <br />
                 <select onChange={this.selectChange}>
                     <option value="1">Item 1</option>

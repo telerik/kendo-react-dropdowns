@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
-import * as util from './Util';
+import * as util from '../Util';
 import ListItem from './ListItem';
-//import styles from '@telerik/kendo-theme-default-base/styles/main';
 
 export default class List extends React.Component {
 

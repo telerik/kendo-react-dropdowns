@@ -1,16 +1,8 @@
 import React, { PropTypes } from 'react';
-import keycode from 'keycode';
-import classNames from 'classnames';
 import * as util from './Util';
-import List from './List';
-import ListContainer from './ListContainer';
-import ListFilter from './ListFilter';
-import ListDefaultItem from './ListDefaultItem';
-import DropDownWrapper from './DropDownWrapper';
-//import styles from '@telerik/kendo-theme-default-base/styles/main';
+import * as Stateless from './stateless/main';
 
 export default class DropDownList extends React.Component {
-
     static propTypes = {
         className: PropTypes.string,
         data: PropTypes.arrayOf(PropTypes.oneOfType([
@@ -18,11 +10,6 @@ export default class DropDownList extends React.Component {
             PropTypes.string,
             PropTypes.number
         ])),
-        dataItem: PropTypes.oneOfType([
-            PropTypes.object,
-            PropTypes.string,
-            PropTypes.number
-        ]),
         defaultItem: function(props, propName, componentName) {
             if (props.defaultItem && props.valueField && typeof props.defaultItem !== "object") {
                 return new Error(`
@@ -35,356 +22,129 @@ export default class DropDownList extends React.Component {
         delay: PropTypes.number,
         disabled: PropTypes.bool,
         filterable: PropTypes.bool,
-        focused: PropTypes.number,
         height: PropTypes.number,
+        highlightFirst: PropTypes.bool,
         ignoreCase: PropTypes.bool,
+        index: PropTypes.number,
         itemRenderer: PropTypes.func,
-        onClose: PropTypes.func,
+        onChange: PropTypes.func,
         onFilter: PropTypes.func,
-        onOpen: PropTypes.func,
-        onSelect: PropTypes.func,
-        selected: PropTypes.number,
-        show: PropTypes.bool,
         style: PropTypes.object, // eslint-disable-line
         tabIndex: PropTypes.number,
         textField: PropTypes.string,
+        value: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number
+        ]),
         valueField: PropTypes.string,
         valueRenderer: PropTypes.func
     };
 
     static defaultProps = {
-        delay: 500,
-        height: 200,
-        ignoreCase: true,
-        tabIndex: 0
+        highlightFirst: true
     };
 
-    constructor(props) {
-        super(props);
+    state = {
+        dataItem: null,
+        selected: null,
+        focused: null,
+        show: false
+    };
 
-        this.word = "";
-        this.last = "";
+    componentWillMount() {
+        this.setValue(this.props);
     }
 
-    componentDidMount() {
-        this.resizeList();
+    componentWillReceiveProps(nextProps) {
+        this.setValue(nextProps);
     }
 
-    componentDidUpdate() {
-        this.resizeList();
-    }
-
-    resizeList() {
-        if (this.listWrapper && this.listContainer) {
-            const height = this.props.height;
-            const extraHeight = util.getExtraHeight(this.listWrapper);
-            const listHeight = this.listWrapper.scrollHeight || this.listWrapper.offsetHeight;
-
-            this.listContainer.style.height = listHeight > height ? height + "px" : "auto";
-            this.listWrapper.style.height = listHeight > height ? height - extraHeight + "px" : "auto";
+    setValue(props) {
+        const state = util.resolveValue(props);
+        if (state) {
+            this.setState(state);
         }
     }
 
-    getList = (list) => {
-        if (list) {
-            this.listWrapper = list.refs.wrapper;
-        }
-    }
+    onFilter = (text) => {
+        this.setState({
+            selected: null,
+            focused: this.props.highlightFirst ? 0 : null
+        });
 
-    getListContainer = (container) => {
-        if (container) {
-            this.listContainer = container.refs.wrapper;
-        }
-    }
-
-    renderValue() {
-        const { dataItem, textField, defaultItem, valueRenderer } = this.props;
-        let value;
-
-        if (dataItem) {
-            value = util.getter(dataItem, textField);
-        } else if (defaultItem) {
-            value = util.getter(defaultItem, textField);
-        } else {
-            return "";
-        }
-
-        return valueRenderer ? valueRenderer(dataItem) : value;
-    }
-
-    listFilterChange = (text) => {
-        clearTimeout(this.typingTimeout);
-
-        this.typingTimeout = setTimeout(() => {
-            if (this.prevFilterWord !== text) {
-                this.prevFilterWord = text;
-                this.filter(text);
-            }
-
-            this.typingTimeout = null;
-        }, this.props.delay);
-    };
-
-    filter = (text) => {
-        this.props.onFilter(text);
-    };
-
-    search() {
-        clearTimeout(this.typingTimeout);
-
-        if (!this.props.filterable) {
-            this.typingTimeout = setTimeout(() => {
-                this.word = "";
-            }, this.props.delay);
-
-            this.selectNext();
-        }
-    }
-
-    selectNext() {
-        let data = this.props.data.slice();
-        const { textField, valueField, defaultItem, ignoreCase } = this.props;
-        const dataLength = data.length + (defaultItem ? 1 : 0);
-        const isInLoop = util.sameCharsOnly(this.word, this.last);
-        let startIndex = this.props.selected || 0 + (defaultItem ? 1 : 0);
-
-        let text, index;
-
-        startIndex += isInLoop ? 1 : 0;
-        startIndex = util.normalizeIndex(startIndex, dataLength);
-
-        data = util.shuffleData(data, startIndex, defaultItem);
-
-        index = 0;
-        for (; index < dataLength; index++) {
-            text = util.getter(data[index], textField);
-
-            if (isInLoop && util.matchText(text, this.last, ignoreCase)) {
-                break;
-            } else if (util.matchText(text, this.word, ignoreCase)) {
-                break;
-            }
-        }
-
-        if (index !== dataLength) {
-            if (defaultItem && util.getter(data[index], valueField) === util.getter(defaultItem, valueField)) {
-                this.selectByIndex(-1);
-            } else {
-                this.selectByIndex(util.normalizeIndex(startIndex + index, dataLength));
-            }
-        }
-    }
-
-    selectByIndex = (index) => {
-        if (index === -1) {
-            this.select(this.props.defaultItem);
-        } else {
-            this.select(this.props.data[this.props.defaultItem ? index - 1 : index]);
+        if (this.props.onFilter) {
+            this.props.onFilter(text);
         }
     };
 
-    selectFromList = (dataItem) => {
-        this.select(dataItem);
-        this.close();
-    };
+    onSelect = (dataItem) => {
+        const { onChange, valueField } = this.props;
 
-    select = (dataItem) => {
-        if (!this.props.disabled) {
-            this.props.onSelect(dataItem);
+        this.setState({
+            dataItem: dataItem,
+            selected: this.props.data.indexOf(dataItem),
+            focused: this.props.data.indexOf(dataItem)
+        });
+
+        //if popup is visible
+        if (onChange && this.previous !== util.getter(dataItem, valueField)) {
+            this.props.onChange(util.getter(dataItem, this.props.valueField));
+            this.previous = util.getter(dataItem, valueField);
         }
     };
 
-    allowOpening = () => {
-        const { defaultItem, filterable, data } = this.props;
-        return defaultItem || filterable || data.length;
+    onOpen = () => {
+        this.setState({ show: true });
     };
 
-    open = () => {
-        if (this.allowOpening()) {
-            this.props.onOpen();
-        }
-    };
-
-    close = () => {
-        this.props.onClose();
-    }
-
-    toggle = () => {
-        if (!this.props.disabled) {
-            this.props.show ? this.close() : this.open();
-        }
-    };
-
-    onBlur = () => {
-        this.close();
-    };
-
-    onKeyDown = (event) => {
-        const keyCode = event.keyCode;
-        const { data, defaultItem, disabled, show } = this.props;
-        const max = data.length - 1;
-        const min = this.props.defaultItem ? -1 : 0;
-        let focused = this.props.focused;
-        let dataItem, handled = false;
-
-        if (disabled) { return; }
-
-        if (event.altKey && keyCode === keycode.codes.down) {
-            if (!show) {
-                this.open();
-            }
-            return;
-        }
-
-        if (event.altKey && keyCode === keycode.codes.up) {
-            if (show) {
-                this.close();
-            }
-            return;
-        }
-
-        if (keyCode === keycode.codes.enter) {
-            dataItem = (focused === -1) ? defaultItem || null : this.props.data[focused];
-            this.selectFromList(dataItem || (data[focused] || defaultItem));
-
-            return;
-        }
-
-        if (keyCode === keycode.codes.up || keyCode === keycode.codes.left) {
-            focused = (focused !== null && focused !== min) ? focused - 1 : min;
-            handled = true;
-        }
-
-        if (keyCode === keycode.codes.down || keyCode === keycode.codes.right) {
-            focused = (focused !== null && focused !== max) ? focused + 1 : max;
-            handled = true;
-        }
-
-        if (keyCode === keycode.codes.home) {
-            focused = min;
-            handled = true;
-        }
-
-        if (keyCode === keycode.codes.end) {
-            focused = max;
-            handled = true;
-        }
-
-        if (handled) {
-            this.select(dataItem || (data[focused] || defaultItem));
-        }
-    };
-
-    onKeyPress = (event) => {
-        if (event.which === 0 || event.keyCode === keycode.codes.enter) {
-            return;
-        }
-
-        let character = String.fromCharCode(event.charCode || event.keyCode);
-
-        if (!(this.props.ignoreCase === false)) {
-            character = character.toLowerCase();
-        }
-
-        if (character === " ") {
-            event.preventDefault();
-        }
-
-        this.word += character;
-        this.last = character;
-
-        this.search();
+    onClose = () => {
+        this.setState({ show: false });
     };
 
     render() {
         const {
+            className,
             data,
-            textField,
-            valueField,
-            height,
-            itemRenderer,
             defaultItem,
+            delay,
             disabled,
             filterable,
-            selected,
-            focused,
-            show,
+            height,
+            ignoreCase,
+            index,
+            itemRenderer,
             style,
-            tabIndex
-        } = this.props;
-
-        const listProps = {
-            data,
+            tabIndex,
             textField,
             valueField,
-            height,
-            itemRenderer,
-            onClick: this.selectFromList,
-            focused,
-            selected
-        };
-
-        const defaultItemProps = {
-            focused: focused === -1,
-            selected: selected === -1,
-            textField: textField,
-            dataItem: defaultItem,
-            onClick: this.selectFromList,
-            renderer: itemRenderer
-        };
-
-        const listFilterProps = {
-            onChange: this.listFilterChange
-        };
-
-        const wrapperClasses = classNames({
-            'k-widget': true,
-            'k-dropdown': true,
-            'k-header': true
-        }, this.props.className);
-
-        const ariaAttributes = {
-            'role': 'listbox',
-            'aria-haspopup': true,
-            'aria-show': show,
-            'aria-owns': "", //TODO: check if this is required, in react the popup will be placed in the widget container
-            'aria-disabled': disabled,
-            'aria-activedescendant': "" //TODO: check if this is required
-        };
+            valueRenderer
+        } = this.props;
 
         const dropDownListProps = {
-            className: wrapperClasses,
-            onBlur: this.onBlur,
-            onClick: this.toggle,
-            onKeyDown: this.onKeyDown,
-            onKeyPress: this.onKeyPress,
-            style: style,
-            tabIndex: tabIndex,
-            ...ariaAttributes
-        };
+            className,
+            data,
+            defaultItem,
+            delay,
+            disabled,
+            filterable,
+            height,
+            ignoreCase,
+            index,
+            itemRenderer,
+            style,
+            tabIndex,
+            textField,
+            valueField,
+            valueRenderer,
 
-        const listContainerProps = {
-            anchor: this.refs.anchor,
-            show: show
+            onSelect: this.onSelect,
+            onFilter: this.onFilter,
+            onOpen: this.onOpen,
+            onClose: this.onClose
         };
 
         return (
-            //TODO: aria attributes, title
-            <span {...dropDownListProps} ref="anchor" unselectable="on">
-                <DropDownWrapper disabled={disabled}>
-                    <span className="k-input" unselectable="on">
-                        {this.renderValue()}
-                    </span>
-                    <span className="k-select" unselectable="on">
-                        <span className="k-icon k-i-arrow-s"></span>
-                    </span>
-                </DropDownWrapper>
-                <ListContainer {...listContainerProps} ref={this.getListContainer}>
-                    {filterable && <ListFilter {...listFilterProps} />}
-                    {defaultItem && <ListDefaultItem {...defaultItemProps} />}
-                    <List {...listProps} ref={this.getList} />
-                </ListContainer>
-            </span>
+            <Stateless.DropDownList {...dropDownListProps} {...this.state} />
         );
     }
 }

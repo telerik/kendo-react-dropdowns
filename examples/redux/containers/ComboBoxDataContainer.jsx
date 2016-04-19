@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactRedux from "react-redux";
 import * as actionCreators from './../actions';
 import * as util from '../util';
-import StatefulComboBox from '../../../src/StatefulComboBox';
+import ComboBox from '../../../src/ComboBox';
 
 const propTypes = {
     data: React.PropTypes.arrayOf(React.PropTypes.oneOfType([
@@ -15,7 +15,7 @@ const propTypes = {
 export class ComboBoxContainer extends React.Component {
     render() {
         return (
-            <StatefulComboBox {...this.props} />
+            <ComboBox {...this.props} />
         );
     }
 }

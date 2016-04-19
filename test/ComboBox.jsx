@@ -1,12 +1,9 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { click } from './Helpers';
-import List from '../src/List';
-import ListItem from '../src/ListItem';
-import ComboBox from '../src/ComboBox';
-import StatefulComboBox from '../src/StatefulComboBox';
-import SearchBar from '../src/SearchBar';
-import ListContainer from '../src/ListContainer';
+import StatefulComboBox from '../src/ComboBox';
+
+import { ComboBox, List, ListItem, ListContainer, SearchBar, DropDownWrapper } from '../src/stateless/main';
 
 describe('ComboBox', () => {
     const data = [

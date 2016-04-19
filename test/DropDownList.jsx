@@ -4,12 +4,9 @@ import keycode from 'keycode';
 
 import { click, keyPress, lastCallArgs } from './Helpers';
 
-import List from '../src/List';
-import ListItem from '../src/ListItem';
-import ListFilter from '../src/ListFilter';
-import ListDefaultItem from '../src/ListDefaultItem';
-import StatefulDropDownList from '../src/StatefulDropDownList';
-import DropDownList from '../src/DropDownList';
+import StatefulDropDownList from '../src/DropDownList';
+
+import { DropDownList, List, ListItem, ListFilter, ListDefaultItem} from '../src/stateless/main';
 
 describe('StatefulDropDownList initialization', () => {
     const data = [

@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import List from '../src/List';
-import AutoComplete from '../src/AutoComplete';
-import SearchBar from '../src/SearchBar';
+import { AutoComplete, Stateless } from '../src/bundle';
 
 describe('AutoComplete', () => {
     const data = [
@@ -31,16 +29,16 @@ describe('AutoComplete', () => {
 
     it('should render List', () => {
         result = shallow(<AutoComplete data={data} />);
-        expect(result.find(List).length).toEqual(1);
+        expect(result.find(Stateless.List).length).toEqual(1);
     });
 
     it('should render SearchBar', () => {
         result = shallow(<AutoComplete data={data} />);
-        expect(result.find(SearchBar).length).toEqual(1);
+        expect(result.find(Stateless.SearchBar).length).toEqual(1);
     });
     
     it('should disable the search bar if disabled prop is passed', () => {
         result = shallow(<AutoComplete data={data} disabled />);
-        expect(result.find(SearchBar).prop('disabled')).toBe(true);
+        expect(result.find(Stateless.SearchBar).prop('disabled')).toBe(true);
     });
 });

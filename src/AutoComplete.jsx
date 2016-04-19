@@ -2,10 +2,7 @@ import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import keycode from 'keycode';
 import * as util from './Util';
-import List from './List';
-import ListContainer from './ListContainer';
-import SearchBar from './SearchBar';
-// import styles from '@telerik/kendo-theme-default/styles/autocomplete/main';
+import { List, ListContainer, SearchBar } from './stateless/main';
 
 class AutoComplete extends React.Component {
 
