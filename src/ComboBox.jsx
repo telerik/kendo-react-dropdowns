@@ -54,13 +54,11 @@ export default class ComboBox extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         const { suggest, data, textField } = nextProps;
-        if (suggest && data.length) {
-            this.setState({
-                show: data.length > 0,
-                highlight: true,
-                focused: itemIndex(this.text, data, textField) //filtered data focused item
-            });
-        }
+        this.setState({
+            show: data.length > 0,
+            highlight: suggest,
+            focused: data.length ? itemIndex(this.text, data, textField) : -1 //filtered data focused item
+        });
     }
 
     handleBlur = (state) => {
