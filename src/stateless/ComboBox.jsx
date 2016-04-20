@@ -119,8 +119,8 @@ export default class ComboBox extends React.Component {
 
         const dataItem = this.props.data[focused];
         this.props.onNavigate(keyCode, {
-            text: suggest ? getter(dataItem, textField) : null,
-            value: suggest ? getter(dataItem, valueField) : null,
+            text: getter(dataItem, textField),
+            value: getter(dataItem, valueField),
             word: null,
             focused: focused,
             highlight: suggest
