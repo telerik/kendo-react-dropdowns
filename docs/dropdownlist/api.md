@@ -1,12 +1,12 @@
 ---
-title: Client-Side API
-page_title: Client-Side API | Kendo UI DropDownList for React
-description: "Configure and customize the Kendo UI DropDownList for React through its client-side API reference."
+title: API
+page_title: API | Kendo UI DropDownList for React
+description: "Configure and customize the Kendo UI DropDownList for React through its API reference."
 slug: api_ddl_kendouiforreact
 position: 2
 ---
 
-# DropDownList Client-Side API
+# DropDownList API
 
 Represents the Kendo UI DropDownList component for React.
 
