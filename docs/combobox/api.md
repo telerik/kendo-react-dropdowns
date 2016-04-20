@@ -1,12 +1,12 @@
 ---
-title: Client-Side API
-page_title: Client-Side API | Kendo UI ComboBox for React
-description: "Configure and customize the Kendo UI ComboBox for React through its client-side API reference."
+title: API
+page_title: API | Kendo UI ComboBox for React
+description: "Configure and customize the Kendo UI ComboBox for React through its API reference."
 slug: api_combobox_kendouiforreact
 position: 2
 ---
 
-# ComboBox Client-Side API
+# ComboBox API
 
 Represents the Kendo UI ComboBox component for React.
 
