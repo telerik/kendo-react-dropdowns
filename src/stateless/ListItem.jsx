@@ -27,6 +27,19 @@ export default class ListItem extends React.Component {
         return nextProps.focused !== this.props.focused;
     }
 
+    handleMouseEnter = () => {
+        this.refs.li.classList.add("k-state-hover");
+    }
+
+    handleMouseOut = () => {
+        this.refs.li.classList.remove("k-state-hover");
+    }
+
+    handleClick = (event) => {
+        event.preventDefault();
+        this.props.onClick(this.props.dataItem, this.props.index);
+    }
+
     renderer() {
         const { dataItem, textField, renderer } = this.props;
 
@@ -37,11 +50,6 @@ export default class ListItem extends React.Component {
         return util.getter(dataItem, textField);
     }
 
-    onClick = (event) => {
-        event.preventDefault();
-        this.props.onClick(this.props.dataItem, this.props.index);
-    };
-
     render() {
         const itemClasses = classNames({
             'k-item': true,
@@ -49,8 +57,16 @@ export default class ListItem extends React.Component {
             'k-state-focused': this.props.focused
         });
 
+        const itemProps = {
+            ref: "li",
+            className: itemClasses,
+            onClick: this.handleClick,
+            onMouseEnter: this.handleMouseEnter,
+            onMouseOut: this.handleMouseOut
+        };
+
         return (
-            <li className={itemClasses} onClick={this.onClick} >
+            <li {...itemProps} >
                 {this.renderer()}
             </li>
         );
