@@ -16,7 +16,11 @@ export default class ListContainer extends React.Component {
     }
 
     setHeight(height) {
-        this.refs.wrapper.style.height = height;
+        this.element.style.height = height;
+    }
+
+    getElement = (element) => {
+        this.element = element;
     }
 
     onMouseDown = (event) => {
@@ -40,7 +44,7 @@ export default class ListContainer extends React.Component {
 
         return (
             <Popup {...popupProps} >
-                <div className={containerClasses} onMouseDown={this.onMouseDown} ref="wrapper" style={style}>
+                <div className={containerClasses} onMouseDown={this.onMouseDown} ref={this.getElement} style={style}>
                     {this.props.children}
                 </div>
             </Popup>

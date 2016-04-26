@@ -52,6 +52,16 @@ function getExtraHeight(element) {
     return result;
 }
 
+function resizeList(listWrapper, listContainer, height) {
+    if (listWrapper && listContainer) {
+        const extraHeight = getExtraHeight(listWrapper.element);
+        const listHeight = listWrapper.element.scrollHeight || listWrapper.element.offsetHeight;
+
+        listContainer.element.style.height = listHeight > height ? height + "px" : "auto";
+        listWrapper.element.style.height = listHeight > height ? height - extraHeight + "px" : "auto";
+    }
+}
+
 /* DOM independent */
 function indexOfWordAtCaret(caretIdx, text, separator) {
     return separator ? text.substring(0, caretIdx).split(separator).length - 1 : 0;
@@ -194,6 +204,7 @@ export {
     sameCharsOnly,
     shuffleData,
     replaceWordAtCaret,
+    resizeList,
     resolveValue,
     endOfWordIndex,
     itemIndex

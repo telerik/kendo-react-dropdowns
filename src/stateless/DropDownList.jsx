@@ -63,33 +63,27 @@ export default class DropDownList extends React.Component {
     }
 
     componentDidMount() {
-        this.resizeList();
+        if (this.props.show) {
+            util.resizeList(this.listWrapper, this.listContainer, this.props.height);
+        }
     }
 
     componentDidUpdate() {
-        this.resizeList();
-    }
-
-    resizeList() {
-        if (this.listWrapper && this.listContainer) {
-            const height = this.props.height;
-            const extraHeight = util.getExtraHeight(this.listWrapper);
-            const listHeight = this.listWrapper.scrollHeight || this.listWrapper.offsetHeight;
-
-            this.listContainer.style.height = listHeight > height ? height + "px" : "auto";
-            this.listWrapper.style.height = listHeight > height ? height - extraHeight + "px" : "auto";
+        if (this.props.show && this.listWrapper) {
+            util.resizeList(this.listWrapper, this.listContainer, this.props.height);
+            this.listWrapper.scrollToItem();
         }
     }
 
     getList = (list) => {
         if (list) {
-            this.listWrapper = list.refs.wrapper;
+            this.listWrapper = list;
         }
     }
 
     getListContainer = (container) => {
         if (container) {
-            this.listContainer = container.refs.wrapper;
+            this.listContainer = container;
         }
     }
 

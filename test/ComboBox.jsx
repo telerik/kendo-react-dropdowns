@@ -43,11 +43,6 @@ describe('ComboBox', () => {
         expect(result.find(SearchBar).length).toEqual(1);
     });
 
-    it('should List with style height="inherit" if no height explicitly set', () => {
-        result = shallow(<ComboBox data={data} />);
-        expect(result.find(ListContainer).find(List).props().height).toEqual("inherit");
-    });
-
     it('should update state when item is selected from List', () => {
         result = shallow(<StatefulComboBox data={data} textField="text" valueField="value" />);
         const items = result.find(ComboBox).shallow().find(List).shallow().find(ListItem);
