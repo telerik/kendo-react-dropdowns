@@ -465,6 +465,22 @@ describe('DropDownList keyboard navigation', () => {
         expect(spy).toHaveBeenCalled();
     });
 
+    it('should fire onClose on esc', () => {
+        const spy = jasmine.createSpy('spy');
+        result = shallow(
+            <DropDownList
+                data={data}
+                onClose={spy}
+                show
+                textField="text"
+                valueField="value"
+            />
+        );
+
+        result.simulate('keyDown', { keyCode: keycode.codes.esc });
+        expect(spy).toHaveBeenCalled();
+    });
+
     it('should fire onClose on blur', () => {
         const spy = jasmine.createSpy('spy');
         result = shallow(

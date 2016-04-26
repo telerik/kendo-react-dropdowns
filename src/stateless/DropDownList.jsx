@@ -226,7 +226,7 @@ export default class DropDownList extends React.Component {
             return;
         }
 
-        if (event.altKey && keyCode === keycode.codes.up) {
+        if ((event.altKey && keyCode === keycode.codes.up) || (keyCode === keycode.codes.esc)) {
             if (show) {
                 this.close();
             }
