@@ -14,13 +14,11 @@ The Kendo UI AutoComplete for React is part of the DropDowns `npm` package of th
 
 **Figure 1: A template of the Kendo UI AutoComplete for React**
 
-//template screen to be added - Vasko
+![Template of the Kendo UI AutoComplete for React](images/autocomplete.png)
 
-1. Input area 
-2. Drop-down button
-3. Drop-down list
-4. Drop-down list item
-5. Current item
+1. AutoComplete interaction states
+2. Grouping header
+3. Drop-down list item
 
 ## Demos
 
@@ -39,7 +37,7 @@ The example below demonstrates the default setup of a Kendo UI AutoComplete for 
 
 ### Features
 
-The AutoComplete allows you to disable it by setting the [`disabled`]({% slug api_autocomplete_kendouiforreact %}#disabled-booleandefault-false) configuration property to `true`. When disabled, the component is visible, but does not function. 
+The AutoComplete allows you to disable it by setting the [`disabled`]({% slug api_autocomplete_kendouiforreact %}#disabled-booleandefault-false) configuration property to `true`. When disabled, the component is visible, but does not function.
 
 By default, `disabled` is set to `false`.
 
@@ -170,4 +168,4 @@ The AutoComplete is WAI ARIA-accessible through the `Tab` key. The `aria-valuemi
 
 ## Suggested Links
 
-* [Client-Side API Reference for the Kendo UI AutoComplete Component]({% slug api_autocomplete_kendouiforreact %})
+* [API Reference of the AutoComplete Component]({% slug api_autocomplete_kendouiforreact %})

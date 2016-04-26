@@ -14,13 +14,12 @@ The Kendo UI DropDownList for React is part of the DropDowns `npm` package of th
 
 **Figure 1: A template of the Kendo UI DropDownList for React**
 
-//screen to be added - Vasko
+![Template of the Kendo UI DropDownList for React](images/dropdownlist.png)
 
-1. Text area
-2. Drop-down button
-3. Drop-down list
+1. DropDownList interaction states
+2. Filter input field
+3. Grouping header
 4. Drop-down list item
-5. Current item
 
 ## Demos
 
@@ -44,13 +43,13 @@ data: PropTypes.arrayOf(PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.number
         ]))
-        
+
 ```html
 
 ```
 ```jsx
 
-``` 
+```
 
 dataItem: PropTypes.oneOfType([
         PropTypes.object,
@@ -156,7 +155,7 @@ selected: PropTypes.number
 
 ```
 
-show: PropTypes.bool 
+show: PropTypes.bool
 
 ```html
 
@@ -165,7 +164,7 @@ show: PropTypes.bool
 
 ```
 
-style: PropTypes.object 
+style: PropTypes.object
 
 ```html
 

@@ -14,13 +14,12 @@ The Kendo UI ComboBox for React is part of the DropDowns `npm` package of the Ke
 
 **Figure 1: A template of the Kendo UI ComboBox for React**
 
-//screen to be added - Vasko
+![Template of the Kendo UI ComboBox for React](images/combobox.png)
 
-1. Input area
-2. Drop-down button
-3. Drop-down list 
-4. Drop-down list item 
-5. Current item
+1. ComboBox interaction states
+2. Drop-down **Expand** / **Collapse** button
+3. Grouping header
+4. Drop-down list item
 
 ## Demos
 
@@ -48,7 +47,7 @@ show: React.PropTypes.bool
 
 ```
 
-The ComboBox allows you to disable it by setting the [`disabled`]() configuration property to `true`. When disabled, the component is visible, but does not function. 
+The ComboBox allows you to disable it by setting the [`disabled`]() configuration property to `true`. When disabled, the component is visible, but does not function.
 
 By default, `disabled` is set to `false`.
 
@@ -80,7 +79,7 @@ height: React.PropTypes.oneOfType([
 
 ```
 
-By configuring the [`minLength`]({% slug api_combobox_kendouiforreact %}#minlength-number) property, the ComboBox allows you to define a minimum number of characters the user should type in the input field before any suggestion is displayed. 
+By configuring the [`minLength`]({% slug api_combobox_kendouiforreact %}#minlength-number) property, the ComboBox allows you to define a minimum number of characters the user should type in the input field before any suggestion is displayed.
 
 ```html
 
@@ -90,7 +89,7 @@ By configuring the [`minLength`]({% slug api_combobox_kendouiforreact %}#minleng
 ```
 
 highlight: React.PropTypes.bool
- 
+
 ```html
 
 ```
@@ -295,4 +294,4 @@ The ComboBox is WAI ARIA-accessible through the `Tab` key. The `aria-valuemin`, 
 
 ## Suggested Links
 
-* [Client-Side API Reference for the Kendo UI ComboBox Component]({% slug api_combobox_kendouiforreact %})
+* [API Reference of the ComboBox Component]({% slug api_combobox_kendouiforreact %})
