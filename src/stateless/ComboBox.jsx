@@ -25,6 +25,7 @@ export default class ComboBox extends React.Component {
         show: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
         focused: React.PropTypes.number,
+        selected: React.PropTypes.number,
         itemRenderer: React.PropTypes.func,
         height: React.PropTypes.oneOfType([
             React.PropTypes.number,
@@ -73,6 +74,12 @@ export default class ComboBox extends React.Component {
         super(props);
     }
 
+    componentDidUpdate() {
+        if (this.props.show && this.refs.list) {
+            this.refs.list.scrollToItem();
+        }
+    }
+
     handleBlur = () => {
         if (!this.props.dataItem && this.props.text) {
             this.selectFocused();
@@ -93,7 +100,7 @@ export default class ComboBox extends React.Component {
         this.refs.searchBar._input.focus();
         this.props.onToggle({
             show: !this.props.show,
-            focused: this.props.focused ? this.props.focused : 0
+            focused: this.props.selected ? null : this.props.focused || 0
         });
     };
 
@@ -110,25 +117,26 @@ export default class ComboBox extends React.Component {
             return;
         }
 
-        let focused;
+        let selected;
         if (keyCode === keycode.codes.up) {
-            focused = this.props.focused ? this.props.focused - 1 : max;
+            selected = this.props.selected ? this.props.selected - 1 : max;
         } else if (keyCode === keycode.codes.down) {
-            focused = (this.props.focused !== null && this.props.focused !== max) ? this.props.focused + 1 : 0;
+            selected = (this.props.selected !== null && this.props.selected !== max) ? this.props.selected + 1 : 0;
         }
 
-        const dataItem = this.props.data[focused];
+        const dataItem = this.props.data[selected];
         this.props.onNavigate(keyCode, {
             text: getter(dataItem, textField),
             value: getter(dataItem, valueField),
             word: null,
-            focused: focused,
+            focused: null,
+            selected: selected,
             highlight: suggest
         });
     };
 
     textUpdate = (text) => {
-        const index = itemIndex(text, this.props.data, this.props.textField); //unfiltered data focused item
+        const index = itemIndex(text, this.props.data, this.props.textField); //unfiltered data selected item
         const dataItem = this.props.data[index];
 
         this.props.onTextUpdate({
@@ -138,7 +146,8 @@ export default class ComboBox extends React.Component {
             text: text,
             word: dataItem && this.props.suggest & text.length ? getter(dataItem, this.props.textField) : null,
             highlight: true,
-            focused: index
+            focused: index,
+            selected: null
         });
     };
 
@@ -150,14 +159,14 @@ export default class ComboBox extends React.Component {
             text: text,
             value: value,
             highlight: false,
-            focused: index,
+            selected: index,
             show: false,
             word: null
         });
     };
 
     selectFocused = () => {
-        const focused = this.props.focused;
+        const focused = this.props.selected || this.props.focused;
         if (focused !== null) {
             this.select(this.props.data[focused], focused);
         }
@@ -209,6 +218,7 @@ export default class ComboBox extends React.Component {
         const listProps = {
             data: this.props.data,
             focused: this.props.focused,
+            selected: this.props.selected,
             height: "inherit",
             itemRenderer: this.props.itemRenderer,
             onClick: this.select,
@@ -223,7 +233,8 @@ export default class ComboBox extends React.Component {
         const listContainerProps = {
             style: listContainerStyle,
             anchor: this.refs.anchor,
-            show: this.props.show
+            show: this.props.show,
+            list: this.refs.list
         };
 
         return (
@@ -233,7 +244,7 @@ export default class ComboBox extends React.Component {
                         <Button ref="" {...buttonProps} />
                 </DropDownWrapper>
                 <ListContainer {...listContainerProps}>
-                    <List {...listProps} />
+                    <List ref="list" {...listProps} />
                 </ListContainer>
             </span>
         );

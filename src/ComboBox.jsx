@@ -47,6 +47,7 @@ export default class ComboBox extends React.Component {
             show: false,
             value: this.props.value || "",
             focused: null,
+            selected: null,
             text: null,
             word: null
         };
@@ -57,6 +58,7 @@ export default class ComboBox extends React.Component {
         this.setState({
             show: data.length > 0,
             highlight: suggest,
+            selected: null,
             focused: data.length ? itemIndex(this.text, data, textField) : -1 //filtered data focused item
         });
     }
@@ -107,6 +109,7 @@ export default class ComboBox extends React.Component {
             value: this.state.value,
             highlight: this.state.highlight,
             focused: this.state.focused,
+            selected: this.state.selected,
             show: this.state.show,
             word: this.state.word,
             //from props

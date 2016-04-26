@@ -24,7 +24,7 @@ export default class ListItem extends React.Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        return nextProps.focused !== this.props.focused;
+        return (nextProps.focused !== this.props.focused) || (nextProps.selected !== this.props.selected);
     }
 
     handleMouseEnter = () => {

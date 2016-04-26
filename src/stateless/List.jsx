@@ -11,6 +11,7 @@ export default class List extends React.Component {
             PropTypes.number
         ])),
         focused: PropTypes.number,
+        selected: PropTypes.number,
         //TODO: may change to something like popupProps: { style: { height: "" } }, to discuss after there is a popup prototype
         height: PropTypes.oneOfType([
             PropTypes.number,
@@ -18,7 +19,6 @@ export default class List extends React.Component {
         ]),
         itemRenderer: PropTypes.func,
         onClick: PropTypes.func,
-        selected: PropTypes.number,
         textField: PropTypes.string,
         value: PropTypes.oneOfType([
             PropTypes.number,
@@ -27,14 +27,28 @@ export default class List extends React.Component {
         valueField: PropTypes.string
     };
 
+    static defaultProps = {
+        onClick() {}
+    };
+
     constructor(props) {
         super(props);
     }
 
-    componentDidUpdate() {
-        let focused = this.refs.ul.children[this.props.focused];
-        if (focused) {
-            focused.scrollIntoViewIfNeeded();
+    scrollToItem(index) {
+        let item;
+        if (index) {
+            item = this.refs.ul.children[index];
+        } else {
+            if (this.props.selected !== null) {
+                item = this.refs.ul.children[this.props.selected];
+            }
+            if (this.props.focused !== null) {
+                item = this.refs.ul.children[this.props.focused];
+            }
+        }
+        if (item) {
+            item.scrollIntoViewIfNeeded();
         }
     }
 
@@ -44,21 +58,20 @@ export default class List extends React.Component {
 
     clickHandler = (dataItem, index) => {
         this.props.onClick(dataItem, index);
-    };
+    }
 
     renderItems() {
         const { itemRenderer, textField, valueField, focused, selected } = this.props;
 
         return this.props.data.map((item, index) => (
-                //TODO: assign unique key
                 <ListItem
                     dataItem={item}
                     focused={index === focused}
+                    selected={index === selected}
                     index={index}
                     key={util.getter(item, valueField) || item}
                     onClick={this.clickHandler}
                     renderer={itemRenderer}
-                    selected={index === selected}
                     textField={textField}
                 />
             )
