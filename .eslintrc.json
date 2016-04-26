@@ -2,6 +2,7 @@
     "extends": "./node_modules/@telerik/eslint-config/react.js",
 
     "rules": {
-        "react/jsx-sort-prop-types": 0
+        "react/jsx-sort-prop-types": 0,
+        "react/jsx-sort-props": 0
     }
 }
