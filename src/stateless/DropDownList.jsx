@@ -36,6 +36,7 @@ export default class DropDownList extends React.Component {
         ignoreCase: PropTypes.bool,
         itemRenderer: PropTypes.func,
         onClose: PropTypes.func,
+        onChange: PropTypes.func,
         onFilter: PropTypes.func,
         onOpen: PropTypes.func,
         onSelect: PropTypes.func,
@@ -52,7 +53,10 @@ export default class DropDownList extends React.Component {
         delay: 500,
         height: 200,
         ignoreCase: true,
-        tabIndex: 0
+        tabIndex: 0,
+        onChange: function() {},
+        onFilter: function() {},
+        onSelect: function() {}
     };
 
     constructor(props) {
@@ -174,8 +178,10 @@ export default class DropDownList extends React.Component {
     };
 
     selectFromList = (dataItem) => {
-        this.select(dataItem);
-        this.close();
+        if (!this.props.disabled) {
+            this.props.onChange(dataItem);
+            this.close();
+        }
     };
 
     select = (dataItem) => {
@@ -183,6 +189,14 @@ export default class DropDownList extends React.Component {
             this.props.onSelect(dataItem);
         }
     };
+
+    /*
+    select = (dataItem) => {
+        if (!this.props.disabled) {
+            this.props.onSelect(dataItem);
+        }
+    };
+    */
 
     allowOpening = () => {
         const { defaultItem, filterable, data } = this.props;
@@ -206,6 +220,7 @@ export default class DropDownList extends React.Component {
     };
 
     onBlur = () => {
+        this.props.onChange();
         this.close();
     };
 

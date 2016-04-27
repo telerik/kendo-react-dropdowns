@@ -6,7 +6,7 @@ import { click, keyPress, lastCallArgs } from './Helpers';
 
 import StatefulDropDownList from '../src/DropDownList';
 
-import { DropDownList, List, ListItem, ListFilter, ListDefaultItem} from '../src/stateless/main';
+import { DropDownList, List, ListItem, ListFilter, ListDefaultItem } from '../src/stateless/main';
 
 describe('StatefulDropDownList initialization', () => {
     const data = [
@@ -175,14 +175,14 @@ describe('DropDownList list click', () => {
 
     let result;
 
-    it('should fire onSelect event with dataItem when item is clicked', () => {
+    it('should fire onChange event with dataItem when item is clicked', () => {
         const spy = jasmine.createSpy('spy');
         const mock = function() {};
         result = shallow(
             <DropDownList
                 data={data}
                 onClose={mock}
-                onSelect={spy}
+                onChange={spy}
                 textField="text"
                 valueField="value"
             />
@@ -193,17 +193,17 @@ describe('DropDownList list click', () => {
         expect(spy).toHaveBeenCalledWith({ text: "bar", value: 2 });
     });
 
-    it('should fire onSelect event with dataItem when item is clicked (primitives)', () => {
+    it('should fire onChange event with dataItem when item is clicked (primitives)', () => {
         const spy = jasmine.createSpy('spy');
         const mock = function() {};
-        result = shallow(<DropDownList data={primitives} onClose={mock} onSelect={spy} />);
+        result = shallow(<DropDownList data={primitives} onClose={mock} onChange={spy} />);
         const items = result.find(List).shallow().find(ListItem);
 
         click(items.at(1).shallow());
         expect(spy).toHaveBeenCalledWith("bar");
     });
 
-    it('should NOT fire onSelect for disabled component on click', () => {
+    it('should NOT fire onChange for disabled component on click', () => {
         const spy = jasmine.createSpy('spy');
         const mock = function() {};
         result = shallow(
@@ -211,7 +211,7 @@ describe('DropDownList list click', () => {
                 data={data}
                 disabled
                 onClose={mock}
-                onSelect={spy}
+                onChange={spy}
                 textField="text"
                 valueField="value"
             />
@@ -903,7 +903,7 @@ describe('DropDownList filter', () => {
     //should update popup height when no items are found
 });
 
-describe('DropDownList change event', () => {
+describe('DropDownList events', () => {
     const primitives = [ "foo", "bar", "baz" ];
     const data = [
         { text: "foo", value: 1 },
@@ -934,7 +934,7 @@ describe('DropDownList change event', () => {
         const items = result.find(DropDownList).shallow().find(List).shallow().find(ListItem);
 
         click(items.at(1).shallow());
-        expect(spy).toHaveBeenCalledWith("bar");
+        expect(spy).toHaveBeenCalledWith("bar", "bar");
     });
 
     it('should trigger change when default item is clicked', () => {
@@ -952,7 +952,7 @@ describe('DropDownList change event', () => {
         const defaultItem = result.find(DropDownList).shallow().find(ListDefaultItem).shallow();
 
         click(defaultItem);
-        expect(spy).toHaveBeenCalledWith(null);
+        expect(spy).toHaveBeenCalledWith(null, { text: "select...", value: null });
     });
 
     it('should trigger change when default item is clicked (primitives)', () => {
@@ -962,33 +962,33 @@ describe('DropDownList change event', () => {
         const defaultItem = result.find(DropDownList).shallow().find(ListDefaultItem).shallow();
 
         click(defaultItem);
-        expect(spy).toHaveBeenCalledWith(null);
+        expect(spy).toHaveBeenCalledWith("select...", "select...");
     });
 
-    it('should trigger change when searching', () => {
+    it('should trigger select when searching', () => {
         const spy = jasmine.createSpy('spy');
 
-        result = shallow(<StatefulDropDownList data={primitives} onChange={spy} />);
+        result = shallow(<StatefulDropDownList data={primitives} onSelect={spy} />);
         const dropDown = result.find(DropDownList).shallow();
 
         keyPress(dropDown, "b");
-        expect(spy).toHaveBeenCalledWith("bar");
+        expect(spy).toHaveBeenCalledWith("bar", "bar");
     });
 
-    it('should trigger change when searching default item', () => {
+    it('should trigger select when searching default item', () => {
         const spy = jasmine.createSpy('spy');
 
-        result = shallow(<StatefulDropDownList data={primitives} defaultItem="select..." onChange={spy} />);
+        result = shallow(<StatefulDropDownList data={primitives} defaultItem="select..." onSelect={spy} />);
         const dropDown = result.find(DropDownList).shallow();
 
         keyPress(dropDown, "s");
-        expect(spy).toHaveBeenCalledWith("select...");
+        expect(spy).toHaveBeenCalledWith("select...", "select...");
     });
 
-    it('should NOT trigger change when searching but value does not change', () => {
+    it('should NOT trigger select when searching but value does not change', () => {
         const spy = jasmine.createSpy('spy');
 
-        result = shallow(<StatefulDropDownList data={primitives} onChange={spy} />);
+        result = shallow(<StatefulDropDownList data={primitives} onSelect={spy} />);
         const dropDown = result.find(DropDownList).shallow();
 
         keyPress(dropDown, "f");

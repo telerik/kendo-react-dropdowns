@@ -54,10 +54,15 @@ class BasicUsageExample extends React.Component {
     };
 
     handleColorChange = (value) => {
+        console.log("dropdownlist change");
         this.setState({
             color: value
         });
     };
+
+    handleColorSelect = (value) => {
+        console.log("dropdownlist select");
+    }
 
     handleSizeChange = (value) => {
         this.setState({
@@ -115,6 +120,7 @@ class BasicUsageExample extends React.Component {
                         data={colors}
                         defaultItem={{ text: "select color", value: null }}
                         onChange={this.handleColorChange}
+                        onSelect={this.handleColorSelect}
                         textField="text"
                         value={this.state.color}
                         valueField="value"

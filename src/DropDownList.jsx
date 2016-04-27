@@ -29,6 +29,7 @@ export default class DropDownList extends React.Component {
         itemRenderer: PropTypes.func,
         onChange: PropTypes.func,
         onFilter: PropTypes.func,
+        onSelect: PropTypes.func,
         style: PropTypes.object, // eslint-disable-line
         tabIndex: PropTypes.number,
         textField: PropTypes.string,
@@ -41,7 +42,10 @@ export default class DropDownList extends React.Component {
     };
 
     static defaultProps = {
-        highlightFirst: true
+        highlightFirst: true,
+        onChange: function() {},
+        onFilter: function() {},
+        onSelect: function() {}
     };
 
     state = {
@@ -72,13 +76,15 @@ export default class DropDownList extends React.Component {
             focused: this.props.highlightFirst ? 0 : null
         });
 
-        if (this.props.onFilter) {
-            this.props.onFilter(text);
-        }
+        this.props.onFilter(text);
     };
 
     onSelect = (dataItem) => {
-        const { onChange, valueField } = this.props;
+        const { onSelect, valueField } = this.props;
+
+        if (this.previous === util.getter(dataItem, valueField)) {
+            return;
+        }
 
         this.setState({
             dataItem: dataItem,
@@ -86,10 +92,17 @@ export default class DropDownList extends React.Component {
             focused: this.props.data.indexOf(dataItem)
         });
 
-        //if popup is visible
-        if (onChange && this.previous !== util.getter(dataItem, valueField)) {
-            this.props.onChange(util.getter(dataItem, this.props.valueField));
-            this.previous = util.getter(dataItem, valueField);
+        onSelect(util.getter(dataItem, valueField), dataItem);
+        this.previous = util.getter(dataItem, valueField);
+    };
+
+    onChange = (dataItem) => {
+        const { onChange, onSelect, valueField } = this.props;
+        const item = dataItem ? dataItem : this.state.dataItem;
+
+        if (item) {
+            onSelect(util.getter(item, valueField), item);
+            onChange(util.getter(item, valueField), item);
         }
     };
 
@@ -138,6 +151,7 @@ export default class DropDownList extends React.Component {
             valueRenderer,
 
             onSelect: this.onSelect,
+            onChange: this.onChange,
             onFilter: this.onFilter,
             onOpen: this.onOpen,
             onClose: this.onClose
