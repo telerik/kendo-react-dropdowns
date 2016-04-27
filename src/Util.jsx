@@ -52,14 +52,12 @@ function getExtraHeight(element) {
     return result;
 }
 
-function resizeList(listWrapper, listContainer, height) {
-    if (listWrapper && listContainer) {
-        const extraHeight = getExtraHeight(listWrapper.element);
-        const listHeight = listWrapper.element.scrollHeight || listWrapper.element.offsetHeight;
+function resizeList(list, listContainer, height) {
+    const extraHeight = getExtraHeight(list);
+    const listHeight = list.scrollHeight || list.offsetHeight;
 
-        listContainer.element.style.height = listHeight > height ? height + "px" : "auto";
-        listWrapper.element.style.height = listHeight > height ? height - extraHeight + "px" : "auto";
-    }
+    listContainer.style.height = listHeight > height ? height + "px" : "auto";
+    list.style.height = listHeight > height ? height - extraHeight + "px" : "auto";
 }
 
 /* DOM independent */

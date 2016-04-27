@@ -11,6 +11,7 @@ export default class ComboBox extends React.Component {
             React.PropTypes.string,
             React.PropTypes.number
         ])),
+        height: React.PropTypes.number,
         highlight: React.PropTypes.bool,
         itemRenderer: React.PropTypes.func,
         onChange: React.PropTypes.func,
@@ -113,6 +114,7 @@ export default class ComboBox extends React.Component {
             show: this.state.show,
             word: this.state.word,
             //from props
+            height: this.props.height,
             suggest: this.props.suggest,
             data: this.props.data,
             placeholder: this.props.placeholder,

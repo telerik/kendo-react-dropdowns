@@ -76,29 +76,17 @@ export default class ComboBox extends React.Component {
 
     componentDidMount() {
         if (this.props.show) {
-            util.resizeList(this.listWrapper, this.listContainer, this.props.height);
+            this.refs.ListContainer.refs.List.scrollToItem();
         }
     }
 
     componentDidUpdate() {
-        if (this.props.show && this.listWrapper) {
-            util.resizeList(this.listWrapper, this.listContainer, this.props.height);
-            this.listWrapper.scrollToItem();
+        if (this.props.show) {
+            const listContainer = this.refs.ListContainer;
+            const list = listContainer.refs.List;
+            list.scrollToItem();
         }
     }
-
-    getList = (list) => {
-        if (list) {
-            this.listWrapper = list;
-        }
-    }
-
-    getListContainer = (container) => {
-        if (container) {
-            this.listContainer = container;
-        }
-    }
-
 
     handleBlur = () => {
         if (!this.props.dataItem && this.props.text) {
@@ -117,7 +105,7 @@ export default class ComboBox extends React.Component {
     };
 
     toggle = () => {
-        this.refs.searchBar._input.focus();
+        this.refs.SearchBar._input.focus();
         this.props.onToggle({
             show: !this.props.show,
             focused: this.props.selected ? null : this.props.focused || 0
@@ -172,8 +160,8 @@ export default class ComboBox extends React.Component {
     };
 
     select = (dataItem, index) => {
-        const value = dataItem ? util.getter(dataItem, this.props.valueField) : this.refs.searchBar._input.value;
-        const text = dataItem ? util.getter(dataItem, this.props.textField) : this.refs.searchBar._input.value;
+        const value = dataItem ? util.getter(dataItem, this.props.valueField) : this.refs.SearchBar._input.value;
+        const text = dataItem ? util.getter(dataItem, this.props.textField) : this.refs.SearchBar._input.value;
         this.props.onSelect({
             dataItem: dataItem ? dataItem : null,
             text: text,
@@ -247,17 +235,18 @@ export default class ComboBox extends React.Component {
 
         const listContainerProps = {
             anchor: this.refs.anchor,
-            show: this.props.show
+            show: this.props.show,
+            ref: "ListContainer"
         };
 
         return (
             <span ref="anchor" {...comboBoxProps}>
                 <DropDownWrapper>
-                    <SearchBar ref="searchBar" {...searchBarProps} />
-                        <Button ref="" {...buttonProps} />
+                    <SearchBar ref="SearchBar" {...searchBarProps} />
+                        <Button {...buttonProps} />
                 </DropDownWrapper>
-                <ListContainer {...listContainerProps} ref={this.getListContainer} >
-                    <List {...listProps} ref={this.getList} />
+                <ListContainer {...listContainerProps}>
+                    <List {...listProps} />
                 </ListContainer>
             </span>
         );

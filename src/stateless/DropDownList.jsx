@@ -68,26 +68,16 @@ export default class DropDownList extends React.Component {
 
     componentDidMount() {
         if (this.props.show) {
-            util.resizeList(this.listWrapper, this.listContainer, this.props.height);
+            this.refs.ListContainer.refs.List.scrollToItem();
         }
     }
 
     componentDidUpdate() {
-        if (this.props.show && this.listWrapper) {
-            util.resizeList(this.listWrapper, this.listContainer, this.props.height);
-            this.listWrapper.scrollToItem();
-        }
-    }
-
-    getList = (list) => {
-        if (list) {
-            this.listWrapper = list;
-        }
-    }
-
-    getListContainer = (container) => {
-        if (container) {
-            this.listContainer = container;
+        if (this.props.show) {
+            const listContainer = this.refs.ListContainer;
+            const list = listContainer.refs.List;
+            util.resizeList(list.refs.element, listContainer.refs.element, this.props.height);
+            list.scrollToItem();
         }
     }
 
@@ -370,7 +360,8 @@ export default class DropDownList extends React.Component {
 
         const listContainerProps = {
             anchor: this.refs.anchor,
-            show: show
+            show: show,
+            ref: "ListContainer"
         };
 
         return (
@@ -384,10 +375,10 @@ export default class DropDownList extends React.Component {
                         <span className="k-icon k-i-arrow-s"></span>
                     </span>
                 </DropDownWrapper>
-                <ListContainer {...listContainerProps} ref={this.getListContainer}>
+                <ListContainer {...listContainerProps}>
                     {filterable && <ListFilter {...listFilterProps} />}
                     {defaultItem && <ListDefaultItem {...defaultItemProps} />}
-                    <List {...listProps} ref={this.getList} />
+                    <List {...listProps} />
                 </ListContainer>
             </span>
         );
