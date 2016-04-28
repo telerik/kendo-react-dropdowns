@@ -75,16 +75,14 @@ export default class ComboBox extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.show) {
-            this.refs.ListContainer.refs.List.scrollToItem();
+        if (this.props.show && this.refs.List) {
+            this.refs.List.scrollToItem();
         }
     }
 
     componentDidUpdate() {
-        if (this.props.show) {
-            const listContainer = this.refs.ListContainer;
-            const list = listContainer.refs.List;
-            list.scrollToItem();
+        if (this.props.show && this.refs.List) {
+            this.refs.List.scrollToItem();
         }
     }
 
@@ -235,8 +233,7 @@ export default class ComboBox extends React.Component {
 
         const listContainerProps = {
             anchor: this.refs.anchor,
-            show: this.props.show,
-            ref: "ListContainer"
+            show: this.props.show
         };
 
         return (
@@ -246,7 +243,7 @@ export default class ComboBox extends React.Component {
                         <Button {...buttonProps} />
                 </DropDownWrapper>
                 <ListContainer {...listContainerProps}>
-                    <List {...listProps} />
+                    <List ref="List" {...listProps} />
                 </ListContainer>
             </span>
         );

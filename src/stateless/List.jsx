@@ -52,10 +52,6 @@ export default class List extends React.Component {
         }
     }
 
-    setHeight(height) {
-        this.refs.element.style.height = height;
-    }
-
     clickHandler = (dataItem, index) => {
         this.props.onClick(dataItem, index);
     }

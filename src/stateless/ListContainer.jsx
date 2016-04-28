@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import Popup from '@telerik/kendo-react-popup';
-import { List } from './main';
 
 export default class ListContainer extends React.Component {
 
@@ -16,26 +15,8 @@ export default class ListContainer extends React.Component {
         super(props);
     }
 
-    setHeight(height) {
-        this.refs.element.style.height = height;
-    }
-
     onMouseDown = (event) => {
         event.preventDefault();
-    }
-
-    renderChildren() {
-        return React.Children.map(this.props.children, function(child) {
-            let node;
-            if (child && child.type === List) {
-                node = React.cloneElement(child, {
-                    ref: "List"
-                });
-            } else {
-                node = child;
-            }
-            return node;
-        });
     }
 
     render() {
@@ -46,18 +27,15 @@ export default class ListContainer extends React.Component {
             'k-reset': true
         });
 
-        const style = { ...this.props.style };
-
         const popupProps = {
             anchor: this.props.anchor,
-            show: this.props.show,
-            ref: "Popup"
+            show: this.props.show
         };
 
         return (
             <Popup {...popupProps} >
-                <div className={containerClasses} onMouseDown={this.onMouseDown} ref="element" style={style}>
-                    {this.renderChildren()}
+                <div className={containerClasses} onMouseDown={this.onMouseDown} ref="element" >
+                    {this.props.children}
                 </div>
             </Popup>
 
