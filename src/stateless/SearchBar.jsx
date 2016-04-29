@@ -32,10 +32,15 @@ export default class SearchBar extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const highlight = nextProps.highlight;
-
+        const { separator, highlight, value } = nextProps;
         if (highlight) { //suggested
-            this.accept = !textReduced(nextProps.value, this.hasSelection ? this.props.value : this._oldValue);
+            this.accept = !textReduced(value, this.hasSelection ? this.props.value : this._oldValue);
+            if (separator) {
+                const word = separator ? wordAtCaret(caretIndex(this._input), value, separator) : value;
+                if (!word) {
+                    this.accept = false;
+                }
+            }
         } else { //selected from list
             this.accept = true;
         }

@@ -35,7 +35,6 @@ export default class ComboBox extends React.Component {
         highlight: React.PropTypes.bool,
         minLength: React.PropTypes.number,
         onBlur: React.PropTypes.func,
-        onChange: React.PropTypes.func,
         onFilter: React.PropTypes.func,
         onNavigate: React.PropTypes.func,
         onTextUpdate: React.PropTypes.func,
@@ -43,7 +42,6 @@ export default class ComboBox extends React.Component {
         onSelect: React.PropTypes.func,
         placeholder: React.PropTypes.string,
         select: React.PropTypes.func,
-        separator: React.PropTypes.string,
         suggest: React.PropTypes.bool,
         tabIndex: React.PropTypes.number,
         text: React.PropTypes.string,
@@ -57,12 +55,10 @@ export default class ComboBox extends React.Component {
     };
 
     static defaultProps = {
-        delay: 500,
         height: 200,
         ignoreCase: true,
         minLength: 0,
         onBlur() {},
-        onChange() {},
         onSelect() {},
         onFilter() {},
         onNavigate() {},
@@ -191,7 +187,6 @@ export default class ComboBox extends React.Component {
             disabled: this.props.disabled,
             placeholder: this.props.placeholder,
             value: this.props.text ? this.props.text : this.props.value || "",
-            separator: this.props.separator || "",
             highlight: this.props.highlight,
             word: this.props.word
         };
@@ -243,7 +238,7 @@ export default class ComboBox extends React.Component {
             <span ref="anchor" {...comboBoxProps}>
                 <DropDownWrapper>
                     <SearchBar ref="SearchBar" {...searchBarProps} />
-                        <Button {...buttonProps} />
+                    <Button {...buttonProps} />
                 </DropDownWrapper>
                 <ListContainer {...listContainerProps}>
                     <List ref="List" {...listProps} />
