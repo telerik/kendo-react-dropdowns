@@ -128,6 +128,27 @@ describe('StatefulDropDownList event handlers', () => {
         expect(result.state('dataItem')).toEqual({ text: "bar", value: 2 });
     });
 
+    it('should change state.dataItem onChange if the defaultItem is chosen', () => {
+        result = shallow(<StatefulDropDownList data={data} defaultItem={{ text: "Select...", value: null }} textField="text" valueField="value" />);
+        const dropDownList = result.find(DropDownList);
+
+        dropDownList.prop('onChange')(data[1]);
+        expect(result.state('dataItem')).toEqual({ text: "bar", value: 2 });
+        dropDownList.prop('onChange')({ text: "Select...", value: null });
+        expect(result.state('dataItem')).toEqual({ text: "Select...", value: null });
+    });
+
+    it('should change state.dataItem onChange if the defaultItem is chosen (primitive)', () => {
+        const primitive = [ "foo", "bar", "baz" ];
+        result = shallow(<StatefulDropDownList data={primitive} defaultItem="select..." />);
+        const dropDownList = result.find(DropDownList);
+
+        dropDownList.prop('onChange')(primitive[1]);
+        expect(result.state('dataItem')).toEqual("bar");
+        dropDownList.prop('onChange')("select...");
+        expect(result.state('dataItem')).toEqual("select...");
+    });
+
     it('should change state.show onOpen', () => {
         result = shallow(<StatefulDropDownList data={data} textField="text" valueField="value" />);
         const dropDownList = result.find(DropDownList);
