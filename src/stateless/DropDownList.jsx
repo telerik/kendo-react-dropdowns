@@ -223,6 +223,8 @@ export default class DropDownList extends React.Component {
         let focused = this.props.focused;
         let dataItem, handled = false;
 
+        event.preventDefault();
+
         if (disabled) { return; }
 
         if (event.altKey && keyCode === keycode.codes.down) {
