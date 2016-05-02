@@ -16,28 +16,14 @@ This repository contains the source code and documentation of the Kendo UI DropD
 
 Currently, the package includes the following components:
 
-* AutoComplete
 * ComboBox
 * DropDownList
 
-Telerik works on porting the MultiSelect component for React too.
+Telerik works on porting the AutoComplete and MultiSelect components for React too.
 
 For more information on upcoming DropDowns package features and components, refer to the [Roadmap](https://github.com/telerik/kendo-react-dropdowns/blob/master/docs/roadmap.md).
 
 ## Basic Usage
-
-### Kendo UI AutoComplete Component
-
-The AutoComplete provides suggestions to the user from a previously entered list of options depending on the typed input.  
-
-```html-preview
-
-```
-```jsx
-
-```
-
-For more examples and available configuration options, refer to the [AutoComplete documentation section](https://github.com/telerik/kendo-react-dropdowns/tree/master/docs/autocomplete/index.md).
 
 ### Kendo UI ComboBox Component
 
@@ -67,24 +53,7 @@ For more examples and available configuration options, refer to the [DropDownLis
 
 ## Installation
 
-The React DropDowns are published as a [public scoped NPM package](https://docs.npmjs.com/misc/scope) in the [Telerik organization](https://www.npmjs.com/~telerik) in http://npmjs.org/.
-
-Install it using NPM:
-
-```sh
-npm install --save @telerik/kendo-react-inputs;
-```
-
-Once installed, import the module:
-
-```jsx
-// ES2015 module syntax
-import {Slider} from 'kendo-react-inputs';
-```
-```jsx
-// CommonJS format
-var Slider = require('kendo-react-inputs').Slider;
-```
+> As of the latest Kendo UI release, the React DropDowns have not been published as a public scoped NPM package yet. The team are working hard on doing so shortly.
 
 ## Browser Support
 

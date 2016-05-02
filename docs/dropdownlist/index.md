@@ -8,7 +8,9 @@ position: 1
 
 # DropDownList Overview
 
-The Kendo UI DropDownList for React displays a list of values and allows for a single selection from the list. The user input is restricted within the predefined options. Use the Kendo UI ComboBox for React component if you want to apply a keyboard input.
+The Kendo UI DropDownList is a React component which displays a list of values and allows for a single value selection from that list. User input is restricted within the predefined options.
+
+To allow for a keyboard input, use the [Kendo UI ComboBox component for React]({% slug overview_combobox_kendouiforreact %}).
 
 The Kendo UI DropDownList for React is part of the DropDowns `npm` package of the Kendo UI suite for React.
 
@@ -43,10 +45,11 @@ The example below demonstrates the default setup of a Kendo UI DropDownList for 
 
 ### Data
 
-Kendo UI DropDownList for React supports binding data of complex (object) or primitive (string, number) type.
-The `defaultItem` property type must match the data type, e.g. if the component `data` contains objects the `defaultItem` must be defined as an object with same `textField` and `valueField` as the data items.
+The DropDownList enables you to bind data of a complex (objects) or a primitive (strings and numbers) type.
 
-#### Binding to array of primitive data
+The [`defaultItem`]({% slug api_ddl_kendouiforreact %}#defaultitem-objectstringnumber) property type must match the data type. For example, if the [`data`]({% slug api_ddl_kendouiforreact %}#data-array) component contains objects, the `defaultItem` must be defined as an object with same [`textField`]({% slug api_ddl_kendouiforreact %}#textfield-string) and [`valueField`]({% slug api_ddl_kendouiforreact %}#valuefield-string) as the data items.
+
+The example below demonstrates how to bind to an array of primitive data.
 
 ```html
     <div id="app"></div>
@@ -60,7 +63,7 @@ The `defaultItem` property type must match the data type, e.g. if the component 
     );
 ```
 
-#### Binding to array of objects
+The example below demonstrates how to bind to an array of objects.
 
 ```html
     <div id="app"></div>
@@ -85,8 +88,7 @@ The `defaultItem` property type must match the data type, e.g. if the component 
 
 ### Value
 
-The value of the DropDownList component can be set via `value` or `index` property. If both are provided the `value` will take precedence.
-When the value changes the component will execute the `onChange` callback function.
+The value of the DropDownList component can be set through either through its `value` or `index` property. If both are provided, the `value` takes precedence. When the value changes, the component executes the [`onChange`]({% slug api_ddl_kendouiforreact %}#onchange-function) callback function.
 
 ```html-preview
     <div id="app"></div>
@@ -139,11 +141,11 @@ When the value changes the component will execute the `onChange` callback functi
 
 ### Features
 
-#### Search with keyboard
+#### Search with Keyboard
 
-By default the user is able to navigate between items by typing with the keyboard. By default the seach is case-insensitive and the delay before the search-text typed by the end user is cleared is 500 milliseconds.
+By default, the user is able to navigate between items by providing a keyboard input. The default search functionality is case-insensitive and the delay before the search-text submitted by the user is cleared is 500 milliseconds.
 
-These settings can be changed through the `ignoreCase` and `delay` configuration properties.
+These settings can be changed through the [`ignoreCase`]({% slug api_ddl_kendouiforreact %}#ignorecase-booleandefault-true) and [`delay`]({% slug api_ddl_kendouiforreact %}#delay-number) configuration properties.
 
 ```html-preview
     <div id="app"></div>
@@ -160,12 +162,11 @@ These settings can be changed through the `ignoreCase` and `delay` configuration
     );
 ```
 
-#### Filter the items
+#### Filter the Items
 
-If the `filterable` attribute is set the component will render filter input field that allows the user to filter the DropDownList options.
-When the user changes the filter input value the component will execute its `onFilter` callback. It is responsibility of the developer to perform the data filtration and update DropDownList's data through the component's props.
+If the [`filterable`]({% slug api_ddl_kendouiforreact %}#filterable-booleandefault-false) attribute is set, the component renders a filter input field that allowing the user to filter the DropDownList options. When the user changes the filter input value, the component executes its [`onFilter`]({% slug api_ddl_kendouiforreact %}#onfilter-function) callback. It is your responsibility to perform the data filtration and to update the data of the DropDownList through its props.
 
-> If filtration is enabled the default search between items functionality will be automatically disabled.
+> The default functionality to search between items is automatically disabled if filtration is enabled.
 
 ```html-preview
     <div id="app"></div>
@@ -278,9 +279,9 @@ When the user changes the filter input value the component will execute its `onF
     );
 ```
 
-#### Disabled DropDownList
+#### Disable the DropDownList
 
-If set the component will be disabled and will not allow user input.
+If the [`disabled`]({% slug api_ddl_kendouiforreact %}#filterable-booleandefault-false) configuration is set, the DropDownList is disabled and does not allow for a user input.
 
 ```html-preview
     <div id="app"></div>
@@ -297,10 +298,9 @@ If set the component will be disabled and will not allow user input.
     );
 ```
 
-#### Custom item and value render function
+#### Apply Custom Render Functions
 
-By default the widget will display selected item's `textField` both in the list and in the component's header.
-This behaviour can be easily overwritten with the `itemRenderer` and `valueRenderer` callbacks.
+By default, the widget displays the [`textField`]({% slug api_ddl_kendouiforreact %}#textfield-string) of a selected item both in the list and in the header of the DropDownList. The component enables you to easily overwrite this behavior by applying the [`itemRenderer`]({% slug api_ddl_kendouiforreact %}#itemrenderer-function) and [`valueRenderer`]({% slug api_ddl_kendouiforreact %}#valuerenderer-function) callbacks.
 
 ```html-preview
     <div id="app"></div>
@@ -334,7 +334,11 @@ This behaviour can be easily overwritten with the `itemRenderer` and `valueRende
 
 ### Events
 
-#### Popup open/close
+#### Open and Close
+
+The [`onOpen`]({% slug api_ddl_kendouiforreact %}#onopen-function) callback function fires when the popup of the DropDownList is opened.
+
+The [`onClose`]({% slug api_ddl_kendouiforreact %}#onclose-function) callback function fires when the popup of the DropDownList is closed.
 
 ```html
     <div id="app"></div>
@@ -366,7 +370,11 @@ This behaviour can be easily overwritten with the `itemRenderer` and `valueRende
     );
 ```
 
-#### Select and change
+#### Select and Change
+
+The [`onSelect`]({% slug api_ddl_kendouiforreact %}#onselect-function) callback function is fired when a DropDownList option is selected.
+
+The [`onChange`]({% slug api_ddl_kendouiforreact %}#onchange-function) callback function is fired when the DropDownList value changes.
 
 ```html
     <div id="app"></div>
@@ -399,6 +407,8 @@ This behaviour can be easily overwritten with the `itemRenderer` and `valueRende
 ```
 
 #### Filter
+
+The [`onFilter`]({% slug api_ddl_kendouiforreact %}#onfilter-function) callback function is fired when the DropDownList filter input is changed.
 
 ```html
     <div id="app"></div>
@@ -465,22 +475,22 @@ This behaviour can be easily overwritten with the `itemRenderer` and `valueRende
     );
 ```
 
-For detailed information on the Kendo UI DropDownList for React configuration, refer to its [client-side API documentation]({% slug api_ddl_kendouiforreact %}).
+For detailed information on the Kendo UI DropDownList configuration for React, refer to its [API documentation]({% slug api_ddl_kendouiforreact %}).
 
 ## Keyboard Navigation
 
-Below is the list with the keyboard shortcuts the DropDownList supports.
+Below is the list of the keyboard shortcuts the DropDownList supports.
 
 | SHORTCUT                            | DESCRIPTION         |
 |:---                                 |:---                 |
-| `up arrow` or `left arrow`          | Highlights previous item   |
-| `down arrow` or `right arrow`       | Highlights next item   |
-| `home`                              | Selects the first item from the list   |
-| `end`                               | Selects the last item from the list   |
-| `enter`                             | Selects the highlighted item   |
-| `esc`                               | Closes the popup   |
-| `alt` + `up arrow`                  | Closes the popup   |
-| `alt` + `down arrow`                | Opens the popup   |
+| `Upper Arrow` & `Left Arrow` keys   | Highlight the previous item.      |
+| `Down Arrow` & `Right Arrow` keys   | Highlight the next item.          |
+| `Home`                              | Select the first list item.       |
+| `End`                               | Select the last list item.        |
+| `Enter`                             | Select the highlighted list item. |
+| `ESC`                               | Close the popup.                  |
+| `Alt` + `Upper Arrow`               | Close the popup.                  |
+| `Alt` + `Down Arrow`                | Open the popup.                   |
 
 ## Accessibility
 
@@ -488,4 +498,4 @@ The DropDownList is WAI ARIA-accessible through the `Tab` key.
 
 ## Suggested Links
 
-* [Client-Side API Reference for the Kendo UI DropDownList Component]({% slug api_ddl_kendouiforreact %})
+* [API Reference of the DropDownList Component]({% slug api_ddl_kendouiforreact %})

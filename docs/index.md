@@ -10,8 +10,6 @@ position: 1
 
 DropDowns allow you to choose a value from a pre-defined list of options. The DropDowns package includes the Kendo UI AutoComplete, ComboBox, and DropDownList components for React.
 
-The AutoComplete provides suggestions to the user from a previously entered list of options depending on the typed input.
-
 The ComboBox displays a list of pre-defined options. It allows the user to pick a single value from that list, or to enter a custom value through a keyboard input.  
 
 The DropDownList displays a list of pre-defined options and allows the user to pick a single value from that list.  

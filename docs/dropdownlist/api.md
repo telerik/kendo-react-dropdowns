@@ -14,67 +14,19 @@ Represents the Kendo UI DropDownList component for React.
 
 #### data `Array`
 
-Define the array of data items (objects, strings or numbers) which represents the DropDownList options.
+Defines the array of data items (objects, strings, or numbers) which represents the DropDownList options.
 
 #### defaultItem `Object|String|Number`
 
-Define the text/value of the default empty item.
+Defines the text or the value of the default empty item.
 
-> The type of `defaultItem` should match the type of items in the `data` array.
-
-## Features
-
-#### className `String|Object`
-
-Define component's class(es).
-
-#### delay `Number`
-
-Define the delay in milliseconds before the search-text typed by the end user is cleared.
-
-#### disabled `Boolean`*(default: false)*
-
-If set the component will be disabled and will not allow user input.
-
-#### filterable `Boolean`*(default: false)*
-
-If set the component will render filter input field that allows the user to filter the DropDownList options.
-
-> If filtration is enabled the default search between items functionality will be automatically disabled.
-
-#### height `Number`*(default: 200)*
-
-Define the height of the list.
-
-#### highlightFirst `Boolean`*(default: true)*
-
-If set to false the first option will be automatically highlighted after data is filtered.
-
-#### ignoreCase `Boolean`*(default: true)*
-
-If set to false case-sensitive search will be performed to find suggestions. The widget performs case-insensitive searching by default.
-
-#### itemRenderer `Function`
-
-Defines a custom function for rendering the options.
-
-#### valueRenderer `Function`
-
-Defines a custom function for rendering the selected value.
-
-#### tabIndex `Number`
-
-Defines the order in which the component is focused through the Tab key.
-
-#### style `Object`
-
-Defines component's styles.
+> The type of `defaultItem` should match the type of the items in the `data` array.
 
 ## Values
 
 #### index `Number`
 
-Defines the index of the initially selected item. The index is **0 based**.
+Defines the index of the initially selected item. The index is zero-based.
 
 #### value `String|Number`
 
@@ -82,37 +34,85 @@ Defines the value of the widget.
 
 #### textField `String`
 
-The field of the data item that provides the text content of the list items. The widget will search DropDownList options based on this field.
+The field of the data item that provides the text content of the list items. The widget searches DropDownList options based on this field.
 
-> If the component is bound to data of primitive type the `textField` configuration option should **not** be set.
+> Do not set the `textField` configuration option if the component is bound to primitive-type data.
 
 #### valueField `String`
 
 The field of the data item that provides the value of the widget.
 
-> If the component is bound to data of primitive type the `valueField` configuration option should **not** be set.
+> Do not set the `valueField` configuration option if the component is bound to primitive-type data.
+
+## Features
+
+#### className `String|Object`
+
+Defines the classes of the DropDownList component.
+
+#### delay `Number`
+
+Defines the delay before the search-text submitted by the user is cleared.
+
+#### disabled `Boolean`*(default: false)*
+
+If set, the DropDownList is disabled and does not allow for a user input.
+
+#### filterable `Boolean`*(default: false)*
+
+If set, the DropDownList renders a filter input field. It enables the user to filter the options of the component.
+
+> The default functionality to search between items is automatically disabled if filtration is enabled.
+
+#### height `Number`*(default: 200)*
+
+Defines the height of the list.
+
+#### highlightFirst `Boolean`*(default: true)*
+
+If set to `false`, the first option is automatically highlighted after the items are filtered.
+
+#### ignoreCase `Boolean`*(default: true)*
+
+If set to `false`, a case-sensitive search is performed to find suggestions. By default, the search functionality is case-insensitive.
+
+#### itemRenderer `Function`
+
+Defines a custom function for rendering the options.
+
+#### valueRenderer `Function`
+
+Defines a custom function for rendering the selected values.
+
+#### tabIndex `Number`
+
+Defines the order in which the component is focused through the `Tab` key.
+
+#### style `Object`
+
+Defines the styles of the DropDownList.
 
 ## Events
 
 #### onClose `Function`
 
-Callback function that is fired when the component's popup is closed.
+Callback function that fires when the popup of the DropDownList is closed.
 
 #### onFilter `Function`
 
-Callback function that is fired when the filter input is changed.
+Callback function that fires when the filter input is changed.
 
 #### onOpen `Function`
 
-Callback function that is fired when the component's popup is opened.
+Callback function that fires when the popup of the DropDownList is opened.
 
 #### onSelect `Function`
 
-Callback function that is fired when a component's option is selected.
+Callback function that fires when a DropDownList option is selected.
 
 #### onChange `Function`
 
-Callback function that is fired when the component's value changes.
+Callback function that fires when the DropDownList value changes.
 
 ## State
 
@@ -130,4 +130,4 @@ The index of the currently selected item.
 
 #### show `Boolean`*(default: false)*
 
-The visibility state of the component's popup.
+The visibility state of the DropDownList popup.
