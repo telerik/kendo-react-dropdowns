@@ -156,7 +156,7 @@ These settings can be changed through the [`ignoreCase`]({% slug api_ddl_kendoui
     ReactDOM.render(
         <div>
             <p>Focus the component and use the keyboard to navigate between items</p>
-            <KendoReactDropdowns.DropDownList data={data} delay={1000} ignoreCase={false} index={0} />
+            <KendoReactDropdowns.DropDownList data={data} delay={1000} index={0} />
         </div>,
         document.getElementById('app')
     );

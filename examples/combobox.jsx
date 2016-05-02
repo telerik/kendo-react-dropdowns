@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import { ComboBox } from '../src/bundle';
+import { ComboBox } from '../src/main';
 
 const data = [
     { text: "Albania", value: "Alb" },

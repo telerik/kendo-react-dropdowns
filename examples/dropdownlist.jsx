@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { DropDownList } from '../src/bundle';
+import { DropDownList } from '../src/main';
 
 const colors = [
     { text: "Blue", value: "#00007f" },
