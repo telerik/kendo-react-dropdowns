@@ -30,10 +30,24 @@ For more information on upcoming DropDowns package features and components, refe
 The ComboBox displays a list of pre-defined options. It allows the user to pick a single value from that list, or to enter a custom value through keyboard input.  
 
 ```html-preview
-
+    <div id="app"></div>
 ```
 ```jsx
+    const data = [
+        { text: "Foo", value: 1 },
+        { text: "Bar", value: 2 },
+        { text: "Baz", value: 3 },
+    ];
 
+    ReactDOM.render(
+        <KendoReactDropdowns.ComboBox
+            data={data}
+            placeholder="Select..."
+            textField="text"
+            valueField="value"
+        />,
+        document.getElementById('app')
+    );
 ```
 
 For more examples and available configuration options, refer to the [ComboBox documentation section](https://github.com/telerik/kendo-react-dropdowns/tree/master/docs/combobox/index.md).
@@ -43,10 +57,24 @@ For more examples and available configuration options, refer to the [ComboBox do
 The DropDownList displays a list of pre-defined options and allows the user to pick a single value from that list.  
 
 ```html-preview
-
+    <div id="app"></div>
 ```
 ```jsx
+    const data = [
+        { text: "Foo", value: 1 },
+        { text: "Bar", value: 2 },
+        { text: "Baz", value: 3 },
+    ];
 
+    ReactDOM.render(
+        <KendoReactDropdowns.DropDownList
+            data={data}
+            defaultItem={{ text: "Select...", value: null }}
+            textField="text"
+            valueField="value"
+        />,
+        document.getElementById('app')
+    );
 ```
 
 For more examples and available configuration options, refer to the [DropDownList documentation section](https://github.com/telerik/kendo-react-dropdowns/tree/master/docs/dropdownlist/index.md).
