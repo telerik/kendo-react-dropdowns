@@ -181,14 +181,6 @@ export default class DropDownList extends React.Component {
         }
     };
 
-    /*
-    select = (dataItem) => {
-        if (!this.props.disabled) {
-            this.props.onSelect(dataItem);
-        }
-    };
-    */
-
     allowOpening = () => {
         const { defaultItem, filterable, data } = this.props;
         return defaultItem || filterable || data.length;

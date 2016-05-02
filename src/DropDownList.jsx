@@ -100,7 +100,6 @@ export default class DropDownList extends React.Component {
         const { onChange, valueField } = this.props;
         const item = dataItem ? dataItem : this.state.dataItem;
 
-
         if (item) {
             this.onSelect(item);
             onChange(util.getter(item, valueField), item);
