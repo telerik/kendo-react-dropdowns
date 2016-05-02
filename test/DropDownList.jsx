@@ -310,7 +310,7 @@ describe('DropDownList keyboard navigation', () => {
         const spy = jasmine.createSpy('spy');
         result = create(data[0], spy);
 
-        result.simulate('keyDown', { keyCode: keycode.codes.down });
+        result.simulate('keyDown', { keyCode: keycode.codes.down, preventDefault: function() {} });
         expect(spy).toHaveBeenCalledWith(data[1]);
     });
 
@@ -318,7 +318,7 @@ describe('DropDownList keyboard navigation', () => {
         const spy = jasmine.createSpy('spy');
         result = create(data[0], spy);
 
-        result.simulate('keyDown', { keyCode: keycode.codes.right });
+        result.simulate('keyDown', { keyCode: keycode.codes.right, preventDefault: function() {} });
         expect(spy).toHaveBeenCalledWith(data[1]);
     });
 
@@ -326,7 +326,7 @@ describe('DropDownList keyboard navigation', () => {
         const spy = jasmine.createSpy('spy');
         result = create(data[1], spy);
 
-        result.simulate('keyDown', { keyCode: keycode.codes.up });
+        result.simulate('keyDown', { keyCode: keycode.codes.up, preventDefault: function() {} });
         expect(spy).toHaveBeenCalledWith(data[0]);
     });
 
@@ -334,7 +334,7 @@ describe('DropDownList keyboard navigation', () => {
         const spy = jasmine.createSpy('spy');
         result = create(data[1], spy);
 
-        result.simulate('keyDown', { keyCode: keycode.codes.left });
+        result.simulate('keyDown', { keyCode: keycode.codes.left, preventDefault: function() {} });
         expect(spy).toHaveBeenCalledWith(data[0]);
     });
 
@@ -342,7 +342,7 @@ describe('DropDownList keyboard navigation', () => {
         const spy = jasmine.createSpy('spy');
         result = create(data[1], spy);
 
-        result.simulate('keyDown', { keyCode: keycode.codes.home });
+        result.simulate('keyDown', { keyCode: keycode.codes.home, preventDefault: function() {} });
         expect(spy).toHaveBeenCalledWith(data[0]);
     });
 
@@ -351,7 +351,7 @@ describe('DropDownList keyboard navigation', () => {
         const spy = jasmine.createSpy('spy');
         result = create(data[1], spy, defaultItem);
 
-        result.simulate('keyDown', { keyCode: keycode.codes.home });
+        result.simulate('keyDown', { keyCode: keycode.codes.home, preventDefault: function() {} });
         expect(spy).toHaveBeenCalledWith(defaultItem);
     });
 
@@ -359,7 +359,7 @@ describe('DropDownList keyboard navigation', () => {
         const spy = jasmine.createSpy('spy');
         result = create(data[1], spy);
 
-        result.simulate('keyDown', { keyCode: keycode.codes.end });
+        result.simulate('keyDown', { keyCode: keycode.codes.end, preventDefault: function() {} });
 
         expect(spy).toHaveBeenCalledWith(data[2]);
     });
@@ -369,7 +369,7 @@ describe('DropDownList keyboard navigation', () => {
         const spy = jasmine.createSpy('spy');
         result = create(data[0], spy, defaultItem);
 
-        result.simulate('keyDown', { keyCode: keycode.codes.up });
+        result.simulate('keyDown', { keyCode: keycode.codes.up, preventDefault: function() {} });
         expect(spy).toHaveBeenCalledWith(defaultItem);
     });
 
@@ -377,8 +377,8 @@ describe('DropDownList keyboard navigation', () => {
         const spy = jasmine.createSpy('spy');
         result = create(data[2], spy);
 
-        result.simulate('keyDown', { keyCode: keycode.codes.up });
-        result.simulate('keyDown', { keyCode: keycode.codes.enter });
+        result.simulate('keyDown', { keyCode: keycode.codes.up, preventDefault: function() {} });
+        result.simulate('keyDown', { keyCode: keycode.codes.enter, preventDefault: function() {} });
         expect(spy).toHaveBeenCalledWith(data[1]);
     });
 
@@ -387,8 +387,8 @@ describe('DropDownList keyboard navigation', () => {
         const spy = jasmine.createSpy('spy');
         result = create(data[0], spy, defaultItem);
 
-        result.simulate('keyDown', { keyCode: keycode.codes.up });
-        result.simulate('keyDown', { keyCode: keycode.codes.enter });
+        result.simulate('keyDown', { keyCode: keycode.codes.up, preventDefault: function() {} });
+        result.simulate('keyDown', { keyCode: keycode.codes.enter, preventDefault: function() {} });
         expect(spy).toHaveBeenCalledWith(defaultItem);
     });
 
@@ -396,7 +396,7 @@ describe('DropDownList keyboard navigation', () => {
         const spy = jasmine.createSpy('spy');
         result = create(data[2], spy);
 
-        result.simulate('keyDown', { keyCode: keycode.codes.down });
+        result.simulate('keyDown', { keyCode: keycode.codes.down, preventDefault: function() {} });
         expect(spy).toHaveBeenCalledWith(data[2]);
     });
 
@@ -404,7 +404,7 @@ describe('DropDownList keyboard navigation', () => {
         const spy = jasmine.createSpy('spy');
         result = create(data[0], spy);
 
-        result.simulate('keyDown', { keyCode: keycode.codes.up });
+        result.simulate('keyDown', { keyCode: keycode.codes.up, preventDefault: function() {} });
         expect(spy).toHaveBeenCalledWith(data[0]);
     });
 
@@ -412,7 +412,7 @@ describe('DropDownList keyboard navigation', () => {
         const spy = jasmine.createSpy('spy');
         result = create(data[0], spy, undefined, true);
 
-        result.simulate('keyDown', { keyCode: keycode.codes.down });
+        result.simulate('keyDown', { keyCode: keycode.codes.down, preventDefault: function() {} });
         expect(spy).not.toHaveBeenCalled();
     });
 
@@ -420,8 +420,8 @@ describe('DropDownList keyboard navigation', () => {
         const spy = jasmine.createSpy('spy');
         result = create(data[2], spy, undefined, true);
 
-        result.simulate('keyDown', { keyCode: keycode.codes.up });
-        result.simulate('keyDown', { keyCode: keycode.codes.enter });
+        result.simulate('keyDown', { keyCode: keycode.codes.up, preventDefault: function() {} });
+        result.simulate('keyDown', { keyCode: keycode.codes.enter, preventDefault: function() {} });
         expect(spy).not.toHaveBeenCalled();
     });
 
@@ -429,7 +429,7 @@ describe('DropDownList keyboard navigation', () => {
         const spy = jasmine.createSpy('spy');
         result = shallow(<DropDownList data={data} onOpen={spy} textField="text" valueField="value" />);
 
-        result.simulate('keyDown', { keyCode: keycode.codes.down, altKey: true });
+        result.simulate('keyDown', { keyCode: keycode.codes.down, altKey: true, preventDefault: function() {} });
         expect(spy).toHaveBeenCalled();
     });
 
@@ -445,7 +445,7 @@ describe('DropDownList keyboard navigation', () => {
             />
         );
 
-        result.simulate('keyDown', { keyCode: keycode.codes.down, altKey: true });
+        result.simulate('keyDown', { keyCode: keycode.codes.down, altKey: true, preventDefault: function() {} });
         expect(spy).not.toHaveBeenCalled();
     });
 
@@ -461,7 +461,7 @@ describe('DropDownList keyboard navigation', () => {
             />
         );
 
-        result.simulate('keyDown', { keyCode: keycode.codes.up, altKey: true });
+        result.simulate('keyDown', { keyCode: keycode.codes.up, altKey: true, preventDefault: function() {} });
         expect(spy).toHaveBeenCalled();
     });
 
@@ -477,7 +477,7 @@ describe('DropDownList keyboard navigation', () => {
             />
         );
 
-        result.simulate('keyDown', { keyCode: keycode.codes.esc });
+        result.simulate('keyDown', { keyCode: keycode.codes.esc, preventDefault: function() {} });
         expect(spy).toHaveBeenCalled();
     });
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { AutoComplete, Stateless } from '../src/bundle';
+import { AutoComplete, Stateless } from '../src/main';
 
 describe('AutoComplete', () => {
     const data = [
@@ -36,7 +36,7 @@ describe('AutoComplete', () => {
         result = shallow(<AutoComplete data={data} />);
         expect(result.find(Stateless.SearchBar).length).toEqual(1);
     });
-    
+
     it('should disable the search bar if disabled prop is passed', () => {
         result = shallow(<AutoComplete data={data} disabled />);
         expect(result.find(Stateless.SearchBar).prop('disabled')).toBe(true);
