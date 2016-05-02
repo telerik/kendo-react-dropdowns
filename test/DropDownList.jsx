@@ -120,7 +120,13 @@ describe('StatefulDropDownList event handlers', () => {
         expect(result.state('dataItem')).toEqual({ text: "bar", value: 2 });
     });
 
-    //TODO: test change event
+    it('should change state.dataItem onChange', () => {
+        result = shallow(<StatefulDropDownList data={data} textField="text" valueField="value" />);
+        const dropDownList = result.find(DropDownList);
+
+        dropDownList.prop('onChange')(data[1]);
+        expect(result.state('dataItem')).toEqual({ text: "bar", value: 2 });
+    });
 
     it('should change state.show onOpen', () => {
         result = shallow(<StatefulDropDownList data={data} textField="text" valueField="value" />);
