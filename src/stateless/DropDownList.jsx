@@ -215,11 +215,11 @@ export default class DropDownList extends React.Component {
         let focused = this.props.focused;
         let dataItem, handled = false;
 
-        event.preventDefault();
-
         if (disabled) { return; }
 
         if (event.altKey && keyCode === keycode.codes.down) {
+            event.preventDefault();
+
             if (!show) {
                 this.open();
             }
@@ -227,6 +227,8 @@ export default class DropDownList extends React.Component {
         }
 
         if ((event.altKey && keyCode === keycode.codes.up) || (keyCode === keycode.codes.esc)) {
+            event.preventDefault();
+
             if (show) {
                 this.close();
             }
@@ -234,6 +236,8 @@ export default class DropDownList extends React.Component {
         }
 
         if (keyCode === keycode.codes.enter) {
+            event.preventDefault();
+
             dataItem = (focused === -1) ? defaultItem || null : this.props.data[focused];
             this.selectFromList(dataItem || (data[focused] || defaultItem));
 
@@ -261,6 +265,7 @@ export default class DropDownList extends React.Component {
         }
 
         if (handled) {
+            event.preventDefault();
             this.select(dataItem || (data[focused] || defaultItem));
         }
     };
