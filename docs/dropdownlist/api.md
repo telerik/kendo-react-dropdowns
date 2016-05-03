@@ -14,7 +14,7 @@ Represents the Kendo UI DropDownList component for React.
 
 #### data `Array`
 
-Defines the array of data items (objects, strings, or numbers) which represents the DropDownList options.
+Defines the array of data items (objects, strings, or numbers) which represent the DropDownList options.
 
 #### defaultItem `Object|String|Number`
 
@@ -30,7 +30,7 @@ Defines the index of the initially selected item. The index is zero-based.
 
 #### value `String|Number`
 
-Defines the value of the widget.
+Defines the value of the component.
 
 #### textField `String`
 
@@ -40,7 +40,7 @@ The field of the data item that provides the text content of the list items. The
 
 #### valueField `String`
 
-The field of the data item that provides the value of the widget.
+The field of the data item that provides the value of the component.
 
 > Do not set the `valueField` configuration option if the component is bound to primitive-type data.
 
@@ -78,7 +78,7 @@ If set to `false`, a case-sensitive search is performed to find suggestions. By 
 
 #### itemRenderer `Function`
 
-Defines a custom function for rendering the options.
+Defines a custom function for rendering the list items.
 
 #### valueRenderer `Function`
 

@@ -281,7 +281,7 @@ If the [`filterable`]({% slug api_ddl_kendouiforreact %}#filterable-booleandefau
 
 #### Disable the DropDownList
 
-If the [`disabled`]({% slug api_ddl_kendouiforreact %}#filterable-booleandefault-false) configuration is set, the DropDownList is disabled and does not allow for a user input.
+If the [`disabled`]({% slug api_ddl_kendouiforreact %}#disabled-booleandefault-false) configuration is set, the DropDownList is disabled and does not allow for a user input.
 
 ```html-preview
     <div id="app"></div>

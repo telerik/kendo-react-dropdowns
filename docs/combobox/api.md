@@ -10,42 +10,84 @@ position: 2
 
 Represents the Kendo UI ComboBox component for React.
 
+## Data
+
+#### data `Array`
+
+Defines the array of data items which represent the ComboBox options.
+
+## Values
+
+#### value `Number|String`  
+
+Defines the initial value of the component.
+
+#### valueField `String`  
+
+The field of the data item that provides the value of the component. Specify it when binding the component to an array of objects.
+
+```html-preview
+    <div id="app"></div>
+```
+```jsx
+    const data = [
+        { FirstName: "John", LastName: "Doe", EmployeeID: 1 },
+        { FirstName: "Jane", LastName: "Smith", EmployeeID: 2 },
+        { FirstName: "Eric", LastName: "Weber", EmployeeID: 3 }
+    ];
+    ReactDOM.render(
+        <KendoReactDropdowns.ComboBox
+            data={data}
+            textField="text"
+            valueField="value"
+        />,
+        document.getElementById('app')
+    );
+```
+
 ## Features
 
 #### disabled `Boolean`*(default: "false")*
-The ComboBox allows you to disable it by setting the `disabled` configuration property to `true`. When disabled, the component is visible, but does not function.
-```jsx
-<KendoReactDropdowns.ComboBox
-    disabled
-    data={data}
-/>
-```
+
+If set to `true`, disables the ComboBox. This means that the component is visible, but does not function.
+
 #### height `Number` *(default: 200)*
-The suggestion popup size can be limited through `height` configuration property by setting the height in pixels.
+
+Defines the suggestion popup size and is set in pixels.
+
 ```jsx
 <KendoReactDropdowns.ComboBox
     data={data}
     height={500}
 />
 ```
+
 #### minLength `Number`
-By configuring the `minLength` property, the ComboBox allows you to define a minimum number of characters the user should type in the input field before any suggestion is displayed.
+
+Defines the minimum number of characters the user should type in the input field before any suggestion is displayed.
+
 ```jsx
 <KendoReactDropdowns.ComboBox
     data={data}
     minLength={3}
 />
 ```
+
 #### placeholder `String`
-The hint displayed by the widget when it is empty. Not set by default.
+
+Defines the hint displayed by the component when it is empty. By default, it is not set.
+
 ```jsx
 <KendoReactDropdowns.ComboBox
     data={countries}
     placeholder="Select country"
 />
 ```
-####suggest: `Boolean`*(default: "false")*
-If set to true the ComboBox will automatically use the first suggestion as its value. 
+
+#### suggest `Boolean`*(default: "false")*
+
+If set to `true`, the ComboBox automatically uses the first suggestion as its value.
+
 ```jsx
 <KendoReactDropdowns.ComboBox
 	suggest
@@ -53,55 +95,39 @@ If set to true the ComboBox will automatically use the first suggestion as its v
 />
 ```
 
-####textField:  `String` 
-The field of the data item that provides the text content of the list items. Should be specified when binding the component to an array of objects.
-```html-preview
-    <div id="app"></div>
-```
-```jsx
-    const data = [
-        { FirstName: "John", LastName: "Doe", EmployeeID: 1 },
-        { FirstName: "Jane", LastName: "Smith", EmployeeID: 2 },
-        { FirstName: "Eric", LastName: "Weber", EmployeeID: 3 }
-    ];
-    ReactDOM.render(
-        <KendoReactDropdowns.ComboBox 
-            data={data}
-            textField="text"
-            valueField="value"
-        />,
-        document.getElementById('app')
-    );
-```
-####valueField: `String`  
-The field of the data item that provides the value of the component. Should be specified when binding the component to an array of objects.
-```html-preview
-    <div id="app"></div>
-```
-```jsx
-    const data = [
-        { FirstName: "John", LastName: "Doe", EmployeeID: 1 },
-        { FirstName: "Jane", LastName: "Smith", EmployeeID: 2 },
-        { FirstName: "Eric", LastName: "Weber", EmployeeID: 3 }
-    ];
-    ReactDOM.render(
-        <KendoReactDropdowns.ComboBox 
-            data={data}
-            textField="text"
-            valueField="value"
-        />,
-        document.getElementById('app')
-    );
-```
+#### textField `String`
 
-#### value `Number|String`  
-The initial value of the component.
+Defines the field of the data item which provides the text content of the list items. Specify it when binding the component to an array of objects.
+
+```html-preview
+    <div id="app"></div>
+```
+```jsx
+    const data = [
+        { FirstName: "John", LastName: "Doe", EmployeeID: 1 },
+        { FirstName: "Jane", LastName: "Smith", EmployeeID: 2 },
+        { FirstName: "Eric", LastName: "Weber", EmployeeID: 3 }
+    ];
+    ReactDOM.render(
+        <KendoReactDropdowns.ComboBox
+            data={data}
+            textField="text"
+            valueField="value"
+        />,
+        document.getElementById('app')
+    );
+```
 
 #### itemRenderer `Function`  
-A function that is responsible for rendering the list items.
+
+Defines a custom function for rendering the list items.
+
+## Events
 
 #### onChange `Function`
-The  `change` event is triggered when the component's value has changed. The new value is passed to the event handler.
-#### onFilter `Function`
-The `filter` event is triggered each time the text is changed and the new value is passed to the handler.
 
+Callback function that fires when the ComboBox value changes. The new value is passed to the event handler.
+
+#### onFilter `Function`
+
+Callback function that fires when the filter input is changed. The new value is passed to the event handler.

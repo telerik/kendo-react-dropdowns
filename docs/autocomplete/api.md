@@ -16,27 +16,11 @@ Represents the Kendo UI AutoComplete component for React.
 
 Defines the array of data items (objects, strings, or numbers) which represents the AutoComplete options.
 
-#### defaultItem `Object|String|Number`
-
-Defines the text or the value of the default empty item.
-
-> The type of `defaultItem` should match the type of the items in the `data` array.
-
 ## Values
-
-#### index `Number`
-
-Defines the index of the initially selected item. The index is zero-based.
 
 #### value `String|Number`
 
 Defines the value of the widget.
-
-#### textField `String`
-
-The field of the data item that provides the text content of the list items. The widget searches AutoComplete options based on this field.
-
-> Do not set the `textField` configuration option if the component is bound to primitive-type data.
 
 #### valueField `String`
 
@@ -57,12 +41,6 @@ Defines the delay before the search-text submitted by the user is cleared.
 #### disabled `Boolean`*(default: false)*
 
 If set, the AutoComplete is disabled and does not allow for a user input.
-
-#### filterable `Boolean`*(default: false)*
-
-If set, the AutoComplete renders a filter input field. It enables the user to filter the options of the component.
-
-> The default functionality to search between items is automatically disabled if filtration is enabled.
 
 #### height `Number`*(default: 200)*
 
@@ -87,6 +65,21 @@ Defines the order in which the component is focused through the `Tab` key.
 #### style `Object`
 
 Defines the styles of the AutoComplete.
+
+
+
+#### separator `String`
+
+Separates the values selected by the end user.
+
+#### minLength `Number`
+
+Sets the minimum length of the input typed by the end user.
+
+#### suggest `Boolean`
+
+When set to `true`, the AutoComplete displays suggestions corresponding to the input typed by the end user.
+
 
 ## Events
 

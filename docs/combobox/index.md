@@ -7,6 +7,7 @@ position: 1
 ---
 
 # ComboBox Overview
+
 The Kendo UI ComboBox for React displays a list of pre-defined options. It allows the user to pick a single value from that list, or to enter a custom value through a keyboard input.
 
 The Kendo UI ComboBox for React is part of the DropDowns `npm` package of the Kendo UI suite for React.
@@ -20,8 +21,11 @@ The Kendo UI ComboBox for React is part of the DropDowns `npm` package of the Ke
 3. Drop-down list item
 
 ## Demos
+
 ### Default Setup
+
 The example below demonstrates the default setup of a Kendo UI ComboBox for React.
+
 ```html-preview
     <div id="app"></div>
 ```
@@ -35,9 +39,13 @@ The example below demonstrates the default setup of a Kendo UI ComboBox for Reac
 ```
 
 ## Configuration
-###Data binding
-The ComboBox component can be bound to both array of primitives and array of complex objects. The   [`textField`]() and [`valueField`]() properties should be specified when binding the ComboBox to an array of objects.
-####Binding to array of primitives
+
+### Data
+
+The ComboBox enables you to bind it to an array of both primitives and complex objects. When binding the component to an array of objects, specify the [`textField`]({% slug api_combobox_kendouiforreact %}#textfield--string) and [`valueField`]({% slug api_combobox_kendouiforreact %}#valuefield-string) properties.
+
+The example below demonstrates how to bind to an array of primitive data.
+
 ```html-preview
     <div id="app"></div>
 ```
@@ -49,7 +57,9 @@ The ComboBox component can be bound to both array of primitives and array of com
 		document.getElementById('app')
     );
 ```
-####Binding to array of objects
+
+The example below demonstrates how to bind to an array of objects.
+
 ```html-preview
     <div id="app"></div>
 ```
@@ -61,40 +71,46 @@ The ComboBox component can be bound to both array of primitives and array of com
     ];
 
     ReactDOM.render(
-		<KendoReactDropdowns.ComboBox 
-			data={data}
-			textField="text"
-			valueField="value" 
-		/>,
-		document.getElementById('app')
-    );
-```
-###Initial value
-The component's initial value can be specified through the  [`value`]() property.
-```html-preview
-    <div id="app"></div>
-```
-```jsx
-    const data = [
-        { text: "Item 1", value: 1 },
-        { text: "Item 2", value: 2 },
-        { text: "Item 3", value: 3 }
-    ];
-
-    ReactDOM.render(
-		<KendoReactDropdowns.ComboBox 
+		<KendoReactDropdowns.ComboBox
 			data={data}
 			textField="text"
 			valueField="value"
-			value={2} 
 		/>,
 		document.getElementById('app')
     );
 ```
 
-## Features
-### Custom item rendering
-The ComboBox items can be be customized using the  [`itemRenderer`]() property.
+### Value
+
+The initial value of the ComboBox can be set through its [`value`]({% slug api_combobox_kendouiforreact %}#value-numberstring) property.
+
+```html-preview
+    <div id="app"></div>
+```
+```jsx
+    const data = [
+        { text: "Item 1", value: 1 },
+        { text: "Item 2", value: 2 },
+        { text: "Item 3", value: 3 }
+    ];
+
+    ReactDOM.render(
+		<KendoReactDropdowns.ComboBox
+			data={data}
+			textField="text"
+			valueField="value"
+			value={2}
+		/>,
+		document.getElementById('app')
+    );
+```
+
+### Features
+
+#### Apply Custom Item Rendering
+
+The ComboBox items can be customized by using the [`itemRenderer`]({% slug api_combobox_kendouiforreact %}#itemrenderer-function) property.
+
 ```html-preview
     <div id="app"></div>
 ```
@@ -110,20 +126,43 @@ The ComboBox items can be be customized using the  [`itemRenderer`]() property.
 	};
 
     ReactDOM.render(
-		<KendoReactDropdowns.ComboBox 
+		<KendoReactDropdowns.ComboBox
 			data={data}
 			textField="text"
 			valueField="value"
-			itemRenderer={customRenderer} 
+			itemRenderer={customRenderer}
 		/>,
 		document.getElementById('app')
     );
 ```
 
-##Event handling
-Subscribing to ComboBox events is done by passing the handlers through the component's properties. Currently, the ComboBox supports  [`change`]()  and [`filter`]() events.
-### Change event
-The  [`change`]() event is triggered when the component's value has changed. The new value is passed to the event handler.
+#### Disable the ComboBox
+
+If the [`disabled`]({% slug api_combobox_kendouiforreact %}#disabled-booleandefault-false) configuration is set, the ComboBox is disabled and does not allow for a user input.
+
+```html-preview
+    <div id="app"></div>
+```
+```jsx
+    const data = [ "Jack", "Jane", "John", "Jacob", "Jake" ];
+
+    ReactDOM.render(
+        <div>
+            <p>Disabled ComboBox</p>
+            <KendoReactDropdowns.ComboBox data={data} disabled />
+        </div>,
+        document.getElementById('app')
+    );
+```
+
+### Events
+
+The subscription to any of the ComboBox events is done by passing the handlers through the properties of the component. Currently, the ComboBox supports  the [`onChange`]({% slug api_combobox_kendouiforreact %}#onchange-function)  and [`onFilter`]({% slug api_combobox_kendouiforreact %}#onfilter-function) events.
+
+#### Change
+
+The [`onChange`]({% slug api_combobox_kendouiforreact %}#onchange-function) event fires when the ComboBox value changes. The new value is passed to the event handler.
+
 ```html-preview
     <div id="app"></div>
 ```
@@ -139,17 +178,19 @@ The  [`change`]() event is triggered when the component's value has changed. The
     };
 
     ReactDOM.render(
-        <KendoReactDropdowns.ComboBox 
+        <KendoReactDropdowns.ComboBox
             data={data}
             textField="text"
             valueField="value"
-            onChange={onChange} 
+            onChange={onChange}
         />,
         document.getElementById('app')
     );
 ```
-### Filter event
-The [`filter`]() event is triggered each time the text is changed and the new value is passed to the handler.
+
+#### Filter
+
+The [`onFilter`]({% slug api_combobox_kendouiforreact %}#onfilter-function) event fires each time the filter input changes. The new value is passed to the event handler.
 
 ```html-preview
     <div id="app"></div>
@@ -196,7 +237,7 @@ The [`filter`]() event is triggered each time the text is changed and the new va
             const { data, value } = this.state;
 
             return (
-                <KendoReactDropdowns.ComboBox 
+                <KendoReactDropdowns.ComboBox
                     data={data}
                     value={value}
                     textField="text"
@@ -214,9 +255,17 @@ The [`filter`]() event is triggered each time the text is changed and the new va
     );
 ```
 
-For detailed information on the Kendo UI ComboBox for React configuration, refer to its [client-side API documentation]({% slug api_combobox_kendouiforreact %}).
+For detailed information on the Kendo UI ComboBox configuration for React, refer to its [API documentation]({% slug api_combobox_kendouiforreact %}).
 
+## Keyboard Navigation
 
+Below is the list of the keyboard shortcuts the ComboBox supports.
+
+| SHORTCUT                            | DESCRIPTION         |
+|:---                                 |:---                 |
+| `Upper Arrow`                       | Highlight the previous item.      |
+| `Down Arrow`                        | Highlight the next item.          |
+| `Enter`                             | Select the highlighted list item. |
 
 ## Suggested Links
 
