@@ -107,6 +107,33 @@ By default, the widget displays the [`textField`]({% slug api_autocomplete_kendo
 ```jsx
 ```
 
+#### Separate Selected Items
+
+The AutoComplete enables the separation of the list items selected by the end user through the [`separator`]({% slug api_autocomplete_kendouiforreact %}#separator-string) configuration property.
+
+```html-preview
+```
+```jsx
+```
+
+#### Set Number of User Input Characters
+
+The AutoComplete allows you to set the minimum number of characters the end user should type in the input field before any suggestion is displayed. Do this by configuring the [`minLength`]({% slug api_autocomplete_kendouiforreact %}#minlength-number) property.
+
+```html-preview
+```
+```jsx
+```
+
+#### Manage Suggestions
+
+When the [`suggest`]({% slug api_autocomplete_kendouiforreact %}#suggest-boolean) configuration property is set to `true`, the AutoComplete automatically uses the first suggestion as its value.
+
+```html-preview
+```
+```jsx
+```
+
 ### Events
 
 #### Open and Close
