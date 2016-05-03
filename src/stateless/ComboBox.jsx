@@ -103,11 +103,13 @@ export default class ComboBox extends React.Component {
     };
 
     toggle = () => {
-        this.refs.SearchBar._input.focus();
-        this.props.onToggle({
-            show: !this.props.show,
-            focused: this.props.selected ? null : this.props.focused || 0
-        });
+        if (!this.props.disabled) {
+            this.refs.SearchBar._input.focus();
+            this.props.onToggle({
+                show: !this.props.show,
+                focused: this.props.selected ? null : this.props.focused || 0
+            });
+        }
     };
 
     navigate = (keyCode) => {
@@ -135,7 +137,7 @@ export default class ComboBox extends React.Component {
             text: util.getter(dataItem, textField),
             value: util.getter(dataItem, valueField),
             word: null,
-            focused: null,
+            focused: selected,
             selected: selected,
             highlight: suggest
         });
@@ -165,6 +167,7 @@ export default class ComboBox extends React.Component {
             text: text,
             value: value,
             highlight: false,
+            focused: index,
             selected: index,
             show: false,
             word: null

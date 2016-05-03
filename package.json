@@ -14,13 +14,13 @@
     "React"
   ],
   "dependencies": {
-    "react": "~0.14.3",
-    "react-dom": "~0.14.3",
-    "react-addons-update": "~0.14.3",
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1",
+    "react-addons-update": "^15.0.1",
     "classnames": "^2.1.5",
     "keycode": "^2.1.1",
     "@telerik/kendo-react-buttons": "^0.1.0",
-    "@telerik/kendo-react-popup": "^0.1.4"
+    "@telerik/kendo-react-popup": "^0.1.7"
   },
   "devDependencies": {
     "@telerik/eslint-config": "1.1.0",

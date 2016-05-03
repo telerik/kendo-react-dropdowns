@@ -12,20 +12,17 @@ export default class ComboBox extends React.Component {
             React.PropTypes.number
         ])),
         height: React.PropTypes.number,
-        highlight: React.PropTypes.bool,
+        minLength: React.PropTypes.number,
         itemRenderer: React.PropTypes.func,
         onChange: React.PropTypes.func,
         onFilter: React.PropTypes.func,
         placeholder: React.PropTypes.string,
-        show: React.PropTypes.bool,
+        disabled: React.PropTypes.bool,
         style: PropTypes.object, // eslint-disable-line
         suggest: React.PropTypes.bool,
         text: React.PropTypes.string,
         textField: React.PropTypes.string,
         value: React.PropTypes.oneOfType([
-            React.PropTypes.bool,
-            React.PropTypes.object,
-            React.PropTypes.date,
             React.PropTypes.number,
             React.PropTypes.string
         ]),
@@ -66,16 +63,16 @@ export default class ComboBox extends React.Component {
 
     handleBlur = (state) => {
         this.setState(state, this.handleChange.bind(this, state.value));
-    };
+    }
 
     handleSelect = (state) => {
         this.setState(state, this.handleChange.bind(this, state.value));
-    };
+    }
 
     handleTextUpdate = (state) => {
         this.text = state.text;
         this.setState(state);
-    };
+    }
 
     handleChange = (text) => {
         if (this._oldText === text || this._oldValue === this.state.value) {
@@ -93,7 +90,7 @@ export default class ComboBox extends React.Component {
 
     handleNavigate = (keyCode, state) => {
         this.setState(state);
-    };
+    }
 
     handleToggle = (state) => {
         if (!this.props.data.length) {
@@ -114,6 +111,8 @@ export default class ComboBox extends React.Component {
             show: this.state.show,
             word: this.state.word,
             //from props
+            disabled: this.props.disabled,
+            minLength: this.props.minLength,
             height: this.props.height,
             suggest: this.props.suggest,
             data: this.props.data,
