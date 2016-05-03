@@ -17,8 +17,7 @@ The Kendo UI AutoComplete for React is part of the DropDowns `npm` package of th
 ![Template of the Kendo UI AutoComplete for React](images/autocomplete.png)
 
 1. AutoComplete interaction states
-2. Grouping header
-3. Drop-down list item
+2. Drop-down list
 
 ## Demos
 

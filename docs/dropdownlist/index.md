@@ -20,8 +20,7 @@ The Kendo UI DropDownList for React is part of the DropDowns `npm` package of th
 
 1. DropDownList interaction states
 2. Filter input field
-3. Grouping header
-4. Drop-down list item
+3. Drop-down list
 
 ## Demos
 

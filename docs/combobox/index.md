@@ -18,7 +18,7 @@ The Kendo UI ComboBox for React is part of the DropDowns `npm` package of the Ke
 
 1. ComboBox interaction states
 2. Drop-down **Expand** / **Collapse** button
-3. Drop-down list item
+3. Drop-down list
 
 ## Demos
 

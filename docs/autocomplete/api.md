@@ -66,20 +66,17 @@ Defines the order in which the component is focused through the `Tab` key.
 
 Defines the styles of the AutoComplete.
 
-
-
 #### separator `String`
 
 Separates the values selected by the end user.
 
 #### minLength `Number`
 
-Sets the minimum length of the input typed by the end user.
+Sets the minimum number of characters the user should type in the input field before any suggestion is displayed.
 
 #### suggest `Boolean`
 
-When set to `true`, the AutoComplete displays suggestions corresponding to the input typed by the end user.
-
+If set to `true`, the AutoComplete automatically uses the first suggestion as its value.
 
 ## Events
 
