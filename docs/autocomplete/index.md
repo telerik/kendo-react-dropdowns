@@ -6,7 +6,7 @@ slug: overview_autocomplete_kendouiforreact
 position: 1
 ---
 
-# AutoComplete Overview
+# AutoComplete Overview (DRAFT)
 
 The Kendo UI AutoComplete for React provides suggestions to the user from a previously entered list of options depending on the typed input.
 
@@ -35,136 +35,132 @@ The example below demonstrates the default setup of a Kendo UI AutoComplete for 
 
 ## Configuration
 
+### Data
+
+The AutoComplete enables you to bind data of a complex (objects) or a primitive (strings and numbers) type.
+
+The [`defaultItem`]({% slug api_autocomplete_kendouiforreact %}#defaultitem-objectstringnumber) property type must match the data type. For example, if the [`data`]({% slug api_autocomplete_kendouiforreact %}#data-array) component contains objects, the `defaultItem` must be defined as an object with same [`textField`]({% slug api_autocomplete_kendouiforreact %}#textfield-string) and [`valueField`]({% slug api_autocomplete_kendouiforreact %}#valuefield-string) as the data items.
+
+The example below demonstrates how to bind to an array of primitive data.
+
+```html
+
+```
+```jsx
+
+```
+
+The example below demonstrates how to bind to an array of objects.
+
+```html
+
+```
+```jsx
+
+```
+
+### Value
+
+The value of the AutoComplete component can be set either through its `value` or `index` property. If both are provided, the `value` takes precedence. When the value changes, the component executes the [`onChange`]({% slug api_autocomplete_kendouiforreact %}#onchange-function) callback function.
+
+```html-preview
+```
+```jsx
+```
+
 ### Features
 
-The AutoComplete allows you to disable it by setting the [`disabled`]({% slug api_autocomplete_kendouiforreact %}#disabled-booleandefault-false) configuration property to `true`. When disabled, the component is visible, but does not function.
+#### Search with Keyboard
 
-By default, `disabled` is set to `false`.
+By default, the user is able to navigate between items by providing a keyboard input. The default search functionality is case-insensitive and the delay before the search-text submitted by the user is cleared is 500 milliseconds.
 
-```html
-
+```html-preview
 ```
 ```jsx
-
 ```
 
-By configuring the [`minLength`]({% slug api_autocomplete_kendouiforreact %}#minlength-number) property, the AutoComplete allows you to define a minimum number of characters the user should type in the input field before any suggestion is displayed.  
+#### Filter the Items
 
-```html
+If the [`filterable`]({% slug api_autocomplete_kendouiforreact %}#filterable-booleandefault-false) attribute is set, the component renders a filter input field that allowing the user to filter the AutoComplete options. When the user changes the filter input value, the component executes its [`onFilter`]({% slug api_autocomplete_kendouiforreact %}#onfilter-function) callback. It is your responsibility to perform the data filtration and to update the data of the AutoComplete through its props.
 
-```
-```jsx
+> The default functionality to search between items is automatically disabled if filtration is enabled.
 
-```
-
-placeholder: PropTypes.string
-
-```html
-
+```html-preview
 ```
 ```jsx
-
 ```
 
-separator: PropTypes.string
+#### Disable the AutoComplete
 
-```html
+If the [`disabled`]({% slug api_autocomplete_kendouiforreact %}#filterable-booleandefault-false) configuration is set, the AutoComplete is disabled and does not allow for a user input.
 
-```
-```jsx
-
-```
-
-suggest: PropTypes.bool
-
-```html
-
+```html-preview
 ```
 ```jsx
-
 ```
 
-tabIndex: React.PropTypes.number
+#### Apply Custom Render Functions
 
-```html
+By default, the widget displays the [`textField`]({% slug api_autocomplete_kendouiforreact %}#textfield-string) of a selected item both in the list and in the header of the AutoComplete. The component enables you to easily overwrite this behavior by applying the [`itemRenderer`]({% slug api_autocomplete_kendouiforreact %}#itemrenderer-function) and [`valueRenderer`]({% slug api_autocomplete_kendouiforreact %}#valuerenderer-function) callbacks.
 
-```
-```jsx
-
-```
-
-### Values
-
-value: PropTypes.string
-
-```html
-
+```html-preview
 ```
 ```jsx
-
 ```
 
-valueField: PropTypes.string
+### Events
+
+#### Open and Close
+
+The [`onOpen`]({% slug api_autocomplete_kendouiforreact %}#onopen-function) callback function fires when the popup of the AutoComplete is opened.
+
+The [`onClose`]({% slug api_autocomplete_kendouiforreact %}#onclose-function) callback function fires when the popup of the AutoComplete is closed.
 
 ```html
-
 ```
 ```jsx
-
 ```
 
-valueRenderer: PropTypes.func
+#### Select and Change
+
+The [`onSelect`]({% slug api_autocomplete_kendouiforreact %}#onselect-function) callback function is fired when a AutoComplete option is selected.
+
+The [`onChange`]({% slug api_autocomplete_kendouiforreact %}#onchange-function) callback function is fired when the AutoComplete value changes.
 
 ```html
-
 ```
 ```jsx
-
 ```
 
-itemRenderer: PropTypes.func
+#### Filter
+
+The [`onFilter`]({% slug api_autocomplete_kendouiforreact %}#onfilter-function) callback function is fired when the AutoComplete filter input is changed.
 
 ```html
-
 ```
 ```jsx
-
 ```
 
-### State
-
-The AutoComplete is designed as a stateless component. To store its state and configuration properties, wrap it in a high-order component.
-
-The [`onChange`]({% slug api_autocomplete_kendouiforreact %}#onchange-function) event fires each time a user interacts with the AutoComplete. The new value is passed as an argument to the `onChange` callback.
-
-```html
-
-```
-```jsx
-
-```
-
-onFilter: PropTypes.func
-
-```html
-
-```
-```jsx
-
-```
-
-For detailed information on the Kendo UI AutoComplete for React configuration, refer to its [client-side API documentation]({% slug api_autocomplete_kendouiforreact %}).
+For detailed information on the Kendo UI AutoComplete configuration for React, refer to its [API documentation]({% slug api_autocomplete_kendouiforreact %}).
 
 ## Keyboard Navigation
 
-Below is the list with the keyboard shortcuts the AutoComplete supports.
+Below is the list of the keyboard shortcuts the AutoComplete supports.
 
 | SHORTCUT                            | DESCRIPTION         |
 |:---                                 |:---                 |
+| `Upper Arrow` & `Left Arrow` keys   | Highlight the previous item.      |
+| `Down Arrow` & `Right Arrow` keys   | Highlight the next item.          |
+| `Home`                              | Select the first list item.       |
+| `End`                               | Select the last list item.        |
+| `Enter`                             | Select the highlighted list item. |
+| `ESC`                               | Close the popup.                  |
+| `Alt` + `Upper Arrow`               | Close the popup.                  |
+| `Alt` + `Down Arrow`                | Open the popup.                   |
 
 ## Accessibility
 
-The AutoComplete is WAI ARIA-accessible through the `Tab` key. The `aria-valuemin`, `aria-valuemax`, and `aria-valuetext` properties define the accessibility values when the user drags the handle of the AutoComplete or interacts with the AutoComplete through its buttons.
+The AutoComplete is WAI ARIA-accessible through the `Tab` key.
 
 ## Suggested Links
 

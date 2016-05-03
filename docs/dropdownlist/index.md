@@ -88,7 +88,7 @@ The example below demonstrates how to bind to an array of objects.
 
 ### Value
 
-The value of the DropDownList component can be set through either through its `value` or `index` property. If both are provided, the `value` takes precedence. When the value changes, the component executes the [`onChange`]({% slug api_ddl_kendouiforreact %}#onchange-function) callback function.
+The value of the DropDownList component can be set either through its `value` or `index` property. If both are provided, the `value` takes precedence. When the value changes, the component executes the [`onChange`]({% slug api_ddl_kendouiforreact %}#onchange-function) callback function.
 
 ```html-preview
     <div id="app"></div>
