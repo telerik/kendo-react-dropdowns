@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import * as Stateless from './stateless/main';
-import { itemIndex } from './Util';
+import * as util from './Util';
 
 export default class ComboBox extends React.Component {
 
@@ -51,14 +51,34 @@ export default class ComboBox extends React.Component {
         };
     }
 
+    componentWillMount() {
+        this.setValue(this.props);
+    }
+
     componentWillReceiveProps(nextProps) {
         const { suggest, data, textField } = nextProps;
+        this.setValue(nextProps);
         this.setState({
             show: data.length > 0,
             highlight: suggest,
             selected: null,
-            focused: data.length ? itemIndex(this.text, data, textField) : -1 //filtered data focused item
+            focused: data.length ? util.itemIndex(this.text, data, textField) : -1 //filtered data focused item
         });
+    }
+
+    setValue(props) {
+        const state = util.resolveValue(props);
+        if (state) {
+            if (state.dataItem && props.textField && props.valueField) {
+                state.text = state.dataItem[props.textField];
+                state.value = state.dataItem[props.valueField];
+                this._oldText = state.text;
+                this._oldValue = state.value;
+            } else {
+                state.text = state.value = this._oldText = this._oldValue = props.value;
+            }
+            this.setState(state);
+        }
     }
 
     handleBlur = (state) => {
