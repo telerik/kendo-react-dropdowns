@@ -87,12 +87,17 @@ export default class ComboBox extends React.Component {
     }
 
     handleBlur = () => {
-        if (!this.props.dataItem && this.props.text) {
+        const { dataItem, word, text } = this.props;
+
+        if (word || dataItem) {
             this.selectFocused();
+        } else {
+            this.props.onBlur({
+                show: false,
+                word: null,
+                value: text
+            });
         }
-        this.props.onBlur({
-            show: false
-        });
     };
 
     handleFilter = (word) => {
@@ -139,23 +144,29 @@ export default class ComboBox extends React.Component {
             word: null,
             focused: selected,
             selected: selected,
-            highlight: suggest
+            highlight: suggest,
+            dataItem: dataItem
         });
     };
 
-    textUpdate = (text) => {
-        const index = util.itemIndex(text, this.props.data, this.props.textField); //unfiltered data selected item
-        const dataItem = this.props.data[index];
+    textUpdate = (input) => {
+        let { suggest, data, textField, text } = this.props;
+        text = text || "";
+
+        const index = util.itemIndex(input, data, textField); //unfiltered data selected item
+        const dataItem = data[index];
+        const word = dataItem && suggest && input.length ? util.getter(dataItem, textField) : "";
+        const reducedOrEqual = util.textReduced(input.toLowerCase(), text.toLowerCase()) || input.length === text.length;
 
         this.props.onTextUpdate({
-            show: index >= 0,
+            text: input,
             value: null,
+            focused: null,
+            selected: null,
             dataItem: null,
-            text: text,
-            word: dataItem && this.props.suggest & text.length ? util.getter(dataItem, this.props.textField) : null,
-            highlight: true,
-            focused: index,
-            selected: null
+            show: index >= 0,
+            word: (dataItem && reducedOrEqual) ? null : word,
+            highlight: (dataItem && reducedOrEqual) ? false : true
         });
     };
 
@@ -176,9 +187,7 @@ export default class ComboBox extends React.Component {
 
     selectFocused = () => {
         const focused = this.props.selected || this.props.focused;
-        if (focused !== null) {
-            this.select(this.props.data[focused], focused);
-        }
+        this.select(this.props.data[focused], focused);
     };
 
     render() {
