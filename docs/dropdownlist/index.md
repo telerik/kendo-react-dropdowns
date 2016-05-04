@@ -234,7 +234,8 @@ If the [`filterable`]({% slug api_ddl_kendouiforreact %}#filterable-booleandefau
 
         onChange = (value) => {
             this.setState({
-                value: value
+                value: value,
+                data: data
             });
         }
 

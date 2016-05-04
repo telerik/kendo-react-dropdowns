@@ -6,7 +6,8 @@ const propTypes = {
     children: React.PropTypes.node,
     className: React.PropTypes.string,
     disabled: React.PropTypes.bool,
-    focused: React.PropTypes.bool
+    focused: React.PropTypes.bool,
+    onClick: React.PropTypes.function
 };
 
 class DropDownWrapper extends React.Component {
@@ -31,6 +32,7 @@ class DropDownWrapper extends React.Component {
             ref: "span",
             onFocus: this.handleFocus,
             onBlur: this.handleBlur,
+            onClick: this.props.onClick,
             className: wrapperClasses,
             tabIndex: -1,
             unselectable: true

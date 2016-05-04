@@ -838,7 +838,7 @@ describe('DropDownList filter', () => {
         );
         const input = result.find(ListFilter).shallow().find('input');
 
-        input.simulate("change", { target: { value: "o" } });
+        input.simulate("keyUp", { target: { value: "o" }, stopPropagation: function() {} });
 
         setTimeout(() => {
             expect(spy).toHaveBeenCalledWith("o");
@@ -859,8 +859,8 @@ describe('DropDownList filter', () => {
         );
         const input = result.find(ListFilter).shallow().find('input');
 
-        input.simulate("change", { target: { value: "o" } });
-        input.simulate("change", { target: { value: "" } });
+        input.simulate("keyUp", { target: { value: "o" }, stopPropagation: function() {} });
+        input.simulate("keyUp", { target: { value: "" }, stopPropagation: function() {} });
 
         setTimeout(() => {
             expect(spy).toHaveBeenCalledWith("");
@@ -883,7 +883,7 @@ describe('DropDownList filter', () => {
         );
         const input = result.find(ListFilter).shallow().find('input');
 
-        input.simulate("change", { target: { value: "o" } });
+        input.simulate("keyUp", { target: { value: "o" }, stopPropagation: function() {} });
 
         setTimeout(() => {
             expect(select).not.toHaveBeenCalled();
@@ -895,7 +895,7 @@ describe('DropDownList filter', () => {
         result = shallow(<DropDownContainer />).find(StatefulDropDownList).shallow();
         const input = result.find(DropDownList).shallow().find(ListFilter).shallow().find('input');
 
-        input.simulate("change", { target: { value: "o" } });
+        input.simulate("keyUp", { target: { value: "o" }, stopPropagation: function() {} });
 
         setTimeout(() => {
             expect(result.state('dataItem')).toEqual({ text: "Grey", value: "3" });
@@ -907,7 +907,7 @@ describe('DropDownList filter', () => {
         result = shallow(<DropDownContainer />).find(StatefulDropDownList).shallow();
         const input = result.find(DropDownList).shallow().find(ListFilter).shallow().find('input');
 
-        input.simulate("change", { target: { value: "o" } });
+        input.simulate("keyUp", { target: { value: "o" }, stopPropagation: function() {} });
 
         setTimeout(() => {
             expect(result.state('focused')).toEqual(0);
@@ -919,7 +919,7 @@ describe('DropDownList filter', () => {
         result = shallow(<DropDownContainer />).find(StatefulDropDownList).shallow();
         const input = result.find(DropDownList).shallow().find(ListFilter).shallow().find('input');
 
-        input.simulate("change", { target: { value: "o" } });
+        input.simulate("keyUp", { target: { value: "o" }, stopPropagation: function() {} });
 
         setTimeout(() => {
             expect(result.state('selected')).toEqual(null);

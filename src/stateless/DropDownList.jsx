@@ -193,6 +193,7 @@ export default class DropDownList extends React.Component {
     };
 
     close = () => {
+        this.preventBlur(false);
         this.props.onClose();
     }
 
@@ -202,9 +203,15 @@ export default class DropDownList extends React.Component {
         }
     };
 
+    preventBlur = (prevent) => {
+        this.blurPrevented = prevent;
+    }
+
     onBlur = () => {
-        this.props.onChange();
-        this.close();
+        if (!this.blurPrevented) {
+            this.props.onChange();
+            this.close();
+        }
     };
 
     onKeyDown = (event) => {
@@ -329,7 +336,9 @@ export default class DropDownList extends React.Component {
         };
 
         const listFilterProps = {
-            onChange: this.listFilterChange
+            onChange: this.listFilterChange,
+            preventBlur: this.preventBlur,
+            focused: show
         };
 
         const wrapperClasses = classNames({
@@ -350,9 +359,9 @@ export default class DropDownList extends React.Component {
         const dropDownListProps = {
             className: wrapperClasses,
             onBlur: this.onBlur,
-            onClick: this.toggle,
             onKeyDown: this.onKeyDown,
             onKeyPress: this.onKeyPress,
+            onClick: this.toggle,
             style: style,
             tabIndex: tabIndex,
             ...ariaAttributes
