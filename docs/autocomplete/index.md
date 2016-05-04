@@ -136,17 +136,6 @@ When the [`suggest`]({% slug api_autocomplete_kendouiforreact %}#suggest-boolean
 
 ### Events
 
-#### Open and Close
-
-The [`onOpen`]({% slug api_autocomplete_kendouiforreact %}#onopen-function) callback function fires when the popup of the AutoComplete is opened.
-
-The [`onClose`]({% slug api_autocomplete_kendouiforreact %}#onclose-function) callback function fires when the popup of the AutoComplete is closed.
-
-```html
-```
-```jsx
-```
-
 #### Select and Change
 
 The [`onSelect`]({% slug api_autocomplete_kendouiforreact %}#onselect-function) callback function is fired when a AutoComplete option is selected.

@@ -333,42 +333,6 @@ By default, the widget displays the [`textField`]({% slug api_ddl_kendouiforreac
 
 ### Events
 
-#### Open and Close
-
-The [`onOpen`]({% slug api_ddl_kendouiforreact %}#onopen-function) callback function fires when the popup of the DropDownList is opened.
-
-The [`onClose`]({% slug api_ddl_kendouiforreact %}#onclose-function) callback function fires when the popup of the DropDownList is closed.
-
-```html
-    <div id="app"></div>
-```
-```jsx
-    const data = [
-        { value: 1, text: "Foo" },
-        { value: 2, text: "Bar" },
-        { value: 3, text: "Baz" }
-    ];
-
-    function onOpen(event) {
-        console.log("open");
-    }
-
-    function onClose(event) {
-        console.log("close");
-    }
-
-    ReactDOM.render(
-        <KendoReactDropdowns.DropDownList
-            data={data}
-            onClose={onClose}
-            onOpen={onOpen}
-            textField="text"
-            valueField="value"
-        />,
-        document.getElementById('app')
-    );
-```
-
 #### Select and Change
 
 The [`onSelect`]({% slug api_ddl_kendouiforreact %}#onselect-function) callback function is fired when a DropDownList option is selected.

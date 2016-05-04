@@ -80,17 +80,9 @@ If set to `true`, the AutoComplete automatically uses the first suggestion as it
 
 ## Events
 
-#### onClose `Function`
-
-Callback function that fires when the popup of the AutoComplete is closed.
-
 #### onFilter `Function`
 
 Callback function that fires when the filter input is changed.
-
-#### onOpen `Function`
-
-Callback function that fires when the popup of the AutoComplete is opened.
 
 #### onSelect `Function`
 

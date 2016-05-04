@@ -94,17 +94,9 @@ Defines the styles of the DropDownList.
 
 ## Events
 
-#### onClose `Function`
-
-Callback function that fires when the popup of the DropDownList is closed.
-
 #### onFilter `Function`
 
 Callback function that fires when the filter input is changed.
-
-#### onOpen `Function`
-
-Callback function that fires when the popup of the DropDownList is opened.
 
 #### onSelect `Function`
 
