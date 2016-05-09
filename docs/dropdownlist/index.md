@@ -14,7 +14,7 @@ To allow for a keyboard input, use the [Kendo UI ComboBox component for React]({
 
 The Kendo UI DropDownList for React is part of the DropDowns `npm` package of the Kendo UI suite for React.
 
-**Figure 1: A template of the Kendo UI DropDownList for React**
+**Figure 1: A template of the DropDownList for React**
 
 ![Template of the Kendo UI DropDownList for React](images/dropdownlist.png)
 
