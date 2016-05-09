@@ -35,11 +35,10 @@ export default class DropDownList extends React.Component {
         height: PropTypes.number,
         ignoreCase: PropTypes.bool,
         itemRenderer: PropTypes.func,
-        onClose: PropTypes.func,
         onChange: PropTypes.func,
-        onFilter: PropTypes.func,
-        onOpen: PropTypes.func,
         onSelect: PropTypes.func,
+        onFilter: PropTypes.func,
+        onToggle: PropTypes.func,
         selected: PropTypes.number,
         show: PropTypes.bool,
         style: PropTypes.object, // eslint-disable-line
@@ -67,6 +66,10 @@ export default class DropDownList extends React.Component {
     }
 
     componentDidMount() {
+        if (this.props.show) {
+            document.documentElement.addEventListener('mousedown', this.detectBlur, true);
+        }
+
         if (this.props.show && this.refs.list) {
             this.refs.list.scrollToItem();
         }
@@ -74,12 +77,20 @@ export default class DropDownList extends React.Component {
 
     componentDidUpdate() {
         if (this.props.show) {
+            document.documentElement.addEventListener('mousedown', this.detectBlur, true);
+
             const listContainer = this.refs.ListContainer;
             const list = this.refs.List;
 
             util.resizeList(list.refs.element, listContainer.refs.element, this.props.height);
             list.scrollToItem();
+        } else {
+            document.documentElement.removeEventListener('mousedown', this.detectBlur, true);
         }
+    }
+
+    componentWillUnmount() {
+        document.documentElement.removeEventListener('mousedown', this.detectBlur, true);
     }
 
     renderValue() {
@@ -168,10 +179,9 @@ export default class DropDownList extends React.Component {
         }
     };
 
-    selectFromList = (dataItem) => {
+    change = (dataItem) => {
         if (!this.props.disabled) {
             this.props.onChange(dataItem);
-            this.close();
         }
     };
 
@@ -186,32 +196,26 @@ export default class DropDownList extends React.Component {
         return defaultItem || filterable || data.length;
     };
 
-    open = () => {
-        if (this.allowOpening()) {
-            this.props.onOpen();
-        }
-    };
-
-    close = () => {
-        this.preventBlur(false);
-        this.props.onClose();
-    }
-
     toggle = () => {
         if (!this.props.disabled) {
-            this.props.show ? this.close() : this.open();
+            if (this.props.show) {
+                this.props.onToggle(false);
+            } else {
+                if (this.allowOpening()) {
+                    this.props.onToggle(true);
+                }
+            }
         }
     };
 
-    preventBlur = (prevent) => {
-        this.blurPrevented = prevent;
-    }
-
-    onBlur = () => {
-        if (!this.blurPrevented) {
-            this.props.onChange();
-            this.close();
+    detectBlur = (event) => {
+        if (!this.refs.anchor.contains(event.target)) {
+            this.blur();
         }
+    };
+
+    blur = () => {
+        this.props.onChange(this.props.dataItem);
     };
 
     onKeyDown = (event) => {
@@ -228,7 +232,7 @@ export default class DropDownList extends React.Component {
             event.preventDefault();
 
             if (!show) {
-                this.open();
+                this.props.onToggle(true);
             }
             return;
         }
@@ -237,7 +241,7 @@ export default class DropDownList extends React.Component {
             event.preventDefault();
 
             if (show) {
-                this.close();
+                this.props.onToggle(false);
             }
             return;
         }
@@ -246,7 +250,7 @@ export default class DropDownList extends React.Component {
             event.preventDefault();
 
             dataItem = (focused === -1) ? defaultItem || null : this.props.data[focused];
-            this.selectFromList(dataItem || (data[focused] || defaultItem));
+            this.change(dataItem || (data[focused] || defaultItem));
 
             return;
         }
@@ -321,7 +325,7 @@ export default class DropDownList extends React.Component {
             valueField,
             height,
             itemRenderer,
-            onClick: this.selectFromList,
+            onClick: this.change,
             focused,
             selected
         };
@@ -331,13 +335,12 @@ export default class DropDownList extends React.Component {
             selected: selected === -1,
             textField: textField,
             dataItem: defaultItem,
-            onClick: this.selectFromList,
+            onClick: this.change,
             renderer: itemRenderer
         };
 
         const listFilterProps = {
             onChange: this.listFilterChange,
-            preventBlur: this.preventBlur,
             focused: show
         };
 
@@ -358,7 +361,6 @@ export default class DropDownList extends React.Component {
 
         const dropDownListProps = {
             className: wrapperClasses,
-            onBlur: this.onBlur,
             onKeyDown: this.onKeyDown,
             onKeyPress: this.onKeyPress,
             onClick: this.toggle,

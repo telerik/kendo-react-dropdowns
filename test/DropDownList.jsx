@@ -153,7 +153,7 @@ describe('StatefulDropDownList event handlers', () => {
         result = shallow(<StatefulDropDownList data={data} textField="text" valueField="value" />);
         const dropDownList = result.find(DropDownList);
 
-        dropDownList.prop('onOpen')();
+        dropDownList.prop('onToggle')(true);
         expect(result.state('show')).toEqual(true);
     });
 
@@ -161,7 +161,7 @@ describe('StatefulDropDownList event handlers', () => {
         result = shallow(<StatefulDropDownList data={data} textField="text" valueField="value" />);
         const dropDownList = result.find(DropDownList);
 
-        dropDownList.prop('onClose')();
+        dropDownList.prop('onToggle')(false);
         expect(result.state('show')).toEqual(false);
     });
 
@@ -249,30 +249,28 @@ describe('DropDownList list click', () => {
         expect(spy).not.toHaveBeenCalled();
     });
 
-    it('should fire onOpen on DropDownList click', () => {
+    it('should fire onToggle on DropDownList click', () => {
         const spy = jasmine.createSpy('spy');
-        const mock = function() {};
         result = shallow(
             <DropDownList
                 data={data}
-                onClose={mock}
-                onOpen={spy}
+                onToggle={spy}
                 textField="text"
                 valueField="value"
             />
         );
 
         click(result);
-        expect(spy).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalledWith(true);
     });
 
-    it('should NOT fire onOpen for disabled component on DropDownList click', () => {
+    it('should NOT fire onToggle for disabled component on DropDownList click', () => {
         const spy = jasmine.createSpy('spy');
         result = shallow(
             <DropDownList
                 data={data}
                 disabled
-                onOpen={spy}
+                onToggle={spy}
                 textField="text"
                 valueField="value"
             />
@@ -282,28 +280,28 @@ describe('DropDownList list click', () => {
         expect(spy).not.toHaveBeenCalled();
     });
 
-    it('should NOT fire onOpen on DropDownList click when the list has no data and no defaultItem', () => {
+    it('should NOT fire onToggle on DropDownList click when the list has no data and no defaultItem', () => {
         const spy = jasmine.createSpy('spy');
-        result = shallow(<DropDownList data={[]} onOpen={spy} textField="text" valueField="value" />);
+        result = shallow(<DropDownList data={[]} onToggle={spy} textField="text" valueField="value" />);
 
         click(result);
         expect(spy).not.toHaveBeenCalled();
     });
 
-    it('should fire onOpen on DropDownList click when the list has no data but is filterable', () => {
+    it('should fire onToggle on DropDownList click when the list has no data but is filterable', () => {
         const spy = jasmine.createSpy('spy');
         result = shallow(
             <DropDownList
                 data={[]}
                 filterable
-                onOpen={spy}
+                onToggle={spy}
                 textField="text"
                 valueField="value"
             />
         );
 
         click(result);
-        expect(spy).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalledWith(true);
     });
 });
 
@@ -452,20 +450,20 @@ describe('DropDownList keyboard navigation', () => {
         expect(spy).not.toHaveBeenCalled();
     });
 
-    it('should fire onOpen on alt + down', () => {
+    it('should fire onToggle on alt + down', () => {
         const spy = jasmine.createSpy('spy');
-        result = shallow(<DropDownList data={data} onOpen={spy} textField="text" valueField="value" />);
+        result = shallow(<DropDownList data={data} onToggle={spy} textField="text" valueField="value" />);
 
         result.simulate('keyDown', { keyCode: keycode.codes.down, altKey: true, preventDefault: function() {} });
-        expect(spy).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalledWith(true);
     });
 
-    it('should NOT fire onOpen on alt + down if the list is already opened', () => {
+    it('should NOT fire onToggle on alt + down if the list is already opened', () => {
         const spy = jasmine.createSpy('spy');
         result = shallow(
             <DropDownList
                 data={data}
-                onOpen={spy}
+                onToggle={spy}
                 show
                 textField="text"
                 valueField="value"
@@ -476,12 +474,12 @@ describe('DropDownList keyboard navigation', () => {
         expect(spy).not.toHaveBeenCalled();
     });
 
-    it('should fire onClose on alt + up', () => {
+    it('should fire onToggle on alt + up', () => {
         const spy = jasmine.createSpy('spy');
         result = shallow(
             <DropDownList
                 data={data}
-                onClose={spy}
+                onToggle={spy}
                 show
                 textField="text"
                 valueField="value"
@@ -489,15 +487,15 @@ describe('DropDownList keyboard navigation', () => {
         );
 
         result.simulate('keyDown', { keyCode: keycode.codes.up, altKey: true, preventDefault: function() {} });
-        expect(spy).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalledWith(false);
     });
 
-    it('should fire onClose on esc', () => {
+    it('should fire onToggle on esc', () => {
         const spy = jasmine.createSpy('spy');
         result = shallow(
             <DropDownList
                 data={data}
-                onClose={spy}
+                onToggle={spy}
                 show
                 textField="text"
                 valueField="value"
@@ -505,15 +503,16 @@ describe('DropDownList keyboard navigation', () => {
         );
 
         result.simulate('keyDown', { keyCode: keycode.codes.esc, preventDefault: function() {} });
-        expect(spy).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalledWith(false);
     });
 
-    it('should fire onClose on blur', () => {
+    /* TODO: create e2e test for this case
+    it('should fire onChange on blur', () => {
         const spy = jasmine.createSpy('spy');
         result = shallow(
             <DropDownList
                 data={data}
-                onClose={spy}
+                onChange={spy}
                 show
                 textField="text"
                 valueField="value"
@@ -523,6 +522,7 @@ describe('DropDownList keyboard navigation', () => {
         result.simulate('blur', {});
         expect(spy).toHaveBeenCalled();
     });
+    */
 });
 
 describe('DropDownList search', () => {
