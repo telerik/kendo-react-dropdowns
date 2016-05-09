@@ -255,6 +255,11 @@ export default class DropDownList extends React.Component {
             return;
         }
 
+        if (keyCode === keycode.codes.tab) {
+            this.blur();
+            return;
+        }
+
         if (keyCode === keycode.codes.up || keyCode === keycode.codes.left) {
             focused = (focused !== null && focused !== min) ? focused - 1 : min;
             handled = true;

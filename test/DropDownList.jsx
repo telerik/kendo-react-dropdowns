@@ -506,6 +506,22 @@ describe('DropDownList keyboard navigation', () => {
         expect(spy).toHaveBeenCalledWith(false);
     });
 
+    it('should fire onChange on tab', () => {
+        const spy = jasmine.createSpy('spy');
+        result = shallow(
+            <DropDownList
+                data={data}
+                onChange={spy}
+                show
+                textField="text"
+                valueField="value"
+            />
+        );
+
+        result.simulate('keyDown', { keyCode: keycode.codes.tab, preventDefault: function() {} });
+        expect(spy).toHaveBeenCalled();
+    });
+
     /* TODO: create e2e test for this case
     it('should fire onChange on blur', () => {
         const spy = jasmine.createSpy('spy');
