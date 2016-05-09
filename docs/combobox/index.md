@@ -82,7 +82,7 @@ The example below demonstrates how to bind to an array of objects.
 
 ### Value
 
-The initial value of the ComboBox can be set through its [`value`]({% slug api_combobox_kendouiforreact %}#value-numberstring) property.
+To set the initial value of the ComboBox, use the [`value`]({% slug api_combobox_kendouiforreact %}#value-numberstring) property.
 
 ```html-preview
     <div id="app"></div>
@@ -109,7 +109,7 @@ The initial value of the ComboBox can be set through its [`value`]({% slug api_c
 
 #### Apply Custom Item Rendering
 
-The ComboBox items can be customized by using the [`itemRenderer`]({% slug api_combobox_kendouiforreact %}#itemrenderer-function) property.
+To customize the ComboBox items, use the [`itemRenderer`]({% slug api_combobox_kendouiforreact %}#itemrenderer-function) property.
 
 ```html-preview
     <div id="app"></div>
@@ -138,7 +138,7 @@ The ComboBox items can be customized by using the [`itemRenderer`]({% slug api_c
 
 #### Disable the ComboBox
 
-If the [`disabled`]({% slug api_combobox_kendouiforreact %}#disabled-booleandefault-false) configuration is set, the ComboBox is disabled and does not allow for a user input.
+The ComboBox allows you to prevent user input through disabling the component. By default, the ComboBox is enabled and the [`disabled`]({% slug api_combobox_kendouiforreact %}#disabled-booleandefault-false) property is set to `false`. To disable it, set `disabled` to `true`.
 
 ```html-preview
     <div id="app"></div>
@@ -157,7 +157,7 @@ If the [`disabled`]({% slug api_combobox_kendouiforreact %}#disabled-booleandefa
 
 ### Events
 
-The subscription to any of the ComboBox events is done by passing the handlers through the properties of the component. Currently, the ComboBox supports  the [`onChange`]({% slug api_combobox_kendouiforreact %}#onchange-function)  and [`onFilter`]({% slug api_combobox_kendouiforreact %}#onfilter-function) events.
+The ComboBox enables you to subscribe to its events by passing the handlers through the properties of the component. Currently, the ComboBox supports the [`onChange`]({% slug api_combobox_kendouiforreact %}#onchange-function) and [`onFilter`]({% slug api_combobox_kendouiforreact %}#onfilter-function) events.
 
 #### Change
 
