@@ -24,7 +24,7 @@ Defines the initial value of the component.
 
 #### valueField `String`  
 
-The field of the data item that provides the value of the component. Specify it when binding the component to an array of objects.
+Defines the field of the data item that provides the value of the component. Specify it when binding the component to an array of objects.
 
 ```html-preview
     <div id="app"></div>
@@ -49,7 +49,7 @@ The field of the data item that provides the value of the component. Specify it 
 
 #### disabled `Boolean`*(default: "false")*
 
-If set to `true`, disables the ComboBox. This means that the component is visible, but does not function.
+If set to `true`, disables the ComboBox&mdash;the component is visible, but does not function.
 
 #### height `Number` *(default: 200)*
 
