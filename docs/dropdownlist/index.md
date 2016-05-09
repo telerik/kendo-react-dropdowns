@@ -427,7 +427,9 @@ The [`onFilter`]({% slug api_ddl_kendouiforreact %}#onfilter-function) callback 
                         filterable
                         onChange={this.onChange}
                         onFilter={this.onFilter}
+                        textField="text"
                         value={value}
+                        valueField="value"
                     />
                     <span>Selected value: <span style={{ color: "#f00" }}>{value}</span></span>
                 </div>
