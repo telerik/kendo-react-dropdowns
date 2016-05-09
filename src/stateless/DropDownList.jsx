@@ -261,12 +261,20 @@ export default class DropDownList extends React.Component {
         }
 
         if (keyCode === keycode.codes.up || keyCode === keycode.codes.left) {
-            focused = (focused !== null && focused !== min) ? focused - 1 : min;
+            if (focused === null) {
+                focused = max;
+            } else {
+                focused = focused !== min ? focused - 1 : min;
+            }
             handled = true;
         }
 
         if (keyCode === keycode.codes.down || keyCode === keycode.codes.right) {
-            focused = (focused !== null && focused !== max) ? focused + 1 : max;
+            if (focused === null) {
+                focused = min;
+            } else {
+                focused = focused !== max ? focused + 1 : max;
+            }
             handled = true;
         }
 
