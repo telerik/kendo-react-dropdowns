@@ -302,7 +302,7 @@ The DropDownList allows you to prevent user input through disabling the componen
 
 #### Apply Custom Render Functions
 
-By default, the widget displays the [`textField`]({% slug api_ddl_kendouiforreact %}#textfield-string) of a selected item both in the list and in the header of the DropDownList. The component enables you to overwrite this behavior by applying the [`itemRenderer`]({% slug api_ddl_kendouiforreact %}#itemrenderer-function) and [`valueRenderer`]({% slug api_ddl_kendouiforreact %}#valuerenderer-function) callbacks.
+By default, the component displays the [`textField`]({% slug api_ddl_kendouiforreact %}#textfield-string) of a selected item both in the list and in the header of the DropDownList. To overwrite this behavior, apply the [`itemRenderer`]({% slug api_ddl_kendouiforreact %}#itemrenderer-function) and [`valueRenderer`]({% slug api_ddl_kendouiforreact %}#valuerenderer-function) callbacks.
 
 ```html-preview
     <div id="app"></div>
@@ -374,7 +374,7 @@ The [`onChange`]({% slug api_ddl_kendouiforreact %}#onchange-function) callback 
 
 #### Filter
 
-The [`onFilter`]({% slug api_ddl_kendouiforreact %}#onfilter-function) callback function is fired when the DropDownList filter input is changed.
+The [`onFilter`]({% slug api_ddl_kendouiforreact %}#onfilter-function) callback function is fired when the DropDownList filter input changes.
 
 ```html
     <div id="app"></div>
