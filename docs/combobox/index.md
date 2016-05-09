@@ -12,7 +12,7 @@ The Kendo UI ComboBox for React displays a list of pre-defined options. It allow
 
 The Kendo UI ComboBox for React is part of the DropDowns `npm` package of the Kendo UI suite for React.
 
-**Figure 1: A template of the Kendo UI ComboBox for React**
+**Figure 1: A template of the ComboBox for React**
 
 ![Template of the Kendo UI ComboBox for React](images/combobox.png)
 
