@@ -98,10 +98,6 @@ Defines the styles of the DropDownList.
 
 Callback function that fires when the filter input is changed.
 
-#### onSelect `Function`
-
-Callback function that fires when a DropDownList option is selected.
-
 #### onChange `Function`
 
 Callback function that fires when the DropDownList value changes.

@@ -1007,35 +1007,4 @@ describe('DropDownList events', () => {
         click(defaultItem);
         expect(spy).toHaveBeenCalledWith("select...", "select...");
     });
-
-    it('should trigger select when searching', () => {
-        const spy = jasmine.createSpy('spy');
-
-        result = shallow(<StatefulDropDownList data={primitives} onSelect={spy} />);
-        const dropDown = result.find(DropDownList).shallow();
-
-        keyPress(dropDown, "b");
-        expect(spy).toHaveBeenCalledWith("bar", "bar");
-    });
-
-    it('should trigger select when searching default item', () => {
-        const spy = jasmine.createSpy('spy');
-
-        result = shallow(<StatefulDropDownList data={primitives} defaultItem="select..." onSelect={spy} />);
-        const dropDown = result.find(DropDownList).shallow();
-
-        keyPress(dropDown, "s");
-        expect(spy).toHaveBeenCalledWith("select...", "select...");
-    });
-
-    it('should NOT trigger select when searching but value does not change', () => {
-        const spy = jasmine.createSpy('spy');
-
-        result = shallow(<StatefulDropDownList data={primitives} onSelect={spy} />);
-        const dropDown = result.find(DropDownList).shallow();
-
-        keyPress(dropDown, "f");
-        keyPress(dropDown, "f");
-        expect(spy.calls.count()).toEqual(1);
-    });
 });

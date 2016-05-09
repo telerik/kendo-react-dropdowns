@@ -80,7 +80,7 @@ export default class DropDownList extends React.Component {
     };
 
     onSelect = (dataItem) => {
-        const { onSelect, valueField } = this.props;
+        const { valueField } = this.props;
 
         if (this.previous === util.getter(dataItem, valueField)) {
             return;
@@ -92,12 +92,11 @@ export default class DropDownList extends React.Component {
             focused: this.props.data.indexOf(dataItem)
         });
 
-        onSelect(util.getter(dataItem, valueField), dataItem);
         this.previous = util.getter(dataItem, valueField);
     };
 
     onChange = (dataItem) => {
-        const { onChange, onSelect, valueField } = this.props;
+        const { onChange, valueField } = this.props;
 
         if (this.previous === util.getter(dataItem, valueField)) {
             this.setState({
@@ -113,7 +112,6 @@ export default class DropDownList extends React.Component {
                 show: false
             });
 
-            onSelect(util.getter(dataItem, valueField), dataItem);
             onChange(util.getter(dataItem, valueField), dataItem);
             this.previous = util.getter(dataItem, valueField);
         }

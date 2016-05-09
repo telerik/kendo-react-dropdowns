@@ -336,9 +336,7 @@ By default, the component displays the [`textField`]({% slug api_ddl_kendouiforr
 
 ### Events
 
-#### Select and Change
-
-The [`onSelect`]({% slug api_ddl_kendouiforreact %}#onselect-function) callback function is fired when a DropDownList option is selected.
+#### Change
 
 The [`onChange`]({% slug api_ddl_kendouiforreact %}#onchange-function) callback function is fired when the DropDownList value changes.
 
@@ -352,10 +350,6 @@ The [`onChange`]({% slug api_ddl_kendouiforreact %}#onchange-function) callback 
         { value: 3, text: "Baz" }
     ];
 
-    function onSelect(value, dataItem) {
-        console.log("select");
-    }
-
     function onChange(value, dataItem) {
         console.log("change");
     }
@@ -363,7 +357,6 @@ The [`onChange`]({% slug api_ddl_kendouiforreact %}#onchange-function) callback 
     ReactDOM.render(
         <KendoReactDropdowns.DropDownList
             data={data}
-            onSelect={onSelect}
             onChange={onChange}
             textField="text"
             valueField="value"
