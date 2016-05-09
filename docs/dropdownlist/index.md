@@ -144,7 +144,7 @@ The value of the DropDownList component can be set either through its `value` or
 
 By default, the user is able to navigate between items by providing a keyboard input. The default search functionality is case-insensitive and the delay before the search-text submitted by the user is cleared is 500 milliseconds.
 
-These settings can be changed through the [`ignoreCase`]({% slug api_ddl_kendouiforreact %}#ignorecase-booleandefault-true) and [`delay`]({% slug api_ddl_kendouiforreact %}#delay-number) configuration properties.
+To change these settings, use the [`ignoreCase`]({% slug api_ddl_kendouiforreact %}#ignorecase-booleandefault-true) and [`delay`]({% slug api_ddl_kendouiforreact %}#delay-number) properties.
 
 ```html-preview
     <div id="app"></div>
@@ -163,7 +163,9 @@ These settings can be changed through the [`ignoreCase`]({% slug api_ddl_kendoui
 
 #### Filter the Items
 
-If the [`filterable`]({% slug api_ddl_kendouiforreact %}#filterable-booleandefault-false) attribute is set, the component renders a filter input field that allowing the user to filter the DropDownList options. When the user changes the filter input value, the component executes its [`onFilter`]({% slug api_ddl_kendouiforreact %}#onfilter-function) callback. It is your responsibility to perform the data filtration and to update the data of the DropDownList through its props.
+By default, the DropDownList does not render a filter input field that allows the user to filter the options and the [`filterable`]({% slug api_ddl_kendouiforreact %}#filterable-booleandefault-false) property is set to `false`. To render a filter input field, set `filterable` to `true`.
+
+When the user changes the filter input value, the component executes its [`onFilter`]({% slug api_ddl_kendouiforreact %}#onfilter-function) callback. It is your responsibility to perform the data filtration and to update the data of the DropDownList through its props.
 
 > The default functionality to search between items is automatically disabled if filtration is enabled.
 
@@ -281,7 +283,7 @@ If the [`filterable`]({% slug api_ddl_kendouiforreact %}#filterable-booleandefau
 
 #### Disable the DropDownList
 
-If the [`disabled`]({% slug api_ddl_kendouiforreact %}#disabled-booleandefault-false) configuration is set, the DropDownList is disabled and does not allow for a user input.
+The DropDownList allows you to prevent user input through disabling the component. By default, the DropDownList is enabled and the [`disabled`]({% slug api_ddl_kendouiforreact %}#disabled-booleandefault-false) property is set to `false`. To disable it, set `disabled` to `true`.
 
 ```html-preview
     <div id="app"></div>
@@ -300,7 +302,7 @@ If the [`disabled`]({% slug api_ddl_kendouiforreact %}#disabled-booleandefault-f
 
 #### Apply Custom Render Functions
 
-By default, the widget displays the [`textField`]({% slug api_ddl_kendouiforreact %}#textfield-string) of a selected item both in the list and in the header of the DropDownList. The component enables you to easily overwrite this behavior by applying the [`itemRenderer`]({% slug api_ddl_kendouiforreact %}#itemrenderer-function) and [`valueRenderer`]({% slug api_ddl_kendouiforreact %}#valuerenderer-function) callbacks.
+By default, the widget displays the [`textField`]({% slug api_ddl_kendouiforreact %}#textfield-string) of a selected item both in the list and in the header of the DropDownList. The component enables you to overwrite this behavior by applying the [`itemRenderer`]({% slug api_ddl_kendouiforreact %}#itemrenderer-function) and [`valueRenderer`]({% slug api_ddl_kendouiforreact %}#valuerenderer-function) callbacks.
 
 ```html-preview
     <div id="app"></div>
