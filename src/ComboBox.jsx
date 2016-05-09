@@ -75,7 +75,8 @@ export default class ComboBox extends React.Component {
                 this._oldText = state.text;
                 this._oldValue = state.value;
             } else {
-                state.text = state.value = this._oldText = this._oldValue = props.value;
+                state.value = this._oldValue = props.value;
+                state.text = this._oldText = state.value ? state.value.toString() : "";
             }
             this.setState(state);
         }
