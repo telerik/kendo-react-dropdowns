@@ -989,6 +989,7 @@ describe('DropDownList events', () => {
                 defaultItem={{ text: "select...", value: null }}
                 onChange={spy}
                 textField="text"
+                value={2}
                 valueField="value"
             />
         );

@@ -29,7 +29,6 @@ export default class DropDownList extends React.Component {
         itemRenderer: PropTypes.func,
         onChange: PropTypes.func,
         onFilter: PropTypes.func,
-        onSelect: PropTypes.func,
         style: PropTypes.object, // eslint-disable-line
         tabIndex: PropTypes.number,
         textField: PropTypes.string,
@@ -44,9 +43,15 @@ export default class DropDownList extends React.Component {
     static defaultProps = {
         highlightFirst: true,
         onChange: function() {},
-        onFilter: function() {},
-        onSelect: function() {}
+        onFilter: function() {}
     };
+
+    constructor(props) {
+        super(props);
+
+        this.previous = null;
+        this.selected = null;
+    }
 
     state = {
         dataItem: null,
@@ -67,6 +72,7 @@ export default class DropDownList extends React.Component {
         const state = util.resolveValue(props);
         if (state) {
             this.setState(state);
+            this.previous = util.getter(state.dataItem, props.valueField);
         }
     }
 
@@ -81,8 +87,9 @@ export default class DropDownList extends React.Component {
 
     onSelect = (dataItem) => {
         const { valueField } = this.props;
+        const value = util.getter(dataItem, valueField);
 
-        if (this.previous === util.getter(dataItem, valueField)) {
+        if (this.previous === value || this.selected === value) {
             return;
         }
 
@@ -92,18 +99,22 @@ export default class DropDownList extends React.Component {
             focused: this.props.data.indexOf(dataItem)
         });
 
-        this.previous = util.getter(dataItem, valueField);
+        this.selected = value;
     };
 
     onChange = (dataItem) => {
         const { onChange, valueField } = this.props;
+        const value = util.getter(dataItem, valueField);
 
-        if (this.previous === util.getter(dataItem, valueField)) {
+        if (this.previous === value) {
             this.setState({
                 show: false
             });
 
-            onChange(util.getter(dataItem, valueField), dataItem);
+            if (this.selected !== value) {
+                onChange(value, dataItem);
+                this.selected = value;
+            }
         } else {
             this.setState({
                 dataItem: dataItem,
@@ -112,8 +123,8 @@ export default class DropDownList extends React.Component {
                 show: false
             });
 
-            onChange(util.getter(dataItem, valueField), dataItem);
-            this.previous = util.getter(dataItem, valueField);
+            onChange(value, dataItem);
+            this.previous = value;
         }
     };
 

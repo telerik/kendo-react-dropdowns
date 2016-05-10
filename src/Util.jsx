@@ -182,7 +182,10 @@ function matchText(text, word, ignoreCase) {
 }
 
 function getter(dataItem, field) {
-    return field ? dataItem[field] : dataItem;
+    if (dataItem) {
+        return field ? dataItem[field] : dataItem;
+    }
+    return null;
 }
 
 export {
