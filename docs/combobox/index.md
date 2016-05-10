@@ -122,7 +122,9 @@ To customize the ComboBox items, use the [`itemRenderer`]({% slug api_combobox_k
     ];
 
 	const customRenderer = function(Employee) {
-	    return Employee.FirstName + " " + Employee.LastName;
+	    return (
+            <span style={{ color: "#F00" }}>{Employee.FirstName}&nbsp;{Employee.LastName}</span>
+        );
 	};
 
     ReactDOM.render(

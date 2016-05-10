@@ -315,11 +315,15 @@ By default, the component displays the [`textField`]({% slug api_ddl_kendouiforr
     ];
 
     function renderItem (dataItem) {
-        return `Item: ${dataItem.text}`;
+        return (
+            <span>Item: <span style={{ color: "#F00" }}>{dataItem.text}</span></span>
+        );
     }
 
     function renderValue (dataItem) {
-        return `Value: ${dataItem.value}`;
+        const result = dataItem ? `Value: ${dataItem.value}` : '';
+
+        return result;
     }
 
     ReactDOM.render(
