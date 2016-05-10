@@ -2,114 +2,82 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { DropDownList } from '../src/main';
 
-    const data = [
-        "Albania",
-        "Andorra",
-        "Armenia",
-        "Austria",
-        "Azerbaijan",
-        "Belarus",
-        "Belgium",
-        "Bosnia & Herzegovina",
-        "Bulgaria",
-        "Croatia",
-        "Cyprus",
-        "Czech Republic",
-        "Denmark",
-        "Estonia",
-        "Finland",
-        "France",
-        "Georgia",
-        "Germany",
-        "Greece",
-        "Hungary",
-        "Iceland",
-        "Ireland",
-        "Italy",
-        "Kosovo",
-        "Latvia",
-        "Liechtenstein",
-        "Lithuania",
-        "Luxembourg",
-        "Macedonia",
-        "Malta",
-        "Moldova",
-        "Monaco",
-        "Netherlands",
-        "Norway",
-        "Poland",
-        "Portugal",
-        "Romania",
-        "Russia",
-        "San Marino",
-        "Serbia",
-        "Slovakia",
-        "Slovenia",
-        "Spain",
-        "Sweden",
-        "Switzerland",
-        "Turkey",
-        "Ukraine",
-        "United Kingdom",
-        "Vatican City"
-    ];
+const colors = [
+    { text: "Blue", value: "#00007f" },
+    { text: "Orange", value: "#ffa500" },
+    { text: "Green", value: "#007f00" }
+];
 
-    class DropDownListContainer extends React.Component {
-        constructor(props) {
-            super(props);
-            this.state = {
-                value: null,
-                data: data
-            };
-        }
+const sizes = [ 100, 110, 120, 130, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 300 ];
 
-        onSelect = (value) => {
-            console.log("select", value)
-        }
+class BasicUsageExample extends React.Component {
+    state = {
+        color: "#00007f",
+        size: 100
+    };
 
-        onChange = (value) => {
-            this.setState({
-                value: value,
-                data: data
-            });
-        }
+    handleColorChange = (value) => {
+        this.setState({
+            color: value
+        });
+    };
 
-        onFilter = (text) => {
-            let result;
+    handleSizeChange = (value) => {
+        this.setState({
+            size: value
+        });
+    };
 
-            if (text) {
-                result = data.filter(function(item) {
-                    return item.toLowerCase().startsWith(text.toLowerCase());
-                });
-            } else {
-                result = data;
-            }
-
-            this.setState({
-                data: result
-            });
-        }
-
-        render() {
-            const { data, value } = this.state;
-
-            return (
-                <div>
-                    <DropDownList
-                        data={data}
-                        filterable
-                        onChange={this.onChange}
-                        onFilter={this.onFilter}
-                        onSelect={this.onSelect}
-                        value={value}
-                    />
-                    <span>Value: <span style={{ color: "#f00" }}>{value}</span></span>
-                </div>
-            );
-        }
+    reset = () => {
+        this.setState({
+            color: "#00007f",
+            size: 100
+        });
     }
 
-    ReactDOM.render(
-        <DropDownListContainer />,
-        document.getElementById('app')
-    );
+    render() {
+        const style = {
+            backgroundColor: this.state.color,
+            width: this.state.size + "px",
+            height: this.state.size + "px"
+        };
+
+        return (
+            <div className="example">
+                <div style={{ width: "300px" }}>
+                    <span>Color:</span>
+                    <DropDownList
+                        data={colors}
+                        defaultItem={{ text: "select color", value: null }}
+                        onChange={this.handleColorChange}
+                        onSelect={this.handleColorSelect}
+                        textField="text"
+                        value={this.state.color}
+                        valueField="value"
+                    />
+                </div>
+                <div style={{ width: "300px" }}>
+                    <span>Size:</span>
+                    <DropDownList
+                        data={sizes}
+                        defaultItem="Select size"
+                        height={250}
+                        onChange={this.handleSizeChange}
+                        value={this.state.size}
+                    />
+                </div>
+                <div>
+                    <button className="k-button" onClick={this.reset}>Reset</button>
+                </div>
+                <div style={{ margin: "20px auto", height: 340 }}>
+                    <div id="square" style={style}></div>
+                </div>
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(
+    <BasicUsageExample />,
+    document.getElementById('app')
+);
