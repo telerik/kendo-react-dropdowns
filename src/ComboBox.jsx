@@ -57,30 +57,47 @@ export default class ComboBox extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const { suggest, data, textField } = nextProps;
+        const { suggest, data, textField, value } = nextProps;
+
         this.setValue(nextProps);
-        this.setState({
-            show: data.length > 0,
-            highlight: suggest,
-            selected: null,
-            focused: data.length ? util.itemIndex(this.text, data, textField) : -1 //filtered data focused item
-        });
+        if (value) {
+            this.setState({
+                show: false,
+                highlight: false
+            });
+        } else {
+            this.setState({
+                show: Boolean(this.text) && data.length > 0,
+                highlight: suggest,
+                selected: null,
+                focused: data.length ? util.itemIndex(this.text, data, textField) : -1 //filtered data focused item
+            });
+        }
     }
 
     setValue(props) {
-        const state = util.resolveValue(props);
+        let state = util.resolveValue(props);
         if (state) {
             if (state.dataItem && props.textField && props.valueField) {
+                //complex
                 state.text = state.dataItem[props.textField];
                 state.value = state.dataItem[props.valueField];
                 this._oldText = state.text;
                 this._oldValue = state.value;
             } else {
+                //primitive
+                state.dataItem = state.dataItem;
                 state.value = this._oldValue = props.value;
-                state.text = this._oldText = state.value ? state.value.toString() : "";
+                state.text = this._oldText = state.value ? state.value.toString() : props.value;
             }
-            this.setState(state);
+        } else {
+            //unresolved user input
+            this._oldText = "";
+            this._oldValue = null;
+            state = { dataItem: null };
+
         }
+        this.setState(state);
     }
 
     handleBlur = (state) => {
@@ -93,6 +110,7 @@ export default class ComboBox extends React.Component {
 
     handleTextUpdate = (state) => {
         this.text = state.text;
+        state.focused = this.props.data.length ? util.itemIndex(this.text, this.props.data, this.props.textField) : -1;
         this.setState(state);
     }
 
@@ -156,7 +174,7 @@ export default class ComboBox extends React.Component {
         };
 
         return (
-            <div >
+            <div>
                 <Stateless.ComboBox {...comboBoxProps} />
             </div>
         );

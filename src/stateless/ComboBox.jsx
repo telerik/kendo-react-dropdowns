@@ -16,9 +16,7 @@ export default class ComboBox extends React.Component {
             React.PropTypes.number
         ])),
         dataItem: React.PropTypes.oneOfType([
-            React.PropTypes.bool,
             React.PropTypes.object,
-            React.PropTypes.date,
             React.PropTypes.number,
             React.PropTypes.string
         ]),
