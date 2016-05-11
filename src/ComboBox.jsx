@@ -37,6 +37,7 @@ export default class ComboBox extends React.Component {
 
     constructor(props) {
         super(props);
+        this.text = "";
         this._oldText = "";
         this._oldValue = "";
         this.state = {
@@ -106,7 +107,10 @@ export default class ComboBox extends React.Component {
     }
 
     handleFilter = (word) => {
-        this.props.onFilter(word);
+        const reducedOrEqual = util.textReduced(word.toLowerCase(), this.text.toLowerCase()) || word.length === this.text.length;
+        if (!reducedOrEqual) {
+            this.props.onFilter(word);
+        }
     }
 
     handleNavigate = (keyCode, state) => {
