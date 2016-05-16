@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { click } from './Helpers';
+import { click, compareState } from './Helpers';
 import StatefulComboBox from '../src/ComboBox';
 
 import { ComboBox, List, ListItem, ListContainer, SearchBar, DropDownWrapper } from '../src/stateless/main';
@@ -59,7 +59,16 @@ describe('StatefulComboBox', () => {
         { text: "foo6", value: 6 }
     ];
 
+    const filteredData = [
+        { text: "foo1", value: 1 },
+        { text: "foo2", value: 2 },
+        { text: "foo5", value: 5 },
+        { text: "foo6", value: 6 }
+    ];
+
     const primitives = [ "foo", "bar", "baz" ];
+
+    const filteredPrimitives = [ "bar", "baz" ];
 
     const filterData = (text) => {
         let dataList;
@@ -82,44 +91,192 @@ describe('StatefulComboBox', () => {
         expect(result.find(ComboBox).length).toEqual(1);
     });
 
-    it('should accept value', () => {
+    it('should have null value if it is not passed through props', () => {
+        result = shallow(<StatefulComboBox data={data} textField="text" valueField="value" />);
+        compareState(result.state(), {
+            value: undefined,
+            data: data,
+            dataItem: undefined,
+            text: "",
+            focused: -1,
+            selected: -1,
+            word: null,
+            highlight: false
+        });
+    });
+
+    it('should have null value if it is not passed through props (primitives)', () => {
+        result = shallow(<StatefulComboBox data={primitives} />);
+        compareState(result.state(), {
+            value: undefined,
+            data: primitives,
+            dataItem: undefined,
+            text: "",
+            focused: -1,
+            selected: -1,
+            word: null,
+            highlight: false
+        });
+    });
+
+    it('should accept value when not filtering', () => {
         result = shallow(<StatefulComboBox data={data} textField="text" value={3} valueField="value" />);
-        expect(result.state('dataItem')).toBe(data[2]);
-        expect(result.state('focused')).toEqual(2);
-        expect(result.state('selected')).toEqual(2);
-        expect(result.state('text')).toEqual('asd');
-        expect(result.state('value')).toEqual(3);
+        compareState(result.state(), {
+            value: 3,
+            data: data,
+            dataItem: data[2],
+            text: data[2].text,
+            focused: 2,
+            selected: 2,
+            word: null,
+            highlight: false
+        });
     });
 
-    it('should accept value (primitives)', () => {
+    it('should accept value when not filtering (primitives)', () => {
         result = shallow(<StatefulComboBox data={primitives} value="baz" />);
-        expect(result.state('dataItem')).toEqual("baz");
-        expect(result.state('focused')).toEqual(2);
-        expect(result.state('selected')).toEqual(2);
-        expect(result.state('text')).toEqual('baz');
-        expect(result.state('value')).toEqual('baz');
+        compareState(result.state(), {
+            value: "baz",
+            data: primitives,
+            dataItem: "baz",
+            text: "baz",
+            focused: 2,
+            selected: 2,
+            word: null,
+            highlight: false
+        });
     });
 
-    it('should update state when item is selected from List', () => {
+
+    it('should ignore value property when filtering', () => {
+        result = shallow(<StatefulComboBox data={data} textField="text" value={3} valueField="value" />);
+        const filter = "foo"
+
+        //simulate filter
+        result.setProps({
+            filter: filter,
+            data: filteredData
+        });
+        compareState(result.state(), {
+            value: 3,
+            data: filteredData,
+            dataItem: data[2],
+            text: filter,
+            focused: 0,
+            selected: -1,
+            word: null
+        });
+    });
+
+    it('should ignore value property when filtering (primitives)', () => {
+        result = shallow(<StatefulComboBox data={primitives} value="baz" />);
+        const filter = "ba"
+        const previousValue = "baz";
+
+        //simulate filter
+        result.setProps({
+            filter: filter,
+            data: filteredPrimitives
+        });
+        compareState(result.state(), {
+            value: previousValue,
+            data: filteredPrimitives,
+            dataItem: previousValue,
+            text: filter,
+            focused: 1,
+            selected: 1,
+            word: null
+        });
+    });
+
+    it('should update state when item is selected from List (without initial value)', () => {
         result = shallow(<StatefulComboBox data={data} textField="text" valueField="value" />);
         const items = result.find(ComboBox).shallow().find(List).shallow().find(ListItem);
 
-        expect(result.state('dataItem')).toEqual(null);
-        expect(result.state('value')).toEqual('');
         click(items.at(1).shallow());
-        expect(result.state('dataItem')).toEqual(data[1]);
-        expect(result.state('value')).toEqual(data[1].value);
+
+        compareState(result.state(), {
+            value: data[1].value,
+            dataItem: data[1],
+            focused: 1,
+            selected: 1,
+            word: null,
+            highlight: false
+        });
+    });
+
+    it('should update state when item is selected from List (with initial value)', () => {
+        result = shallow(<StatefulComboBox data={data} textField="text" valueField="value" value={3} />);
+        const items = result.find(ComboBox).shallow().find(List).shallow().find(ListItem);
+
+        click(items.at(1).shallow());
+        compareState(result.state(), {
+            value: data[1].value,
+            dataItem: data[1],
+            focused: 1,
+            selected: 1,
+            word: null,
+            highlight: false
+        });
+    });
+
+    it('should update state when item is selected from List after filter (with initial value)', () => {
+        result = shallow(<StatefulComboBox data={data} textField="text" valueField="value" value={3} />);
+        
+        const filter = "foo"
+        const previousValue = 3;
+        const previousDataItem = data[2];
+
+        //simulate filter
+        result.setProps({
+            filter: filter,
+            data: filteredData
+        });
+
+        const items = result.find(ComboBox).shallow().find(List).shallow().find(ListItem);
+        click(items.at(1).shallow());
+
+        compareState(result.state(), {
+            value: filteredData[1].value,
+            dataItem: filteredData[1],
+            focused: 1,
+            selected: 1,
+            word: null,
+            highlight: false
+        });
     });
 
     it('should update state when item is selected from List (primitives)', () => {
         result = shallow(<StatefulComboBox data={primitives} />);
         const items = result.find(ComboBox).shallow().find(List).shallow().find(ListItem);
 
-        expect(result.state('dataItem')).toEqual(null);
-        expect(result.state('value')).toEqual('');
         click(items.at(1).shallow());
         expect(result.state('dataItem')).toEqual(primitives[1]);
         expect(result.state('value')).toEqual(primitives[1]);
+    });
+
+    it('should update state when item is selected from List after filter (primitives, with initial value)', () => {
+        result = shallow(<StatefulComboBox data={primitives} value="foo" />);
+        const filter = "ba"
+        const previousValue = "foo";
+
+        //simulate filter
+        result.setProps({
+            filter: filter,
+            data: filteredPrimitives
+        });
+        const items = result.find(ComboBox).shallow().find(List).shallow().find(ListItem);
+        click(items.at(1).shallow());
+
+        compareState(result.state(), {
+            value: filteredPrimitives[1],
+            data: filteredPrimitives,
+            dataItem: filteredPrimitives[1],
+            text: filteredPrimitives[1],
+            focused: 1,
+            selected: 1,
+            word: null
+        });
     });
 
     it('should fire change event when item selected from the list', () => {
@@ -139,4 +296,36 @@ describe('StatefulComboBox', () => {
         click(items.at(2).shallow());
         expect(spy).toHaveBeenCalledWith(primitives[2]);
     });
+
+
+    it('should resolve word when filtering', () => {
+        result = shallow(<StatefulComboBox data={data} suggest textField="text" value={3} valueField="value" />);
+
+        //simulate filter
+        result.setProps({
+            filter: "f",
+            data: filteredData
+        });
+        result.setProps({
+            filter: "fo",
+            data: filteredData
+        });
+
+        compareState(result.state(), {
+            value: 3,
+            data: filteredData,
+            dataItem: data[2],
+            text: "fo",
+            focused: 0,
+            selected: -1,
+            word: filteredData[0].text
+        });
+    });
+
+    // it('should fire filter event when typing', () => {
+        // const spy = jasmine.createSpy('spy');
+        // result = shallow(<StatefulComboBox data={data} onFilter={spy} textField="text" valueField="value" />);
+
+        // expect(spy).toHaveBeenCalledWith(data[3].value);
+    // });
 });

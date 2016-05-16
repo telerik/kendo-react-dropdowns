@@ -102,7 +102,6 @@ function textReduced(newValue = "", oldValue = "") {
 function resolveValue(props) {
     const { data, defaultItem, value, index, valueField } = props;
     let dataItem;
-
     if (value) {
         dataItem = data.find(element => getter(element, valueField) === value);
         return {
@@ -117,14 +116,12 @@ function resolveValue(props) {
             selected: index,
             focused: index
         };
-    } else if (defaultItem) {
-        dataItem = defaultItem;
-        return {
-            dataItem: dataItem,
-            selected: dataItem ? -1 : null,
-            focused: dataItem ? -1 : null
-        };
     }
+    return {
+        dataItem: defaultItem,
+        selected: -1,
+        focused: -1
+    };
 }
 
 function itemIndex(text, data, textField = null) {

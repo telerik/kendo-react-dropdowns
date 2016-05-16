@@ -54,16 +54,16 @@ describe('StatefulDropDownList initialization', () => {
 
     it('should select nothing if no value or index', () => {
         result = shallow(<StatefulDropDownList data={data} textField="text" valueField="value" />);
-        expect(result.state('dataItem')).toBe(null);
-        expect(result.state('focused')).toEqual(null);
-        expect(result.state('selected')).toEqual(null);
+        expect(result.state('dataItem')).toBe(undefined);
+        expect(result.state('focused')).toEqual(-1);
+        expect(result.state('selected')).toEqual(-1);
     });
 
     it('should select nothing if no value or index (primitives)', () => {
         result = shallow(<StatefulDropDownList data={primitives} />);
-        expect(result.state('dataItem')).toBe(null);
-        expect(result.state('focused')).toEqual(null);
-        expect(result.state('selected')).toEqual(null);
+        expect(result.state('dataItem')).toBe(undefined);
+        expect(result.state('focused')).toEqual(-1);
+        expect(result.state('selected')).toEqual(-1);
     });
 
     it('should select the defaultItem if no value or index', () => {
@@ -99,7 +99,7 @@ describe('StatefulDropDownList event handlers', () => {
         result = shallow(<StatefulDropDownList data={data} textField="text" valueField="value" />);
         const dropDownList = result.find(DropDownList);
 
-        expect(result.state('selected')).toEqual(null);
+        expect(result.state('selected')).toEqual(-1);
         dropDownList.prop('onSelect')(data[1]);
         expect(result.state('selected')).toEqual(1);
     });

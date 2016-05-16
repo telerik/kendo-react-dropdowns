@@ -85,17 +85,7 @@ export default class ComboBox extends React.Component {
     }
 
     handleBlur = () => {
-        const { dataItem, word, text } = this.props;
-
-        if (word || dataItem) {
-            this.selectFocused();
-        } else {
-            this.props.onBlur({
-                show: false,
-                word: null,
-                value: text
-            });
-        }
+        this.props.onBlur();
     };
 
     handleFilter = (word) => {
@@ -159,7 +149,7 @@ export default class ComboBox extends React.Component {
         this.props.onTextUpdate({
             text: input,
             value: null,
-            focused: null,
+            focused: data.length ? util.itemIndex(input, data, textField) : -1,
             selected: null,
             dataItem: null,
             show: index >= 0,
@@ -245,7 +235,6 @@ export default class ComboBox extends React.Component {
             anchor: this.refs.anchor,
             show: this.props.show
         };
-
         return (
             <span ref="anchor" {...comboBoxProps}>
                 <DropDownWrapper>

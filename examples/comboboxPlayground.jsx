@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import { ComboBox } from '../src/main';
+import { ComboBox, Stateless } from '../src/main';
 
 const data = [
     { text: "Albania", value: "Alb" },
@@ -104,56 +104,82 @@ const primitives = [
     "Vatican City"
 ];
 
-const filterData = (text) => {
-    let dataList;
+const numbers = [
+    { text: "Albania", value: 1 },
+    { text: "Andorra", value: 2 },
+    { text: "Armenia", value: 3 },
+    { text: "Austria", value: 4 }
+];
 
-    if (text) {
-        dataList = data.filter(function(item) {
-            return item.text.toLowerCase().startsWith(text.toLowerCase());
+class CascadingDropDownListsExample extends React.Component {
+    state = {
+        value: null,
+        data: data,
+        filter: null
+    };
+
+    handleFilter = (text) => {
+        console.log("filter:", text);
+        let result = [];
+        if (text) {
+            result = data.filter(function(item) {
+                return item.text.toLowerCase().startsWith(text.toLowerCase());
+            });
+        } else {
+            result = data;
+        }
+
+        this.setState({
+            data:result,
+            filter: text
         });
-    } else {
-        dataList = data;
+    };
+
+
+    handleChange = (value) => {
+        console.log("high order handleChange:", value);
+        this.setState({
+            value: value,
+            filter: null
+        });
     }
-    render(dataList);
-};
+    
+    resetValue = () => {
+        this.setState({
+            value: null,
+            filter: null,
+            data: data
+        });
+    }
 
-const onChange = (e) => {
-    console.log("change event triggered: ", e);
-};
+    handleToggle = (state) => {
+        if (!this.data.length) {
+            this.handleFilter("");
+        }
+    }
 
-let selectValue = "B";
-const onChangeSelect = (e) => {
-    console.log("onChangeSelect : ", e);
+    render() {
+        return (
+            <div className="example">
+                    <ComboBox
+                        suggest
+                        filter={this.state.filter}
+                        data={this.state.data}
+                        onChange={this.handleChange}
+                        onFilter={this.handleFilter}
+                        textField="text"
+                        valueField="value"
+                        value={this.state.value}
+                        
+                    />
+                <p>Country: <span>{this.state.value}</span></p>
+                <button onClick={this.resetValue}>Reset</button>
+            </div>
+        );
+    }
+}
 
-    selectValue = e.target.value;
-    render();
-};
-
-const itemRenderer = (item) => {
-    return item instanceof Object ? item.text : item;
-};
-
-const render = (data) => {
-    ReactDOM.render(
-        <div>
-          <select onChange={onChangeSelect} value={selectValue}>
-            <option value="A">Apple</option>
-            <option value="B">Banana</option>
-            <option value="C">Cranberry</option>
-          </select>
-            <ComboBox
-                data={data}
-                onChange={onChange}
-                onFilter={filterData}
-                placeholder="Select country"
-                suggest
-                valueField="value"
-                textField="text"
-                itemRenderer={itemRenderer}
-            />
-        </div>,
-        document.getElementById('app')
-    );
-};
-
-filterData();
+ReactDOM.render(
+    <CascadingDropDownListsExample />,
+    document.getElementById('app')
+);

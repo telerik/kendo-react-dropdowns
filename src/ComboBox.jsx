@@ -18,16 +18,15 @@ export default class ComboBox extends React.Component {
         onFilter: React.PropTypes.func,
         placeholder: React.PropTypes.string,
         disabled: React.PropTypes.bool,
+        filter: React.PropTypes.string,
         style: PropTypes.object, // eslint-disable-line
         suggest: React.PropTypes.bool,
-        text: React.PropTypes.string,
         textField: React.PropTypes.string,
         value: React.PropTypes.oneOfType([
             React.PropTypes.number,
             React.PropTypes.string
         ]),
-        valueField: React.PropTypes.string,
-        visible: PropTypes.bool
+        valueField: React.PropTypes.string
     };
 
     static defaultProps = {
@@ -37,71 +36,67 @@ export default class ComboBox extends React.Component {
 
     constructor(props) {
         super(props);
-        this.text = "";
-        this._oldText = "";
-        this._oldValue = "";
+
+        this.prevText = "";
+        this.prevValue = null;
+
         this.state = {
+            value: null,
+            text: "",
             dataItem: null,
-            highlight: null,
+            word: null,
             show: false,
-            value: this.props.value || "",
-            focused: null,
-            selected: null,
-            text: null,
-            word: null
+            focused: -1,
+            selected: -1,
+            highlight: false
         };
     }
 
     componentWillMount() {
-        this.setValue(this.props);
+        this.resolveState(this.props);
     }
 
     componentWillReceiveProps(nextProps) {
-        const { suggest, data, textField, value } = nextProps;
+        this.resolveState(nextProps);
+    }
 
-        this.setValue(nextProps);
-        if (value) {
+    resolveState(props) {
+        const { filter, suggest, data, textField, value } = props;
+        const filtering = Boolean(filter !== null && filter !== undefined);
+        this.prevText = this.state.text;
+        if (filtering) {
+            const itemIndex = data.indexOf(this.state.dataItem);
+            const reducedOrEqual = util.textReduced(filter.toLowerCase(), this.prevText.toLowerCase()) || filter.length === this.prevText.length;
+            const shouldSuggest = Boolean(!reducedOrEqual && suggest && filter.length);
             this.setState({
-                show: false,
+                show: Boolean(data.length),
+                data: data,
+                text: filter,
+                focused: itemIndex === -1 ? 0 : itemIndex,
+                selected: itemIndex,
+                word: shouldSuggest ? util.getter(data[0], textField) : null,
+                highlight: shouldSuggest
+            });
+        } else {
+            const result = util.resolveValue(props);
+            this.setState({
+                value: value,
+                data: data,
+                dataItem: result.dataItem,
+                text: util.getter(result.dataItem, textField) || value || "",
+                focused: result.focused,
+                selected: result.selected,
+                word: null,
                 highlight: false
             });
-        } else {
-            this.setState({
-                show: Boolean(this.text) && data.length > 0,
-                highlight: suggest,
-                selected: null,
-                focused: data.length ? util.itemIndex(this.text, data, textField) : -1 //filtered data focused item
-            });
         }
     }
 
-    setValue(props) {
-        let state = util.resolveValue(props);
-        if (state) {
-            if (state.dataItem && props.textField && props.valueField) {
-                //complex
-                state.text = state.dataItem[props.textField];
-                state.value = state.dataItem[props.valueField];
-                this._oldText = state.text;
-                this._oldValue = state.value;
-            } else {
-                //primitive
-                state.dataItem = state.dataItem;
-                state.value = this._oldValue = props.value;
-                state.text = this._oldText = state.value ? state.value.toString() : props.value;
-            }
-        } else {
-            //unresolved user input
-            this._oldText = "";
-            this._oldValue = null;
-            state = { dataItem: null };
-
-        }
-        this.setState(state);
-    }
-
-    handleBlur = (state) => {
-        this.setState(state, this.handleChange.bind(this, state.value));
+    handleBlur = () => {
+        this.setState({
+            show: false
+        });
+        this.handleChange();
     }
 
     handleSelect = (state) => {
@@ -109,26 +104,30 @@ export default class ComboBox extends React.Component {
     }
 
     handleTextUpdate = (state) => {
-        this.text = state.text;
+        this.prevText = this.state.text;
         state.focused = this.props.data.length ? util.itemIndex(this.text, this.props.data, this.props.textField) : -1;
         this.setState(state);
     }
 
-    handleChange = (text) => {
-        if (this._oldText === text || this._oldValue === this.state.value) {
-            return;
+    handleChange = () => {
+        const { textField, valueField } = this.props;
+        let param;
+        if (this.state.dataItem) {
+            if (this.prevText !== util.getter(this.state.dataItem, textField)) {
+                param = util.getter(this.state.dataItem, valueField);
+            }
+        } else {
+            if (this.prevText !== this.state.text) {
+                param = util.getter(this.state.text);
+            }
         }
-
-        this._oldText = this.state.text;
-        this._oldValue = this.state.value;
-        this.props.onChange(this.state.value);
+        if (param !== undefined) {
+            this.props.onChange(param);
+        }
     }
 
-    handleFilter = (word) => {
-        const reducedOrEqual = util.textReduced(word.toLowerCase(), this.text.toLowerCase()) || word.length === this.text.length;
-        if (!reducedOrEqual) {
-            this.props.onFilter(word);
-        }
+    handleFilter = (filter) => {
+        this.props.onFilter(filter);
     }
 
     handleNavigate = (keyCode, state) => {
