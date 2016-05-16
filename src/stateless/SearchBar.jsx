@@ -20,7 +20,9 @@ export default class SearchBar extends React.Component {
     };
 
     static defaultProps = {
-        blur() {}
+        blur() {},
+        filter() {},
+        separator: ""
     };
 
     constructor(props) {

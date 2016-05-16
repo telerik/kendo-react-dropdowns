@@ -190,9 +190,14 @@ describe('StatefulComboBox', () => {
     });
 
     it('should update state when item is selected from List (without initial value)', () => {
-        result = shallow(<StatefulComboBox data={data} textField="text" valueField="value" />);
+        const onChange = function(value) {
+            result.setProps({
+                value: value,
+                filter: null
+            });
+        }
+        result = shallow(<StatefulComboBox data={data} onChange={onChange} textField="text" valueField="value" />);
         const items = result.find(ComboBox).shallow().find(List).shallow().find(ListItem);
-
         click(items.at(1).shallow());
 
         compareState(result.state(), {
@@ -206,7 +211,13 @@ describe('StatefulComboBox', () => {
     });
 
     it('should update state when item is selected from List (with initial value)', () => {
-        result = shallow(<StatefulComboBox data={data} textField="text" valueField="value" value={3} />);
+        const onChange = function(value) {
+            result.setProps({
+                value: value,
+                filter: null
+            });
+        }
+        result = shallow(<StatefulComboBox data={data} textField="text" onChange={onChange} valueField="value" value={3} />);
         const items = result.find(ComboBox).shallow().find(List).shallow().find(ListItem);
 
         click(items.at(1).shallow());
@@ -221,7 +232,13 @@ describe('StatefulComboBox', () => {
     });
 
     it('should update state when item is selected from List after filter (with initial value)', () => {
-        result = shallow(<StatefulComboBox data={data} textField="text" valueField="value" value={3} />);
+        const onChange = function(value) {
+            result.setProps({
+                value: value,
+                filter: null
+            });
+        }
+        result = shallow(<StatefulComboBox data={data} onChange={onChange}  textField="text" valueField="value" value={3} />);
         
         const filter = "foo"
         const previousValue = 3;
@@ -247,7 +264,13 @@ describe('StatefulComboBox', () => {
     });
 
     it('should update state when item is selected from List (primitives)', () => {
-        result = shallow(<StatefulComboBox data={primitives} />);
+        const onChange = function(value) {
+            result.setProps({
+                value: value,
+                filter: null
+            });
+        }
+        result = shallow(<StatefulComboBox onChange={onChange} data={primitives} />);
         const items = result.find(ComboBox).shallow().find(List).shallow().find(ListItem);
 
         click(items.at(1).shallow());
@@ -256,13 +279,17 @@ describe('StatefulComboBox', () => {
     });
 
     it('should update state when item is selected from List after filter (primitives, with initial value)', () => {
-        result = shallow(<StatefulComboBox data={primitives} value="foo" />);
-        const filter = "ba"
-        const previousValue = "foo";
+        const onChange = function(value) {
+            result.setProps({
+                value: value,
+                filter: null
+            });
+        }
+        result = shallow(<StatefulComboBox onChange={onChange} data={primitives} value="foo" />);
 
         //simulate filter
         result.setProps({
-            filter: filter,
+            filter: "ba",
             data: filteredPrimitives
         });
         const items = result.find(ComboBox).shallow().find(List).shallow().find(ListItem);

@@ -30,8 +30,7 @@ export default class ComboBox extends React.Component {
     };
 
     static defaultProps = {
-        onChange() {},
-        onFilter() {}
+        onChange() {}
     };
 
     constructor(props) {
@@ -63,6 +62,7 @@ export default class ComboBox extends React.Component {
     resolveState(props) {
         const { filter, suggest, data, textField, value } = props;
         const filtering = Boolean(filter !== null && filter !== undefined);
+
         this.prevText = this.state.text;
         if (filtering) {
             const itemIndex = data.indexOf(this.state.dataItem);
@@ -93,52 +93,55 @@ export default class ComboBox extends React.Component {
     }
 
     handleBlur = () => {
-        this.setState({
-            show: false
-        });
         this.handleChange();
     }
 
-    handleSelect = (state) => {
-        this.setState(state, this.handleChange.bind(this, state.value));
+    handleSelect = (text, dataItem) => {
+        this.handleChange(text, dataItem);
     }
 
-    handleTextUpdate = (state) => {
-        this.prevText = this.state.text;
-        state.focused = this.props.data.length ? util.itemIndex(this.text, this.props.data, this.props.textField) : -1;
-        this.setState(state);
+    handleTextUpdate = (text) => {
+        if (typeof this.props.onFilter === "function" ) {
+            this.props.onFilter(text);
+        } else {
+            this.prevText = this.state.text;
+            this.setState({ text: text });
+        }
     }
 
-    handleChange = () => {
+    handleChange = (text, dataItem) => {
         const { textField, valueField } = this.props;
         let param;
-        if (this.state.dataItem) {
-            if (this.prevText !== util.getter(this.state.dataItem, textField)) {
-                param = util.getter(this.state.dataItem, valueField);
+        if (dataItem) {
+            if (this.state.text !== util.getter(dataItem, textField)) {
+                param = util.getter(dataItem, valueField);
             }
         } else {
-            if (this.prevText !== this.state.text) {
-                param = util.getter(this.state.text);
+            if (this.prevText !== text) {
+                param = text;
             }
         }
         if (param !== undefined) {
             this.props.onChange(param);
         }
+        this.setState({ show: false });
     }
 
     handleFilter = (filter) => {
         this.props.onFilter(filter);
     }
 
-    handleNavigate = (keyCode, state) => {
-        this.setState(state);
+    handleNavigate = (dataItem) => {
+        this.props.onChange(util.getter(dataItem, this.props.valueField));
     }
 
-    handleToggle = (state) => {
+    handleToggle = () => {
         if (!this.props.data.length) {
             this.handleFilter("");
         }
-        this.setState(state);
+        this.setState({
+            show: !this.state.show
+        });
     }
 
     render() {
@@ -164,7 +167,7 @@ export default class ComboBox extends React.Component {
             itemRenderer: this.props.itemRenderer,
             //handlers
             onChange: this.handleChange,
-            onFilter: this.handleFilter,
+            // onFilter: this.handleFilter,
             onTextUpdate: this.handleTextUpdate,
             onSelect: this.handleSelect,
             onBlur: this.handleBlur,
