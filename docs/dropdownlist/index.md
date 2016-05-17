@@ -32,10 +32,35 @@ The example below demonstrates the default setup of a Kendo UI DropDownList for 
     <div id="app"></div>
 ```
 ```jsx
-    const data = [ "Item 1", "Item 2", "Item 3" ];
+    class DropDownListContainer extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                data: [ "Item 1", "Item 2", "Item 3" ],
+                value: null
+            }
+        }
+
+        onChange = (value) => {
+            this.setState({
+                value: value
+            });
+        }
+
+        render() {
+            return(
+                <KendoReactDropdowns.DropDownList
+                    data={this.state.data}
+                    defaultItem="Select..."
+                    onChange={this.onChange}
+                    value={this.state.value}
+                />
+            )
+        }
+    }
 
     ReactDOM.render(
-        <KendoReactDropdowns.DropDownList data={data} defaultItem="Select..." />,
+        <DropDownListContainer />,
         document.getElementById('app')
     );
 ```
@@ -54,10 +79,35 @@ The example below demonstrates how to bind to an array of primitive data.
     <div id="app"></div>
 ```
 ```jsx
-    const data = [ "Item 1", "Item 2", "Item 3" ];
+    class DropDownListContainer extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                data: [ 1, 2, 3 ],
+                value: null
+            }
+        }
+
+        onChange = (value) => {
+            this.setState({
+                value: value
+            });
+        }
+
+        render() {
+            return(
+                <KendoReactDropdowns.DropDownList
+                    data={this.state.data}
+                    defaultItem="Select..."
+                    onChange={this.onChange}
+                    value={this.state.value}
+                />
+            )
+        }
+    }
 
     ReactDOM.render(
-        <KendoReactDropdowns.DropDownList data={data} defaultItem="Select..." />,
+        <DropDownListContainer />,
         document.getElementById('app')
     );
 ```
@@ -68,41 +118,64 @@ The example below demonstrates how to bind to an array of objects.
     <div id="app"></div>
 ```
 ```jsx
-    const data = [
-        { text: "Foo", value: 1 },
-        { text: "Bar", value: 2 },
-        { text: "Baz", value: 3 },
-    ];
+    class DropDownListContainer extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                data: [
+                    { text: "Foo", value: 1 },
+                    { text: "Bar", value: 2 },
+                    { text: "Baz", value: 3 }
+                ],
+                value: null
+            }
+        }
+
+        onChange = (value) => {
+            this.setState({
+                value: value
+            });
+        }
+
+        render() {
+            return(
+                <KendoReactDropdowns.DropDownList
+                    data={this.state.data}
+                    defaultItem={{ text: "Select...", value: null }}
+                    onChange={this.onChange}
+                    textField="text"
+                    value={this.state.value}
+                    valueField="value"
+                />
+            )
+        }
+    }
 
     ReactDOM.render(
-        <KendoReactDropdowns.DropDownList
-            data={data}
-            defaultItem={{ text: "Select...", value: null }}
-            textField="text"
-            valueField="value"
-        />,
+        <DropDownListContainer />,
         document.getElementById('app')
     );
 ```
 
 ### Value
 
-The value of the DropDownList component can be set either through its `value` or `index` property. If both are provided, the `value` takes precedence. When the value changes, the component executes the [`onChange`]({% slug api_ddl_kendouiforreact %}#onchange-function) callback function.
+The value of the DropDownList component can be set through its `value` property. When the value changes, the component executes the [`onChange`]({% slug api_ddl_kendouiforreact %}#onchange-function) callback function.
+
+> The DropDownList component is designed as a controlled ReactJS input. The `onChange` event fires each time a user interacts with the DropDownList. The new value is passed as an argument to the `onChange` callback and the high-order component should update the DropDownList `value` through the props. If the high-order component does not update the `value` property the DropDownList will not change its value.
 
 ```html-preview
     <div id="app"></div>
 ```
 ```jsx
-    const data = [
-        { text: "Foo", value: 1 },
-        { text: "Bar", value: 2 },
-        { text: "Baz", value: 3 },
-    ];
-
     class DropDownListContainer extends React.Component {
         constructor(props) {
             super(props);
             this.state = {
+                data: [
+                    { text: "Foo", value: 1 },
+                    { text: "Bar", value: 2 },
+                    { text: "Baz", value: 3 }
+                ],
                 value: 2
             };
         }
@@ -114,7 +187,7 @@ The value of the DropDownList component can be set either through its `value` or
         }
 
         render() {
-            const value = this.state.value;
+            const { data, value } = this.state;
 
             return (
                 <div>
@@ -150,12 +223,42 @@ To change these settings, use the [`ignoreCase`]({% slug api_ddl_kendouiforreact
     <div id="app"></div>
 ```
 ```jsx
-    const data = [ "Jack", "Jane", "John", "Jacob", "Jake" ];
+    class DropDownListContainer extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                data: [ "Peter", "Jack", "Jane", "John", "Jacob", "Jake" ],
+                value: "Peter"
+            };
+        }
+
+        onChange = (value) => {
+            this.setState({
+                value: value
+            });
+        }
+
+        render() {
+            const { data, value } = this.state;
+
+            return (
+                <div>
+                    <KendoReactDropdowns.DropDownList
+                        data={data}
+                        delay={1000}
+                        onChange={this.onChange}
+                        value={value}
+                    />
+                    <span>Selected value: <span style={{ color: "#f00" }}>{value}</span></span>
+                </div>
+            );
+        }
+    }
 
     ReactDOM.render(
         <div>
             <p>Focus the component and use the keyboard to navigate between items</p>
-            <KendoReactDropdowns.DropDownList data={data} delay={1000} index={0} />
+            <DropDownListContainer />
         </div>,
         document.getElementById('app')
     );
@@ -165,7 +268,7 @@ To change these settings, use the [`ignoreCase`]({% slug api_ddl_kendouiforreact
 
 By default, the DropDownList does not render a filter input field that allows the user to filter the options and the [`filterable`]({% slug api_ddl_kendouiforreact %}#filterable-booleandefault-false) property is set to `false`. To render a filter input field, set `filterable` to `true`.
 
-When the user changes the filter input value, the component executes its [`onFilter`]({% slug api_ddl_kendouiforreact %}#onfilter-function) callback. It is your responsibility to perform the data filtration and to update the data of the DropDownList through its props.
+When the user changes the filter input value, the component executes its [`onFilter`]({% slug api_ddl_kendouiforreact %}#onfilter-function) callback. It is responsibility of the developer to perform the data filtration and to update the data of the DropDownList through its props.
 
 > The default functionality to search between items is automatically disabled if filtration is enabled.
 
@@ -289,13 +392,51 @@ The DropDownList allows you to prevent user input through disabling the componen
     <div id="app"></div>
 ```
 ```jsx
-    const data = [ "Jack", "Jane", "John", "Jacob", "Jake" ];
+    class DropDownListContainer extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                data: [ "Peter", "Jack", "Jane", "John", "Jacob", "Jake" ],
+                value: "Peter",
+                disabled: false
+            };
+        }
+
+        onChange = (value) => {
+            this.setState({
+                value: value
+            });
+        };
+
+        onClick = () => {
+            this.setState({
+                disabled: !this.state.disabled
+            });
+        }
+
+        render() {
+            const { data, value } = this.state;
+
+            return (
+                <div>
+                    <KendoReactDropdowns.DropDownList
+                        data={data}
+                        delay={1000}
+                        disabled={this.state.disabled}
+                        onChange={this.onChange}
+                        value={value}
+                    />
+                    <span>Selected value: <span style={{ color: "#f00" }}>{value}</span></span>
+                    <div>
+                        <button onClick={this.onClick}>{this.state.disabled ? "Enable" : "Disable"}</button>
+                    </div>
+                </div>
+            );
+        }
+    }
 
     ReactDOM.render(
-        <div>
-            <p>Disabled DropDownList</p>
-            <KendoReactDropdowns.DropDownList data={data} defaultItem="Select..." disabled />
-        </div>,
+        <DropDownListContainer />,
         document.getElementById('app')
     );
 ```
@@ -308,32 +449,54 @@ By default, the component displays the [`textField`]({% slug api_ddl_kendouiforr
     <div id="app"></div>
 ```
 ```jsx
-    const data = [
-        { value: 1, text: "Foo" },
-        { value: 2, text: "Bar" },
-        { value: 3, text: "Baz" }
-    ];
-
     function renderItem (dataItem) {
         return (
-            <span>Item: <span style={{ color: "#F00" }}>{dataItem.text}</span></span>
+            <span>Item: <span style={{ color: "#0F0" }}>{dataItem.text}</span></span>
         );
     }
 
     function renderValue (dataItem) {
-        const result = dataItem ? `Value: ${dataItem.value}` : '';
+        return dataItem ? `Value: ${dataItem.value}` : '';
+    }
 
-        return result;
+    class DropDownListContainer extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                data: [
+                    { value: 1, text: "Foo" },
+                    { value: 2, text: "Bar" },
+                    { value: 3, text: "Baz" }
+                ],
+                value: null
+            };
+        }
+
+        onChange = (value) => {
+            this.setState({
+                value: value
+            });
+        };
+
+        render() {
+            const { data, value } = this.state;
+
+            return (
+                <KendoReactDropdowns.DropDownList
+                    data={this.state.data}
+                    itemRenderer={renderItem}
+                    onChange={this.onChange}
+                    textField="text"
+                    valueField="value"
+                    valueRenderer={renderValue}
+                    value={this.state.value}
+                />
+            );
+        }
     }
 
     ReactDOM.render(
-        <KendoReactDropdowns.DropDownList
-            data={data}
-            itemRenderer={renderItem}
-            textField="text"
-            valueField="value"
-            valueRenderer={renderValue}
-        />,
+        <DropDownListContainer />,
         document.getElementById('app')
     );
 ```
@@ -344,27 +507,49 @@ By default, the component displays the [`textField`]({% slug api_ddl_kendouiforr
 
 The [`onChange`]({% slug api_ddl_kendouiforreact %}#onchange-function) callback function is fired when the DropDownList value changes.
 
+> The DropDownList component is designed as a controlled ReactJS input. The `onChange` event fires each time a user interacts with the DropDownList. The new value is passed as an argument to the `onChange` callback and the high-order component should update the DropDownList `value` through the props. If the high-order component does not update the `value` property the DropDownList will not change its value.
+
 ```html
     <div id="app"></div>
 ```
 ```jsx
-    const data = [
-        { value: 1, text: "Foo" },
-        { value: 2, text: "Bar" },
-        { value: 3, text: "Baz" }
-    ];
+    class DropDownListContainer extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                data: [
+                    { value: 1, text: "Foo" },
+                    { value: 2, text: "Bar" },
+                    { value: 3, text: "Baz" }
+                ],
+                value: null
+            };
+        }
 
-    function onChange(value, dataItem) {
-        console.log("change");
+        onChange = (value) => {
+            console.log("change callback:", value);
+            this.setState({
+                value: value
+            });
+        };
+
+        render() {
+            const { data, value } = this.state;
+
+            return (
+                <KendoReactDropdowns.DropDownList
+                    data={this.state.data}
+                    textField="text"
+                    onChange={this.onChange}
+                    valueField="value"
+                    value={this.state.value}
+                />
+            );
+        }
     }
 
     ReactDOM.render(
-        <KendoReactDropdowns.DropDownList
-            data={data}
-            onChange={onChange}
-            textField="text"
-            valueField="value"
-        />,
+        <DropDownListContainer />,
         document.getElementById('app')
     );
 ```

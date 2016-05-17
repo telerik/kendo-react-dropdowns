@@ -24,10 +24,6 @@ Defines the text or the value of the default empty item.
 
 ## Values
 
-#### index `Number`
-
-Defines the index of the initially selected item. The index is zero-based.
-
 #### value `String|Number`
 
 Defines the value of the component.
