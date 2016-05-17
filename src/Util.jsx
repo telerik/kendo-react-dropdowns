@@ -124,17 +124,6 @@ function resolveValue(props) {
     };
 }
 
-function itemIndex(text, data, textField = null) {
-    let index;
-
-    if (textField) {
-        index = data.findIndex(item => getter(item, textField).search(new RegExp(text, "i")) === 0);
-    } else {
-        index = data.findIndex(item => item.search(new RegExp(text, "i")) === 0);
-    }
-    return index;
-}
-
 function sameCharsOnly(word, character) {
     for (let idx = 0; idx < word.length; idx++) {
         if (word.charAt(idx) !== character) {
@@ -204,6 +193,5 @@ export {
     replaceWordAtCaret,
     resizeList,
     resolveValue,
-    endOfWordIndex,
-    itemIndex
+    endOfWordIndex
 };
