@@ -33,19 +33,61 @@ The ComboBox displays a list of pre-defined options. It allows the user to pick 
     <div id="app"></div>
 ```
 ```jsx
-    const data = [
-        { text: "Foo", value: 1 },
-        { text: "Bar", value: 2 },
-        { text: "Baz", value: 3 },
-    ];
+    class ComboBoxContainer extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                data: [
+                    { text: "Foo", value: 1 },
+                    { text: "Bar", value: 2 },
+                    { text: "Baz", value: 3 }
+                ],
+                value: null,
+                filter: null
+            }
+        }
+
+        onChange = (value) => {
+            this.setState({
+                value: value,
+                filter: null
+            });
+        }
+
+        onFilter = (text) => {
+            let result = [];
+            if (text) {
+                result = data.filter(function(item) {
+                    return item.text.toLowerCase().startsWith(text.toLowerCase());
+                });
+            } else {
+                result = data;
+            }
+
+            this.setState({
+                data:result,
+                filter: text
+            });
+        }
+
+        render() {
+            return(
+                <KendoReactDropdowns.ComboBox
+                    data={this.state.data}
+                    filter={this.state.filter}
+                    placeholder="search..."
+                    onChange={this.onChange}
+                    onFilter={this.onFilter}
+                    textField="text"
+                    value={this.state.value}
+                    valueField="value"
+                />
+            )
+        }
+    }
 
     ReactDOM.render(
-        <KendoReactDropdowns.ComboBox
-            data={data}
-            placeholder="Select..."
-            textField="text"
-            valueField="value"
-        />,
+        <ComboBoxContainer />,
         document.getElementById('app')
     );
 ```
@@ -60,19 +102,41 @@ The DropDownList displays a list of pre-defined options and allows the user to p
     <div id="app"></div>
 ```
 ```jsx
-    const data = [
-        { text: "Foo", value: 1 },
-        { text: "Bar", value: 2 },
-        { text: "Baz", value: 3 },
-    ];
+    class DropDownListContainer extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                data: [
+                    { text: "Foo", value: 1 },
+                    { text: "Bar", value: 2 },
+                    { text: "Baz", value: 3 }
+                ],
+                value: null
+            }
+        }
+
+        onChange = (value) => {
+            this.setState({
+                value: value
+            });
+        }
+
+        render() {
+            return(
+                <KendoReactDropdowns.DropDownList
+                    data={this.state.data}
+                    defaultItem={{ text: "Select...", value: null }}
+                    onChange={this.onChange}
+                    textField="text"
+                    value={this.state.value}
+                    valueField="value"
+                />
+            )
+        }
+    }
 
     ReactDOM.render(
-        <KendoReactDropdowns.DropDownList
-            data={data}
-            defaultItem={{ text: "Select...", value: null }}
-            textField="text"
-            valueField="value"
-        />,
+        <DropDownListContainer />,
         document.getElementById('app')
     );
 ```
