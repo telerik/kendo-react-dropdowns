@@ -210,6 +210,35 @@ describe('StatefulComboBox', () => {
         });
     });
 
+    it('should update state when item is selected from List, then custom value entered', () => {
+        const spy = {
+            onChange : function(value) {
+                result.setProps({
+                    value: value,
+                    filter: null
+                })
+            }
+        }
+        spyOn(spy, 'onChange');
+
+        result = shallow(<StatefulComboBox data={data} onChange={spy.onChange} textField="text" valueField="value" />);
+        const items = result.find(ComboBox).shallow().find(List).shallow().find(ListItem);
+
+        click(items.at(1).shallow());
+        expect(spy.onChange).toHaveBeenCalledWith(data[1].value);
+
+        result.setProps({
+            filter: "testing custom value"
+        });
+
+        //simulate blur without triggering the input's native blur event,
+        //as it refers to the window.document object which is not available in the test environment
+        result.props().onSelect(result.props().text, result.props().dataItem);
+
+        expect(spy.onChange).toHaveBeenCalledWith("testing custom value");
+        expect(spy.onChange.calls.count()).toEqual(2);
+    });
+
     it('should update state when item is selected from List (with initial value)', () => {
         const onChange = function(value) {
             result.setProps({

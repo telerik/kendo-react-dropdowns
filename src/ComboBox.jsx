@@ -92,10 +92,6 @@ export default class ComboBox extends React.Component {
         }
     }
 
-    handleBlur = () => {
-        this.handleChange();
-    }
-
     handleSelect = (text, dataItem) => {
         this.handleChange(text, dataItem);
     }
@@ -113,7 +109,9 @@ export default class ComboBox extends React.Component {
         const { textField, valueField } = this.props;
         let param;
         if (dataItem) {
-            if (this.state.text !== util.getter(dataItem, textField)) {
+            if (text !== util.getter(dataItem, textField)) {
+                param = text;
+            } else if (this.state.text !== util.getter(dataItem, textField)) {
                 param = util.getter(dataItem, valueField);
             }
         } else {
@@ -167,18 +165,14 @@ export default class ComboBox extends React.Component {
             itemRenderer: this.props.itemRenderer,
             //handlers
             onChange: this.handleChange,
-            // onFilter: this.handleFilter,
             onTextUpdate: this.handleTextUpdate,
             onSelect: this.handleSelect,
-            onBlur: this.handleBlur,
             onToggle: this.handleToggle,
             onNavigate: this.handleNavigate
         };
 
         return (
-            <div>
-                <Stateless.ComboBox {...comboBoxProps} />
-            </div>
+            <Stateless.ComboBox {...comboBoxProps} />
         );
     }
 }

@@ -118,7 +118,7 @@ export default class ComboBox extends React.Component {
 
     render() {
         const searchBarProps = {
-            blur: this.blur,
+            onBlur: this.blur,
             change: this.props.onTextUpdate,
             navigate: this.navigate,
             selectFocused: this.selectFocused,
@@ -136,6 +136,7 @@ export default class ComboBox extends React.Component {
         }, this.props.className);
 
         const buttonProps = {
+            tabIndex: -1,
             onClick: this.toggle,
             onMouseDown: function(event) {
                 event.preventDefault();
