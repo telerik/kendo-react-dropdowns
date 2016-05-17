@@ -119,8 +119,8 @@ export default class ComboBox extends React.Component {
     render() {
         const searchBarProps = {
             onBlur: this.blur,
-            change: this.props.onTextUpdate,
-            navigate: this.navigate,
+            onChange: this.props.onTextUpdate,
+            onNavigate: this.navigate,
             selectFocused: this.selectFocused,
             disabled: this.props.disabled,
             placeholder: this.props.placeholder,

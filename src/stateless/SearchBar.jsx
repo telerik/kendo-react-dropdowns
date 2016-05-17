@@ -6,22 +6,24 @@ import styles from '@telerik/kendo-theme-default/styles/dropdowns/main';
 export default class SearchBar extends React.Component {
 
     static propTypes = {
-        blur: PropTypes.func,
-        change: PropTypes.func,
-        disabled: PropTypes.bool,
-        filter: PropTypes.func,
-        highlight: PropTypes.bool,
-        navigate: PropTypes.func,
-        placeholder: PropTypes.string,
+        onBlur: PropTypes.func,
+        onChange: PropTypes.func,
+        onNavigate: PropTypes.func,
+        onFilter: PropTypes.func,
         selectFocused: PropTypes.func,
+        disabled: PropTypes.bool,
+        highlight: PropTypes.bool,
+        placeholder: PropTypes.string,
         separator: PropTypes.string,
         value: PropTypes.string,
         word: PropTypes.string
     };
 
     static defaultProps = {
-        blur() {},
-        filter() {},
+        onBlur() {},
+        onChange() {},
+        onNavigate() {},
+        onFilter() {},
         separator: ""
     };
 
@@ -64,19 +66,19 @@ export default class SearchBar extends React.Component {
         this.hasSelection = this._input.selectionStart !== this._input.selectionEnd;
     };
 
-    onFocus = () => {
+    handleFocus = () => {
         window.document.addEventListener("selectionchange", this.onSelectionChange);
     };
 
-    onBlur = () => {
-        this.props.blur();
+    handleBlur = () => {
+        this.props.onBlur();
         window.document.removeEventListener("selectionchange", this.onSelectionChange);
     };
 
     onKeyDown = (event) => {
         if (event.keyCode === keycode.codes.up || event.keyCode === keycode.codes.down) {
             event.preventDefault();
-            this.props.navigate(event.keyCode);
+            this.props.onNavigate(event.keyCode);
         }
 
         if (event.keyCode === keycode.codes.enter) {
@@ -84,18 +86,18 @@ export default class SearchBar extends React.Component {
         }
     };
 
-    onChange = (event) => {
+    handleChange = (event) => {
         const value = event.target.value;
         const separator = this.props.separator;
         const word = separator ? wordAtCaret(caretIndex(this._input), value, separator) : value;
         const index = indexOfWordAtCaret(caretIndex(this._input), value, separator);
 
         if (word !== this.filterWord) {
-            this.props.filter(word, index);
+            this.props.onFilter(word, index);
             this.filterWord = word;
         }
 
-        this.props.change(value);
+        this.props.onChange(value);
     };
 
     render() {
@@ -120,9 +122,9 @@ export default class SearchBar extends React.Component {
             <input
                 className={styles.input}
                 disabled={this.props.disabled}
-                onBlur={this.onBlur}
-                onChange={this.onChange}
-                onFocus={this.onFocus}
+                onBlur={this.handleBlur}
+                onChange={this.handleChange}
+                onFocus={this.handleFocus}
                 onKeyDown={this.onKeyDown}
                 placeholder={this.props.placeholder}
                 ref={this.getInput}
