@@ -70,7 +70,8 @@ export default class DropDownList extends React.Component {
     onFilter = (text) => {
         this.setState({
             selected: null,
-            focused: this.props.highlightFirst ? 0 : null
+            focused: this.props.highlightFirst ? 0 : null,
+            filter: text
         });
 
         this.props.onFilter(text);
@@ -91,9 +92,17 @@ export default class DropDownList extends React.Component {
         const value = util.getter(dataItem, valueField);
         const current = util.getter(this.state.dataItem, valueField);
 
-        this.onToggle(false);
+        this.setState({
+            show: false,
+            filter: ""
+        });
+
         if (value !== current) {
             this.props.onChange(value);
+        }
+
+        if (this.props.filterable) {
+            this.props.onFilter("");
         }
     };
 

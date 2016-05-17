@@ -268,7 +268,7 @@ To change these settings, use the [`ignoreCase`]({% slug api_ddl_kendouiforreact
 
 By default, the DropDownList does not render a filter input field that allows the user to filter the options and the [`filterable`]({% slug api_ddl_kendouiforreact %}#filterable-booleandefault-false) property is set to `false`. To render a filter input field, set `filterable` to `true`.
 
-When the user changes the filter input value, the component executes its [`onFilter`]({% slug api_ddl_kendouiforreact %}#onfilter-function) callback. It is responsibility of the developer to perform the data filtration and to update the data of the DropDownList through its props.
+When the user changes the filter input value, the component executes its [`onFilter`]({% slug api_ddl_kendouiforreact %}#onfilter-function) callback. It is responsibility of the developer to perform the data filtration and to update the data of the DropDownList through its props. The `onFilter` callback will be called with empty string as argument after the user selects an item from the list either with the mouse or by pressing the "Enter" key.
 
 > The default functionality to search between items is automatically disabled if filtration is enabled.
 
@@ -340,7 +340,6 @@ When the user changes the filter input value, the component executes its [`onFil
         onChange = (value) => {
             this.setState({
                 value: value,
-                data: data
             });
         }
 
@@ -556,7 +555,7 @@ The [`onChange`]({% slug api_ddl_kendouiforreact %}#onchange-function) callback 
 
 #### Filter
 
-The [`onFilter`]({% slug api_ddl_kendouiforreact %}#onfilter-function) callback function is fired when the DropDownList filter input changes.
+The [`onFilter`]({% slug api_ddl_kendouiforreact %}#onfilter-function) callback function is fired when the DropDownList filter input changes. The [`onFilter`]({% slug api_ddl_kendouiforreact %}#onfilter-function) will be also called with empty string argument after user selects item from the list via mouse click or "Enter" key press. 
 
 ```html
     <div id="app"></div>

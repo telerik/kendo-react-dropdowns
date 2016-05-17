@@ -6,7 +6,8 @@ export default class ListFilter extends React.Component {
 
     static propTypes = {
         onChange: PropTypes.func,
-        focused: PropTypes.bool
+        focused: PropTypes.bool,
+        value: PropTypes.string
     };
 
     constructor(props) {
@@ -29,13 +30,12 @@ export default class ListFilter extends React.Component {
         this.refs.input.focus();
     };
 
-    onKeyUp = (event) => {
-        event.stopPropagation();
-        this.props.onChange(event.target.value);
-    };
-
     onClick = (event) => {
         event.stopPropagation();
+    }
+
+    onChange = (event) => {
+        this.props.onChange(event.target.value);
     }
 
     render() {
@@ -44,9 +44,9 @@ export default class ListFilter extends React.Component {
                 <input
                     ref="input"
                     className={styles['textbox']}
-                    onBlur={this.onBlur}
                     onClick={this.onClick}
-                    onKeyUp={this.onKeyUp}
+                    onChange={this.onChange}
+                    value={this.props.value}
                 />
                 <span className={classNames(styles.icon, styles['i-search'])} unselectable="on"></span>
             </span>

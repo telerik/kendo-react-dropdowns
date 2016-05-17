@@ -30,6 +30,7 @@ export default class DropDownList extends React.Component {
         },
         delay: PropTypes.number,
         disabled: PropTypes.bool,
+        filter: PropTypes.string,
         filterable: PropTypes.bool,
         focused: PropTypes.number,
         height: PropTypes.number,
@@ -109,20 +110,10 @@ export default class DropDownList extends React.Component {
     }
 
     listFilterChange = (text) => {
-        clearTimeout(this.typingTimeout);
-
-        this.typingTimeout = setTimeout(() => {
-            if (this.prevFilterWord !== text) {
-                this.prevFilterWord = text;
-                this.filter(text);
-            }
-
-            this.typingTimeout = null;
-        }, this.props.delay);
-    };
-
-    filter = (text) => {
-        this.props.onFilter(text);
+        if (this.prevFilterWord !== text) {
+            this.prevFilterWord = text;
+            this.props.onFilter(text);
+        }
     };
 
     search() {
@@ -324,6 +315,7 @@ export default class DropDownList extends React.Component {
             itemRenderer,
             defaultItem,
             disabled,
+            filter,
             filterable,
             selected,
             focused,
@@ -354,7 +346,8 @@ export default class DropDownList extends React.Component {
 
         const listFilterProps = {
             onChange: this.listFilterChange,
-            focused: show
+            focused: show,
+            filter: filter
         };
 
         const wrapperClasses = classNames({

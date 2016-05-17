@@ -50,55 +50,45 @@ describe('DropDownList filter', () => {
 
     let result;
 
-    it('should fire the onFilter event on user input', (done) => {
+    it('should fire the onFilter event on user input', () => {
         const spy = jasmine.createSpy('spy');
         result = shallow(
             <Stateless.DropDownList data={data}
-                delay={0}
                 filterable
                 onFilter={spy}
                 textField="text"
                 valueField="value"
             />
         );
-        const input = result.find(Stateless.ListFilter).shallow().find('input');
+        const listFilter = result.find(Stateless.ListFilter);
+        listFilter.prop('onChange')("o");
 
-        input.simulate("keyUp", { target: { value: "o" }, stopPropagation: function() {} });
-
-        setTimeout(() => {
-            expect(spy).toHaveBeenCalledWith("o");
-            done();
-        }, 0);
+        expect(spy).toHaveBeenCalledWith("o");
     });
 
-    it('should fire the onFilter event with empty string argument when the user clears input value', (done) => {
+    it('should fire the onFilter event with empty string argument when the user clears input value', () => {
         const spy = jasmine.createSpy('spy');
         result = shallow(
             <Stateless.DropDownList data={data}
-                delay={0}
                 filterable
                 onFilter={spy}
                 textField="text"
                 valueField="value"
             />
         );
-        const input = result.find(Stateless.ListFilter).shallow().find('input');
+        const listFilter = result.find(Stateless.ListFilter);
 
-        input.simulate("keyUp", { target: { value: "o" }, stopPropagation: function() {} });
-        input.simulate("keyUp", { target: { value: "" }, stopPropagation: function() {} });
+        listFilter.prop('onChange')("o");
+        listFilter.prop('onChange')("");
 
-        setTimeout(() => {
-            expect(spy).toHaveBeenCalledWith("");
-            done();
-        }, 0);
+        expect(spy).toHaveBeenCalledWith("");
     });
 
-    it('should NOT update selected dataItem on filter', (done) => {
+    it('should NOT update selected dataItem on filter', () => {
         const filter = jasmine.createSpy('filter');
         const select = jasmine.createSpy('select');
         result = shallow(
             <Stateless.DropDownList data={data}
-                delay={0}
                 filterable
                 onFilter={filter}
                 onSelect={select}
@@ -106,50 +96,36 @@ describe('DropDownList filter', () => {
                 valueField="value"
             />
         );
-        const input = result.find(Stateless.ListFilter).shallow().find('input');
+        const listFilter = result.find(Stateless.ListFilter);
 
-        input.simulate("keyUp", { target: { value: "o" }, stopPropagation: function() {} });
+        listFilter.prop('onChange')("o");
 
-        setTimeout(() => {
-            expect(select).not.toHaveBeenCalled();
-            done();
-        }, 0);
+        expect(select).not.toHaveBeenCalled();
     });
 
-    it('should keep selected dataItem after filter', (done) => {
+    it('should keep selected dataItem after filter', () => {
         result = shallow(<DropDownContainer />).find(DropDownList).shallow();
-        const input = result.find(Stateless.DropDownList).shallow().find(Stateless.ListFilter).shallow().find('input');
+        const listFilter = result.find(Stateless.DropDownList).shallow().find(Stateless.ListFilter);
 
-        input.simulate("keyUp", { target: { value: "o" }, stopPropagation: function() {} });
+        listFilter.prop('onChange')("o");
 
-        setTimeout(() => {
-            expect(result.state('dataItem')).toEqual({ text: "Grey", value: "3" });
-            done();
-        }, 0);
+        expect(result.state('dataItem')).toEqual({ text: "Grey", value: "3" });
     });
 
-    it('should focus the first item after filter', (done) => {
+    it('should focus the first item after filter', () => {
         result = shallow(<DropDownContainer />).find(DropDownList).shallow();
-        const input = result.find(Stateless.DropDownList).shallow().find(Stateless.ListFilter).shallow().find('input');
+        const listFilter = result.find(Stateless.DropDownList).shallow().find(Stateless.ListFilter);
 
-        input.simulate("keyUp", { target: { value: "o" }, stopPropagation: function() {} });
-
-        setTimeout(() => {
-            expect(result.state('focused')).toEqual(0);
-            done();
-        }, 0);
+        listFilter.prop('onChange')("o");
+        expect(result.state('focused')).toEqual(0);
     });
 
-    it('should NOT select the first item after filter', (done) => {
+    it('should NOT select the first item after filter', () => {
         result = shallow(<DropDownContainer />).find(DropDownList).shallow();
-        const input = result.find(Stateless.DropDownList).shallow().find(Stateless.ListFilter).shallow().find('input');
+        const listFilter = result.find(Stateless.DropDownList).shallow().find(Stateless.ListFilter);
 
-        input.simulate("keyUp", { target: { value: "o" }, stopPropagation: function() {} });
-
-        setTimeout(() => {
-            expect(result.state('selected')).toEqual(null);
-            done();
-        }, 0);
+        listFilter.prop('onChange')("o");
+        expect(result.state('selected')).toEqual(null);
     });
 
     //should update popup height when no items are found
