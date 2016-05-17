@@ -93,6 +93,9 @@ export default class ComboBox extends React.Component {
             index = selected ? selected - 1 : max;
         } else if (keyCode === keycode.codes.down) {
             index = (selected !== null && selected !== max) ? selected + 1 : 0;
+        } else if (keyCode === keycode.codes.enter) {
+            this.selectFocused();
+            return;
         }
 
         const dataItem = this.props.data[index];
@@ -121,7 +124,6 @@ export default class ComboBox extends React.Component {
             onBlur: this.blur,
             onChange: this.props.onTextUpdate,
             onNavigate: this.navigate,
-            selectFocused: this.selectFocused,
             disabled: this.props.disabled,
             placeholder: this.props.placeholder,
             value: this.props.text,

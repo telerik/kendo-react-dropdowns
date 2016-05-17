@@ -10,7 +10,6 @@ export default class SearchBar extends React.Component {
         onChange: PropTypes.func,
         onNavigate: PropTypes.func,
         onFilter: PropTypes.func,
-        selectFocused: PropTypes.func,
         disabled: PropTypes.bool,
         highlight: PropTypes.bool,
         placeholder: PropTypes.string,
@@ -76,13 +75,11 @@ export default class SearchBar extends React.Component {
     };
 
     onKeyDown = (event) => {
-        if (event.keyCode === keycode.codes.up || event.keyCode === keycode.codes.down) {
+        if (event.keyCode === keycode.codes.up ||
+            event.keyCode === keycode.codes.down ||
+            event.keyCode === keycode.codes.enter) {
             event.preventDefault();
             this.props.onNavigate(event.keyCode);
-        }
-
-        if (event.keyCode === keycode.codes.enter) {
-            this.props.selectFocused();
         }
     };
 
