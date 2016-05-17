@@ -14,6 +14,10 @@ function keyPress(shallowWrapper, key) {
     shallowWrapper.simulate("keyPress", { charCode: charCode, keyCode: keyCode, preventDefault: function() {} });
 }
 
+function keyDown(shallowWrapper, keyCode, altKey) {
+    shallowWrapper.simulate("keyDown", { keyCode: keyCode, altKey: altKey, preventDefault: function() {} });
+}
+
 function lastCallArgs(spy) {
     return spy.calls.mostRecent().args[0];
 }
@@ -21,6 +25,7 @@ function lastCallArgs(spy) {
 export {
     click,
     keyPress,
+    keyDown,
     lastCallArgs,
     compareState
 };

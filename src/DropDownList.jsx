@@ -25,7 +25,6 @@ export default class DropDownList extends React.Component {
         height: PropTypes.number,
         highlightFirst: PropTypes.bool,
         ignoreCase: PropTypes.bool,
-        index: PropTypes.number,
         itemRenderer: PropTypes.func,
         onChange: PropTypes.func,
         onFilter: PropTypes.func,
@@ -46,13 +45,6 @@ export default class DropDownList extends React.Component {
         onFilter: function() {}
     };
 
-    constructor(props) {
-        super(props);
-
-        this.previous = null;
-        this.selected = null;
-    }
-
     state = {
         dataItem: null,
         selected: null,
@@ -72,7 +64,6 @@ export default class DropDownList extends React.Component {
         const state = util.resolveValue(props);
         if (state) {
             this.setState(state);
-            this.previous = util.getter(state.dataItem, props.valueField);
         }
     }
 
@@ -85,46 +76,24 @@ export default class DropDownList extends React.Component {
         this.props.onFilter(text);
     };
 
-    onSelect = (dataItem) => {
+    onNavigate = (dataItem) => {
         const { valueField } = this.props;
         const value = util.getter(dataItem, valueField);
+        const current = util.getter(this.state.dataItem, valueField);
 
-        if (this.previous === value || this.selected === value) {
-            return;
+        if (value !== current) {
+            this.props.onChange(value);
         }
-
-        this.setState({
-            dataItem: dataItem,
-            selected: this.props.data.indexOf(dataItem),
-            focused: this.props.data.indexOf(dataItem)
-        });
-
-        this.selected = value;
     };
 
     onChange = (dataItem) => {
-        const { onChange, valueField } = this.props;
+        const { valueField } = this.props;
         const value = util.getter(dataItem, valueField);
+        const current = util.getter(this.state.dataItem, valueField);
 
-        if (this.previous === value) {
-            this.setState({
-                show: false
-            });
-
-            if (this.selected !== value) {
-                onChange(value, dataItem);
-                this.selected = value;
-            }
-        } else {
-            this.setState({
-                dataItem: dataItem,
-                selected: this.props.data.indexOf(dataItem),
-                focused: this.props.data.indexOf(dataItem),
-                show: false
-            });
-
-            onChange(value, dataItem);
-            this.previous = value;
+        this.onToggle(false);
+        if (value !== current) {
+            this.props.onChange(value);
         }
     };
 
@@ -142,7 +111,6 @@ export default class DropDownList extends React.Component {
             filterable,
             height,
             ignoreCase,
-            index,
             itemRenderer,
             style,
             tabIndex,
@@ -160,7 +128,6 @@ export default class DropDownList extends React.Component {
             filterable,
             height,
             ignoreCase,
-            index,
             itemRenderer,
             style,
             tabIndex,
@@ -168,7 +135,7 @@ export default class DropDownList extends React.Component {
             valueField,
             valueRenderer,
 
-            onSelect: this.onSelect,
+            onNavigate: this.onNavigate,
             onChange: this.onChange,
             onFilter: this.onFilter,
             onToggle: this.onToggle

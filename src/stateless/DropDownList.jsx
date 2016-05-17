@@ -36,7 +36,7 @@ export default class DropDownList extends React.Component {
         ignoreCase: PropTypes.bool,
         itemRenderer: PropTypes.func,
         onChange: PropTypes.func,
-        onSelect: PropTypes.func,
+        onNavigate: PropTypes.func,
         onFilter: PropTypes.func,
         onToggle: PropTypes.func,
         selected: PropTypes.number,
@@ -55,7 +55,7 @@ export default class DropDownList extends React.Component {
         tabIndex: 0,
         onChange: function() {},
         onFilter: function() {},
-        onSelect: function() {}
+        onNavigate: function() {}
     };
 
     constructor(props) {
@@ -187,7 +187,7 @@ export default class DropDownList extends React.Component {
 
     select = (dataItem) => {
         if (!this.props.disabled) {
-            this.props.onSelect(dataItem);
+            this.props.onNavigate(dataItem);
         }
     };
 

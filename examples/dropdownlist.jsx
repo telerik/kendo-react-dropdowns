@@ -50,7 +50,6 @@ class BasicUsageExample extends React.Component {
                         data={colors}
                         defaultItem={{ text: "select color", value: null }}
                         onChange={this.handleColorChange}
-                        onSelect={this.handleColorSelect}
                         textField="text"
                         value={this.state.color}
                         valueField="value"
