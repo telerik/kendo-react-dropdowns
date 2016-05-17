@@ -126,7 +126,9 @@ export default class ComboBox extends React.Component {
     }
 
     handleFilter = (filter) => {
-        this.props.onFilter(filter);
+        if (typeof this.props.onFilter === "function" ) {
+            this.props.onFilter(filter);
+        }
     }
 
     handleNavigate = (dataItem) => {
