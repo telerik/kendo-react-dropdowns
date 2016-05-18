@@ -24,8 +24,6 @@ Telerik works on porting the ones listed below too:
 * AutoComplete
 * MultiSelect
 
-For more information on upcoming DropDowns features, refer to the [Roadmap](https://github.com/telerik/kendo-react-dropdowns/blob/master/docs/roadmap.md).
-
 ## Basic Usage
 
 ### Kendo UI ComboBox for React
