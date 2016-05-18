@@ -12,9 +12,9 @@
 
 ## Overview
 
-This repository contains the source code and documentation of the Kendo UI DropDowns components for React.
+This repository contains the source code and documentation of the Kendo UI DropDowns package for React.
 
-Currently, the package includes the following components:
+Currently, it includes the following components:
 
 * ComboBox
 * DropDownList
@@ -146,11 +146,11 @@ For more examples and available configuration options, refer to the [DropDownLis
 
 ## Installation
 
-> As of the latest Kendo UI release, the DropDowns have not been published as a public scoped NPM package yet. The team are working on doing so shortly.
+> As of the latest release, the DropDowns have not been published as a public scoped NPM package yet. The team are working on doing so shortly.
 
 ## Browser Support
 
-The DropDowns support all browsers supported by the React framework&mdash;Internet Explorer 9 and later versions.
+The DropDowns work in all browsers supported by the React framework&mdash;Internet Explorer 9 and later versions.
 
 ## Glossary
 
