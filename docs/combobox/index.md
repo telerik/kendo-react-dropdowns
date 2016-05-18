@@ -31,11 +31,29 @@ The example below demonstrates the default setup of a Kendo UI ComboBox for Reac
 ```
 ```jsx
     const data = [ "Item 1", "Item 2", "Item 3" ];
+    class ComboBoxContainer extends React.Component {
+        state = {
+            value: null,
+            data: data
+        };
+
+        handleChange = (value) => {
+            this.setState({
+                value: value
+            });
+        }
+
+        render() {
+            return (
+                <KendoReactDropdowns.ComboBox onChange={this.handleChange} data={this.state.data} value={this.state.value} />
+            );
+        }
+    }
 
     ReactDOM.render(
-		<KendoReactDropdowns.ComboBox data={data} />,
-		document.getElementById('app')
-    );
+        <ComboBoxContainer />,
+        document.getElementById('app')
+);
 ```
 
 ## Configuration
@@ -51,11 +69,29 @@ The example below demonstrates how to bind to an array of primitive data.
 ```
 ```jsx
     const data = [ "Item 1", "Item 2", "Item 3" ];
+    class ComboBoxContainer extends React.Component {
+        state = {
+            value: null,
+            data: data
+        };
+
+        handleChange = (value) => {
+            this.setState({
+                value: value
+            });
+        }
+
+        render() {
+            return (
+                <KendoReactDropdowns.ComboBox data={this.state.data} onChange={this.handleChange} value={this.state.value} />
+            );
+        }
+    }
 
     ReactDOM.render(
-		<KendoReactDropdowns.ComboBox data={data} />,
-		document.getElementById('app')
-    );
+        <ComboBoxContainer />,
+        document.getElementById('app')
+);
 ```
 
 The example below demonstrates how to bind to an array of objects.
@@ -69,20 +105,40 @@ The example below demonstrates how to bind to an array of objects.
         { text: "Item 2", value: 2 },
         { text: "Item 3", value: 3 }
     ];
+    class ComboBoxContainer extends React.Component {
+        state = {
+            value: null,
+            data: data
+        };
+
+        handleChange = (value) => {
+            this.setState({
+                value: value
+            });
+        }
+
+        render() {
+            return (
+                <KendoReactDropdowns.ComboBox
+                    textField="text"
+                    valueField="value"
+                    data={this.state.data}
+                    onChange={this.handleChange}
+                    value={this.state.value}
+                />
+            );
+        }
+    }
 
     ReactDOM.render(
-		<KendoReactDropdowns.ComboBox
-			data={data}
-			textField="text"
-			valueField="value"
-		/>,
-		document.getElementById('app')
-    );
+        <ComboBoxContainer />,
+        document.getElementById('app')
+);
 ```
 
 ### Value
 
-To set the initial value of the ComboBox, use the [`value`]({% slug api_combobox_kendouiforreact %}#value-numberstring) property.
+To set the value of the ComboBox, use the [`value`]({% slug api_combobox_kendouiforreact %}#value-numberstring) property.
 
 ```html-preview
     <div id="app"></div>
@@ -93,16 +149,35 @@ To set the initial value of the ComboBox, use the [`value`]({% slug api_combobox
         { text: "Item 2", value: 2 },
         { text: "Item 3", value: 3 }
     ];
+    class ComboBoxContainer extends React.Component {
+        state = {
+            value: 3,
+            data: data
+        };
+
+        handleChange = (value) => {
+            this.setState({
+                value: value
+            });
+        }
+
+        render() {
+            return (
+                <KendoReactDropdowns.ComboBox
+                    textField="text"
+                    valueField="value"
+                    data={this.state.data}
+                    onChange={this.handleChange}
+                    value={this.state.value}
+                />
+            );
+        }
+    }
 
     ReactDOM.render(
-		<KendoReactDropdowns.ComboBox
-			data={data}
-			textField="text"
-			valueField="value"
-			value={2}
-		/>,
-		document.getElementById('app')
-    );
+        <ComboBoxContainer />,
+        document.getElementById('app')
+);
 ```
 
 ### Features
@@ -120,22 +195,41 @@ To customize the ComboBox items, use the [`itemRenderer`]({% slug api_combobox_k
         { FirstName: "Jane", LastName: "Smith", EmployeeID: 2 },
         { FirstName: "Eric", LastName: "Weber", EmployeeID: 3 }
     ];
+    class ComboBoxContainer extends React.Component {
+        state = {
+            value: null,
+            data: data
+        };
 
-	const customRenderer = function(Employee) {
-	    return (
-            <span style={{ color: "#F00" }}>{Employee.FirstName}&nbsp;{Employee.LastName}</span>
-        );
-	};
+        renderer = function(Employee) {
+            return (
+                <span style={{ color: "#F00" }}>{Employee.FirstName} {Employee.LastName}</span>
+            );
+        };
+        handleChange = (value) => {
+            this.setState({
+                value: value
+            });
+        }
+
+        render() {
+            return (
+                <KendoReactDropdowns.ComboBox
+                    textField="FirstName"
+                    valueField="EmployeeID"
+                    data={this.state.data}
+                    itemRenderer={this.renderer}
+                    onChange={this.handleChange}
+                    value={this.state.value}
+                />
+            );
+        }
+    }
 
     ReactDOM.render(
-		<KendoReactDropdowns.ComboBox
-			data={data}
-			textField="text"
-			valueField="value"
-			itemRenderer={customRenderer}
-		/>,
-		document.getElementById('app')
-    );
+        <ComboBoxContainer />,
+        document.getElementById('app')
+);
 ```
 
 #### Disable the ComboBox
@@ -147,106 +241,31 @@ The ComboBox allows you to prevent user input through disabling the component. B
 ```
 ```jsx
     const data = [ "Jack", "Jane", "John", "Jacob", "Jake" ];
-
-    ReactDOM.render(
-        <div>
-            <p>Disabled ComboBox</p>
-            <KendoReactDropdowns.ComboBox data={data} disabled />
-        </div>,
-        document.getElementById('app')
-    );
-```
-
-### Events
-
-The ComboBox enables you to subscribe to its events by passing the handlers through the properties of the component. Currently, the ComboBox supports the [`onChange`]({% slug api_combobox_kendouiforreact %}#onchange-function) and [`onFilter`]({% slug api_combobox_kendouiforreact %}#onfilter-function) events.
-
-#### Change
-
-The [`onChange`]({% slug api_combobox_kendouiforreact %}#onchange-function) event fires when the ComboBox value changes. The new value is passed to the event handler.
-
-```html-preview
-    <div id="app"></div>
-```
-```jsx
-    const data = [
-        { FirstName: "John", LastName: "Doe", EmployeeID: 1 },
-        { FirstName: "Jane", LastName: "Smith", EmployeeID: 2 },
-        { FirstName: "Eric", LastName: "Weber", EmployeeID: 3 }
-    ];
-
-    const onChange = (value) => {
-        console.log("change event triggered: ", value);
-    };
-
-    ReactDOM.render(
-        <KendoReactDropdowns.ComboBox
-            data={data}
-            textField="text"
-            valueField="value"
-            onChange={onChange}
-        />,
-        document.getElementById('app')
-    );
-```
-
-#### Filter
-
-The [`onFilter`]({% slug api_combobox_kendouiforreact %}#onfilter-function) event fires each time the filter input changes. The new value is passed to the event handler.
-
-```html-preview
-    <div id="app"></div>
-```
-```jsx
-    const data = [
-        { value: 1, text: "Foo" },
-        { value: 2, text: "Bar" },
-        { value: 3, text: "Baz" }
-    ];
-
     class ComboBoxContainer extends React.Component {
-        constructor(props) {
-            super(props);
-            this.state = {
-                value: null,
-                data: data
-            };
-        }
+        state = {
+            disabled: true,
+            value: "John",
+            data: data
+        };
 
-        onChange = (value) => {
+        handleChange = (value) => {
             this.setState({
                 value: value
             });
         }
 
-        onFilter = (text) => {
-            let result;
-
-            if (text) {
-                result = data.filter(function(item) {
-                    return item.text.toLowerCase().startsWith(text.toLowerCase());
-                });
-            } else {
-                result = data;
-            }
-
+        toggle = () => {
             this.setState({
-                data: result
+                disabled: !this.state.disabled
             });
         }
 
         render() {
-            const { data, value } = this.state;
-
             return (
-                <KendoReactDropdowns.ComboBox
-                    data={data}
-                    value={value}
-                    textField="text"
-                    valueField="value"
-                    onChange={this.onChange}
-                    onFilter={this.onFilter}
-                />,
+                <div>
+                    <button onClick={this.toggle}> Enable/Disable </button> <br/>
+                    <KendoReactDropdowns.ComboBox disabled={this.state.disabled} data={this.state.data} onChange={this.handleChange} value={this.state.value} />
+                </div>
             );
         }
     }
@@ -254,7 +273,155 @@ The [`onFilter`]({% slug api_combobox_kendouiforreact %}#onfilter-function) even
     ReactDOM.render(
         <ComboBoxContainer />,
         document.getElementById('app')
-    );
+);
+```
+
+### Events
+
+The ComboBox enables you to subscribe to its events by passing the handlers through the properties of the component. Currently, the ComboBox supports the [`change`]({% slug api_combobox_kendouiforreact %}#onchange-function) and [`filter`]({% slug api_combobox_kendouiforreact %}#onfilter-function) events.
+
+#### Change
+
+The [`onChange`]({% slug api_combobox_kendouiforreact %}#onchange-function) callback is executed when the ComboBox value changes. The new value is passed as a parameter.
+
+```html-preview
+    <div id="app"></div>
+```
+```jsx
+    const data = [ "Item 1", "Item 2", "Item 3" ];
+    class ComboBoxContainer extends React.Component {
+        state = {
+            value: null,
+            data: data
+        };
+
+        handleChange = (value) => {
+            this.setState({
+                value: value
+            });
+        }
+
+        render() {
+            return (
+                <KendoReactDropdowns.ComboBox data={this.state.data} onChange={this.handleChange} value={this.state.value} />
+            );
+        }
+    }
+
+    ReactDOM.render(
+        <ComboBoxContainer />,
+        document.getElementById('app')
+);
+```
+
+#### Filter
+
+The [`onFilter`]({% slug api_combobox_kendouiforreact %}#onfilter-function) callback is executed each time the filter input changes. The new filter is passed as a parameter.
+
+```html-preview
+    <div id="app"></div>
+```
+```jsx
+const data = [
+    { text: "Albania", value: "Alb" },
+    { text: "Andorra", value: "And" },
+    { text: "Armenia", value: "Arm" },
+    { text: "Austria", value: "Aus" },
+    { text: "Azerbaijan", value: "Aze" },
+    { text: "Belarus", value: "Bls" },
+    { text: "Belgium", value: "Blg" },
+    { text: "Bosnia & Herzegovina", value: "Her" },
+    { text: "Bulgaria", value: "Bul" },
+    { text: "Croatia", value: "Cro" },
+    { text: "Cyprus", value: "Cyp" },
+    { text: "Czech Republic", value: "Rep" },
+    { text: "Denmark", value: "Den" },
+    { text: "Estonia", value: "Est" },
+    { text: "Finland", value: "Fin" },
+    { text: "France", value: "Fra" },
+    { text: "Georgia", value: "Geo" },
+    { text: "Germany", value: "Ger" },
+    { text: "Greece", value: "Gre" },
+    { text: "Hungary", value: "Hun" },
+    { text: "Iceland", value: "Ice" },
+    { text: "Ireland", value: "Ire" },
+    { text: "Italy", value: "Ita" },
+    { text: "Kosovo", value: "Kos" },
+    { text: "Latvia", value: "Lat" },
+    { text: "Liechtenstein", value: "Lie" },
+    { text: "Lithuania", value: "Lit" },
+    { text: "Luxembourg", value: "Lux" },
+    { text: "Macedonia", value: "Mac" },
+    { text: "Malta", value: "Mal" },
+    { text: "Moldova", value: "Mol" },
+    { text: "Monaco", value: "Mon" },
+    { text: "Netherlands", value: "Net" },
+    { text: "Norway", value: "Nor" },
+    { text: "Poland", value: "Pol" },
+    { text: "Portugal", value: "Por" },
+    { text: "Romania", value: "Rom" },
+    { text: "Russia", value: "Rus" },
+    { text: "San Marino", value: "Mar" },
+    { text: "Serbia", value: "Ser" },
+    { text: "Slovenia", value: "Slo" },
+    { text: "Spain", value: "Spa" },
+    { text: "Sweden", value: "Swe" },
+    { text: "Switzerland", value: "Swi" },
+    { text: "Turkey", value: "Tur" },
+    { text: "Ukraine", value: "Ukr" },
+    { text: "United Kingdom", value: "Kin" },
+    { text: "Vatican City", value: "VC" }
+];
+class ComboBoxContainer extends React.Component {
+    state = {
+        value: null,
+        data: data,
+        filter: null
+    };
+
+    handleFilter = (text) => {
+        let result = [];
+        if (text) {
+            result = data.filter(function(item) {
+                return item.text.toLowerCase().startsWith(text.toLowerCase());
+            });
+        } else {
+            result = data;
+        }
+
+        this.setState({
+            data:result,
+            filter: text
+        });
+    };
+
+    handleChange = (value) => {
+        this.setState({
+            value: value,
+            filter: null
+        });
+    }
+
+    render() {
+        return (
+            <KendoReactDropdowns.ComboBox
+                textField="text"
+                valueField="value"
+                placeholder="Select country"
+                data={this.state.data}
+                filter={this.state.filter}
+                onChange={this.handleChange}
+                onFilter={this.handleFilter}
+                value={this.state.value}
+            />
+        );
+    }
+}
+
+ReactDOM.render(
+    <ComboBoxContainer />,
+    document.getElementById('app')
+);
 ```
 
 For detailed information on the Kendo UI ComboBox configuration for React, refer to its [API documentation]({% slug api_combobox_kendouiforreact %}).

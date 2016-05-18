@@ -52,108 +52,70 @@ const data = [
     { text: "United Kingdom", value: "Kin" },
     { text: "Vatican City", value: "VC" }
 ];
-const primitives = [
-    "Albania",
-    "Andorra",
-    "Armenia",
-    "Austria",
-    "Azerbaijan",
-    "Belarus",
-    "Belgium",
-    "Bosnia & Herzegovina",
-    "Bulgaria",
-    "Croatia",
-    "Cyprus",
-    "Czech Republic",
-    "Denmark",
-    "Estonia",
-    "Finland",
-    "France",
-    "Georgia",
-    "Germany",
-    "Greece",
-    "Hungary",
-    "Iceland",
-    "Ireland",
-    "Italy",
-    "Kosovo",
-    "Latvia",
-    "Liechtenstein",
-    "Lithuania",
-    "Luxembourg",
-    "Macedonia",
-    "Malta",
-    "Moldova",
-    "Monaco",
-    "Netherlands",
-    "Norway",
-    "Poland",
-    "Portugal",
-    "Romania",
-    "Russia",
-    "San Marino",
-    "Serbia",
-    "Slovakia",
-    "Slovenia",
-    "Spain",
-    "Sweden",
-    "Switzerland",
-    "Turkey",
-    "Ukraine",
-    "United Kingdom",
-    "Vatican City"
-];
 
-const filterData = (text) => {
-    let dataList;
+class ComboBoxContainer extends React.Component {
+    state = {
+        value: null,
+        data: data,
+        filter: null
+    };
 
-    if (text) {
-        dataList = data.filter(function(item) {
-            return item.text.toLowerCase().startsWith(text.toLowerCase());
+    handleFilter = (text) => {
+        let result = [];
+        if (text) {
+            result = data.filter(function(item) {
+                return item.text.toLowerCase().startsWith(text.toLowerCase());
+            });
+        } else {
+            result = data;
+        }
+
+        this.setState({
+            data:result,
+            filter: text
         });
-    } else {
-        dataList = data;
+    };
+
+    handleChange = (value) => {
+        this.setState({
+            value: value,
+            filter: null
+        });
     }
-    render(dataList);
-};
+    
+    resetValue = () => {
+        this.setState({
+            value: null,
+            filter: null,
+            data: data
+        });
+    }
 
-const onChange = (e) => {
-    console.log("change event triggered: ", e);
-};
+    render() {
+        return (
+            <div className="example">
+                <p>Country: 
+                    <span>{this.state.value}</span>
+                </p>
+                <ComboBox
+                    suggest
+                    textField="text"
+                    valueField="value"
+                    placeholder="Select country"
+                    data={this.state.data}
+                    filter={this.state.filter}
+                    onChange={this.handleChange}
+                    onFilter={this.handleFilter}
+                    value={this.state.value}
+                />
+                <br/>
+                <button onClick={this.resetValue}>Reset</button>
+            </div>
+        );
+    }
+}
 
-let selectValue = "B";
-const onChangeSelect = (e) => {
-    console.log("onChangeSelect : ", e);
-
-    selectValue = e.target.value;
-    render();
-};
-
-const itemRenderer = (item) => {
-    return item instanceof Object ? item.text : item;
-};
-
-const render = (data) => {
-    ReactDOM.render(
-        <div>
-          <select onChange={onChangeSelect} value={selectValue}>
-            <option value="A">Apple</option>
-            <option value="B">Banana</option>
-            <option value="C">Cranberry</option>
-          </select>
-            <ComboBox
-                data={data}
-                onChange={onChange}
-                onFilter={filterData}
-                placeholder="Select country"
-                suggest
-                valueField="value"
-                textField="text"
-                itemRenderer={itemRenderer}
-            />
-        </div>,
-        document.getElementById('app')
-    );
-};
-
-filterData();
+ReactDOM.render(
+    <ComboBoxContainer />,
+    document.getElementById('app')
+);
