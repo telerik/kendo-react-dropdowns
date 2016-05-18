@@ -19,15 +19,18 @@ Currently, the package includes the following components:
 * ComboBox
 * DropDownList
 
-Telerik works on porting the AutoComplete and MultiSelect components for React too.
+Telerik works on porting the ones listed below too:
 
-For more information on upcoming DropDowns package features and components, refer to the [Roadmap](https://github.com/telerik/kendo-react-dropdowns/blob/master/docs/roadmap.md).
+* AutoComplete
+* MultiSelect
+
+For more information on upcoming DropDowns features, refer to the [Roadmap](https://github.com/telerik/kendo-react-dropdowns/blob/master/docs/roadmap.md).
 
 ## Basic Usage
 
-### Kendo UI ComboBox Component
+### Kendo UI ComboBox for React
 
-The ComboBox displays a list of pre-defined options. It allows the user to pick a single value from that list, or to enter a custom value through keyboard input.  
+The ComboBox displays a list of pre-defined options. It allows the user to pick a single value from it, or to enter a custom value through keyboard input.  
 
 ```html-preview
     <div id="app"></div>
@@ -92,11 +95,11 @@ The ComboBox displays a list of pre-defined options. It allows the user to pick 
     );
 ```
 
-For more examples and available configuration options, refer to the [ComboBox documentation section](https://github.com/telerik/kendo-react-dropdowns/tree/master/docs/combobox/index.md).
+For more examples and available configuration options, refer to the [ComboBox documentation](https://github.com/telerik/kendo-react-dropdowns/tree/master/docs/combobox/index.md).
 
-### Kendo UI DropDownList Component
+### Kendo UI DropDownList for React
 
-The DropDownList displays a list of pre-defined options and allows the user to pick a single value from that list.  
+The DropDownList displays a list of pre-defined options and allows the user to pick a single value from it.  
 
 ```html-preview
     <div id="app"></div>
@@ -141,15 +144,15 @@ The DropDownList displays a list of pre-defined options and allows the user to p
     );
 ```
 
-For more examples and available configuration options, refer to the [DropDownList documentation section](https://github.com/telerik/kendo-react-dropdowns/tree/master/docs/dropdownlist/index.md).
+For more examples and available configuration options, refer to the [DropDownList documentation](https://github.com/telerik/kendo-react-dropdowns/tree/master/docs/dropdownlist/index.md).
 
 ## Installation
 
-> As of the latest Kendo UI release, the React DropDowns have not been published as a public scoped NPM package yet. The team are working hard on doing so shortly.
+> As of the latest Kendo UI release, the DropDowns have not been published as a public scoped NPM package yet. The team are working on doing so shortly.
 
 ## Browser Support
 
-The Kendo UI DropDowns components for React support all browsers that are supported by the React framework&mdash;Internet Explorer 9 and later versions.
+The DropDowns support all browsers supported by the React framework&mdash;Internet Explorer 9 and later versions.
 
 ## Glossary
 
@@ -161,4 +164,4 @@ A Component refers to a [React Component](https://facebook.github.io/react/docs/
 
 ### Package
 
-A package contains one or more components, developed in a single repository and distributed in a single NPM package. For example, the Kendo UI AutoComplete, ComboBox, and DropDownList components for React are part of the DropDowns Package.
+A package contains one or more components, developed in a single repository and distributed in a single NPM package. For example, the AutoComplete, ComboBox, and DropDownList components for React are part of the DropDowns Package.
