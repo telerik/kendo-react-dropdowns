@@ -26,7 +26,7 @@ Telerik works on porting the ones listed below too:
 
 ## Basic Usage
 
-### Kendo UI ComboBox for React
+### Kendo UI ComboBox
 
 The ComboBox displays a list of pre-defined options. It allows the user to pick a single value from it, or to enter a custom value through keyboard input.  
 
@@ -95,7 +95,7 @@ The ComboBox displays a list of pre-defined options. It allows the user to pick 
 
 For more examples and available configuration options, refer to the [ComboBox documentation](https://github.com/telerik/kendo-react-dropdowns/tree/master/docs/combobox/index.md).
 
-### Kendo UI DropDownList for React
+### Kendo UI DropDownList 
 
 The DropDownList displays a list of pre-defined options and allows the user to pick a single value from it.  
 
