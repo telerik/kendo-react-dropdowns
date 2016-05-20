@@ -200,7 +200,7 @@ export default class DropDownList extends React.Component {
     };
 
     detectBlur = (event) => {
-        if (!this.refs.anchor.contains(event.target)) {
+        if (!this.refs.container.contains(event.target)) {
             this.blur();
         }
     };
@@ -366,6 +366,8 @@ export default class DropDownList extends React.Component {
         };
 
         const dropDownListProps = {
+            ref: "container",
+            unselectable: "on",
             className: wrapperClasses,
             onKeyDown: this.onKeyDown,
             onKeyPress: this.onKeyPress,
@@ -376,14 +378,14 @@ export default class DropDownList extends React.Component {
         };
 
         const listContainerProps = {
-            anchor: this.refs.anchor,
+            anchor: this.refs.anchor && this.refs.anchor.refs.span ? this.refs.anchor.refs.span : this.refs.anchor, //checking refs availability due to prop types validation
             show: show
         };
 
         return (
             //TODO: aria attributes, title
-            <span {...dropDownListProps} ref="anchor" unselectable="on">
-                <DropDownWrapper disabled={disabled}>
+            <span {...dropDownListProps}>
+                <DropDownWrapper disabled={disabled} ref="anchor" >
                     <span className={styles.input} unselectable="on">
                         {this.renderValue()}
                     </span>

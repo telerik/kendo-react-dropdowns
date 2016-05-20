@@ -171,12 +171,13 @@ export default class ComboBox extends React.Component {
         };
 
         const listContainerProps = {
-            anchor: this.refs.anchor,
+            anchor: this.refs.anchor && this.refs.anchor.refs.span ? this.refs.anchor.refs.span : this.refs.anchor, //checking refs availability due to prop types validation
             show: this.props.show
         };
+
         return (
-            <span ref="anchor" {...comboBoxProps}>
-                <DropDownWrapper>
+            <span {...comboBoxProps}>
+                <DropDownWrapper ref="anchor" >
                     <SearchBar ref="SearchBar" {...searchBarProps} />
                         <Button {...buttonProps} />
                 </DropDownWrapper>
