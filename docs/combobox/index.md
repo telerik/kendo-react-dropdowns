@@ -8,11 +8,11 @@ position: 1
 
 # ComboBox Overview
 
-The Kendo UI ComboBox for React displays a list of pre-defined options. It allows the user to pick a single value from that list, or to enter a custom value through a keyboard input.
+The Kendo UI ComboBox displays a list of pre-defined options. It allows the user to pick a single value from that list, or to enter a custom value through a keyboard input.
 
-The Kendo UI ComboBox for React is part of the DropDowns `npm` package of the Kendo UI suite for React.
+The ComboBox is part of the [kendo-react-dropdowns npm package](...).
 
-**Figure 1: A template of the ComboBox for React**
+**Figure 1: A template of the ComboBox**
 
 ![Template of the Kendo UI ComboBox for React](images/combobox.png)
 
@@ -23,8 +23,6 @@ The Kendo UI ComboBox for React is part of the DropDowns `npm` package of the Ke
 ## Demos
 
 ### Default Setup
-
-The example below demonstrates the default setup of a Kendo UI ComboBox for React.
 
 ```html-preview
     <div id="app"></div>
@@ -60,7 +58,7 @@ The example below demonstrates the default setup of a Kendo UI ComboBox for Reac
 
 ### Data
 
-The ComboBox enables you to bind it to an array of both primitives and complex objects. When binding the component to an array of objects, specify the [`textField`]({% slug api_combobox_kendouiforreact %}#textfield--string) and [`valueField`]({% slug api_combobox_kendouiforreact %}#valuefield-string) properties.
+The ComboBox enables you to bind it to an array of both primitives and complex objects. When binding it to an array of objects, specify the [`textField`]({% slug api_combobox_kendouiforreact %}#textfield--string) and [`valueField`]({% slug api_combobox_kendouiforreact %}#valuefield-string) properties.
 
 The example below demonstrates how to bind to an array of primitive data.
 
@@ -234,7 +232,7 @@ To customize the ComboBox items, use the [`itemRenderer`]({% slug api_combobox_k
 
 #### Disable the ComboBox
 
-The ComboBox allows you to prevent user input through disabling the component. By default, the ComboBox is enabled and the [`disabled`]({% slug api_combobox_kendouiforreact %}#disabled-booleandefault-false) property is set to `false`. To disable it, set `disabled` to `true`.
+The ComboBox allows you to prevent user input through disabling the component. By default, the ComboBox is enabled and the [`disabled`]({% slug api_combobox_kendouiforreact %}#disabled-booleandefault-false) property is set to `false`. 
 
 ```html-preview
     <div id="app"></div>
@@ -278,7 +276,7 @@ The ComboBox allows you to prevent user input through disabling the component. B
 
 ### Events
 
-The ComboBox enables you to subscribe to its events by passing the handlers through the properties of the component. Currently, the ComboBox supports the [`change`]({% slug api_combobox_kendouiforreact %}#onchange-function) and [`filter`]({% slug api_combobox_kendouiforreact %}#onfilter-function) events.
+The ComboBox enables you to subscribe to its events by passing the handlers through the properties of the component. Currently, the ComboBox supports the [`onChange`]({% slug api_combobox_kendouiforreact %}#onchange-function) and [`onFilter`]({% slug api_combobox_kendouiforreact %}#onfilter-function) events.
 
 #### Change
 
@@ -424,7 +422,7 @@ ReactDOM.render(
 );
 ```
 
-For detailed information on the Kendo UI ComboBox configuration for React, refer to its [API documentation]({% slug api_combobox_kendouiforreact %}).
+For detailed information on the ComboBox configuration, refer to its [API documentation]({% slug api_combobox_kendouiforreact %}).
 
 ## Keyboard Navigation
 
@@ -438,4 +436,4 @@ Below is the list of the keyboard shortcuts the ComboBox supports.
 
 ## Suggested Links
 
-* [API Reference of the ComboBox Component]({% slug api_combobox_kendouiforreact %})
+* [API Reference of the ComboBox]({% slug api_combobox_kendouiforreact %})
