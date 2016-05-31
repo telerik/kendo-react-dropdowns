@@ -12,9 +12,9 @@ The Kendo UI DropDownList is a React component which displays a list of values a
 
 To allow for a keyboard input, use the [Kendo UI ComboBox component for React]({% slug overview_combobox_kendouiforreact %}).
 
-The Kendo UI DropDownList for React is part of the DropDowns `npm` package of the Kendo UI suite for React.
+The DropDownList is part of the [kendo-react-dropdowns npm package](...).
 
-**Figure 1: A template of the DropDownList for React**
+**Figure 1: A template of the DropDownList**
 
 ![Template of the Kendo UI DropDownList for React](images/dropdownlist.png)
 
@@ -25,8 +25,6 @@ The Kendo UI DropDownList for React is part of the DropDowns `npm` package of th
 ## Demos
 
 ### Default Setup
-
-The example below demonstrates the default setup of a Kendo UI DropDownList for React.
 
 ```html-preview
     <div id="app"></div>
@@ -71,7 +69,9 @@ The example below demonstrates the default setup of a Kendo UI DropDownList for 
 
 The DropDownList enables you to bind data of a complex (objects) or a primitive (strings and numbers) type.
 
-The [`defaultItem`]({% slug api_ddl_kendouiforreact %}#defaultitem-objectstringnumber) property type must match the data type. For example, if the [`data`]({% slug api_ddl_kendouiforreact %}#data-array) component contains objects, the `defaultItem` must be defined as an object with same [`textField`]({% slug api_ddl_kendouiforreact %}#textfield-string) and [`valueField`]({% slug api_ddl_kendouiforreact %}#valuefield-string) as the data items.
+The [`defaultItem`]({% slug api_ddl_kendouiforreact %}#defaultitem-objectstringnumber) property type must match the data type. 
+
+For example, if the [`data`]({% slug api_ddl_kendouiforreact %}#data-array) component contains objects, the `defaultItem` must be defined as an object with the same [`textField`]({% slug api_ddl_kendouiforreact %}#textfield-string) and [`valueField`]({% slug api_ddl_kendouiforreact %}#valuefield-string) as the data items.
 
 The example below demonstrates how to bind to an array of primitive data.
 
@@ -159,9 +159,9 @@ The example below demonstrates how to bind to an array of objects.
 
 ### Value
 
-The value of the DropDownList component can be set through its `value` property. When the value changes, the component executes the [`onChange`]({% slug api_ddl_kendouiforreact %}#onchange-function) callback function.
+The value of the DropDownList can be set through its `value` property. When the value changes, the component executes the [`onChange`]({% slug api_ddl_kendouiforreact %}#onchange-function) callback function.
 
-> The DropDownList component is designed as a controlled ReactJS input. The `onChange` event fires each time a user interacts with the DropDownList. The new value is passed as an argument to the `onChange` callback and the high-order component should update the DropDownList `value` through the props. If the high-order component does not update the `value` property the DropDownList will not change its value.
+> The DropDownList is designed as a controlled ReactJS input. The `onChange` event fires each time a user interacts with it. The new value is passed as an argument to the `onChange` callback and the high-order component is expected to update the DropDownList `value` through the props. If the high-order component fails to do so, the DropDownList does not change its value.
 
 ```html-preview
     <div id="app"></div>
@@ -266,9 +266,9 @@ To change these settings, use the [`ignoreCase`]({% slug api_ddl_kendouiforreact
 
 #### Filter the Items
 
-By default, the DropDownList does not render a filter input field that allows the user to filter the options and the [`filterable`]({% slug api_ddl_kendouiforreact %}#filterable-booleandefault-false) property is set to `false`. To render a filter input field, set `filterable` to `true`.
+By default, the DropDownList does not render a filter input field allowing the user to filter the options, and the [`filterable`]({% slug api_ddl_kendouiforreact %}#filterable-booleandefault-false) property is set to `false`. To render a filter input field, set `filterable` to `true`.
 
-When the user changes the filter input value, the component executes its [`onFilter`]({% slug api_ddl_kendouiforreact %}#onfilter-function) callback. It is responsibility of the developer to perform the data filtration and to update the data of the DropDownList through its props. The `onFilter` callback will be called with empty string as argument after the user selects an item from the list either with the mouse or by pressing the "Enter" key.
+When the user changes the filter input value, the component executes its [`onFilter`]({% slug api_ddl_kendouiforreact %}#onfilter-function) callback. It is the developer's responsibility to perform the data filtration and to update the data of the DropDownList through its props. The `onFilter` callback is called with an empty string as an argument after the user selects an item from the list either with the mouse or by pressing `Enter`.
 
 > The default functionality to search between items is automatically disabled if filtration is enabled.
 
@@ -385,7 +385,7 @@ When the user changes the filter input value, the component executes its [`onFil
 
 #### Disable the DropDownList
 
-The DropDownList allows you to prevent user input through disabling the component. By default, the DropDownList is enabled and the [`disabled`]({% slug api_ddl_kendouiforreact %}#disabled-booleandefault-false) property is set to `false`. To disable it, set `disabled` to `true`.
+The DropDownList allows you to prevent user input through disabling the component. By default, the DropDownList is enabled and the [`disabled`]({% slug api_ddl_kendouiforreact %}#disabled-booleandefault-false) property is set to `false`. 
 
 ```html-preview
     <div id="app"></div>
@@ -506,7 +506,7 @@ By default, the component displays the [`textField`]({% slug api_ddl_kendouiforr
 
 The [`onChange`]({% slug api_ddl_kendouiforreact %}#onchange-function) callback function is fired when the DropDownList value changes.
 
-> The DropDownList component is designed as a controlled ReactJS input. The `onChange` event fires each time a user interacts with the DropDownList. The new value is passed as an argument to the `onChange` callback and the high-order component should update the DropDownList `value` through the props. If the high-order component does not update the `value` property the DropDownList will not change its value.
+> The DropDownList is designed as a controlled ReactJS input. The `onChange` event fires each time a user interacts with it. The new value is passed as an argument to the `onChange` callback and the high-order component is expected to update the DropDownList `value` through the props. If the high-order component fails to do so, the DropDownList does not change its value.
 
 ```html
     <div id="app"></div>
@@ -555,7 +555,7 @@ The [`onChange`]({% slug api_ddl_kendouiforreact %}#onchange-function) callback 
 
 #### Filter
 
-The [`onFilter`]({% slug api_ddl_kendouiforreact %}#onfilter-function) callback function is fired when the DropDownList filter input changes. The [`onFilter`]({% slug api_ddl_kendouiforreact %}#onfilter-function) will be also called with empty string argument after user selects item from the list via mouse click or "Enter" key press. 
+The [`onFilter`]({% slug api_ddl_kendouiforreact %}#onfilter-function) callback function is fired when the DropDownList filter input changes. The [`onFilter`]({% slug api_ddl_kendouiforreact %}#onfilter-function) is also called with an empty string argument after the user selects an item from the list either with the mouse or by pressing `Enter`. 
 
 ```html
     <div id="app"></div>
@@ -624,7 +624,7 @@ The [`onFilter`]({% slug api_ddl_kendouiforreact %}#onfilter-function) callback 
     );
 ```
 
-For detailed information on the Kendo UI DropDownList configuration for React, refer to its [API documentation]({% slug api_ddl_kendouiforreact %}).
+For detailed information on the on the DropDownList configuration, refer to its [API documentation]({% slug api_ddl_kendouiforreact %}).
 
 ## Keyboard Navigation
 
@@ -647,4 +647,4 @@ The DropDownList is WAI ARIA-accessible through the `Tab` key.
 
 ## Suggested Links
 
-* [API Reference of the DropDownList Component]({% slug api_ddl_kendouiforreact %})
+* [API Reference of the DropDownList]({% slug api_ddl_kendouiforreact %})
