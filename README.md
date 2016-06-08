@@ -19,7 +19,7 @@ Currently, it includes the following components:
 * ComboBox
 * DropDownList
 
-Telerik works on porting the ones listed below too:
+We are working on porting the ones listed below too:
 
 * AutoComplete
 * MultiSelect
