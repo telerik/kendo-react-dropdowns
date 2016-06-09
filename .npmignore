@@ -8,3 +8,4 @@ gulpfile.js
 .npmignore
 .eslintrc.json
 .travis.yml
+*.tgz
