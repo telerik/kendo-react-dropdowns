@@ -1,4 +1,6 @@
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![npm version](https://badge.fury.io/js/%40telerik%2Fkendo-react-dropdowns.svg)](https://badge.fury.io/js/%40telerik%2Fkendo-react-dropdowns)
+[![Build Status](https://travis-ci.org/telerik/kendo-react-dropdowns.svg?branch=master)](https://travis-ci.org/telerik/kendo-react-dropdowns)
 
 # Kendo UI DropDowns for React
 
