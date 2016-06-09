@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import * as util from '../Util';
 import ListItem from './ListItem';
 import classNames from 'classnames';
-import styles from '@telerik/kendo-theme-default/styles/dropdowns/main';
+import styles from '@telerik/kendo-theme-default/styles/packages/dropdowns';
 
 export default class List extends React.Component {
 

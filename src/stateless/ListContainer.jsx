@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import Popup from '@telerik/kendo-react-popup';
-import styles from '@telerik/kendo-theme-default/styles/dropdowns/main';
+import styles from '@telerik/kendo-theme-default/styles/packages/dropdowns';
 
 export default class ListContainer extends React.Component {
 

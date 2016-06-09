@@ -3,7 +3,7 @@ import keycode from 'keycode';
 import classNames from 'classnames';
 import * as util from '../Util';
 import { List, ListContainer, ListFilter, ListDefaultItem, DropDownWrapper } from './main';
-import styles from '@telerik/kendo-theme-default/styles/dropdowns/main';
+import styles from '@telerik/kendo-theme-default/styles/packages/dropdowns';
 
 export default class DropDownList extends React.Component {
 

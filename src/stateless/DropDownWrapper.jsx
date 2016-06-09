@@ -1,6 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import styles from '@telerik/kendo-theme-default/styles/dropdowns/main';
+import styles from '@telerik/kendo-theme-default/styles/packages/dropdowns';
 
 const propTypes = {
     children: React.PropTypes.node,

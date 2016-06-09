@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import keycode from 'keycode';
 import { List, ListContainer, SearchBar, DropDownWrapper } from './main';
 import { Button } from '@telerik/kendo-react-buttons';
-import styles from '@telerik/kendo-theme-default/styles/dropdowns/main';
+import styles from '@telerik/kendo-theme-default/styles/packages/dropdowns';
 import * as util from '../Util';
 
 export default class ComboBox extends React.Component {
