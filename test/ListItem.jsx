@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { click } from './Helpers';
-import { ListItem } from '../src/stateless/main';
+import { ListItem } from '../src/stateless/all';
 
 describe('ListItem', () => {
     let result;

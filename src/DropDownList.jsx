@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import * as util from './Util';
-import * as Stateless from './stateless/main';
+import * as Stateless from './stateless/all';
 
 export default class DropDownList extends React.Component {
     static propTypes = {

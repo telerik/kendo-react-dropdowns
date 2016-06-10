@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import * as Stateless from './stateless/main';
+import * as Stateless from './stateless/all';
 import * as util from './Util';
 
 export default class ComboBox extends React.Component {

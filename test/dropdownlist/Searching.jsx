@@ -4,7 +4,7 @@ import keycode from 'keycode';
 
 import * as Helpers from '../Helpers';
 
-import { DropDownList } from '../../src/stateless/main';
+import { DropDownList } from '../../src/stateless/all';
 
 describe('DropDownList search', () => {
     const data = [

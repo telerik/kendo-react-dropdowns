@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 
 import * as Helpers from '../Helpers';
 import DropDownList from '../../src/DropDownList';
-import * as Stateless from '../../src/stateless/main';
+import * as Stateless from '../../src/stateless/all';
 
 describe('DropDownList change event', () => {
     const primitives = [ "foo", "bar", "baz" ];

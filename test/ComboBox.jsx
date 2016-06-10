@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { click, compareState } from './Helpers';
 import StatefulComboBox from '../src/ComboBox';
 
-import { ComboBox, List, ListItem, ListContainer, SearchBar, DropDownWrapper } from '../src/stateless/main';
+import { ComboBox, List, ListItem, ListContainer, SearchBar, DropDownWrapper } from '../src/stateless/all';
 
 describe('StatelessComboBox', () => {
     const data = [

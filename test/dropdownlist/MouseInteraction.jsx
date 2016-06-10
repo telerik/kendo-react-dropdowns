@@ -2,7 +2,7 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 
 import * as Helpers from '../Helpers';
-import { DropDownList, List, ListItem } from '../../src/stateless/main';
+import { DropDownList, List, ListItem } from '../../src/stateless/all';
 
 describe('DropDownList list click', () => {
     const data = [

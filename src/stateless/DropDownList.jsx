@@ -2,7 +2,11 @@ import React, { PropTypes } from 'react';
 import keycode from 'keycode';
 import classNames from 'classnames';
 import * as util from '../Util';
-import { List, ListContainer, ListFilter, ListDefaultItem, DropDownWrapper } from './main';
+import List from './List';
+import ListContainer from './ListContainer';
+import ListFilter from './ListFilter';
+import ListDefaultItem from './ListDefaultItem';
+import DropDownWrapper from './DropDownWrapper';
 import styles from '@telerik/kendo-theme-default/styles/packages/dropdowns';
 
 export default class DropDownList extends React.Component {

@@ -1,7 +1,10 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import keycode from 'keycode';
-import { List, ListContainer, SearchBar, DropDownWrapper } from './main';
+import List from './List';
+import ListContainer from './ListContainer';
+import SearchBar from './SearchBar';
+import DropDownWrapper from './DropDownWrapper';
 import { Button } from '@telerik/kendo-react-buttons';
 import styles from '@telerik/kendo-theme-default/styles/packages/dropdowns';
 import * as util from '../Util';
