@@ -13,6 +13,7 @@ export default class DropDownList extends React.Component {
 
     static propTypes = {
         className: PropTypes.string,
+        anchorClassName: React.PropTypes.string,
         data: PropTypes.arrayOf(PropTypes.oneOfType([
             PropTypes.object,
             PropTypes.string,
@@ -389,7 +390,7 @@ export default class DropDownList extends React.Component {
         return (
             //TODO: aria attributes, title
             <span {...dropDownListProps}>
-                <DropDownWrapper disabled={disabled} ref="anchor" >
+                <DropDownWrapper className={this.props.anchorClassName} disabled={disabled} ref="anchor" >
                     <span className={styles.input} unselectable="on">
                         {this.renderValue()}
                     </span>

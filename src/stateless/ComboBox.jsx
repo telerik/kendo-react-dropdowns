@@ -13,6 +13,7 @@ export default class ComboBox extends React.Component {
 
     static propTypes = {
         className: React.PropTypes.string,
+        anchorClassName: React.PropTypes.string,
         data: React.PropTypes.arrayOf(React.PropTypes.oneOfType([
             React.PropTypes.object,
             React.PropTypes.string,
@@ -180,7 +181,7 @@ export default class ComboBox extends React.Component {
 
         return (
             <span {...comboBoxProps}>
-                <DropDownWrapper ref="anchor" >
+                <DropDownWrapper className={this.props.anchorClassName} ref="anchor" >
                     <SearchBar ref="SearchBar" {...searchBarProps} />
                         <Button {...buttonProps} />
                 </DropDownWrapper>
