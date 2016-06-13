@@ -1,3 +1,18 @@
+<a name="0.1.1"></a>
+## [0.1.1](https://github.com/telerik/kendo-react-dropdowns/compare/v0.1.0...v0.1.1) (2016-06-13)
+
+
+### Bug Fixes
+
+* resolve imports of stateless components ([555347b](https://github.com/telerik/kendo-react-dropdowns/commit/555347b))
+
+
+### Features
+
+* add anchorClassName prop to stateless components ([1e7db1a](https://github.com/telerik/kendo-react-dropdowns/commit/1e7db1a))
+
+
+
 <a name="0.1.0"></a>
 # 0.1.0 (2016-06-09)
 
