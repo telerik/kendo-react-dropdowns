@@ -222,7 +222,9 @@ export default class DropDownList extends React.Component {
         let focused = this.props.focused;
         let dataItem, handled = false;
 
-        if (disabled) { return; }
+        if (disabled) {
+            return;
+        }
 
         if (event.altKey && keyCode === keycode.codes.down) {
             event.preventDefault();
@@ -230,56 +232,37 @@ export default class DropDownList extends React.Component {
             if (!show) {
                 this.props.onToggle(true);
             }
-            return;
-        }
-
-        if ((event.altKey && keyCode === keycode.codes.up) || (keyCode === keycode.codes.esc)) {
+        } else if ((event.altKey && keyCode === keycode.codes.up) || (keyCode === keycode.codes.esc)) {
             event.preventDefault();
 
             if (show) {
                 this.props.onToggle(false);
             }
-            return;
-        }
-
-        if (keyCode === keycode.codes.enter) {
+        } else if (keyCode === keycode.codes.enter) {
             event.preventDefault();
 
-            dataItem = (focused === -1) ? defaultItem || null : this.props.data[focused];
+            dataItem = (focused === -1) ? defaultItem || null : data[focused];
             this.change(dataItem || (data[focused] || defaultItem));
-
-            return;
-        }
-
-        if (keyCode === keycode.codes.tab) {
+        } else if (keyCode === keycode.codes.tab) {
             this.blur();
-            return;
-        }
-
-        if (keyCode === keycode.codes.up || keyCode === keycode.codes.left) {
+        } else if (keyCode === keycode.codes.up || keyCode === keycode.codes.left) {
             if (focused === null) {
                 focused = max;
             } else {
                 focused = focused !== min ? focused - 1 : min;
             }
             handled = true;
-        }
-
-        if (keyCode === keycode.codes.down || keyCode === keycode.codes.right) {
+        } else if (keyCode === keycode.codes.down || keyCode === keycode.codes.right) {
             if (focused === null) {
                 focused = min;
             } else {
                 focused = focused !== max ? focused + 1 : max;
             }
             handled = true;
-        }
-
-        if (keyCode === keycode.codes.home) {
+        } else if (keyCode === keycode.codes.home) {
             focused = min;
             handled = true;
-        }
-
-        if (keyCode === keycode.codes.end) {
+        } else if (keyCode === keycode.codes.end) {
             focused = max;
             handled = true;
         }
