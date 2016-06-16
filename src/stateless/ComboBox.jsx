@@ -137,7 +137,6 @@ export default class ComboBox extends React.Component {
 
         const buttonClasses = classNames({
             [styles.button]: true,
-            [styles['state-disabled']]: this.props.disabled,
             [styles.select]: true
         }, this.props.className);
 
@@ -154,6 +153,7 @@ export default class ComboBox extends React.Component {
         const comboBoxClasses = classNames({
             [styles.widget]: true,
             [styles.combobox]: true,
+            [styles['state-disabled']]: this.props.disabled,
             [styles.header]: true
         }, this.props.className);
 
