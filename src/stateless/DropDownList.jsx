@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import keycode from 'keycode';
 import classNames from 'classnames';
-import * as util from '../Util';
+import { DropDownsUtil as util } from '@telerik/kendo-dropdowns-common';
 import List from './List';
 import ListContainer from './ListContainer';
 import ListFilter from './ListFilter';

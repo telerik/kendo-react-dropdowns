@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import keycode from 'keycode';
-import { caretIndex, indexOfWordAtCaret, caretSelection, textReduced, replaceWordAtCaret, selectEndOfWord, wordAtCaret } from '../Util';
+import { DropDownsUtil as util } from '@telerik/kendo-dropdowns-common';
 import styles from '@telerik/kendo-theme-default/styles/packages/dropdowns';
 
 export default class SearchBar extends React.Component {
@@ -38,26 +38,26 @@ export default class SearchBar extends React.Component {
         const highlight = nextProps.highlight;
 
         if (highlight) { //suggested
-            this.accept = !textReduced(nextProps.value, this.hasSelection ? this.props.value : this._oldValue);
+            this.accept = !util.textReduced(nextProps.value, this.hasSelection ? this.props.value : this._oldValue);
         } else { //selected from list
             this.accept = true;
         }
 
-        this.caretIdx = caretIndex(this._input);
+        this.caretIdx = util.caretIndex(this._input);
     }
 
     componentDidUpdate() {
         if (this.props.word) {
             if (this.props.highlight) {
                 //only when there is a word to suggest
-                selectEndOfWord(this._input, this.caretIdx, this.props.separator);
+                util.selectEndOfWord(this._input, this.caretIdx, this.props.separator);
             } else {
                 //only when something is chosen from the list
-                caretSelection(this._input, this._input.value.length);
+                util.caretSelection(this._input, this._input.value.length);
             }
         } else {
             //in every other case
-            this.caretIdx = caretIndex(this._input);
+            this.caretIdx = util.caretIndex(this._input);
         }
     }
 
@@ -86,8 +86,8 @@ export default class SearchBar extends React.Component {
     handleChange = (event) => {
         const value = event.target.value;
         const separator = this.props.separator;
-        const word = separator ? wordAtCaret(caretIndex(this._input), value, separator) : value;
-        const index = indexOfWordAtCaret(caretIndex(this._input), value, separator);
+        const word = separator ? util.wordAtCaret(util.caretIndex(this._input), value, separator) : value;
+        const index = util.indexOfWordAtCaret(util.caretIndex(this._input), value, separator);
 
         if (word !== this.filterWord) {
             this.props.onFilter(word, index);
@@ -103,14 +103,14 @@ export default class SearchBar extends React.Component {
 
         if (word && this.accept) {
             if (separator) {
-                newValue = replaceWordAtCaret(caretIndex(this._input), value, word, separator);
+                newValue = util.replaceWordAtCaret(util.caretIndex(this._input), value, word, separator);
             } else {
                 newValue = word;
             }
             this.filterWord = word;
         } else {
             newValue = value;
-            this.filterWord = value ? wordAtCaret(this.caretIdx || value.length, value, separator) : "";
+            this.filterWord = value ? util.wordAtCaret(this.caretIdx || value.length, value, separator) : "";
         }
 
         this._oldValue = newValue;

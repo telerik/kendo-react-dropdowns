@@ -22,6 +22,7 @@
     "React"
   ],
   "dependencies": {
+    "@telerik/kendo-dropdowns-common": "^0.1.0",
     "@telerik/kendo-react-buttons": "^0.1.0",
     "@telerik/kendo-react-popup": "^0.1.0",
     "classnames": "^2.1.5",

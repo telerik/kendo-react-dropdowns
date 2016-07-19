@@ -7,7 +7,7 @@ import SearchBar from './SearchBar';
 import DropDownWrapper from './DropDownWrapper';
 import { Button } from '@telerik/kendo-react-buttons';
 import styles from '@telerik/kendo-theme-default/styles/packages/dropdowns';
-import * as util from '../Util';
+import { DropDownsUtil as util } from '@telerik/kendo-dropdowns-common';
 
 export default class ComboBox extends React.Component {
 

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import * as util from './Util';
+import { DropDownsUtil as util } from '@telerik/kendo-dropdowns-common';
 import * as Stateless from './stateless/all';
 
 export default class DropDownList extends React.Component {

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import * as util from '../Util';
+import { DropDownsUtil as util } from '@telerik/kendo-dropdowns-common';
 import ListItem from './ListItem';
 import classNames from 'classnames';
 import styles from '@telerik/kendo-theme-default/styles/packages/dropdowns';

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import * as Stateless from './stateless/all';
-import * as util from './Util';
+import { DropDownsUtil as util } from '@telerik/kendo-dropdowns-common';
 
 export default class ComboBox extends React.Component {
 
@@ -178,4 +178,3 @@ export default class ComboBox extends React.Component {
         );
     }
 }
-
