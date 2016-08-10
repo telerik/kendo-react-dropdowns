@@ -12,7 +12,7 @@ The Kendo UI DropDownList is a React component which displays a list of values a
 
 To allow for a keyboard input, use the [Kendo UI ComboBox component for React]({% slug overview_combobox_kendouiforreact %}).
 
-The DropDownList is part of the [kendo-react-dropdowns npm package](...).
+The DropDownList is part of the [kendo-react-dropdowns npm package](https://www.npmjs.com/package/@telerik/kendo-react-dropdowns).
 
 **Figure 1: A template of the DropDownList**
 
