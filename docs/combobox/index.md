@@ -10,7 +10,7 @@ position: 1
 
 The Kendo UI ComboBox displays a list of pre-defined options. It allows the user to pick a single value from that list, or to enter a custom value through a keyboard input.
 
-The ComboBox is part of the [kendo-react-dropdowns npm package](...).
+The ComboBox is part of the [kendo-react-dropdowns npm package](https://www.npmjs.com/package/@telerik/kendo-react-dropdowns).
 
 **Figure 1: A template of the ComboBox**
 
