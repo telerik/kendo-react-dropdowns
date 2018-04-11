@@ -2,6 +2,9 @@
 [![npm version](https://badge.fury.io/js/%40telerik%2Fkendo-react-dropdowns.svg)](https://badge.fury.io/js/%40telerik%2Fkendo-react-dropdowns)
 [![Build Status](https://travis-ci.org/telerik/kendo-react-dropdowns.svg?branch=master)](https://travis-ci.org/telerik/kendo-react-dropdowns)
 
+>This package is now deprecated and has been archived. For the current version of the Kendo UI DropDowns for React, refer to the official [website](https://www.telerik.com/kendo-react-ui/components/)
+
+
 # Kendo UI DropDowns for React
 
 * [Overview](https://github.com/telerik/kendo-react-dropdowns#overview)
